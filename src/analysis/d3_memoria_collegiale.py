@@ -9,8 +9,11 @@ Design (all fixed in docs/decisions.md before any estimate):
   controls     50 non-cited precedents drawn at random from the risk set
   variables    self_drafted, sat_not_drafted (reference: R in office but absent
                from the collegio), age classes, topic similarity (cosine)
-  model        conditional logit (Breslow form for several cases per stratum),
-               standard errors clustered by drafter
+  model        conditional logit with the exact conditional likelihood (all subsets
+               of d cases among the n rows of a stratum, computed by recursion),
+               standard errors clustered by drafter. The Breslow approximation, used
+               until 17/11/2026, is kept only as starting point and for comparison:
+               with several cases per stratum it biases strong effects towards 1.
 
 Secondary "full" model: risk set = all earlier precedents, reference category =
 precedent decided before R joined the Court.
@@ -36,8 +39,8 @@ AGE_BINS = [0, 1, 2, 3, 4, 5, 7, 10, 15, 20, 30, 200]
 SWITCH = 19860287
 
 
-def clogit(X: np.ndarray, y: np.ndarray, strata: np.ndarray, cluster: np.ndarray):
-    """Conditional logit, Breslow likelihood. Rows must be sorted by stratum.
+def clogit_breslow(X: np.ndarray, y: np.ndarray, strata: np.ndarray, cluster: np.ndarray):
+    """Conditional logit, Breslow approximation (starting values and comparison only). Rows must be sorted by stratum.
     Returns beta, cluster-robust covariance, log-likelihood."""
     starts = np.flatnonzero(np.r_[True, strata[1:] != strata[:-1]])
     sid = np.repeat(np.arange(len(starts)), np.diff(np.r_[starts, len(strata)]))
@@ -74,6 +77,111 @@ def clogit(X: np.ndarray, y: np.ndarray, strata: np.ndarray, cluster: np.ndarray
     return beta, V, ll, G, len(starts)
 
 
+D_BINS = [1, 2, 3, 4, 6, 9, 13, 21, 36, 10**6]  # strata grouped by number of cases, to vectorise the recursion
+
+
+class ExactCLogit:
+    """Exact conditional logit. For a stratum with weights w_i = exp(x_i b) and d cases the
+    likelihood is exp(sum_cases x_i b) / e_d(w), where e_d is the elementary symmetric
+    polynomial of degree d (sum over all subsets of d rows). e_d, its gradient and its
+    Hessian are computed with the recursion e_k <- e_k + w_j e_(k-1), row by row, for all
+    strata of a group at once; rows are rescaled at every step to avoid overflow.
+    Rows must be sorted by stratum."""
+
+    def __init__(self, X, y, strata, cluster):
+        self.X, self.y = X, y.astype(float)
+        starts = np.flatnonzero(np.r_[True, strata[1:] != strata[:-1]])
+        lens = np.diff(np.r_[starts, len(strata)])
+        self.starts, self.sid = starts, np.repeat(np.arange(len(starts)), lens)
+        self.d = np.add.reduceat(self.y, starts).astype(int)
+        self.sx_case = np.add.reduceat(X * self.y[:, None], starts)
+        self.cluster = cluster[starts]
+        self.groups = []
+        for lo, hi in zip(D_BINS[:-1], D_BINS[1:]):
+            ss = np.flatnonzero((self.d >= lo) & (self.d < hi))
+            if len(ss) == 0:
+                continue
+            nmax = int(lens[ss].max())
+            pos = np.arange(nmax)
+            idx = starts[ss][:, None] + pos[None, :]
+            valid = pos[None, :] < lens[ss][:, None]
+            self.groups.append((ss, np.where(valid, idx, 0), valid, int(self.d[ss].max())))
+
+    def evaluate(self, b, hessian=True):
+        """Returns log-likelihood, per-stratum scores (S x k) and the Hessian (k x k)."""
+        X, k = self.X, self.X.shape[1]
+        eta = X @ b
+        m = np.maximum.reduceat(eta, self.starts)
+        w_all = np.exp(eta - m[self.sid])
+        S = len(self.starts)
+        logden = np.zeros(S)
+        dlog = np.zeros((S, k))
+        H = np.zeros((k, k))
+        for ss, idx, valid, D in self.groups:
+            W = np.where(valid, w_all[idx], 0.0)
+            Xg = X[idx] * valid[:, :, None]
+            G = len(ss)
+            E = np.zeros((G, D + 1)); E[:, 0] = 1.0
+            dE = np.zeros((G, D + 1, k))
+            ddE = np.zeros((G, D + 1, k, k)) if hessian else None
+            logc = np.zeros(G)
+            for j in range(idx.shape[1]):
+                w, x = W[:, j], Xg[:, j, :]
+                Es, dEs = E[:, :-1], dE[:, :-1, :]
+                if hessian:
+                    ddEs = ddE[:, :-1]
+                    t = (x[:, None, :, None] * x[:, None, None, :]) * Es[:, :, None, None] \
+                        + x[:, None, :, None] * dEs[:, :, None, :] + dEs[:, :, :, None] * x[:, None, None, :] + ddEs
+                    ddE[:, 1:] += w[:, None, None, None] * t
+                dE[:, 1:] += w[:, None, None] * (x[:, None, :] * Es[:, :, None] + dEs)
+                E[:, 1:] += w[:, None] * Es
+                c = E.max(1)
+                E /= c[:, None]; dE /= c[:, None, None]
+                if hessian:
+                    ddE /= c[:, None, None, None]
+                logc += np.log(c)
+            dg = self.d[ss]
+            Ed = E[np.arange(G), dg]
+            if (Ed <= 0).any():
+                raise FloatingPointError("e_d underflow in a stratum")
+            dEd = dE[np.arange(G), dg]
+            logden[ss] = np.log(Ed) + logc
+            dlog[ss] = dEd / Ed[:, None]
+            if hessian:
+                ddEd = ddE[np.arange(G), dg]
+                r = dEd / Ed[:, None]
+                H -= (ddEd / Ed[:, None, None]).sum(0) - (r[:, :, None] * r[:, None, :]).sum(0)
+        ll = float((self.y * (eta - m[self.sid])).sum() - logden.sum())
+        return ll, self.sx_case - dlog, H
+
+    def fit(self, b0, tol=1e-9, max_iter=50):
+        b = np.asarray(b0, float).copy()
+        ll, sc, H = self.evaluate(b)
+        for _ in range(max_iter):
+            step = np.linalg.solve(-H, sc.sum(0))
+            for _half in range(30):
+                ll2, sc2, H2 = self.evaluate(b + step)
+                if ll2 >= ll - 1e-10:
+                    break
+                step /= 2
+            b, ll, sc, H = b + step, ll2, sc2, H2
+            if np.abs(step).max() < tol:
+                break
+        Hinv = np.linalg.inv(-H)
+        Sc = pd.DataFrame(sc).groupby(self.cluster).sum().values
+        G = len(Sc)
+        V = Hinv @ (Sc.T @ Sc) @ Hinv * G / (G - 1)
+        return b, V, ll, G, len(self.starts)
+
+
+def clogit(X: np.ndarray, y: np.ndarray, strata: np.ndarray, cluster: np.ndarray):
+    """Exact conditional logit, started from the Breslow estimate. Returns beta, cluster-robust
+    covariance, log-likelihood, number of clusters, number of strata, Breslow beta."""
+    b0 = clogit_breslow(X, y, strata, cluster)[0]
+    b, V, ll, G, S = ExactCLogit(X, y, strata, cluster).fit(b0)
+    return b, V, ll, G, S, b0
+
+
 def load():
     nodes = pd.read_csv(P / "nodes.csv", parse_dates=["data_decisione", "data_deposito"])
     nodes["dec"] = nodes.data_decisione.fillna(nodes.data_deposito)
@@ -86,7 +194,33 @@ def load():
     return nodes, coll, app, edges, theta
 
 
-def build(nodes, coll, app, edges, theta, mode="mandate", edges_file=None, rng=None):
+def load_norme():
+    """Challenged provisions (norme oggetto, legge 87/1953 art. 23) of every pronuncia, from the
+    massime: set of acts (code or description, number, date) and of articles (act + article).
+    Returns the two dicts and the coverage by decade."""
+    import glob
+    from lxml import etree
+    acts, arts, rows = {}, {}, []
+    for path in sorted(glob.glob(str(REPO / "data/raw/massime/*/*.xml"))):
+        for p in etree.parse(path).getroot().iter("pronuncia"):
+            h = p.find("pronuncia_testata")
+            pid = int(h.findtext("anno_pronuncia")) * 10000 + int(h.findtext("numero_pronuncia"))
+            for m in p.findall("massime/massima"):
+                ns = m.findall("norme/norma")
+                rows.append((pid, len(ns) > 0))
+                for x in ns:
+                    f = {c: (x.findtext(c) or "").strip().lower() for c in ["codice", "descrizione", "numero", "data", "articolo"]}
+                    act = (f["codice"] or f["descrizione"], f["numero"], f["data"])
+                    acts.setdefault(pid, set()).add(act)
+                    if f["articolo"]:
+                        arts.setdefault(pid, set()).add(act + (f["articolo"],))
+    d = pd.DataFrame(rows, columns=["pid", "has"])
+    cov = {"massime_with_norme": float(d.has.mean()), "pronunce_with_norme": float(d.groupby("pid").has.max().mean()),
+           "by_decade_massime": {int(k): float(v) for k, v in d.groupby(d.pid // 100000 * 10).has.mean().items()}}
+    return acts, arts, cov
+
+
+def build(nodes, coll, app, edges, theta, mode="mandate", edges_file=None, rng=None, norme=None):
     """Case-control table. mode = 'mandate' (primary risk set) or 'full'."""
     rng = rng or np.random.default_rng(SEED)
     if edges_file:
@@ -129,21 +263,27 @@ def build(nodes, coll, app, edges, theta, mode="mandate", edges_file=None, rng=N
             ctrl = rng.choice(ctrl, N_CONTROLS, replace=False)
         sel = np.r_[np.flatnonzero(is_case), ctrl]
         tc = theta[r.pid]
+        acts_c, arts_c = (norme[0].get(r.pid, set()), norme[1].get(r.pid, set())) if norme else (set(), set())
         for s in sel:
             j = cand[s]
             p = pid[j]
             sj = R in sat.get(p, ())
             dj = R in red[p]
+            if norme:
+                acts_p, arts_p = norme[0].get(p, set()), norme[1].get(p, set())
+                nm = (int(bool(acts_c & acts_p)), int(bool(arts_c & arts_p)), int(not acts_c or not acts_p))
+            else:
+                nm = (0, 0, 1)
             rows.append((r.pid, p, int(is_case[s]), R, int(dj), int(sj and not dj), int(sj),
                          int(in_mand[s]) if mode == "full" else 1,
                          (dep[i] - dep[j]).astype(int) / 365.25, float(tc @ theta[p]),
-                         r.anno, r.tipo, nodes.tipo.values[j], r.giudizio, nodes.in_deg.values[j]))
+                         r.anno, r.tipo, nodes.tipo.values[j], r.giudizio, nodes.in_deg.values[j]) + nm)
     cols = ["citing", "cited", "y", "R", "self_drafted", "sat_not_drafted", "sat", "in_mandate", "age", "sim",
-            "anno", "tipo", "tipo_cited", "giudizio", "in_deg_cited"]
+            "anno", "tipo", "tipo_cited", "giudizio", "in_deg_cited", "same_act", "same_article", "norme_missing"]
     return pd.DataFrame(rows, columns=cols)
 
 
-def design(t: pd.DataFrame, mode: str, extra=False):
+def design(t: pd.DataFrame, mode: str, extra=False, norme=False):
     age = pd.cut(t.age, AGE_BINS, right=False, labels=False)
     used = sorted(age.dropna().unique())[1:]
     cols = {"self_drafted": t.self_drafted.values, "sat_not_drafted": t.sat_not_drafted.values}
@@ -155,23 +295,28 @@ def design(t: pd.DataFrame, mode: str, extra=False):
     if extra:
         cols["cited_is_sentenza"] = (t.tipo_cited == "S").values
         cols["log1p_citations_cited"] = np.log1p(t.in_deg_cited.values)
+    if norme:  # exploratory: same challenged act / article (legge 87/1953 art. 23), missing-data indicator
+        cols["same_challenged_act"] = t.same_act.values
+        cols["same_challenged_article"] = t.same_article.values
+        cols["challenged_norms_missing"] = t.norme_missing.values
     X = np.column_stack([np.asarray(v, float) for v in cols.values()])
     keep = X.std(0) > 0
     return X[:, keep], [c for c, k in zip(cols, keep) if k]
 
 
-def estimate(t: pd.DataFrame, mode="mandate", extra=False, label=""):
+def estimate(t: pd.DataFrame, mode="mandate", extra=False, label="", norme=False):
     t = t.sort_values(["citing", "y"], ascending=[True, False]).reset_index(drop=True)
-    X, names = design(t, mode, extra)
-    beta, V, ll, G, S = clogit(X, t.y.values.astype(float), t.citing.values, t.R.values)
+    X, names = design(t, mode, extra, norme)
+    beta, V, ll, G, S, b_breslow = clogit(X, t.y.values.astype(float), t.citing.values, t.R.values)
     se = np.sqrt(np.diag(V))
     res = {"label": label, "strata": int(S), "clusters": int(G), "rows": int(len(t)), "cases": int(t.y.sum()),
            "cases_sat_not_drafted": int((t.y * t.sat_not_drafted).sum()), "cases_self_drafted": int((t.y * t.self_drafted).sum()),
            "cases_absent": int((t.y * (1 - t.sat) * t.in_mandate).sum()),
            "controls_absent": int(((1 - t.y) * (1 - t.sat) * t.in_mandate).sum()), "loglik": ll, "coef": {}}
-    for n, b, s in zip(names, beta, se):
+    for n, b, s, bb in zip(names, beta, se, b_breslow):
         res["coef"][n] = {"or": float(np.exp(b)), "lo": float(np.exp(b - 1.96 * s)), "hi": float(np.exp(b + 1.96 * s)),
-                          "beta": float(b), "se": float(s), "p": float(2 * stats.norm.sf(abs(b / s)))}
+                          "beta": float(b), "se": float(s), "p": float(2 * stats.norm.sf(abs(b / s))),
+                          "or_breslow": float(np.exp(bb))}
     return res
 
 

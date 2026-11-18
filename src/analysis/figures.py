@@ -91,13 +91,15 @@ ax.set_title("Sedere nel collegio di un precedente non aumenta la probabilità d
 save(fig, "fig7_d3_memoria_collegiale.png")
 
 # 8. self vs sat
-fig, ax = plt.subplots(figsize=(6, 2.6))
+fig, ax = plt.subplots(figsize=(6.6, 2.8))
 c = d3["primary"]["coef"]
 for i, (k, lab) in enumerate([("sat_not_drafted", "Sedeva nel collegio,\nnon l'ha redatto"), ("self_drafted", "L'ha redatto lui")]):
     ax.errorbar(c[k]["or"], i, xerr=[[c[k]["or"] - c[k]["lo"]], [c[k]["hi"] - c[k]["or"]]], fmt="o", color=RED if k == "self_drafted" else GREY, capsize=4)
-ax.axvline(1, color="k", lw=1); ax.set_yticks([0, 1]); ax.set_yticklabels(["Sedeva nel collegio,\nnon l'ha redatto", "L'ha redatto lui"]); ax.set_ylim(-0.6, 1.6); ax.set_xlim(0.5, 3.8)
-ax.set_xlabel("Odds ratio rispetto a un precedente deciso in sua assenza")
-ax.set_title("Un redattore cita tre volte di più ciò che ha scritto lui", loc="left", fontsize=10)
+ax.axvline(1, color="k", lw=1); ax.set_yticks([0, 1]); ax.set_yticklabels(["Sedeva nel collegio,\nnon l'ha redatto", "L'ha redatto lui"]); ax.set_ylim(-0.6, 1.6)
+ax.set_xscale("log"); ax.set_xlim(0.7, c["self_drafted"]["hi"] * 1.25)
+ax.set_xticks([0.8, 1, 2, 4, 6]); ax.set_xticklabels(["0,8", "1", "2", "4", "6"]); ax.xaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
+ax.set_xlabel("Odds ratio rispetto a un precedente deciso in sua assenza (scala log.)")
+ax.set_title("Il redattore cita molto di più ciò che ha scritto lui;\naver seduto nel collegio non fa una differenza misurabile", loc="left", fontsize=10)
 save(fig, "fig8_d3_redatto_vs_collegio.png")
 
 # 9. D2 caterpillar
