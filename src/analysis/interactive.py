@@ -39,10 +39,10 @@ def drafter(s):
 cs = pd.Series(comm)
 ts = pd.Series(topic)
 leg = []
-for c in big:  # label of a community: most frequent first title entry of its massime (from the topic), and median year
+for c in big:  # label of a community: words of its most frequent topic and median year (titles exist only from 2015)
     members = cs.index[cs == c]
     t = ts.reindex(members).dropna().astype(int).value_counts().index[0]
-    leg.append(f"{tj['labels'][str(t)]} (anno mediano {int(nodes[nodes.pid.isin(members)].anno.median())})")
+    leg.append(f"{', '.join(tj['top_words'][str(t)][:3])}… (anno mediano {int(nodes[nodes.pid.isin(members)].anno.median())})")
 leg.append("altri filoni")
 data = {"nodes": [{"id": int(r.pid), "l": f"{'sent.' if r.tipo == 'S' else 'ord.'} {r.num}/{r.anno}", "y": int(r.anno), "c": int(r.in_deg),
                    "o": int(r.out_deg), "r": drafter(r.redattore_ids), "proxy": r.redattore_source == "relatore_proxy",

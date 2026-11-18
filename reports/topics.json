@@ -24,18 +24,18 @@
   "4": "bilancio e contabilità pubblica",
   "5": "edilizia e urbanistica",
   "6": "tributi",
-  "7": "paesaggio",
+  "7": "",
   "8": "prospettazione della questione incidentale",
   "9": "bilancio e contabilità pubblica",
-  "10": "sopravvenienze nel giudizio incidentale",
-  "11": "impiego pubblico",
-  "12": "pronunce della corte costituzionale",
+  "10": "reati e pene",
+  "11": "",
+  "12": "",
   "13": "bilancio e contabilità pubblica",
   "14": "reati e pene",
-  "15": "interpretazione della norma censurata",
+  "15": "",
   "16": "processo penale",
-  "17": "parlamento",
-  "18": "bilancio e contabilità pubblica",
+  "17": "giudizio costituzionale per conflitto di attribuzione tra poteri dello stato",
+  "18": "imposte e tasse",
   "19": "thema decidendum"
  },
  "top_words": {
@@ -319,5 +319,128 @@
    "materia",
    "delegato"
   ]
- }
+ },
+ "label_details": {
+  "0": {
+   "label": "previdenza",
+   "share_in_topic": 0.18947368421052632,
+   "lift": 16.754121151936445,
+   "massime": 95
+  },
+  "1": {
+   "label": "sanità pubblica",
+   "share_in_topic": 0.14492753623188406,
+   "lift": 4.783119003878342,
+   "massime": 1035
+  },
+  "2": {
+   "label": "pronunce della corte costituzionale",
+   "share_in_topic": 0.3333333333333333,
+   "lift": 24.601049868766403,
+   "massime": 75
+  },
+  "3": {
+   "label": "reati e pene",
+   "share_in_topic": 0.2146118721461187,
+   "lift": 5.84754964426038,
+   "massime": 219
+  },
+  "4": {
+   "label": "bilancio e contabilità pubblica",
+   "share_in_topic": 0.1228813559322034,
+   "lift": 1.8487430965530374,
+   "massime": 708
+  },
+  "5": {
+   "label": "edilizia e urbanistica",
+   "share_in_topic": 0.35714285714285715,
+   "lift": 9.84558823529412,
+   "massime": 686
+  },
+  "6": {
+   "label": "tributi",
+   "share_in_topic": 0.16230366492146597,
+   "lift": 16.90302501454334,
+   "massime": 191
+  },
+  "7": {
+   "label": "",
+   "share_in_topic": 0.0,
+   "lift": 0.0,
+   "massime": 7
+  },
+  "8": {
+   "label": "prospettazione della questione incidentale",
+   "share_in_topic": 0.12298959318826869,
+   "lift": 2.978763454660575,
+   "massime": 2114
+  },
+  "9": {
+   "label": "bilancio e contabilità pubblica",
+   "share_in_topic": 0.13125,
+   "lift": 1.9746488764044943,
+   "massime": 1440
+  },
+  "10": {
+   "label": "reati e pene",
+   "share_in_topic": 0.13664596273291926,
+   "lift": 3.7232052578361983,
+   "massime": 161
+  },
+  "11": {
+   "label": "",
+   "share_in_topic": 0.0,
+   "lift": 0.0,
+   "massime": 11
+  },
+  "12": {
+   "label": "",
+   "share_in_topic": 0.0,
+   "lift": 0.0,
+   "massime": 350
+  },
+  "13": {
+   "label": "bilancio e contabilità pubblica",
+   "share_in_topic": 0.3740648379052369,
+   "lift": 5.627784471405755,
+   "massime": 401
+  },
+  "14": {
+   "label": "reati e pene",
+   "share_in_topic": 0.262699564586357,
+   "lift": 7.157799473453268,
+   "massime": 689
+  },
+  "15": {
+   "label": "",
+   "share_in_topic": 0.0,
+   "lift": 0.0,
+   "massime": 277
+  },
+  "16": {
+   "label": "processo penale",
+   "share_in_topic": 0.38875305623471884,
+   "lift": 15.310010067596721,
+   "massime": 409
+  },
+  "17": {
+   "label": "giudizio costituzionale per conflitto di attribuzione tra poteri dello stato",
+   "share_in_topic": 0.2926829268292683,
+   "lift": 78.38048780487804,
+   "massime": 82
+  },
+  "18": {
+   "label": "imposte e tasse",
+   "share_in_topic": 0.23622047244094488,
+   "lift": 11.18229539489382,
+   "massime": 254
+  },
+  "19": {
+   "label": "thema decidendum",
+   "share_in_topic": 0.27218934911242604,
+   "lift": 4.155098972688549,
+   "massime": 169
+  }
+ },
+ "label_rule": "most specific first heading of the massime titles from 2015 (lift), with at least 15 massime and 10% of the topic"
 }

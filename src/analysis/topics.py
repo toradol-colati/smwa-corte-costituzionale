@@ -7,7 +7,8 @@ each pronuncia. Rules fixed in docs/spec.md (Modelli nulli, point 8):
 
 Outputs: data/processed/topics_theta.npz (pid, theta), data/processed/topics_pronunce.csv,
 reports/topics.md, reports/topics.json
-Usage: .venv/bin/python src/analysis/topics.py
+Usage: .venv/bin/python src/analysis/topics.py               (fit, slow)
+       .venv/bin/python src/analysis/topics.py --labels-only (labels from the saved fit)
 """
 
 from __future__ import annotations
@@ -51,6 +52,56 @@ def load_massime() -> pd.DataFrame:
                 rows.append(dict(pid=pid, titolo=(m.findtext("titolo") or "").strip(),
                                  testo=(m.findtext("testo") or "").strip(), cost_arts="|".join(a for a in arts if a)))
     return pd.DataFrame(rows)
+
+
+def specific_labels(pr_topic: pd.Series, m: pd.DataFrame, min_count: int = 15, min_share: float = 0.10) -> dict:
+    """Label of each topic from the first heading of the massime titles (format used from 2015).
+    Each massima takes the dominant topic of its pronuncia. The label is the heading most
+    over-represented in the topic (lift = share in the topic / share overall) among headings with at
+    least min_count massime and at least min_share of the topic's massime; otherwise no label. The most frequent heading is not used: the commonest
+    headings overall ("bilancio e contabilita' pubblica", "thema decidendum") would win everywhere."""
+    x = m[(m.pid // 10000 >= 2015) & ~m.titolo.str.match(r"^(SENT|ORD)\.")].copy()
+    x["head"] = x.titolo.str.split(" - ").str[0].str.strip().str.lower()
+    x["topic"] = x.pid.map(pr_topic)
+    x = x.dropna(subset=["topic"])
+    overall = x["head"].value_counts(normalize=True)
+    labels = {}
+    for k, g in x.groupby("topic"):
+        c = g["head"].value_counts()
+        c = c[(c >= min_count) & (c / len(g) >= min_share)]
+        if c.empty:
+            labels[int(k)] = {"label": "", "share_in_topic": 0.0, "lift": 0.0, "massime": int(len(g))}
+            continue
+        lift = (c / len(g)) / overall[c.index]
+        h = lift.idxmax()
+        labels[int(k)] = {"label": h, "share_in_topic": float(c[h] / len(g)), "lift": float(lift[h]), "massime": int(len(g))}
+    return labels
+
+
+def labels_only() -> None:
+    """Recompute the labels from the saved topic assignment, without refitting the model."""
+    m = load_massime()
+    pr = pd.read_csv(REPO / "data/processed/topics_pronunce.csv").set_index("pid").topic
+    lab = specific_labels(pr, m)
+    tj = json.load(open(REPO / "reports/topics.json"))
+    tj["labels"] = {str(k): v["label"] for k, v in lab.items()}
+    tj["label_details"] = {str(k): v for k, v in lab.items()}
+    tj["label_rule"] = "most specific first heading of the massime titles from 2015 (lift), with at least 15 massime and 10% of the topic"
+    json.dump(tj, open(REPO / "reports/topics.json", "w"), ensure_ascii=False, indent=1)
+    md = (REPO / "reports/topics.md").read_text(encoding="utf-8").splitlines()
+    out = []
+    for line in md:
+        cells = line.split(" | ")
+        if line.startswith("| Topic |"):
+            line = "| Topic | Massime | Parole più pesanti | Voce dei titoli più specifica del topic (dal 2015): quota nel topic, specificità |"
+        elif line.startswith("| ") and cells[0][2:].strip().isdigit():
+            k = int(cells[0][2:].strip())
+            v = lab.get(k, {"label": "", "share_in_topic": 0, "lift": 0})
+            txt = f"{v['label']}: {v['share_in_topic']:.0%}, {v['lift']:.1f} volte la media" if v["label"] else "nessuna voce sopra il 10% delle massime del topic"
+            line = " | ".join(cells[:3]) + f" | {txt} |"
+        out.append(line)
+    (REPO / "reports/topics.md").write_text("\n".join(out), encoding="utf-8")
+    print({k: (v["label"], round(v["share_in_topic"], 2), round(v["lift"], 1)) for k, v in lab.items()})
 
 
 def npmi(top_idx: np.ndarray, B) -> float:
@@ -135,12 +186,14 @@ def main() -> None:
            f"informazione mutua normalizzata {nmi_title:.3f}, contro {nmi_title_null:.3f} con topic rimescolati.",
            f"- Verifica con il primo parametro costituzionale ({len(ka):,} massime): NMI {nmi_art:.3f}, contro {nmi_art_null:.3f} rimescolando.\n",
            "| Topic | Massime | Parole più pesanti | Prima voce dei titoli più frequente (dal 2015) |", "| --- | --- | --- | --- |"]
+    spec = specific_labels(pr.set_index("pid").topic, m)
+    out[-2] = "| Topic | Massime | Parole più pesanti | Voce dei titoli più specifica del topic (dal 2015): quota nel topic, specificità |"
     for k in range(k_star):
         words = ", ".join(vocab[tops[k]])
-        s = seg[new.index][new.topic == k].value_counts()
-        lab = s.index[0] if len(s) else ""
-        labels[k] = lab
-        out.append(f"| {k} | {(m.topic == k).sum():,} | {words} | {lab} |")
+        v = spec.get(k, {"label": "", "share_in_topic": 0, "lift": 0})
+        labels[k] = v["label"]
+        txt = f"{v['label']}: {v['share_in_topic']:.0%}, {v['lift']:.1f} volte la media" if v["label"] else "nessuna voce sopra il 10% delle massime del topic"
+        out.append(f"| {k} | {(m.topic == k).sum():,} | {words} | {txt} |")
     (REPO / "reports/topics.md").write_text("\n".join(out), encoding="utf-8")
     json.dump({"coherence": res, "k": k_star, "stability": stab, "nmi_title": nmi_title, "nmi_art": nmi_art,
                "labels": labels, "top_words": {int(k): list(vocab[tops[k]]) for k in range(k_star)}},
@@ -149,4 +202,5 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    labels_only() if "--labels-only" in sys.argv else main()
