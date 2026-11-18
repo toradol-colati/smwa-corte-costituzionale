@@ -1,0 +1,264 @@
+{
+ "communities": {
+  "n_communities": 2858,
+  "communities_50plus": 34,
+  "share_nodes_in_50plus": 0.8603469032862175,
+  "modularity": 0.6761084071833585,
+  "modularity_rewired": 0.2920269852736692,
+  "nmi_topic": 0.22022297353080325,
+  "nmi_null_mean": 0.005739102309042272,
+  "nmi_null_hi": 0.006301941516735696,
+  "largest": [
+   {
+    "community": 0,
+    "size": 2045,
+    "median_year": 2013,
+    "top_topic": 9,
+    "top_topic_share": 0.31053149606299213,
+    "top_topic_words": [
+     "regioni",
+     "regione",
+     "competenza",
+     "materia",
+     "regionale",
+     "statuto"
+    ]
+   },
+   {
+    "community": 1,
+    "size": 1926,
+    "median_year": 2014,
+    "top_topic": 8,
+    "top_topic_share": 0.29035639412997905,
+    "top_topic_words": [
+     "giudizio",
+     "oggetto",
+     "rilevanza",
+     "motivazione",
+     "eccezione",
+     "via"
+    ]
+   },
+   {
+    "community": 2,
+    "size": 1627,
+    "median_year": 1990,
+    "top_topic": 9,
+    "top_topic_share": 0.26811145510835915,
+    "top_topic_words": [
+     "regioni",
+     "regione",
+     "competenza",
+     "materia",
+     "regionale",
+     "statuto"
+    ]
+   },
+   {
+    "community": 3,
+    "size": 1389,
+    "median_year": 1997,
+    "top_topic": 14,
+    "top_topic_share": 0.2920029347028613,
+    "top_topic_words": [
+     "pena",
+     "cod",
+     "misura",
+     "pen",
+     "sospensione",
+     "misure"
+    ]
+   },
+   {
+    "community": 4,
+    "size": 1139,
+    "median_year": 1991,
+    "top_topic": 16,
+    "top_topic_share": 0.6074342701722575,
+    "top_topic_words": [
+     "cod",
+     "penale",
+     "proc",
+     "pen",
+     "processo",
+     "imputato"
+    ]
+   },
+   {
+    "community": 5,
+    "size": 1002,
+    "median_year": 1992,
+    "top_topic": 0,
+    "top_topic_share": 0.3154701718907988,
+    "top_topic_words": [
+     "lavoro",
+     "trattamento",
+     "rapporto",
+     "lavoratori",
+     "pensione",
+     "servizio"
+    ]
+   },
+   {
+    "community": 6,
+    "size": 794,
+    "median_year": 2005,
+    "top_topic": 10,
+    "top_topic_share": 0.2597730138713745,
+    "top_topic_words": [
+     "decreto",
+     "rilevanza",
+     "bis",
+     "convertito",
+     "atti",
+     "modificazioni"
+    ]
+   },
+   {
+    "community": 7,
+    "size": 792,
+    "median_year": 2005,
+    "top_topic": 17,
+    "top_topic_share": 0.47509578544061304,
+    "top_topic_words": [
+     "camera",
+     "parlamentare",
+     "tribunale",
+     "deputati",
+     "poteri",
+     "esercizio"
+    ]
+   },
+   {
+    "community": 8,
+    "size": 719,
+    "median_year": 1974,
+    "top_topic": 7,
+    "top_topic_share": 0.20869565217391303,
+    "top_topic_words": [
+     "gia",
+     "legittimita",
+     "manifesta",
+     "infondatezza",
+     "red",
+     "sanzione"
+    ]
+   },
+   {
+    "community": 9,
+    "size": 661,
+    "median_year": 1985,
+    "top_topic": 6,
+    "top_topic_share": 0.23255813953488372,
+    "top_topic_words": [
+     "diritto",
+     "imposta",
+     "civ",
+     "legittimita",
+     "pagamento",
+     "cod"
+    ]
+   },
+   {
+    "community": 10,
+    "size": 627,
+    "median_year": 1992,
+    "top_topic": 16,
+    "top_topic_share": 0.34959349593495936,
+    "top_topic_words": [
+     "cod",
+     "penale",
+     "proc",
+     "pen",
+     "processo",
+     "imputato"
+    ]
+   },
+   {
+    "community": 11,
+    "size": 610,
+    "median_year": 2002,
+    "top_topic": 8,
+    "top_topic_share": 0.12727272727272726,
+    "top_topic_words": [
+     "giudizio",
+     "oggetto",
+     "rilevanza",
+     "motivazione",
+     "eccezione",
+     "via"
+    ]
+   }
+  ],
+  "infomap": {
+   "n_communities": 3668,
+   "communities_50plus": 63,
+   "share_nodes_in_50plus": 0.2817585945512106,
+   "modularity": 0.5815509354586944,
+   "nmi_with_leiden": 0.7080927458155224,
+   "nmi_with_leiden_connected_only": 0.6198700396265326,
+   "nmi_topic": 0.3528734113806321
+  }
+ },
+ "esito": {
+  "tutte": {
+   "n_ill": 897,
+   "n_altre": 2739,
+   "media_ill": 10.90078037904125,
+   "media_altre": 4.046732384081782,
+   "mediana_ill": 8.0,
+   "mediana_altre": 2.0,
+   "rapporto_medie": 2.693724057938829,
+   "rapporto_lo": 2.492725115758428,
+   "rapporto_hi": 2.9004725476061046,
+   "mannwhitney_p": 1.4195736441491342e-127
+  },
+  "sentenze": {
+   "n_ill": 897,
+   "n_altre": 929,
+   "media_ill": 10.90078037904125,
+   "media_altre": 6.989235737351992,
+   "mediana_ill": 8.0,
+   "mediana_altre": 4.0,
+   "rapporto_medie": 1.5596526986184076,
+   "rapporto_lo": 1.412549355309247,
+   "rapporto_hi": 1.710979801896085,
+   "mannwhitney_p": 1.309384924710792e-25
+  },
+  "distribuzione": {
+   "non fondatezza": 1771,
+   "manifesta inammissibilità": 1280,
+   "inammissibilità": 1279,
+   "illegittimità costituzionale parziale": 1084,
+   "illegittimità costituzionale": 1019,
+   "manifesta infondatezza": 522,
+   "estinzione del processo": 478,
+   "restituzione atti - jus superveniens": 321
+  }
+ },
+ "wikipedia": {
+  "linked_pronunce": 283,
+  "base_rate": 0.012618718508940117,
+  "share_in_top1_authority_pct": 0.08482142857142858,
+  "share_in_top1_citations_pct": 0.10714285714285714,
+  "share_in_top1_raw_citations": 0.08928571428571429,
+  "median_auth_pct_linked": 84.11633109619687,
+  "median_cit_pct_linked": 86.32162661737523,
+  "most_linked": {
+   "19760202": 19,
+   "19740226": 9,
+   "20180081": 7,
+   "19940420": 6,
+   "20090262": 6,
+   "20140001": 6,
+   "19670101": 5,
+   "19740225": 5
+  }
+ },
+ "judge_network": {
+  "judges": 122,
+  "pairs": 6815,
+  "weight": 93722,
+  "self_share": 0.15999445167623397
+ }
+}

@@ -1,0 +1,164 @@
+{
+ "nodes": 22427,
+ "edges": 93467,
+ "is_dag": true,
+ "isolates": 2629,
+ "density_backward": 0.0003718545696340241,
+ "wcc_count": 2819,
+ "wcc_largest": 19333,
+ "wcc_largest_share": 0.8620412895170999,
+ "in_deg_mean": 4.167610469523343,
+ "in_deg_median": 2.0,
+ "in_deg_max": 113,
+ "out_deg_mean": 4.167610469523343,
+ "out_deg_median": 2.0,
+ "out_deg_max": 113,
+ "share_never_cited": 0.2950015606188969,
+ "share_citing_nothing": 0.2444820974717974,
+ "top1pct_share_of_citations": 0.10339478104571667,
+ "gini_in": 0.6642061433250551,
+ "citation_age_median": 3.460643394934976,
+ "citation_age_q25": 1.242984257357974,
+ "citation_age_q75": 8.76933607118412,
+ "share_age_under5": 0.6010677565343918,
+ "share_age_over20": 0.08839483454053303,
+ "dag_longest_path": 148,
+ "degree_assortativity_in_in": 0.20135735866410925,
+ "judge_edges": 6815,
+ "judge_self_weight": 14995,
+ "judge_total_weight": 93722,
+ "by_type": {
+  "O": {
+   "n": 10692,
+   "in_mean": 1.6757388701833147,
+   "out_mean": 2.1183127572016462
+  },
+  "S": {
+   "n": 11735,
+   "in_mean": 6.438005965061781,
+   "out_mean": 6.034767788666382
+  }
+ },
+ "by_decade_out": {
+  "1950": 1.0444444444444445,
+  "1960": 1.3391030684500393,
+  "1970": 1.5026634382566586,
+  "1980": 1.7994173016584492,
+  "1990": 2.796806387225549,
+  "2000": 3.4512274603519444,
+  "2010": 8.53425559947299,
+  "2020": 14.712312312312312
+ },
+ "by_giudizio": {
+  "incidentale": 17052,
+  "principale": 3234,
+  "conflitto enti": 1026,
+  "conflitto poteri": 785,
+  "referendum": 153,
+  "correzione": 140,
+  "misto": 23,
+  "altro": 14
+ },
+ "top20_cited": [
+  {
+   "pid": 20030303,
+   "tipo": "S",
+   "in_deg": 113
+  },
+  {
+   "pid": 20070401,
+   "tipo": "S",
+   "in_deg": 111
+  },
+  {
+   "pid": 20050383,
+   "tipo": "S",
+   "in_deg": 99
+  },
+  {
+   "pid": 19780016,
+   "tipo": "S",
+   "in_deg": 89
+  },
+  {
+   "pid": 20070349,
+   "tipo": "S",
+   "in_deg": 82
+  },
+  {
+   "pid": 20070430,
+   "tipo": "S",
+   "in_deg": 78
+  },
+  {
+   "pid": 20050050,
+   "tipo": "S",
+   "in_deg": 77
+  },
+  {
+   "pid": 20070169,
+   "tipo": "S",
+   "in_deg": 74
+  },
+  {
+   "pid": 20100278,
+   "tipo": "S",
+   "in_deg": 74
+  },
+  {
+   "pid": 20040196,
+   "tipo": "S",
+   "in_deg": 73
+  },
+  {
+   "pid": 20070348,
+   "tipo": "S",
+   "in_deg": 71
+  },
+  {
+   "pid": 20180222,
+   "tipo": "S",
+   "in_deg": 71
+  },
+  {
+   "pid": 20000010,
+   "tipo": "S",
+   "in_deg": 68
+  },
+  {
+   "pid": 20060394,
+   "tipo": "S",
+   "in_deg": 68
+  },
+  {
+   "pid": 20150082,
+   "tipo": "S",
+   "in_deg": 67
+  },
+  {
+   "pid": 20040223,
+   "tipo": "S",
+   "in_deg": 66
+  },
+  {
+   "pid": 20070378,
+   "tipo": "S",
+   "in_deg": 66
+  },
+  {
+   "pid": 19860151,
+   "tipo": "S",
+   "in_deg": 64
+  },
+  {
+   "pid": 20050417,
+   "tipo": "S",
+   "in_deg": 64
+  },
+  {
+   "pid": 20070026,
+   "tipo": "S",
+   "in_deg": 64
+  }
+ ]
+}

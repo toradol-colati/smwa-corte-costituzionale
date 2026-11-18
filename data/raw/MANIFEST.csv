@@ -1,0 +1,8 @@
+file,url,downloaded_at,sha256
+data/raw/pronunce/CC_OpenPronunce_1956_1980.zip,https://dati.cortecostituzionale.it/opendata/distribuzione/CC_OpenPronunce_1956_1980.zip,2026-11-08T16:31:49+00:00,82cd2b739b5fb90fe103a3cdafb0be55c4c03b7044e816774b325964d72d4294
+data/raw/pronunce/CC_OpenPronunce_1981_2000.zip,https://dati.cortecostituzionale.it/opendata/distribuzione/CC_OpenPronunce_1981_2000.zip,2026-11-08T16:31:57+00:00,41565cd8962e0cae9591a47933f4d80017c3aa1856093d5bba4b6d558d309472
+data/raw/pronunce/CC_OpenPronunce_2001_oggi.zip,https://dati.cortecostituzionale.it/opendata/distribuzione/CC_OpenPronunce_2001_oggi.zip,2026-11-08T16:32:07+00:00,86d39bd5ce7dd666e03e80a050327d0e3a7a5634a6b26a757624d0b075c45d58
+data/raw/massime/CC_OpenMassime_1956_1980.zip,https://dati.cortecostituzionale.it/opendata/distribuzione/CC_OpenMassime_1956_1980.zip,2026-11-08T16:32:08+00:00,62065d13269cba9f73ae552ad1f3f57b21795dbb8b67e09e82bed88fce449b57
+data/raw/massime/CC_OpenMassime_1981_2000.zip,https://dati.cortecostituzionale.it/opendata/distribuzione/CC_OpenMassime_1981_2000.zip,2026-11-08T16:32:10+00:00,f17ce7551f6cfe6f756d415e3ea6e3af62cd0ee269558ffbedc6003284e65e8f
+data/raw/massime/CC_OpenMassime_2001_oggi.zip,https://dati.cortecostituzionale.it/opendata/distribuzione/CC_OpenMassime_2001_oggi.zip,2026-11-08T16:32:12+00:00,b57aceb78827c1df4ea7651ed54335d53610385e9a6b49351d01577051b495be
+data/raw/giudici/Cc_Opendata_AnagraficaGiudici.zip,https://dati.cortecostituzionale.it/opendata/Anagrafica_giudici/Cc_Opendata_AnagraficaGiudici.zip,2026-11-08T16:32:13+00:00,071f0e6ea9db135bd6bcfa0dbac481c15d4b7eba293ea14ffa79ce2c748513ac

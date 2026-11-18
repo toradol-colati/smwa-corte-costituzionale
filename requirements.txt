@@ -1,0 +1,15 @@
+requests
+SPARQLWrapper
+pandas
+lxml
+networkx
+python-igraph
+leidenalg
+scikit-learn
+lifelines
+powerlaw
+statsmodels
+scipy
+matplotlib
+jupyter
+pytest

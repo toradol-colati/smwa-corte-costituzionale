@@ -1,0 +1,21 @@
+# Dati grezzi e intermedi: si rigenerano, non si versionano (resta la struttura delle cartelle)
+data/raw/**
+!data/raw/**/
+!data/raw/**/.gitkeep
+!data/raw/MANIFEST.csv
+data/interim/**
+!data/interim/**/
+!data/interim/**/.gitkeep
+.env
+CLAUDE.local.md
+.claude/settings.local.json
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+.DS_Store
+
+# PDF della letteratura: protetti da copyright, non si pubblicano
+literature/
+
+# Cache dei test
+.pytest_cache/

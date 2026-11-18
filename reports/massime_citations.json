@@ -1,0 +1,13 @@
+{
+ "massime": 46658,
+ "mentions_in_massime": 54532,
+ "pairs_in_massime": 46737,
+ "pairs_also_in_base_text": 44608,
+ "share_also_in_base_text": 0.9544472259665789,
+ "pairs_also_in_full_text": 44856,
+ "pairs_only_in_massime": 2129,
+ "base_pairs": 93467,
+ "base_pairs_found_in_massime": 0.4772593535686392,
+ "network_with_notes_pairs": 95596,
+ "increase": 0.022778092802807407
+}

@@ -1,0 +1,42 @@
+{
+ "organo": {
+  "groups": {
+   "Parlamento": 41,
+   "Presidente della Repubblica": 41,
+   "magistrature": 40
+  },
+  "judges": 122,
+  "citations": 78727,
+  "same_group_share": 0.32356116707101756,
+  "null_mean": 0.31612740228892244,
+  "null_lo": 0.3076425495700332,
+  "null_hi": 0.32648487812313437,
+  "p": 0.07592407592407592,
+  "ratio_to_null": 1.023515091473472,
+  "power_for_20pct": 1.0,
+  "run": true,
+  "p_holm": 0.07592407592407592,
+  "excess_over_null": 0.023515091473472083,
+  "reaches_minimum_effect_20pct": false
+ },
+ "provenienza": {
+  "groups": {
+   "professore": 60,
+   "magistrato": 55,
+   "avvocato": 3
+  },
+  "judges": 118,
+  "citations": 77125,
+  "same_group_share": 0.48386385737439225,
+  "null_mean": 0.4618099708265803,
+  "null_lo": 0.44374651539708265,
+  "null_hi": 0.4805115072933549,
+  "p": 0.012987012987012988,
+  "ratio_to_null": 1.0477553278209613,
+  "power_for_20pct": 1.0,
+  "run": true,
+  "p_holm": 0.025974025974025976,
+  "excess_over_null": 0.04775532782096126,
+  "reaches_minimum_effect_20pct": false
+ }
+}
