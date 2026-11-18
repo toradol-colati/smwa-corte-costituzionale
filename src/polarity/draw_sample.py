@@ -2,9 +2,9 @@
 all flagged contexts of the test half of the citing pronunce, shuffled with 30 test-half contexts that
 contain a distinguishing word but are not flagged. One mention per context, shown between ⟦ ⟧.
 The labels are written to a separate file, so that the annotator does not see them.
-Outputs: data/validation/polarity_test_sample.csv (no labels), data/interim/polarity_test_labels.csv,
+Outputs: data/validation/polarity_test_sample.csv (no labels), data/validation/polarity_test_labels.csv,
 data/validation/polarity_human_check.md, data/validation/gold_polarity_human.txt (template)
-Usage: .venv/bin/python src/polarity/sample_test.py
+Usage: .venv/bin/python src/polarity/draw_sample.py
 """
 import sys
 from pathlib import Path
@@ -21,6 +21,9 @@ RAW = (r"diversamente d[ae]|a differenza d|contrariamente a|non (?:è|sono|appar
        r"inconferent|non pertinent|non conferent|non giova|divers[aeio] (?:fattispecie|situazion|question|ipotes|disciplin|vicend)|"
        r"non (?:è|sono) (?:sovrapponibil|assimilabil|comparabil|analog|equiparabil)|si distingu|discost|superament|rimedit|revirement|"
        r"non (?:ha|hanno) (?:affermato|inteso|stabilito)|non costituisce un precedente|conforto")
+if (REPO / "data/validation/polarity_test_labels.csv").exists() and "--force" not in sys.argv:
+    sys.exit("The test sample already exists and has been annotated: redrawing it would misalign the gold files. "
+             "A new version of the rules needs new data (docs/decisions.md, 18/11/2026).")
 x = pd.read_pickle(REPO / "data/interim/polarity_contexts.pkl")
 pids = np.sort(x.citing_id.unique())
 dev = set(np.random.default_rng(SEED_SPLIT).permutation(pids)[: len(pids) // 2])
@@ -36,7 +39,7 @@ s = pd.concat([flag.assign(flagged=1), miss.assign(flagged=0)]).sample(frac=1, r
 s["item"] = np.arange(1, len(s) + 1)
 s["text"] = (s.before.str[-220:] + " ⟦" + s.mention + "⟧ " + s.after.str[:160]).str.replace("\n", " ")
 s[["item", "context_id", "citing_id", "cited_id", "text"]].to_csv(REPO / "data/validation/polarity_test_sample.csv", index=False)
-s[["item", "context_id", "flagged", "rule"]].to_csv(REPO / "data/interim/polarity_test_labels.csv", index=False)
+s[["item", "context_id", "flagged", "rule"]].to_csv(REPO / "data/validation/polarity_test_labels.csv", index=False)
 head = ["# Controllo della polarità delle citazioni\n",
         f"{len(s)} passi. Per ognuno, la domanda è: **la pronuncia che cita dichiara il precedente tra ⟦ ⟧ non pertinente o non conferente, "
         "dice che riguardava un caso diverso, che non è un precedente in termini, che non ha affermato ciò che gli si attribuisce, "

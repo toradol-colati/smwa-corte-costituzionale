@@ -1,4 +1,4 @@
-"""Validation of the polarity rules on the blind test sample (src/polarity/sample_test.py).
+"""Validation of the polarity rules on the blind test sample (src/polarity/draw_sample.py).
 Gold: data/validation/gold_polarity_<who>.txt, lines "<item>: 1|0" (1 = the Court distinguishes or
 departs from the precedent between ⟦ ⟧). Threshold fixed before the test: precision of the flagged
 contexts >= 0.80. Recall is not measurable; the share of distinctions among the not-flagged contexts
@@ -27,12 +27,15 @@ def wilson(k, n, z=1.96):
     return c - h, c + h
 
 
-lab = pd.read_csv(REPO / "data/interim/polarity_test_labels.csv")
+lab = pd.read_csv(REPO / "data/validation/polarity_test_labels.csv")
 gold = {}
 for line in (REPO / f"data/validation/gold_polarity_{WHO}.txt").read_text().splitlines():
     k, _, v = line.partition(":")
     if k.strip().isdigit() and v.strip() in ("0", "1"):
         gold[int(k)] = int(v)
+# the gold is keyed by item number; the versioned sample ties every item to its context
+smp = pd.read_csv(REPO / "data/validation/polarity_test_sample.csv")
+assert (smp.set_index("item").context_id == lab.set_index("item").context_id).all(), "sample and labels are misaligned"
 t = lab[lab.item.isin(gold)].assign(true=lambda d: d.item.map(gold))
 f, nf = t[t.flagged == 1], t[t.flagged == 0]
 tp = int(f.true.sum())

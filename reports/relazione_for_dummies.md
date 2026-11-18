@@ -334,17 +334,18 @@ Prima di togliere nulla, la componente gigante contiene l'86,2% delle pronunce.
 
 ### 3.9 La polarità delle citazioni, forma adattata di sentiment: lo strumento non supera la soglia
 
-(`reports/polarity_validation_claude.md`, script in `src/polarity/`) Su richiesta di Umberto del 18/11/2026, la voce "sentiment analysis" del programma è stata affrontata nella forma che ha senso per una corte: la **polarità delle citazioni**, cioè se una pronuncia segue il precedente che cita o se ne distingue. Il sostegno è il caso normale: quasi tutte le citazioni richiamano un precedente come autorità, senza parole che lo segnalino. Si cerca quindi la classe rara, **distinzione o distacco**: il precedente è dichiarato non pertinente, riferito a un caso diverso, non un precedente in termini, oppure superato.
+(`reports/polarity_validation_claude.md`, script in `src/polarity/`) Su richiesta di Umberto del 18/11/2026, la voce "sentiment analysis" del programma è stata affrontata nella forma che ha senso per una corte: la **polarità delle citazioni**, cioè se una pronuncia segue il precedente che cita o se ne distingue. L'ipotesi di partenza, suggerita dalla lettura di qualche decina di passi, è che il sostegno sia il caso normale: una citazione richiama di solito un precedente come autorità, senza parole che lo segnalino. Si cerca quindi la classe rara, **distinzione o distacco**: il precedente è dichiarato non pertinente, riferito a un caso diverso, non un precedente in termini, oppure superato.
 
 **Come.** Un lessico di regole scritte a mano (`src/polarity/lexicon.py`) sulla metà delle pronunce che citano, scelte a caso. Ogni regola deve essere legata al precedente: entro 120 caratteri dalla menzione, nella stessa frase, senza negazioni né forme ipotetiche, non nelle parole del giudice rimettente o delle parti. Prima del test sono stati fissati nel registro la soglia (precisione almeno 0,80), il campione e cosa fare se la soglia non fosse superata.
 
-**Esito.** Sull'altra metà, i 37 contesti segnalati sono stati annotati senza vedere l'etichetta, mescolati con 30 contesti non segnalati: 28 su 37 sono vere distinzioni, una precisione di 0,76 (intervallo al 95% 0,60–0,87), **sotto la soglia**. Come stabilito prima, non si fanno analisi: niente stima della quota di distinzioni, niente equilibrio strutturale (Easley e Kleinberg, cap. 5), niente elenco dei precedenti più distinti.
+**Esito.** Sull'altra metà, i 37 contesti segnalati sono stati annotati senza vedere l'etichetta, mescolati con 30 contesti non segnalati: 28 su 37 sono vere distinzioni, una precisione di 0,76 (intervallo al 95% 0,60–0,87), **sotto la soglia**. Come stabilito prima, non si fanno analisi: niente stima della quota di distinzioni, niente equilibrio strutturale (Easley e Kleinberg, cap. 5; letto solo l'indice), niente elenco dei precedenti più distinti.
+
+Il verdetto è fragile: mancano due contesti per arrivare a 0,80, l'intervallo comprende la soglia, e chi ha annotato ha anche scritto le regole. Se il controllo di una persona sullo stesso campione debba sostituire questa annotazione, per decidere sulla soglia, lo decide Umberto prima che qualcuno annoti; finché non lo decide, vale l'esito qui sopra.
 
 **Cosa si impara comunque.**
 
-- Le regole "non pertinente" sono precise (19 su 21) e "caso diverso" quasi (7 su 8); "superamento" no (2 su 7): scambia per un superamento quello negato o riferito a un'altra pronuncia.
+- Con numeri piccoli, quindi solo come indicazione: le regole "non pertinente" sono precise (19 su 21) e "caso diverso" quasi (7 su 8); "superamento" no (2 su 7): scambia per un superamento quello negato o riferito a un'altra pronuncia.
 - Il lessico perde distinzioni: tra i 30 contesti non segnalati che hanno una parola di distinzione, 5 lo sono.
-- Il lessico segnala 78 citazioni su 93.467. Con uno strumento che non ha superato la soglia, questo numero non si può leggere come una stima.
 - Per andare avanti servono due cose: il controllo di una persona sul foglio già pronto (`data/validation/polarity_human_check.md`, 67 passi) e una nuova versione delle regole, fissata prima e provata su dati mai visti.
 
 ## 4. Cosa risponde alla domanda
@@ -450,10 +451,11 @@ python3.12 -m venv .venv
 .venv/bin/python src/analysis/interactive.py
 .venv/bin/python src/report/report_numbers.py
 .venv/bin/python src/polarity/contexts.py
-.venv/bin/python src/polarity/sample_test.py
 .venv/bin/python src/polarity/evaluate.py claude
 .venv/bin/python -m pytest
 ```
+
+Il campione di prova della polarità è già estratto e annotato: `src/polarity/draw_sample.py` non va rilanciato (si rifiuta di sovrascriverlo).
 
 Per il controllo umano dell'estrazione: `.venv/bin/python src/validation/human_sheet.py` prepara il foglio; dopo l'annotazione, `.venv/bin/python src/validation/evaluate.py human`.
 
