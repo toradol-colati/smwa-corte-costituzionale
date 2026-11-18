@@ -12,7 +12,7 @@ Raccolte e controllate il 10/11/2026 da Claude nel browser; riviste lo stesso gi
 
 | Ruolo | Fonte | Stato | Da fare |
 | --- | --- | --- | --- |
-| Contesto | Legge 87/1953, artt. 16–19 | Letto | — |
+| Contesto | Legge 87/1953, artt. 16–19, 23 e 27 | Letto (artt. 23 e 27 il 18/11/2026) | — |
 | Contesto | Norme integrative 2008 (artt. 7, 17) e 2026 (artt. 9, 20) | Letto | — |
 | Contesto | [B4] Pagina ufficiale "I Giudici costituzionali" | Letto | — |
 | Contesto | [C4] Caravita 2021, estratto gratuito | Letto (pp. 2–8) | — |
@@ -29,7 +29,8 @@ Raccolte e controllate il 10/11/2026 da Claude nel browser; riviste lo stesso gi
 | Metodo | [L21] Uzzi et al. 2013, nullo che rispetta il tempo | Letto (materiali supplementari, pp. 3, 5) | — |
 | Metodo | [L24] King e Zeng 2001, campionamento in D3 | Letto (pp. 140–144, 160) | — |
 | Metodo | [L15] Black e Spriggs 2013, D1b | Abstract | Nessuna versione libera: cercare "10.1111/jels.12012" nel catalogo della biblioteca (Wiley Online Library) |
-| Corso | [L27] Easley e Kleinberg, cap. 14 | Letto (§14.5) | — |
+| Corso | [L27] Easley e Kleinberg, cap. 14 | Letto (§14.5); indice completo letto il 18/11/2026 | Per citare altri capitoli vanno letti |
+| Corso | [L28] Barabási, *Network Science* | Indice dei capitoli 1–10 (titoli delle sezioni) letto il 18/11/2026 | Capitoli non letti: vanno letti prima di citarli |
 
 Da leggere: L1–L2 (ACM, IOS Press) e L15 (Wiley), non ancora caricati. I PDF letti sono in `literature/`, esclusa da git. Il file caricato come Fowler et al. 2007 era un altro articolo (H. J. Fowler e altri, *International Journal of Climatology*, 2007): rinominato `WRONG_…`; al suo posto c'è il manoscritto degli autori dell'articolo giusto.
 
@@ -190,9 +191,9 @@ Da leggere: L1–L2 (ACM, IOS Press) e L15 (Wiley), non ancora caricati. I PDF l
 - [L26] Holm, S. (1979). "A simple sequentially rejective multiple test procedure". *Scandinavian Journal of Statistics*, 6(2), 65–70. *Scheda.*
 
 **Corso**
-- [L27] Easley, D., Kleinberg, J. (2010). *Networks, Crowds, and Markets*. CUP, cap. 14. [capitolo](https://www.cs.cornell.edu/home/kleinber/networks-book/networks-book-ch14.pdf). §14.5, pp. 415–417: Fowler e Jeon sulla Corte Suprema USA. *Letto.*
-- [L28] Barabási, A.-L. (2016). *Network Science*. CUP. *Indicato nel programma.*
-- [L29] Ca' Foscari, Social Media and Web Analytics [EM1421], programma 2026/27. [pagina](https://www.unive.it/data/course/790312/programma). Corso in inglese; orale con teoria (30%) e progetto (70%), individuale o in coppia. *Letto.*
+- [L27] Easley, D., Kleinberg, J. (2010). *Networks, Crowds, and Markets*. CUP, cap. 14. Indice completo dei 24 capitoli letto il 18/11/2026 sulla [pagina degli autori](https://www.cs.cornell.edu/home/kleinber/networks-book/), per la mappa del programma. [capitolo](https://www.cs.cornell.edu/home/kleinber/networks-book/networks-book-ch14.pdf). §14.5, pp. 415–417: Fowler e Jeon sulla Corte Suprema USA. *Letto.*
+- [L28] Barabási, A.-L. (2016). *Network Science*. CUP. *Indicato nel programma.* [Versione online](http://networksciencebook.com/). Il 18/11/2026 è stato letto solo l'indice dei capitoli 1–10, con i titoli delle sezioni, per la mappa in `docs/course_mapping.md`.
+- [L29] Ca' Foscari, Social Media and Web Analytics [EM1421], programma 2026/27. [pagina](https://www.unive.it/data/course/790312/programma). Corso in inglese; orale con teoria (30%) e progetto (70%), individuale o in coppia. *Letto.* Riletto il 18/11/2026 ("programma definitivo", ultima modifica 26/06/2026): sei voci senza sotto-argomenti, risultati di apprendimento, prerequisiti, i due libri di testo senza capitoli.
 
 ## 4. Non trovato o da verificare
 - Agnoloni e Pagallo, testi integrali: periodo, numero di pronunce, metodo di estrazione, risultati.

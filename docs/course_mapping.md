@@ -7,6 +7,7 @@
 - **Il programma ufficiale** di EM1421 per il 2026/27 ([pagina del corso](https://www.unive.it/data/insegnamento/790312/programma), letta il 18/11/2026, "programma definitivo", ultima modifica 26/06/2026) elenca sei voci senza sotto-argomenti: introduzione alla data science e alla social media analysis; social network analysis; lavorare con API; data and information visualisation; topic extraction; sentiment analysis. Aggiunge i risultati di apprendimento attesi, i prerequisiti e due libri di testo, senza indicare capitoli.
 - **Concetti, misure e modelli più fini** vengono quindi dagli indici dei due libri, letti il 18/11/2026: Easley e Kleinberg, *Networks, Crowds, and Markets* (2010, [versione degli autori](https://www.cs.cornell.edu/home/kleinber/networks-book/)); Barabási, *Network Science* (2016, [networksciencebook.com](http://networksciencebook.com/)).
 - **Non vengono dall'elenco delle lezioni**, che sta su Moodle e non è stato visto. Questa mappa va confrontata con le slide del corso: gli argomenti trattati a lezione possono essere di meno, o diversi.
+- **Dei libri sono stati letti gli indici** (e il §14.5 di Easley e Kleinberg), non i capitoli: le descrizioni dei concetti qui sotto sono nostre, e un capitolo va letto prima di citarlo nella relazione (`docs/sources.md`).
 
 ## 1. Le sei voci del programma
 
@@ -97,8 +98,8 @@
 | 16. Cascate informative | Non applicato | Servono decisioni in sequenza con un'informazione privata osservabile; una citazione non lo è |
 | 18. Leggi di potenza | Applicato | §3.2 |
 | 18. Modelli "chi è ricco diventa più ricco" | Applicato | Attaccamento preferenziale; §3.8 |
-| 18. Imprevedibilità del successo | Applicato | Previsione delle citazioni future (`d1_results.json`, "prediction"); §3.2 |
-| 18. Coda lunga | Applicato | Il 29,5% delle pronunce non è mai citato; §3.2 |
+| 18. Imprevedibilità del successo | In parte | Si misura quanto le citazioni passate prevedono quelle future (`d1_results.json`, "prediction"; §3.2). Il fenomeno di cui parla il libro (letto solo il titolo) non è stato applicato |
+| 18. Coda lunga | In parte | La coda della distribuzione delle citazioni: il 29,5% delle pronunce non è mai citato (§3.2). Il concetto del libro, che dal titolo riguarda la coda lunga dei mercati, non è applicato |
 | 19. Comportamento a cascata nelle reti (diffusione con soglie) | Non applicato | Non c'è un comportamento che si adotta |
 | 20. Piccolo mondo: sei gradi di separazione, struttura e casualità | Applicato | §3.8 |
 | 20. Ricerca decentrata | Non applicato | Nessuno cerca un bersaglio muovendosi nella rete |

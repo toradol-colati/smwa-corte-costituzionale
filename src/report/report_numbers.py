@@ -22,5 +22,11 @@ out = {
     "mentions_errors": int(len(pd.read_csv(I / "citation_errors.csv", usecols=["status"]))),
     "type_mismatch_share": float(c[c.status == "ok"].type_mismatch.mean()),
 }
+# pronunce without massime have no topic and are left out of D3 (citing and cited)
+import numpy as np  # noqa: E402
+theta_pid = set(np.load(P / "topics_theta.npz")["pid"])
+nt = pr[~pr.pid.isin(theta_pid)]
+out["pronunce_without_topic"] = int(len(nt))
+out["pronunce_without_topic_by_type"] = {k: int(v) for k, v in nt.tipo.value_counts().items()}
 json.dump(out, open(REPO / "reports/numbers.json", "w"), indent=1)
 print(out)

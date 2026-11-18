@@ -50,12 +50,27 @@ def checks():
         out.append((f"D3 variante: {key}", f"{phrase} {it(c['or'])} ({ci(c)})"))
     seeds = d3["seed_sensitivity_or"]
     out.append(("D3 altri campioni", f"con altri cinque campioni di controlli tra {it(min(seeds))} e {it(max(seeds))}"))
-    for key, label in [("solo ordinanze che citano", "ordinanze"), ("solo sentenze che citano", "sentenze"),
-                       ("citanti fino al 2000", "prima del 2001"), ("citanti dal 2001", "dopo")]:
-        out.append((f"D3 redatto da lui: {key}", f"({it(v[key]['coef']['self_drafted']['or'])})"))
+    sub = {k: it(v[k]["coef"]["self_drafted"]["or"]) for k in ["solo ordinanze che citano", "solo sentenze che citano",
+                                                               "citanti fino al 2000", "citanti dal 2001"]}
+    out.append(("D3 redatto da lui per sottogruppo",
+                f"più forte nelle ordinanze ({sub['solo ordinanze che citano']}) che nelle sentenze ({sub['solo sentenze che citano']}), "
+                f"e prima del 2001 ({sub['citanti fino al 2000']}) che dopo ({sub['citanti dal 2001']})"))
     f = d3["full"]["coef"]
-    out.append(("D3 modello completo", f"sia quando sedeva ({it(f['sat_not_drafted']['or'])}; {ci(f['sat_not_drafted'])}) "
-                                       f"sia quando era assente ({it(f['in_mandate_absent']['or'])}; {ci(f['in_mandate_absent'])})"))
+    out.append(("D3 modello completo", f"citati meno di quelli della stessa età decisi prima del suo arrivo ({it(f['sat_not_drafted']['or'])}; "
+                                       f"{ci(f['sat_not_drafted'])}); quando era assente la stima è la stessa, con un intervallo più largo "
+                                       f"({it(f['in_mandate_absent']['or'])}; {ci(f['in_mandate_absent'])})"))
+    nv = v["controllo per norma impugnata in comune (esplorativo)"]["coef"]
+    nd = d3["norme_descrittive"]
+    pc1 = lambda x: it(x * 100, 1)
+    out += [
+        ("D3 norma impugnata, sintesi", f"il {pc1(nd['self_drafted']['cases_same_article'])}% dei precedenti scritti dallo stesso redattore che vengono citati "
+                                        f"riguarda la stessa disposizione impugnata. A parità di disposizione impugnata l'odds ratio scende a "
+                                        f"{it(nv['self_drafted']['or'])} ({ci(nv['self_drafted'])})"),
+        ("D3 norma impugnata, quote", f"contro il {pc1(nd['sat_not_drafted']['cases_same_article'])}% dei precedenti decisi in collegi in cui sedeva e il "
+                                      f"{pc1(nd['absent']['cases_same_article'])}% di quelli decisi in sua assenza"),
+        ("D3 norma impugnata, modello", f"scende da {it(sd['or'])} a {it(nv['self_drafted']['or'])} ({ci(nv['self_drafted'])}), mentre \"sedeva nel collegio\" "
+                                        f"resta {it(nv['sat_not_drafted']['or'])} ({ci(nv['sat_not_drafted'])})"),
+    ]
     num = load("numbers.json")
     out += [
         ("Testi senza divisione", f"In {num['split_failed']} testi ({it(num['split_failed_share'] * 100, 1)}% delle pronunce: "
@@ -65,6 +80,8 @@ def checks():
         ("Menzioni errate", f"inesistenti o successive | {n(num['mentions_errors'])} |"),
         ("Stesso giorno", f"tenute a parte | {n(num['mentions_same_date'])} |"),
         ("Tipo scritto diverso", f"Nell'{it(num['type_mismatch_share'] * 100, 1)}% delle menzioni"),
+        ("Senza massime", f"le {num['pronunce_without_topic']} pronunce senza massime ({num['pronunce_without_topic_by_type']['O']} ordinanze e "
+                          f"{num['pronunce_without_topic_by_type']['S']} sentenze)"),
     ]
     # D1
     d1 = load("d1_results.json")
@@ -110,7 +127,7 @@ def checks():
         ("Comunità e topic", f"accordo con i topic {it(cm['nmi_topic'])}, contro {it(cm['nmi_null_mean'], 3)} del caso"),
         ("Infomap", f"({cm['infomap']['communities_50plus']} con almeno 50 pronunce, che coprono solo il {pc(cm['infomap']['share_nodes_in_50plus'], 0)}% dei nodi), "
                     f"l'accordo con Leiden è {it(cm['infomap']['nmi_with_leiden'])} su una scala da 0 a 1 e quello con i topic {it(cm['infomap']['nmi_topic'])}"),
-        ("HITS comunità", f"qui il {pc(h['authority_hits']['top1_share_largest_community'])}% dell'1% più autorevole sta in una sola comunità "
+        ("HITS comunità", f"il {pc(h['authority_hits']['top1_share_largest_community'])}% dell'1% più autorevole sta in una sola comunità "
                           f"({n(h['authority_hits']['largest_community_size'])} pronunce, anno mediano {h['authority_hits']['largest_community_median_year']}), "
                           f"che raccoglie il {pc(h['authority_mass_in_largest_community'])}% dell'autorità totale, mentre l'1% più citato è sparso in "
                           f"{h['citazioni']['communities_in_top1']} comunità"),

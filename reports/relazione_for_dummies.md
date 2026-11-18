@@ -16,13 +16,13 @@
 2. **Però un redattore cita molto di più ciò che ha scritto lui**: odds ratio 5,47 (4,76–6,27), a parità di età e materia del precedente. Gran parte viene dalle questioni che si ripetono: il 40,0% dei precedenti scritti dallo stesso redattore che vengono citati riguarda la stessa disposizione impugnata. A parità di disposizione impugnata l'odds ratio scende a 3,27 (2,95–3,63). Risultato esplorativo (sezione 3.4).
 3. **Una gerarchia di fatto esiste.** Le citazioni sono molto più concentrate di quanto vorrebbe il caso: l'1% delle pronunce più citate raccoglie il 10,3% delle citazioni, contro il 3,4% atteso (4,2% tenendo conto che le ordinanze sono citate molto meno delle sentenze).
 4. **Pochi redattori si distinguono.** Su 113 giudici, dopo la correzione di Holm le pronunce di 6 sono citate più di pronunce prese a caso dello stesso anno e quelle di 7 meno; e chi è citato più dell'atteso in carica lo resta dopo il mandato, più di quanto darebbero le sole pronunce. Esplorativo.
-5. **Due risultati della letteratura sulla Corte italiana non reggono**: la distribuzione delle citazioni non è una legge di potenza, e le pronunce più "autorevoli" secondo l'algoritmo HITS non coincidono con le più citate, anche se la differenza dipende soprattutto da come HITS tratta i gruppi di pronunce molto collegate tra loro.
+5. **Due risultati della letteratura sulla Corte italiana non reggono**: la distribuzione delle citazioni non è una legge di potenza, e le pronunce più "autorevoli" secondo l'algoritmo HITS non coincidono con le più citate, anche se la differenza dipende soprattutto dal fatto che HITS, su questa rete, concentra l'autorità in un solo gruppo di pronunce molto collegate.
 
 **Il "fattore wow"** è nella sezione 5. **Come ogni argomento del programma d'esame entra nel lavoro**: sezione 9.
 
 > **Cosa è cambiato dopo il check del 17/11/2026.** Un controllo del lavoro ha trovato errori e punti deboli. Le correzioni sono nel registro delle decisioni (`docs/decisions.md`, righe del 18/11) e nella storia del repository (ramo `correzioni-check`, un commit per correzione):
 > - D3 si calcola con la verosimiglianza esatta: il risultato principale passa da 1,03 a 1,00, e "l'ha redatto lui" da 3,01 a 5,47, che scende a 3,27 a parità di disposizione impugnata;
-> - D2 usa un modello nullo che tiene conto di quanto diversamente sono citate le pronunce, e la finestra di 10 anni fissata prima: i giudici fuori dall'atteso passano da 27 e 39 a 6 e 7, e D2 diventa esplorativo;
+> - D2 usa un modello nullo che tiene conto di quanto diversamente sono citate le pronunce, e la finestra di 10 anni fissata prima: i giudici fuori dall'atteso passano da 27 e 39 (versione del 16/11) a 6 e 7, e D2 diventa esplorativo;
 > - D1: un secondo modello nullo tiene conto delle ordinanze; l'interpretazione "conta chi ti cita" è ritirata;
 > - etichette dei topic, modularità con 100 ricablaggi, un numero sbagliato (i testi senza divisione) e alcuni arrotondamenti corretti; un test confronta ora i numeri della relazione con i file dei risultati;
 > - aggiunte le misure del corso (sezione 3.8), la mappa del programma (sezione 9) e un foglio per il controllo umano dell'estrazione.
@@ -218,13 +218,13 @@ Le ordinanze sono citate molto meno delle sentenze: non è mai citato il 45,7% d
 
 ![Figura 4](figures/fig4_concentrazione_vs_nullo.png)
 
-*Figura 4. Concentrazione delle citazioni ricevute, osservata e attesa sotto il modello nullo (barra d'errore: intervallo al 95% su 1.000 ripetizioni).*
+*Figura 4. Concentrazione delle citazioni ricevute, osservata e attesa sotto il primo modello nullo della tabella, con il bersaglio dello stesso anno (barra d'errore: intervallo al 95% su 1.000 ripetizioni). Con il secondo nullo, che tiene conto anche del tipo, gli attesi sono più alti ma restano lontani dall'osservato.*
 
 Le pronunce più citate sono la 303/2003, la 401/2007 e la 383/2005: tutte decise in giudizi in via principale (il tipo di giudizio indicato nelle massime), dopo la riforma del 2001.
 
 **Non è una legge di potenza.** La lognormale descrive la coda meglio della legge di potenza (rapporto di verosimiglianza −7,5, p < 0,001; esponente stimato 2,92 da 10 citazioni in su). Agnoloni e Pagallo (2016, pp. 142–143) avevano proposto una legge di potenza (α = 2,414) adattata sulla scala log-log, senza test formali né confronto con altre distribuzioni, e su una rete diversa: le sole pronunce in via incidentale, 16.320 nodi (Figura 3).
 
-**Le più autorevoli non sono le più citate, per una ragione nota.** Sulla rete completa, l'1% più autorevole secondo HITS e l'1% più citato si sovrappongono per il 41,5%; a parità di citazioni ricevute, il caso darebbe il 55,7% (53,1–58,0) (Figura 6). Ma il motivo non è che "conta chi ti cita". HITS concentra l'autorità nel gruppo di pronunce più fittamente collegate: qui il 95,1% dell'1% più autorevole sta in una sola comunità (2.045 pronunce, anno mediano 2013), che raccoglie il 91,6% dell'autorità totale, mentre l'1% più citato è sparso in 22 comunità (`reports/extras.json`). Il modello nullo rimescola le citazioni e cancella le comunità: il confronto misura soprattutto la loro esistenza. PageRank, all'opposto, premia le pronunce antiche (anno mediano 1970 nel suo 1% più alto). Sul sottoinsieme di Agnoloni e Pagallo la sovrapposizione è quella del caso (20% contro 20%).
+**Le più autorevoli non sono le più citate, e i dati dicono perché.** Sulla rete completa, l'1% più autorevole secondo HITS e l'1% più citato si sovrappongono per il 41,5%; a parità di citazioni ricevute, il caso darebbe il 55,7% (53,1–58,0) (Figura 6). Ma il motivo non è che "conta chi ti cita". Su questa rete HITS concentra l'autorità in un solo gruppo di pronunce molto collegate tra loro: il 95,1% dell'1% più autorevole sta in una sola comunità (2.045 pronunce, anno mediano 2013), che raccoglie il 91,6% dell'autorità totale, mentre l'1% più citato è sparso in 22 comunità (`reports/extras.json`). Il modello nullo rimescola le citazioni e cancella le comunità: il confronto misura soprattutto la loro esistenza. PageRank, all'opposto, premia le pronunce antiche (anno mediano 1970 nel suo 1% più alto). Sul sottoinsieme di Agnoloni e Pagallo la sovrapposizione è quella del caso (20% contro 20%).
 
 **La replica di Agnoloni e Pagallo non riesce.** Loro scrivono che le prime 30 pronunce per citazioni sono le stesse prime 30 per authority. Sul loro sottoinsieme (sentenze in via incidentale fino al 2014: 6.561 pronunce) solo 4 delle prime 30 per authority sono tra le prime 30 per citazioni. Il loro sottoinsieme però non è identico al nostro, e il loro calcolo non è descritto. Nella loro tabella 5 le pronunce con lo stesso numero di citazioni hanno esattamente la stessa authority (p. 144): segno che la loro misura coincideva con il numero di citazioni.
 
@@ -253,7 +253,7 @@ Le pronunce più citate sono la 303/2003, la 401/2007 e la 383/2005: tutte decis
 | **sedeva nel collegio senza averlo redatto** (risultato principale) | **1,00** | 0,92–1,09 | 1,00 |
 | l'ha redatto lui | 5,47 | 4,76–6,27 | < 0,001 |
 
-Base: 13.654 pronunce che citano, 46.969 citazioni, di cui 1.658 a precedenti decisi in assenza del redattore; 122 redattori.
+Base: 13.654 pronunce che citano, 46.969 citazioni, di cui 1.658 a precedenti decisi in assenza del redattore; 122 redattori. Restano fuori, come pronunce che citano e come precedenti, le 320 pronunce senza massime (271 ordinanze e 49 sentenze), per cui manca la materia (`reports/numbers.json`).
 
 **Il calcolo.** Il modello è la regressione logistica condizionata con la verosimiglianza esatta, che considera tutti i modi in cui i precedenti citati da una pronuncia potevano essere scelti tra quelli disponibili. Fino al 17/11/2026 si usava un'approssimazione (di Breslow) che, quando una pronuncia cita molti precedenti, schiaccia verso 1 gli effetti forti: dava 1,03 e 3,01. La verosimiglianza calcolata dal nostro codice coincide con quella di una seconda implementazione indipendente (statsmodels) sugli stessi dati.
 
@@ -265,7 +265,7 @@ Base: 13.654 pronunce che citano, 46.969 citazioni, di cui 1.658 a precedenti de
 
 **Tiene in tutte le varianti** (Figura 7): senza autocitazioni 0,99 (0,91–1,08); solo dal 1987, dove il redattore è osservato, 1,01 (0,93–1,10); senza gli anni dell'arretrato 1,04 (0,96–1,13); sul testo intero 0,99 (0,90–1,09); aggiungendo le citazioni delle massime 0,99 (0,91–1,08); a parità di disposizione impugnata 0,99 (0,91–1,07); con altri cinque campioni di controlli tra 0,98 e 1,01. Nessuna variante esclude l'1.
 
-Nel modello completo, che usa anche la soglia del giuramento, i precedenti decisi durante il mandato del redattore sono citati meno di quelli della stessa età decisi prima del suo arrivo, sia quando sedeva (0,88; 0,80–0,96) sia quando era assente (0,88; 0,77–1,01). Presenza e assenza, di nuovo, non differiscono.
+Nel modello completo, che usa anche la soglia del giuramento, i precedenti decisi durante il mandato del redattore quando sedeva sono citati meno di quelli della stessa età decisi prima del suo arrivo (0,88; 0,80–0,96); quando era assente la stima è la stessa, con un intervallo più largo (0,88; 0,77–1,01). Presenza e assenza, di nuovo, non differiscono.
 
 ![Figura 7](figures/fig7_d3_memoria_collegiale.png)
 
@@ -309,16 +309,16 @@ Resta il limite della materia: i topic sono grossolani, e i redattori non sono a
 ### 3.7 Due risultati in più, con le API
 
 - **Esito.** Tra le pronunce del 2006–2015, quelle che dichiarano un'illegittimità costituzionale ricevono in dieci anni 10,9 citazioni in media, le altre 4,0: 2,7 volte (2,5–2,9). Tra le sole sentenze, 1,6 volte (1,4–1,7).
-- **Wikipedia.** Solo l'1,3% delle pronunce è richiamato da una voce. Tra l'1% più autorevole la quota è 8,5%, tra l'1% più citato 10,7%: le pronunce importanti nella rete sono anche quelle note fuori, e di nuovo il conteggio delle citazioni fa almeno bene quanto HITS. È un confronto descrittivo, su pochi casi.
+- **Wikipedia.** Solo l'1,3% delle pronunce è richiamato da una voce. Tra l'1% più autorevole la quota è 8,5%, tra l'1% più citato 10,7%: le pronunce importanti nella rete sono anche quelle note fuori. La differenza tra le due quote è di poche pronunce: non dice quale misura funzioni meglio. È un confronto descrittivo, su pochi casi.
 
 ### 3.8 Le misure del corso (esplorative)
 
 (`reports/course_measures.json`, script `src/analysis/course_measures.py`) Aggiunte il 18/11/2026 per coprire gli argomenti dei libri di testo del corso; non erano nel piano fissato prima. Ognuna ha il suo termine di confronto.
 
-- **Chi è ricco diventa più ricco** (attaccamento preferenziale). Confrontando ogni pronuncia solo con quelle depositate nello stesso anno, le citazioni nuove di un anno crescono con quelle già ricevute come (1 + citazioni)^a, con a = 1,12 (1,11–1,14). Nelle reti del modello nullo di D1, dove le citazioni passate non contano, la stessa stima dà 0,00. Con a = 1 l'attaccamento sarebbe proporzionale, come nel modello di Barabási e Albert; qui è un po' più che proporzionale. Limite: l'attrattiva propria di una pronuncia (la fitness del modello di Bianconi e Barabási) si confonde con l'attaccamento, quindi a ne è un limite superiore.
+- **Chi è ricco diventa più ricco** (attaccamento preferenziale). Confrontando ogni pronuncia solo con quelle depositate nello stesso anno, le citazioni nuove di un anno crescono con quelle già ricevute come (1 + citazioni)^a, con a = 1,12 (1,11–1,14). Nelle reti del modello nullo di D1, dove le citazioni passate non contano, la stessa stima dà 0,00. Con a = 1 le citazioni nuove crescerebbero in proporzione a quelle già ricevute; qui crescono un po' più che in proporzione. Limite: l'attrattiva propria di ogni pronuncia, che non dipende da quante citazioni ha già, si confonde con l'attaccamento, quindi a ne è un limite superiore.
 - **Chiusura triadica.** Se una pronuncia cita due precedenti, quanto spesso uno dei due cita l'altro? Transitività 0,151, contro 0,009 (0,008–0,009) nelle 100 reti rimescolate che conservano citazioni fatte, ricevute ed età: tutte molto sotto il dato vero; clustering locale medio 0,241 contro 0,005. Si usa la rete non orientata: in un grafo aciclico la versione orientata non ha senso.
 - **Correlazioni di grado.** Le pronunce molto citate citano pronunce molto citate? Correlazione 0,201, contro 0,076 (0,070–0,082) nel nullo. Le pronunce che citano molto citano precedenti molto citati? 0,173 contro 0,105 (0,101–0,110).
-- **Piccolo mondo.** Nella componente gigante (86,2% delle pronunce, grado medio 8,3) due pronunce distano in media 5,30 passi, contro 4,96 in un grafo casuale con gli stessi nodi e legami; la transitività è 0,151 contro 0,0003. Distanze brevi come in un grafo casuale e molta più chiusura: è la firma del piccolo mondo.
+- **Piccolo mondo.** Nella componente gigante (86,2% delle pronunce, grado medio 8,3) due pronunce distano in media 5,30 passi, contro 4,96 in un grafo casuale con gli stessi nodi e legami; la transitività è 0,151 contro 0,0003. Distanze brevi quasi come in un grafo casuale, e molta più chiusura: è la combinazione che i libri di testo trattano sotto il nome di "piccolo mondo" (Barabási, §3.8; Easley e Kleinberg, cap. 20; letti solo gli indici).
 - **Ponti tra filoni.** Le pronunce nell'1% più alto per betweenness (quelle che stanno su molti cammini brevi) hanno in media il 37,9% dei vicini in altre comunità, contro il 22,5% dell'1% più citato e il 16,0% di tutte le pronunce collegate: sono davvero i ponti tra i filoni. Le due liste hanno in comune il 39,7% delle pronunce.
 - **Robustezza.** Togliendo le pronunce più citate la rete si spezza più in fretta che togliendone a caso, ma senza crolli: non c'è un piccolo nucleo di pronunce da cui dipende tutto.
 
@@ -358,7 +358,7 @@ Sono risultati esplorativi, non preannunciati, solo il punto 2 e la replica al p
 | I topic sono 20, in parte formule di stile, poco stabili | Il controllo per materia in D2, D3 | Controllo imperfetto |
 | Citare non vuol dire approvare | Tutto | Un precedente può essere citato per discostarsene |
 | Le pronunce recenti hanno avuto meno tempo per essere citate | D1, D2 | Gestito con percentili per annata e finestre fisse; le pronunce dal 2020 restano poco informative |
-| HITS dà authority nulla a un terzo delle pronunce e concentra il resto nella comunità più fitta | Confronto authority e citazioni | La differenza dal caso misura soprattutto le comunità; PageRank, senza zeri, premia le pronunce antiche |
+| HITS dà authority nulla a un terzo delle pronunce e concentra il resto in una sola comunità | Confronto authority e citazioni | La differenza dal caso misura soprattutto le comunità; PageRank, senza zeri, premia le pronunce antiche |
 | In D2 il modello nullo è cambiato dopo aver visto i risultati | D2 | Esplorativo: nessuna conclusione formale |
 | Provenienza dei giudici codificata in automatico | D4 | Errori di codifica attenuano l'effetto |
 

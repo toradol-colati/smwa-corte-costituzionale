@@ -10,5 +10,10 @@
  "mentions_same_date": 268,
  "mentions_excluded": 9174,
  "mentions_errors": 1950,
- "type_mismatch_share": 0.013351400644771826
+ "type_mismatch_share": 0.013351400644771826,
+ "pronunce_without_topic": 320,
+ "pronunce_without_topic_by_type": {
+  "O": 271,
+  "S": 49
+ }
 }

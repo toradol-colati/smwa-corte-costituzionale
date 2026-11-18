@@ -33,9 +33,14 @@ SAMPLE_DESC = {
              "(circa 100 coppie attese), seed 20261119, escluse le pronunce dei campioni precedenti.",
 }
 gold = {}
+unclear = 0
 for line in (REPO / f"data/validation/gold_{WHICH}.txt").read_text().splitlines():
-    pid, rest = line.split(":")
-    gold[int(pid)] = {int(x.split("/")[0]) * 10000 + int(x.split("/")[1]) for x in rest.split()}
+    if ":" not in line or not line.split(":")[0].strip().isdigit():
+        continue  # notes at the end of the file
+    pid, rest = line.split(":", 1)
+    toks = rest.split()
+    unclear += sum("?" in x for x in toks)  # "?/numero": year not understood by the annotator, left out
+    gold[int(pid)] = {int(x.split("/")[0]) * 10000 + int(x.split("/")[1]) for x in toks if "?" not in x}
 c = pd.read_csv(REPO / "data/processed/citations.csv")
 c = c[c.section.isin(["diritto", "dispositivo"]) & c.citing_id.isin(gold)]
 pred = c.groupby("citing_id").cited_id.apply(set).to_dict()
@@ -57,7 +62,7 @@ out = ["# Validazione dell'estrazione delle citazioni\n",
        + SAMPLE_DESC[WHICH] + " È separato "
        "da quello usato per mettere a punto l'estrattore (2 per strato, seed 20261116). Per il controllo a campione di una persona: "
        f"`data/validation/gold_{WHICH}.txt` elenca per ogni pronuncia le citazioni annotate.\n",
-       "Intervalli di confidenza al 95% di Wilson.\n",
+       "Intervalli di confidenza al 95% di Wilson." + (f" Citazioni annotate senza anno riconoscibile, escluse dal calcolo: {unclear}." if unclear else "") + "\n",
        "| Strato | Pronunce | Coppie vere | Trovate | False | Mancate | Precisione | Richiamo |", "| --- | --- | --- | --- | --- | --- | --- | --- |",
        line(r, "**Totale**")]
 for t in ["S", "O"]: out.append(line(r[r.tipo == t], {"S": "Sentenze", "O": "Ordinanze"}[t]))
