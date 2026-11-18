@@ -81,7 +81,7 @@ Il piano è stato scritto prima dei risultati e sottoposto a più revisioni (`do
 
 - il disegno di D3: "sedeva nel collegio" coincide quasi con "il precedente è recente", quindi si confrontano solo precedenti decisi durante il mandato del redattore, con lui presente oppure assente;
 - un modello nullo diverso per ogni statistica, sempre rispettoso del tempo;
-- il risultato principale, le soglie di qualità e i criteri di decisione fissati **prima** di guardare i dati;
+- il risultato principale, le soglie di qualità e i criteri di decisione fissati **prima** dei risultati (dopo l'ispezione dei dati);
 - l'allargamento a topic, API e Wikipedia, per aderire ai contenuti del corso.
 
 ### 2.2 Preparazione dei testi
@@ -244,7 +244,7 @@ Le pronunce più citate sono la 303/2003, la 401/2007 e la 383/2005: tutte decis
 
 *Figura 5. Frequenza di citazione per età del precedente, rispetto alla scelta uniforme tra i precedenti disponibili (linea tratteggiata).*
 
-### 3.4 D3 — Risultato principale: non c'è memoria collegiale, c'è la penna
+### 3.4 D3 — Risultato principale: nessuna memoria collegiale misurabile; conta chi scrive
 
 (`reports/d3_results.md`)
 
