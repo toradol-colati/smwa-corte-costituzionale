@@ -340,7 +340,7 @@ Prima di togliere nulla, la componente gigante contiene l'86,2% delle pronunce.
 
 **Esito.** Sull'altra metà, i 37 contesti segnalati sono stati annotati senza vedere l'etichetta, mescolati con 30 contesti non segnalati: 28 su 37 sono vere distinzioni, una precisione di 0,76 (intervallo al 95% 0,60–0,87), **sotto la soglia**. Come stabilito prima, non si fanno analisi: niente stima della quota di distinzioni, niente equilibrio strutturale (Easley e Kleinberg, cap. 5; letto solo l'indice), niente elenco dei precedenti più distinti.
 
-Il verdetto è fragile: mancano due contesti per arrivare a 0,80, l'intervallo comprende la soglia, e chi ha annotato ha anche scritto le regole. Se il controllo di una persona sullo stesso campione debba sostituire questa annotazione, per decidere sulla soglia, lo decide Umberto prima che qualcuno annoti; finché non lo decide, vale l'esito qui sopra.
+Il verdetto è fragile: mancano due contesti per arrivare a 0,80, l'intervallo comprende la soglia, e chi ha annotato ha anche scritto le regole. Il controllo di una persona sullo stesso campione servirà solo come verifica: non cambia l'esito sulla soglia (decisione di Umberto del 18/11/2026).
 
 **Cosa si impara comunque.**
 
