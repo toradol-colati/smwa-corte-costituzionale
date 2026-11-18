@@ -162,6 +162,21 @@ def checks():
         ("Densità", f"ogni pronuncia cita in media {it(nb['out_deg_mean'], 1)} precedenti, e la densità è {it(nb['density_backward'], 5)}"),
         ("Catena", f"ha {nb['dag_longest_path']} anelli"),
     ]
+    # course measures
+    cm2 = load("course_measures.json")
+    pa, st, sw, br = cm2["preferential_attachment"], cm2["structure"], cm2["small_world"], cm2["bridges"]
+    out += [
+        ("Attaccamento", f"con a = {it(pa['a'])} ({it(pa['lo'])}–{it(pa['hi'])})"),
+        ("Chiusura triadica", f"Transitività {it(st['transitivity']['observed'], 3)}, contro {it(st['transitivity']['null_mean'], 3)} "
+                              f"({it(st['transitivity']['null_lo'], 3)}–{it(st['transitivity']['null_hi'], 3)})"),
+        ("Correlazione di grado", f"Correlazione {it(st['corr_in_in']['observed'], 3)}, contro {it(st['corr_in_in']['null_mean'], 3)} "
+                                  f"({it(st['corr_in_in']['null_lo'], 3)}–{it(st['corr_in_in']['null_hi'], 3)})"),
+        ("Piccolo mondo", f"due pronunce distano in media {it(sw['avg_distance'])} passi, contro {it(sw['er_avg_distance'])}"),
+        ("Ponti", f"il {pc(br['top1_betweenness_share_neighbours_outside'])}% dei vicini in altre comunità, contro il "
+                  f"{pc(br['top1_citations_share_neighbours_outside'])}% dell'1% più citato e il {pc(br['all_connected_share_neighbours_outside'])}%"),
+    ]
+    rb = cm2["robustness"]["after_removal"]["0.2"]
+    out.append(("Robustezza 20%", f"| 20% | {pc(rb['targeted'])}% | {pc(rb['random_mean'])}% ({pc(rb['random_lo'])}%–{pc(rb['random_hi'])}%) |"))
     return out
 
 

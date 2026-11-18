@@ -1,0 +1,161 @@
+{
+ "reps": 100,
+ "preferential_attachment": {
+  "a": 1.1221437878310894,
+  "lo": 1.1071594422220252,
+  "hi": 1.1371281334401535,
+  "rows": 669959,
+  "null_values": [
+   -0.0015590772257890503,
+   -0.003779770387252215,
+   0.01016252822604479,
+   -0.00679277451711928,
+   -0.006208250001739697
+  ],
+  "null_mean": -0.0016354687811710907
+ },
+ "structure": {
+  "transitivity": {
+   "observed": 0.15088861398634368,
+   "null_mean": 0.008502075537389188,
+   "null_lo": 0.008311469110234114,
+   "null_hi": 0.008734724327007932,
+   "p_two_sided": 0.019801980198019802
+  },
+  "avg_local_clustering": {
+   "observed": 0.2413194511037096,
+   "null_mean": 0.005145326517779205,
+   "null_lo": 0.0047269859979060976,
+   "null_hi": 0.005596795375038608,
+   "p_two_sided": 0.019801980198019802
+  },
+  "corr_in_in": {
+   "observed": 0.20135735866402946,
+   "null_mean": 0.07577116274014023,
+   "null_lo": 0.0704227284165572,
+   "null_hi": 0.08172804830751493,
+   "p_two_sided": 0.019801980198019802
+  },
+  "corr_out_in": {
+   "observed": 0.1733143534695447,
+   "null_mean": 0.10529080709384894,
+   "null_lo": 0.10146075883112113,
+   "null_hi": 0.11016833720606511,
+   "p_two_sided": 0.019801980198019802
+  }
+ },
+ "small_world": {
+  "giant_nodes": 19333,
+  "giant_share": 0.8620412895170999,
+  "mean_degree": 8.335220939046685,
+  "avg_distance": 5.300737563820023,
+  "transitivity": 0.15081912386842694,
+  "er_avg_distance": 4.960039360191258,
+  "er_transitivity": 0.00033488415061318444,
+  "er_giant_nodes": 22418
+ },
+ "bridges": {
+  "top1_betweenness_share_neighbours_outside": 0.37889041988169875,
+  "top1_citations_share_neighbours_outside": 0.22490457326457255,
+  "all_connected_share_neighbours_outside": 0.15963436292975894,
+  "overlap_top1_betweenness_citations": 0.39732142857142855,
+  "spearman_betweenness_citations": 0.7702191192749455,
+  "top10": [
+   {
+    "pid": 20070349,
+    "betweenness": 2977410.315799981,
+    "citazioni": 82,
+    "quota_vicini_in_altre_comunita": 0.5625
+   },
+   {
+    "pid": 20070348,
+    "betweenness": 2684006.251311645,
+    "citazioni": 71,
+    "quota_vicini_in_altre_comunita": 0.46296296296296297
+   },
+   {
+    "pid": 20150010,
+    "betweenness": 2514094.6852465323,
+    "citazioni": 48,
+    "quota_vicini_in_altre_comunita": 0.5047619047619047
+   },
+   {
+    "pid": 19830148,
+    "betweenness": 2136499.485308688,
+    "citazioni": 39,
+    "quota_vicini_in_altre_comunita": 0.5098039215686274
+   },
+   {
+    "pid": 19960084,
+    "betweenness": 1946794.5260597027,
+    "citazioni": 42,
+    "quota_vicini_in_altre_comunita": 0.4864864864864865
+   },
+   {
+    "pid": 20160203,
+    "betweenness": 1911027.3424426185,
+    "citazioni": 62,
+    "quota_vicini_in_altre_comunita": 0.453781512605042
+   },
+   {
+    "pid": 19900313,
+    "betweenness": 1869260.1028194237,
+    "citazioni": 55,
+    "quota_vicini_in_altre_comunita": 0.3787878787878788
+   },
+   {
+    "pid": 20060394,
+    "betweenness": 1772695.1022578801,
+    "citazioni": 68,
+    "quota_vicini_in_altre_comunita": 0.2743362831858407
+   },
+   {
+    "pid": 20100270,
+    "betweenness": 1727561.7953513192,
+    "citazioni": 53,
+    "quota_vicini_in_altre_comunita": 0.591304347826087
+   },
+   {
+    "pid": 19950029,
+    "betweenness": 1715127.2865553352,
+    "citazioni": 49,
+    "quota_vicini_in_altre_comunita": 0.47619047619047616
+   }
+  ]
+ },
+ "robustness": {
+  "giant_share_before": 0.8620412895170999,
+  "after_removal": {
+   "0.01": {
+    "targeted": 0.838364471396085,
+    "random_mean": 0.851759040442324,
+    "random_lo": 0.8510277790163642,
+    "random_hi": 0.8523654523565345
+   },
+   "0.02": {
+    "targeted": 0.822000267534668,
+    "random_mean": 0.8412583047219868,
+    "random_lo": 0.8390778971775092,
+    "random_hi": 0.8426450260846301
+   },
+   "0.05": {
+    "targeted": 0.7738440272885362,
+    "random_mean": 0.8097293440941723,
+    "random_lo": 0.8077317519061845,
+    "random_hi": 0.8117001828153565
+   },
+   "0.1": {
+    "targeted": 0.6920230079814509,
+    "random_mean": 0.7572479600481563,
+    "random_lo": 0.7547152985241005,
+    "random_hi": 0.7597538681054087
+   },
+   "0.2": {
+    "targeted": 0.5093860079368618,
+    "random_mean": 0.6547019217906987,
+    "random_lo": 0.6502875997681367,
+    "random_hi": 0.6611673429348554
+   }
+  }
+ }
+}

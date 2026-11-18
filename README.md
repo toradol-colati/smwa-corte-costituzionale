@@ -64,8 +64,10 @@ Il resto della pipeline, nell'ordine (`REPS=100` davanti ai comandi di analisi r
 .venv/bin/python src/analysis/d2_d4_giudici.py
 .venv/bin/python src/analysis/d3_memoria_collegiale.py
 .venv/bin/python src/analysis/extras.py
+.venv/bin/python src/analysis/course_measures.py
 .venv/bin/python src/analysis/figures.py
 .venv/bin/python src/analysis/interactive.py
+.venv/bin/python src/report/report_numbers.py
 ```
 
 Risultati: [`reports/relazione_for_dummies.md`](reports/relazione_for_dummies.md); qualità dei dati: [`reports/validation.md`](reports/validation.md).
@@ -97,6 +99,7 @@ docs/             specifica, schema dei dati, registro delle decisioni
 - [`docs/sources.md`](docs/sources.md): fonti e letteratura.
 - [`docs/project_guide.md`](docs/project_guide.md): guida generale alla stesura e alla presentazione del lavoro.
 - [`docs/decisions.md`](docs/decisions.md): registro delle decisioni.
+- [`docs/course_mapping.md`](docs/course_mapping.md): ogni argomento del programma d'esame, applicato (dove) o no (perché).
 - [`docs/data_schema.md`](docs/data_schema.md): campi e copertura dei file del portale.
 
 ## Licenza

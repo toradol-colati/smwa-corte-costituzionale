@@ -1,6 +1,6 @@
 # Chi fa il precedente? La rete delle pronunce della Corte costituzionale, 1956–2026
 
-**Relazione "for dummies"** · 16 novembre 2026 · Umberto Toraldo, con Claude Code
+**Relazione "for dummies"** · 16 novembre 2026, rivista il 18 novembre dopo un check del lavoro · Umberto Toraldo, con Claude Code
 
 > Questa relazione spiega tutto il lavoro a chi non lo ha seguito: da quali dati siamo partiti, cosa abbiamo fatto e perché, cosa abbiamo trovato, cosa resta da fare. Ogni numero viene da uno script del repository; il file da cui è preso è indicato tra parentesi. Il tema non è ancora stato approvato dal docente.
 
@@ -14,11 +14,18 @@
 
 1. **Risultato principale: nessuna "memoria collegiale" misurabile.** Un redattore non cita di più i precedenti decisi da collegi in cui sedeva, rispetto a quelli decisi mentre era in carica ma assente: odds ratio 1,00, intervallo di confidenza al 95% da 0,92 a 1,09. Il dato esclude effetti superiori al 9% circa in più o all'8% in meno; non dimostra che l'effetto sia esattamente zero.
 2. **Però un redattore cita molto di più ciò che ha scritto lui**: odds ratio 5,47 (4,76–6,27), a parità di età e materia del precedente. Gran parte viene dalle questioni che si ripetono: il 40,0% dei precedenti scritti dallo stesso redattore che vengono citati riguarda la stessa disposizione impugnata. A parità di disposizione impugnata l'odds ratio scende a 3,27 (2,95–3,63). Risultato esplorativo (sezione 3.4).
-3. **Una gerarchia di fatto esiste.** Le citazioni sono molto più concentrate di quanto vorrebbe il caso: l'1% delle pronunce più citate raccoglie il 10,3% delle citazioni, contro il 3,4% atteso.
+3. **Una gerarchia di fatto esiste.** Le citazioni sono molto più concentrate di quanto vorrebbe il caso: l'1% delle pronunce più citate raccoglie il 10,3% delle citazioni, contro il 3,4% atteso (4,2% tenendo conto che le ordinanze sono citate molto meno delle sentenze).
 4. **Pochi redattori si distinguono.** Su 113 giudici, dopo la correzione di Holm le pronunce di 6 sono citate più di pronunce prese a caso dello stesso anno e quelle di 7 meno; e chi è citato più dell'atteso in carica lo resta dopo il mandato, più di quanto darebbero le sole pronunce. Esplorativo.
-5. **Due risultati della letteratura sulla Corte italiana non reggono**: la distribuzione delle citazioni non è una legge di potenza, e le pronunce più "autorevoli" secondo l'algoritmo HITS non coincidono con le più citate.
+5. **Due risultati della letteratura sulla Corte italiana non reggono**: la distribuzione delle citazioni non è una legge di potenza, e le pronunce più "autorevoli" secondo l'algoritmo HITS non coincidono con le più citate, anche se la differenza dipende soprattutto da come HITS tratta i gruppi di pronunce molto collegate tra loro.
 
-**Il "fattore wow"** è nella sezione 5.
+**Il "fattore wow"** è nella sezione 5. **Come ogni argomento del programma d'esame entra nel lavoro**: sezione 9.
+
+> **Cosa è cambiato dopo il check del 17/11/2026.** Un controllo del lavoro ha trovato errori e punti deboli. Le correzioni sono nel registro delle decisioni (`docs/decisions.md`, righe del 18/11) e nella storia del repository (ramo `correzioni-check`, un commit per correzione):
+> - D3 si calcola con la verosimiglianza esatta: il risultato principale passa da 1,03 a 1,00, e "l'ha redatto lui" da 3,01 a 5,47, che scende a 3,27 a parità di disposizione impugnata;
+> - D2 usa un modello nullo che tiene conto di quanto diversamente sono citate le pronunce, e la finestra di 10 anni fissata prima: i giudici fuori dall'atteso passano da 27 e 39 a 6 e 7, e D2 diventa esplorativo;
+> - D1: un secondo modello nullo tiene conto delle ordinanze; l'interpretazione "conta chi ti cita" è ritirata;
+> - etichette dei topic, modularità con 100 ricablaggi, un numero sbagliato (i testi senza divisione) e alcuni arrotondamenti corretti; un test confronta ora i numeri della relazione con i file dei risultati;
+> - aggiunte le misure del corso (sezione 3.8), la mappa del programma (sezione 9) e un foglio per il controllo umano dell'estrazione.
 
 ## 1. Da dove siamo partiti: i dati
 
@@ -304,6 +311,26 @@ Resta il limite della materia: i topic sono grossolani, e i redattori non sono a
 - **Esito.** Tra le pronunce del 2006–2015, quelle che dichiarano un'illegittimità costituzionale ricevono in dieci anni 10,9 citazioni in media, le altre 4,0: 2,7 volte (2,5–2,9). Tra le sole sentenze, 1,6 volte (1,4–1,7).
 - **Wikipedia.** Solo l'1,3% delle pronunce è richiamato da una voce. Tra l'1% più autorevole la quota è 8,5%, tra l'1% più citato 10,7%: le pronunce importanti nella rete sono anche quelle note fuori, e di nuovo il conteggio delle citazioni fa almeno bene quanto HITS. È un confronto descrittivo, su pochi casi.
 
+### 3.8 Le misure del corso (esplorative)
+
+(`reports/course_measures.json`, script `src/analysis/course_measures.py`) Aggiunte il 18/11/2026 per coprire gli argomenti dei libri di testo del corso; non erano nel piano fissato prima. Ognuna ha il suo termine di confronto.
+
+- **Chi è ricco diventa più ricco** (attaccamento preferenziale). Confrontando ogni pronuncia solo con quelle depositate nello stesso anno, le citazioni nuove di un anno crescono con quelle già ricevute come (1 + citazioni)^a, con a = 1,12 (1,11–1,14). Nelle reti del modello nullo di D1, dove le citazioni passate non contano, la stessa stima dà 0,00. Con a = 1 l'attaccamento sarebbe proporzionale, come nel modello di Barabási e Albert; qui è un po' più che proporzionale. Limite: l'attrattiva propria di una pronuncia (la fitness del modello di Bianconi e Barabási) si confonde con l'attaccamento, quindi a ne è un limite superiore.
+- **Chiusura triadica.** Se una pronuncia cita due precedenti, quanto spesso uno dei due cita l'altro? Transitività 0,151, contro 0,009 (0,008–0,009) nelle 100 reti rimescolate che conservano citazioni fatte, ricevute ed età: tutte molto sotto il dato vero; clustering locale medio 0,241 contro 0,005. Si usa la rete non orientata: in un grafo aciclico la versione orientata non ha senso.
+- **Correlazioni di grado.** Le pronunce molto citate citano pronunce molto citate? Correlazione 0,201, contro 0,076 (0,070–0,082) nel nullo. Le pronunce che citano molto citano precedenti molto citati? 0,173 contro 0,105 (0,101–0,110).
+- **Piccolo mondo.** Nella componente gigante (86,2% delle pronunce, grado medio 8,3) due pronunce distano in media 5,30 passi, contro 4,96 in un grafo casuale con gli stessi nodi e legami; la transitività è 0,151 contro 0,0003. Distanze brevi come in un grafo casuale e molta più chiusura: è la firma del piccolo mondo.
+- **Ponti tra filoni.** Le pronunce nell'1% più alto per betweenness (quelle che stanno su molti cammini brevi) hanno in media il 37,9% dei vicini in altre comunità, contro il 22,5% dell'1% più citato e il 16,0% di tutte le pronunce collegate: sono davvero i ponti tra i filoni. Le due liste hanno in comune il 39,7% delle pronunce.
+- **Robustezza.** Togliendo le pronunce più citate la rete si spezza più in fretta che togliendone a caso, ma senza crolli: non c'è un piccolo nucleo di pronunce da cui dipende tutto.
+
+| Pronunce tolte | Componente gigante, togliendo le più citate | Togliendo a caso (min–max su 10 prove) |
+| --- | --- | --- |
+| 1% | 83,8% | 85,2% (85,1%–85,2%) |
+| 5% | 77,4% | 81,0% (80,8%–81,2%) |
+| 10% | 69,2% | 75,7% (75,5%–76,0%) |
+| 20% | 50,9% | 65,5% (65,0%–66,1%) |
+
+Prima di togliere nulla, la componente gigante contiene l'86,2% delle pronunce.
+
 ## 4. Cosa risponde alla domanda
 
 - **La Corte costruisce una gerarchia di precedenti?** Sì, di fatto: poche pronunce concentrano le citazioni molto oltre il caso, un'ossatura resta citata per decenni, la rete si organizza in filoni per materia. Ma il grosso dei precedenti è consumato in pochi anni.
@@ -339,7 +366,9 @@ Sono risultati esplorativi, non preannunciati, solo il punto 2 e la replica al p
 
 **Fatto in questa sessione perché si poteva fare:** estrazione e validazione, tutti e tre gli strati, D1–D4, topic, esito via SPARQL, Wikipedia, comunità, sei varianti di D3.
 
-**Aggiunto dopo la revisione finale, perché si poteva fare:**
+**Aggiunto dopo il check del 17/11/2026:** verosimiglianza esatta in D3 e variante con la norma impugnata; rimescolamento dei redattori, finestra di 10 anni e variante dal 1987 in D2; nullo per tipo in D1; controllo delle comunità per HITS; modularità con 100 ricablaggi; etichette dei topic per specificità; misure del corso (sezione 3.8); mappa del programma (sezione 9); foglio per il controllo umano; test dei numeri; versioni dei pacchetti fissate.
+
+**Aggiunto dopo la revisione finale del 16/11, perché si poteva fare:**
 
 - variante di D3 con le citazioni delle massime (note editoriali): 0,99 (0,91–1,08), stessa conclusione;
 - Infomap accanto a Leiden;
@@ -380,7 +409,8 @@ Sono risultati esplorativi, non preannunciati, solo il punto 2 e la replica al p
 ## 8. Come rifare tutto
 
 ```
-python3 -m venv --system-site-packages .venv
+python3.12 -m venv .venv
+.venv/bin/pip install -r requirements.lock
 .venv/bin/python -I src/ingest/download.py
 .venv/bin/python src/ingest/inspect_raw.py
 .venv/bin/python src/ingest/build_pronunce.py
@@ -396,8 +426,26 @@ python3 -m venv --system-site-packages .venv
 .venv/bin/python src/analysis/d2_d4_giudici.py
 .venv/bin/python src/analysis/d3_memoria_collegiale.py
 .venv/bin/python src/analysis/extras.py
+.venv/bin/python src/analysis/course_measures.py
 .venv/bin/python src/analysis/figures.py
 .venv/bin/python src/analysis/interactive.py
+.venv/bin/python src/report/report_numbers.py
+.venv/bin/python -m pytest
 ```
 
+Per il controllo umano dell'estrazione: `.venv/bin/python src/validation/human_sheet.py` prepara il foglio; dopo l'annotazione, `.venv/bin/python src/validation/evaluate.py human`.
+
 Fonti e letteratura, con lo stato di lettura di ogni voce: `docs/sources.md`. Decisioni e scostamenti dal piano: `docs/decisions.md`.
+
+## 9. Il programma d'esame, punto per punto
+
+Il programma 2026/27 elenca sei voci, senza sotto-argomenti; concetti, misure e modelli più fini vengono dagli indici dei due libri di testo (Easley e Kleinberg; Barabási), non dall'elenco delle lezioni, che va ancora confrontato. La mappa completa, concetto per concetto, con lo script, il file dei risultati e la sezione di questa relazione, oppure il motivo per cui un argomento non è applicato, è in `docs/course_mapping.md`.
+
+| Voce del programma | Stato | Dove |
+| --- | --- | --- |
+| Introduzione alla data science e alla social media analysis | Data science sì; dati social no | Sezioni 1–2; il tema va concordato con il docente |
+| Social network analysis | Applicata | Sezioni 2.6, 2.8, 3 (comprese le misure del corso, 3.8) |
+| Lavorare con API | Applicato | Endpoint SPARQL della Corte e API di MediaWiki: sezioni 1.1, 2.5, 3.7 |
+| Data and information visualisation | Applicata | Figure 1–10 e rete interattiva (sezione 3.2) |
+| Topic extraction | Applicata | Sezione 2.7 |
+| Sentiment analysis | Non applicata | Esclusa il 12/11/2026; al suo posto l'esito delle pronunce. Alternativa da decidere: la polarità delle citazioni (sezione 7, "Magari") |

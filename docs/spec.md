@@ -307,9 +307,9 @@ Il sentiment resta fuori. Che i dati non siano social resta comunque da chiarire
 | Argomento del corso | Dove entra nel progetto |
 | --- | --- |
 | Introduzione alla data science e all'analisi dei social | Pipeline riproducibile dai dati grezzi: download con manifest, ispezione, estrazione delle citazioni dal testo, validazione a mano |
-| Analisi delle reti sociali | Il nucleo: tre strati, metriche di base, centralità, comunità, assortatività |
+| Analisi delle reti sociali | Il nucleo: tre strati, metriche di base, centralità, comunità; dal 18/11/2026 anche attaccamento preferenziale, chiusura triadica, correlazioni di grado, piccolo mondo, ponti e robustezza (`src/analysis/course_measures.py`). Mappa completa in `docs/course_mapping.md` |
 | Lavorare con le API | Endpoint SPARQL della Corte per l'esito delle pronunce (dal 2005) e per il controllo incrociato dei conteggi; API di MediaWiki per i link da Wikipedia. Il download degli archivi è da file statici, non da API |
-| Visualizzazione | Rete esplorabile di pronunce e giudici; curve di invecchiamento dei precedenti; figure secondo `docs/project_guide.md`, §3 |
+| Visualizzazione | Rete esplorabile del nucleo delle pronunce (`reports/rete_interattiva.html`; quella dei giudici non è stata fatta); curve di invecchiamento dei precedenti; figure secondo `docs/project_guide.md`, §3 |
 | Estrazione dei temi | Modello di topic sui testi delle massime: dà la materia di ogni pronuncia (controllo in D2 e D3) e serve a interpretare e validare le comunità |
 | Analisi del sentiment | Fuori dal progetto: sulle motivazioni di una corte non ha un significato chiaro. Al suo posto, come attributo delle pronunce, l'esito preso dall'endpoint SPARQL, dal 2005 |
 
