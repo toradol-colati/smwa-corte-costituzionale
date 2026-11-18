@@ -20,7 +20,7 @@
 
 **Il "fattore wow"** è nella sezione 5. **Come ogni argomento del programma d'esame entra nel lavoro**: sezione 9.
 
-> **Cosa è cambiato dopo il check del 17/11/2026.** Un controllo del lavoro ha trovato errori e punti deboli. Le correzioni sono nel registro delle decisioni (`docs/decisions.md`, righe del 18/11) e nella storia del repository (ramo `correzioni-check`, un commit per correzione):
+> **Cosa è cambiato dopo il check del 17/11/2026.** Un controllo del lavoro ha trovato errori e punti deboli. Le correzioni sono nel registro delle decisioni (`docs/decisions.md`, righe del 18/11) e nella storia del repository (su `main`, un commit per correzione dopo la fotografia del 17/11, etichetta git `versione-17-11`):
 > - D3 si calcola con la verosimiglianza esatta: il risultato principale passa da 1,03 a 1,00, e "l'ha redatto lui" da 3,01 a 5,47, che scende a 3,27 a parità di disposizione impugnata;
 > - D2 usa un modello nullo che tiene conto di quanto diversamente sono citate le pronunce, e la finestra di 10 anni fissata prima: i giudici fuori dall'atteso passano da 27 e 39 (versione del 16/11) a 6 e 7, e D2 diventa esplorativo;
 > - D1: un secondo modello nullo tiene conto delle ordinanze; l'interpretazione "conta chi ti cita" è ritirata;
