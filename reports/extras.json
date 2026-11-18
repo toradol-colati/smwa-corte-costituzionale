@@ -4,7 +4,10 @@
   "communities_50plus": 34,
   "share_nodes_in_50plus": 0.8603469032862175,
   "modularity": 0.6761084071833585,
-  "modularity_rewired": 0.2920269852736692,
+  "modularity_rewired": 0.2892488273873239,
+  "modularity_rewired_lo": 0.28714887115488275,
+  "modularity_rewired_hi": 0.291819675631467,
+  "rewirings": 100,
   "nmi_topic": 0.22022297353080325,
   "nmi_null_mean": 0.005739102309042272,
   "nmi_null_hi": 0.006301941516735696,
@@ -199,6 +202,33 @@
    "nmi_with_leiden_connected_only": 0.6198700396265326,
    "nmi_topic": 0.3528734113806321
   }
+ },
+ "hits_communities": {
+  "authority_hits": {
+   "top1_share_largest_community": 0.9508928571428571,
+   "communities_in_top1": 3,
+   "largest_community": 0,
+   "largest_community_size": 2045,
+   "largest_community_median_year": 2013,
+   "median_year_top1": 2013
+  },
+  "pagerank": {
+   "top1_share_largest_community": 0.16071428571428573,
+   "communities_in_top1": 26,
+   "largest_community": 2,
+   "largest_community_size": 1627,
+   "largest_community_median_year": 1990,
+   "median_year_top1": 1970
+  },
+  "citazioni": {
+   "top1_share_largest_community": 0.46875,
+   "communities_in_top1": 22,
+   "largest_community": 0,
+   "largest_community_size": 2045,
+   "largest_community_median_year": 2013,
+   "median_year_top1": 2008
+  },
+  "authority_mass_in_largest_community": 0.9155008170367086
  },
  "esito": {
   "tutte": {

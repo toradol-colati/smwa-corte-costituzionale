@@ -10,15 +10,19 @@ Usage: .venv/bin/python src/analysis/extras.py
 """
 import json
 import random
+import sys
 from pathlib import Path
 import igraph as ig
 import leidenalg
 import numpy as np
 import pandas as pd
+import scipy.sparse as sp
 from scipy.stats import mannwhitneyu
 from sklearn.metrics import normalized_mutual_info_score
 
 REPO = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO / "src/analysis"))
+from d1_pronunce import hits, pagerank  # noqa: E402
 P = REPO / "data/processed"
 SEED = 20261116
 rng = np.random.default_rng(SEED)
@@ -38,9 +42,13 @@ has = nodes.pid.isin(tp.index).values & big
 t = tp.loc[nodes.pid[has]].values
 nmi = normalized_mutual_info_score(memb[has], t)
 null = [normalized_mutual_info_score(memb[has], rng.permutation(t)) for _ in range(200)]
-# null that keeps the degree sequence: modularity of a degree-preserving rewiring
-rew = g.copy(); rew.rewire(n=10 * g.ecount())
-part0 = leidenalg.find_partition(rew, leidenalg.ModularityVertexPartition, seed=SEED)
+# null that keeps the degree sequence: modularity of 100 degree-preserving rewirings (seeded;
+# a single unseeded rewiring was used until 17/11/2026)
+random.seed(SEED)
+mods = []
+for _ in range(100):
+    rew = g.copy(); rew.rewire(n=10 * g.ecount())
+    mods.append(leidenalg.find_partition(rew, leidenalg.ModularityVertexPartition, seed=SEED).modularity)
 top = []
 tj = json.load(open(REPO / "reports/topics.json"))
 for c in np.argsort(-sizes)[:12]:
@@ -51,7 +59,8 @@ for c in np.argsort(-sizes)[:12]:
                 "top_topic_words": tj["top_words"][str(int(vc.index[0]))][:6]})
 out["communities"] = {"n_communities": int(len(sizes)), "communities_50plus": int((sizes >= 50).sum()),
                       "share_nodes_in_50plus": float(big.mean()), "modularity": float(part.modularity),
-                      "modularity_rewired": float(part0.modularity), "nmi_topic": float(nmi), "nmi_null_mean": float(np.mean(null)),
+                      "modularity_rewired": float(np.mean(mods)), "modularity_rewired_lo": float(np.quantile(mods, .025)),
+                      "modularity_rewired_hi": float(np.quantile(mods, .975)), "rewirings": len(mods), "nmi_topic": float(nmi), "nmi_null_mean": float(np.mean(null)),
                       "nmi_null_hi": float(np.quantile(null, .975)), "largest": top}
 pd.DataFrame({"pid": nodes.pid, "community": memb}).to_csv(P / "communities.csv", index=False)
 # second method, as planned: Infomap (igraph implementation), compared with Leiden
@@ -65,6 +74,24 @@ out["communities"]["infomap"] = {"n_communities": int(len(im_sizes)), "communiti
                                  "nmi_with_leiden": float(normalized_mutual_info_score(memb, im)),
                                  "nmi_with_leiden_connected_only": float(normalized_mutual_info_score(memb[np.array(g.degree()) > 0], im[np.array(g.degree()) > 0])),
                                  "nmi_topic": float(normalized_mutual_info_score(im[has_i], tp.loc[nodes.pid[has_i]].values))}
+
+# 1b. where HITS puts its authority (check of 17/11/2026): HITS concentrates on the most densely
+# connected group of a network, so the top authorities may all come from one community
+A = sp.csr_matrix((np.ones(len(edges)), (idx.loc[edges.citing_id].values, idx.loc[edges.cited_id].values)), shape=(len(nodes), len(nodes)))
+auth, _ = hits(A)
+pr_ = pagerank(A)
+indeg = np.asarray(A.sum(0)).ravel()
+k1 = len(nodes) // 100
+hc = {}
+for lab, score in [("authority_hits", auth), ("pagerank", pr_), ("citazioni", indeg)]:
+    top_ = np.argsort(-score, kind="stable")[:k1]
+    vc = pd.Series(memb[top_]).value_counts()
+    c0 = int(vc.index[0])
+    hc[lab] = {"top1_share_largest_community": float(vc.iloc[0] / k1), "communities_in_top1": int(len(vc)),
+               "largest_community": c0, "largest_community_size": int(sizes[c0]),
+               "largest_community_median_year": int(nodes.anno[memb == c0].median()), "median_year_top1": int(np.median(nodes.anno.values[top_]))}
+hc["authority_mass_in_largest_community"] = float((auth[memb == hc["authority_hits"]["largest_community"]] ** 2).sum() / (auth ** 2).sum())
+out["hits_communities"] = hc
 
 # 2. outcome and citations in a fixed 10-year window (cohorts 2005-2015)
 es = pd.read_csv(P / "esiti.csv").groupby("pid").illegittimita.max()
