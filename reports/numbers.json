@@ -1,0 +1,14 @@
+{
+ "pronunce": 22427,
+ "split_failed": 322,
+ "split_failed_share": 0.014357693851161547,
+ "split_failed_by_type": {
+  "O": 305,
+  "S": 17
+ },
+ "mentions_valid": 155982,
+ "mentions_same_date": 268,
+ "mentions_excluded": 9174,
+ "mentions_errors": 1950,
+ "type_mismatch_share": 0.013351400644771826
+}
