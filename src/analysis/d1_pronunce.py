@@ -158,6 +158,38 @@ def main():
     out["concentration"] = {k: {"observed": obs[k], "null_mean": float(np.mean(v)), "null_lo": float(np.quantile(v, .025)),
                                 "null_hi": float(np.quantile(v, .975)), "p": float((np.sum(np.array(v) >= obs[k]) + 1) / (REPS + 1))}
                             for k, v in null.items()}
+    # variant (check of 17/11/2026): ordinanze are cited far less than sentenze, so the target is
+    # also redrawn within the same type; own random stream, so that the other results do not move
+    rng_t = np.random.default_rng(SEED + 1)
+    tipo = (sub.tipo == "S").values.astype(int)
+    key_c, key_n = cited_year * 2 + tipo[cj], year * 2 + tipo
+    pools = {k: np.flatnonzero(key_n == k) for k in np.unique(key_c)}
+    order_t = np.argsort(key_c, kind="stable")
+    uk, st = np.unique(key_c[order_t], return_index=True)
+    en = np.r_[st[1:], len(cj)]
+    null_t = {k: [] for k in obs}
+    for _ in range(REPS):
+        new = np.empty_like(cj)
+        for kk, a, b in zip(uk, st, en):
+            pool, sel = pools[kk], order_t[a:b]
+            draw = pool[rng_t.integers(0, len(pool), b - a)]
+            late = dep[draw] > dep[ci[sel]]
+            for _try in range(20):
+                if not late.any():
+                    break
+                draw[late] = pool[rng_t.integers(0, len(pool), late.sum())]
+                late = dep[draw] > dep[ci[sel]]
+            draw[late] = cj[sel][late]
+            new[sel] = draw
+        d = np.bincount(new, minlength=n)
+        null_t["gini"].append(gini(d)); null_t["top1_share"].append(float(np.sort(d)[-k1:].sum() / len(cj)))
+        null_t["max"].append(int(d.max())); null_t["never_cited"].append(float((d == 0).mean()))
+    out["concentration_by_type"] = {k: {"observed": obs[k], "null_mean": float(np.mean(v)), "null_lo": float(np.quantile(v, .025)),
+                                        "null_hi": float(np.quantile(v, .975)), "p": float((np.sum(np.array(v) >= obs[k]) + 1) / (REPS + 1))}
+                                    for k, v in null_t.items()}
+    S_ = tipo == 1
+    out["concentration_by_type"]["observed_by_type"] = {"gini_sentenze": gini(indeg[S_]), "never_cited_sentenze": float((indeg[S_] == 0).mean()),
+                                                        "gini_ordinanze": gini(indeg[~S_]), "never_cited_ordinanze": float((indeg[~S_] == 0).mean())}
     fit = powerlaw.Fit(indeg[indeg > 0], discrete=True, verbose=False)
     R, p = fit.distribution_compare("power_law", "lognormal", normalized_ratio=True)
     R2, p2 = fit.distribution_compare("power_law", "truncated_power_law", normalized_ratio=True)

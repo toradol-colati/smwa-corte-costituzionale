@@ -3,10 +3,19 @@ given the judge's opportunities? Does it last after the mandate?
 D4 - do judges cite more the pronunce drafted by judges with the same
 appointing body or the same professional background? (only if power >= 0.80)
 
-Null for D2 (docs/decisions.md): every citation keeps its citing pronuncia and
-the deposit year of its target; the target is redrawn among the pronunce of that
-year (variant: of that year and of the same type). Self-citations (citing and
-cited drafted by the same judge) are excluded from observed and expected.
+Expected value for D2 (docs/decisions.md, .claude/rules/network-analysis.md): every citation keeps
+its citing pronuncia and the deposit year of its target; the target is drawn among the pronunce of
+that year (variant: of that year and of the same type), i.e. in proportion to the observed age curve.
+
+Inference for D2 (changed after the check of 17/11/2026, declared in docs/decisions.md): drafter
+sets are permuted among pronunce of the same stratum (year; variants: year and type; year, type and
+topic; only pronunce from 287/1986), and every pronuncia keeps the citations it actually received.
+The pre-registered null (targets redrawn at random) gives the same expected value but ignores how
+differently pronunce are cited, so it overstates how many judges differ from 1: it is still
+computed and stored under "nullo_preregistrato", but not interpreted.
+Self-citations (citing and cited pronuncia sharing a drafter) are excluded from observed and
+expected values; under permutation every pronuncia keeps only the citations it received from pronunce
+of other drafters (observed drafters), whoever is assigned to it.
 
 Outputs: reports/d2_results.json, reports/d4_results.json, data/processed/judges_attributes.csv
 Usage: .venv/bin/python src/analysis/d2_d4_giudici.py
@@ -28,6 +37,9 @@ SEED = 20261116
 REPS = int(os.environ.get("REPS", 1000))
 MIN_PRONUNCE = 30
 POST_WINDOW = 10
+WINDOW_YEARS = None  # set in the next step to the pre-registered 10-year window
+PERM = int(os.environ.get("PERM", 10000))
+SWITCH = 19860287  # first pronuncia with the redattore recorded
 
 
 def holm(p):
@@ -78,28 +90,141 @@ def main():
     D = np.zeros((n, J), bool)
     for i, l in enumerate(red_lists):
         D[i, l] = True
-    ci, cj = idx.loc[edges.citing_id].values, idx.loc[edges.cited_id].values
-    self_cit = (D[ci] & D[cj]).any(1)
-    ci, cj = ci[~self_cit], cj[~self_cit]
+    ci_all, cj_all = idx.loc[edges.citing_id].values, idx.loc[edges.cited_id].values
+    # main ratio: citations received within WINDOW_YEARS of the deposit of the cited pronuncia
+    # (docs/decisions.md, 16/11/2026); None = all citations
+    in_main = np.ones(len(ci_all), bool) if WINDOW_YEARS is None else (dep[ci_all] - dep[cj_all]) <= WINDOW_YEARS * 365.25
+    self_all = (D[ci_all] & D[cj_all]).any(1)
     n_drafted = D.sum(0)
-    obs = D[cj].sum(0).astype(float)
     last_y = np.full(J, 9999.0)
     for r in judges.itertuples():
         if pd.notna(r.last):
             last_y[r.judge_id] = r.last.year + r.last.dayofyear / 366
-    cit_time = 1970 + dep[ci] / 365.25
-    post = D[cj] & ((cit_time[:, None] > last_y[None, :]) & (cit_time[:, None] <= last_y[None, :] + POST_WINDOW))
-    during = D[cj] & (cit_time[:, None] <= last_y[None, :])
-    obs_post, obs_during = post.sum(0).astype(float), during.sum(0).astype(float)
+    t_all = 1970 + dep[ci_all] / 365.25
+    tested = np.array([r.judge_id for r in judges.itertuples() if n_drafted[r.judge_id] >= MIN_PRONUNCE])
+    out = {"min_pronunce": MIN_PRONUNCE, "window_years": WINDOW_YEARS, "permutations": PERM, "reps_preregistered": REPS,
+           "self_citations_excluded": int((self_all & in_main).sum()), "citations_used": int((~self_all & in_main).sum()),
+           "self_citation_rule": "a citation is excluded when the citing pronuncia shares a drafter with the cited one (observed "
+                                 "drafters); under permutation every pronuncia keeps only the citations it received from pronunce "
+                                 "of other drafters, whoever is assigned to it"}
 
-    def simulate(by_type: bool):
+    # ---- label-permutation null (interpreted). Drafter sets are shuffled among pronunce of the
+    # same stratum; every pronuncia keeps the citations it actually received. The expected value
+    # is the same as in the pre-registered rule (age curve), the variability is the right one.
+    maxd = max(1, max(len(l) for l in red_lists))
+    L = np.full((n, maxd), -1, int)
+    for i, l in enumerate(red_lists):
+        L[i, :len(l)] = l
+
+    def counts(perm, ci_, cj_, main_, t_, own_):
+        """Citations received by every judge under the drafter assignment perm (pronuncia i takes
+        the drafters of pronuncia perm[i]): main ratio, during and after the mandate. own_ marks the
+        self-citations under the observed drafters: they are excluded whoever gets the pronuncia, so
+        every pronuncia carries only the citations it received from pronunce of other drafters."""
+        Lc = L[perm[cj_]]
+        shared = own_
+        c_main, c_dur, c_post = np.zeros(J), np.zeros(J), np.zeros(J)
+        for k in range(maxd):
+            jj = Lc[:, k]
+            m = (jj >= 0) & ~shared
+            jm, tm, lm = jj[m], t_[m], last_y[jj[m]]
+            c_main += np.bincount(jm[main_[m]], minlength=J)
+            c_dur += np.bincount(jm[tm <= lm], minlength=J)
+            c_post += np.bincount(jm[(tm > lm) & (tm <= lm + POST_WINDOW)], minlength=J)
+        return c_main, c_dur, c_post
+
+    def perm_null(strata, ci_, cj_, main_, t_, own_, js, seed):
+        prng = np.random.default_rng(seed)
+        base = np.argsort(strata, kind="stable")
+        sims = np.zeros((3, PERM, len(js)), np.float32)
+        for r_ in range(PERM):
+            perm = np.empty(n, int)
+            perm[base] = np.lexsort((prng.random(n), strata))
+            for a, c in enumerate(counts(perm, ci_, cj_, main_, t_, own_)):
+                sims[a, r_] = c[js]
+        return sims
+
+    from scipy.stats import norm, spearmanr, wilcoxon
+    topic = pd.read_csv(P / "topics_pronunce.csv").set_index("pid").topic.reindex(nodes.pid).fillna(-1).astype(int).values
+    in87 = nodes.pid.values >= SWITCH
+    m87 = in87[ci_all] & in87[cj_all]
+    variants = {
+        "permutazione_anno": (year, np.ones(len(ci_all), bool), tested),
+        "permutazione_anno_tipo": (year * 2 + tipo, np.ones(len(ci_all), bool), tested),
+        "permutazione_anno_tipo_materia": ((year * 2 + tipo) * 100 + topic + 1, np.ones(len(ci_all), bool), tested),
+        "permutazione_anno_dal_1987": (np.where(in87, year, -1), m87,
+                                       np.array([j for j in tested if D[in87, j].sum() >= MIN_PRONUNCE])),
+    }
+    jinfo = judges.set_index("judge_id")
+    for vi, (vname, (strata, cmask, js)) in enumerate(variants.items()):
+        ci_, cj_, main_, t_, own_ = ci_all[cmask], cj_all[cmask], in_main[cmask], t_all[cmask], self_all[cmask]
+        o_main, o_dur, o_post = (c[js] for c in counts(np.arange(n), ci_, cj_, main_, t_, own_))
+        if vname == "permutazione_anno":  # the identity assignment reproduces the observed counts
+            ref = D[cj_all[in_main & ~self_all]].sum(0)[js]
+            assert np.array_equal(o_main, ref), "observed counts do not match"
+        sims = perm_null(strata, ci_, cj_, main_, t_, own_, js, SEED + 100 + vi)
+        exp, exp_dur, exp_post = sims[0].mean(0), sims[1].mean(0), sims[2].mean(0)
+        lr_obs = np.log(np.maximum(o_main, .5) / exp)
+        lr_sim = np.log(np.maximum(sims[0], .5) / exp)
+        p = (1 + (np.abs(lr_sim) >= np.abs(lr_obs) - 1e-12).sum(0)) / (PERM + 1)
+        z = (o_main - exp) / sims[0].std(0, ddof=1)
+        # 95% interval of the ratio: bootstrap of the judge's own pronunce (their citations as received)
+        valid = ~self_all[cmask] & main_
+        cnt = np.bincount(cj_[valid], minlength=n).astype(float)
+        brng = np.random.default_rng(SEED + 200 + vi)
+        dmask = in87 if vname.endswith("1987") else np.ones(n, bool)
+        rows = []
+        for a, j in enumerate(js):
+            pj = cnt[np.flatnonzero(D[:, j] & dmask)]
+            bs = pj[brng.integers(0, len(pj), (2000, len(pj)))].sum(1) / exp[a]
+            r = jinfo.loc[j]
+            row = dict(judge_id=int(j), nome=r.Nome_Cognome, pronunce=int(len(pj)), osservate=int(o_main[a]), attese=float(exp[a]),
+                       rapporto=float(o_main[a] / exp[a]), lo=float(np.quantile(bs, .025)), hi=float(np.quantile(bs, .975)),
+                       z=float(z[a]), p=float(p[a]), giuramento=str(r.data_giuramento.date()), organo=r.organo, provenienza=r.provenienza)
+            if pd.notna(r["last"]) and r["last"].year <= 2015 and exp_dur[a] > 0 and exp_post[a] > 0:
+                row.update(rapporto_durante=float(o_dur[a] / exp_dur[a]), rapporto_post=float(o_post[a] / exp_post[a]),
+                           osservate_post=int(o_post[a]))
+            rows.append(row)
+        t = pd.DataFrame(rows)
+        t["p_holm"] = holm(t.p.values)
+        var_null = np.var(lr_sim, axis=1)
+        res = {"judges_tested": int(len(t)), "sig_holm_above": int(((t.p_holm < .05) & (t.rapporto > 1)).sum()),
+               "sig_holm_below": int(((t.p_holm < .05) & (t.rapporto < 1)).sum()),
+               "outside_null_band_unadjusted": int(((o_main > np.quantile(sims[0], .975, 0)) | (o_main < np.quantile(sims[0], .025, 0))).sum()),
+               "ratio_quantiles": {q: float(t.rapporto.quantile(q)) for q in [.05, .25, .5, .75, .95]},
+               "var_log_ratio": float(np.var(lr_obs)), "var_log_ratio_null_mean": float(var_null.mean()),
+               "var_log_ratio_null_hi": float(np.quantile(var_null, .975)), "var_ratio_to_null": float(np.var(lr_obs) / var_null.mean()),
+               "p_heterogeneity": float((1 + (var_null >= np.var(lr_obs)).sum()) / (PERM + 1))}
+        if "rapporto_post" in t:
+            pmk = t.rapporto_post.notna().values
+            rho = float(spearmanr(t.rapporto_durante[pmk], t.rapporto_post[pmk])[0])
+            rn = np.array([spearmanr(sims[1][r_, pmk] / exp_dur[pmk], sims[2][r_, pmk] / exp_post[pmk])[0] for r_ in range(PERM)])
+            pm = t[pmk]
+            res["post_mandate"] = {"judges": int(pmk.sum()), "spearman_during_post": rho,
+                                   "spearman_null_mean": float(rn.mean()), "spearman_null_lo": float(np.quantile(rn, .025)),
+                                   "spearman_null_hi": float(np.quantile(rn, .975)), "p_above_null": float((1 + (rn >= rho).sum()) / (PERM + 1)),
+                                   "median_ratio_during": float(pm.rapporto_durante.median()), "median_ratio_post": float(pm.rapporto_post.median()),
+                                   "wilcoxon_p": float(wilcoxon(np.log(pm.rapporto_post.clip(lower=.01)), np.log(pm.rapporto_durante.clip(lower=.01))).pvalue)}
+        res["table"] = t.sort_values("rapporto", ascending=False).to_dict("records")
+        out[vname] = res
+        print(vname, {k: v for k, v in res.items() if k != "table"}, flush=True)
+        print(t.sort_values("rapporto", ascending=False)[["nome", "pronunce", "osservate", "attese", "rapporto", "lo", "hi", "p_holm"]].head(6).to_string(), flush=True)
+
+    # ---- pre-registered null, kept for transparency: every citation keeps its citing pronuncia and
+    # the year (and type) of its target, the target is redrawn at random. Its variance ignores how
+    # differently pronunce are cited, so it overstates the number of judges far from 1 (check 17/11/2026).
+    keep = in_main & ~self_all
+    ci, cj = ci_all[keep], cj_all[keep]
+    obs = D[cj].sum(0).astype(float)
+    pre = {"note": "underdispersed: variability of a multinomial draw, not of pronunce; not interpreted"}
+    for label, by_type in [("age_only", False), ("age_and_type", True)]:
         key = year[cj] * 2 + (tipo[cj] if by_type else 0)
         node_key = year * 2 + (tipo if by_type else 0)
         pools = {k: np.flatnonzero(node_key == k) for k in np.unique(key)}
         order = np.argsort(key, kind="stable")
         uniq, starts = np.unique(key[order], return_index=True)
         ends = np.r_[starts[1:], len(key)]
-        sims = np.zeros((REPS, J)); sims_post = np.zeros((REPS, J)); sims_during = np.zeros((REPS, J))
+        sims = np.zeros((REPS, J))
         for rep in range(REPS):
             new = np.empty_like(cj)
             for k, a, b in zip(uniq, starts, ends):
@@ -113,63 +238,21 @@ def main():
                     bad = (dep[draw] > dep[ci[sel]]) | (D[ci[sel]] & D[draw]).any(1)
                 draw[bad] = cj[sel][bad]
                 new[sel] = draw
-            Dn = D[new]
-            sims[rep] = Dn.sum(0)
-            sims_post[rep] = (Dn & ((cit_time[:, None] > last_y[None, :]) & (cit_time[:, None] <= last_y[None, :] + POST_WINDOW))).sum(0)
-            sims_during[rep] = (Dn & (cit_time[:, None] <= last_y[None, :])).sum(0)
-        return sims, sims_post, sims_during
-
-    out = {"reps": REPS, "self_citations_excluded": int(self_cit.sum()), "citations_used": int(len(ci))}
-    for label, by_type in [("age_only", False), ("age_and_type", True)]:
-        sims, sims_post, sims_during = simulate(by_type)
+            sims[rep] = D[new].sum(0)
         exp = sims.mean(0)
-        rows = []
-        for r in judges.itertuples():
-            j = r.judge_id
-            if n_drafted[j] < MIN_PRONUNCE or exp[j] == 0:
-                continue
-            ratio_sims = sims[:, j] / exp[j]
-            # p-value from the z-score against the null mean and standard deviation: with 1,000
-            # repetitions the empirical p-value cannot go below 0.002, and Holm's correction over
-            # more than 100 judges would then never reject by construction.
-            from scipy.stats import norm
-            z = (obs[j] - exp[j]) / sims[:, j].std(ddof=1)
-            p = 2 * norm.sf(abs(z))
-            # interval of the observed/expected ratio: the null spread, recentred on the observed ratio
-            lo, hi = obs[j] / np.quantile(sims[:, j], .975), obs[j] / max(np.quantile(sims[:, j], .025), 1e-9)
-            row = dict(judge_id=j, nome=r.Nome_Cognome, pronunce=int(n_drafted[j]), osservate=int(obs[j]), attese=float(exp[j]),
-                       rapporto=float(obs[j] / exp[j]), lo=float(lo), hi=float(hi), z=float(z), p=float(min(1, p)),
-                       giuramento=str(r.data_giuramento.date()), organo=r.organo, provenienza=r.provenienza)
-            if pd.notna(r.last) and r.last.year <= 2015 and sims_post[:, j].mean() > 0 and sims_during[:, j].mean() > 0:
-                row.update(rapporto_post=float(obs_post[j] / sims_post[:, j].mean()), osservate_post=int(obs_post[j]),
-                           rapporto_durante=float(obs_during[j] / sims_during[:, j].mean()))
-            rows.append(row)
-        t = pd.DataFrame(rows)
-        t["p_holm"] = holm(t.p.values)
-        # heterogeneity: variance of log ratios vs the null variance of simulated ratios
-        tested = t.judge_id.values
-        obs_var = float(np.var(np.log(t.rapporto)))
-        null_var = [float(np.var(np.log(np.maximum(sims[s, tested], 0.5) / exp[tested]))) for s in range(REPS)]
-        res = {"judges_tested": int(len(t)), "sig_holm_above": int(((t.p_holm < .05) & (t.rapporto > 1)).sum()),
-               "sig_holm_below": int(((t.p_holm < .05) & (t.rapporto < 1)).sum()),
-               "ratio_quantiles": {q: float(t.rapporto.quantile(q)) for q in [.05, .25, .5, .75, .95]},
-               "var_log_ratio": obs_var, "var_log_ratio_null_mean": float(np.mean(null_var)), "var_log_ratio_null_hi": float(np.quantile(null_var, .975)),
-               "table": t.sort_values("rapporto", ascending=False).to_dict("records")}
-        pm = t.dropna(subset=["rapporto_post"]) if "rapporto_post" in t else t.iloc[:0]
-        if len(pm):
-            from scipy.stats import spearmanr, wilcoxon
-            brng = np.random.default_rng(SEED + 1)  # separate stream: does not alter the null simulations
-            bs = [spearmanr(*pm.iloc[brng.integers(0, len(pm), len(pm))][["rapporto_durante", "rapporto_post"]].values.T)[0] for _ in range(2000)]
-            res["post_mandate"] = {"judges": int(len(pm)), "spearman_during_post": float(spearmanr(pm.rapporto_durante, pm.rapporto_post)[0]),
-                                   "spearman_lo": float(np.quantile(bs, .025)), "spearman_hi": float(np.quantile(bs, .975)),
-                                   "median_ratio_during": float(pm.rapporto_durante.median()), "median_ratio_post": float(pm.rapporto_post.median()),
-                                   "wilcoxon_p": float(wilcoxon(np.log(pm.rapporto_post.clip(lower=.01)), np.log(pm.rapporto_durante.clip(lower=.01))).pvalue)}
-        out[label] = res
-        print(label, {k: v for k, v in res.items() if k != "table"}, flush=True)
-        print(t.sort_values("rapporto", ascending=False)[["nome", "pronunce", "osservate", "attese", "rapporto", "p_holm"]].head(8).to_string(), flush=True)
-    json.dump(out, open(REPO / "reports/d2_results.json", "w"), indent=1, ensure_ascii=False)
+        zz = (obs[tested] - exp[tested]) / sims[:, tested].std(0, ddof=1)
+        ph = holm(2 * norm.sf(np.abs(zz)))
+        ratio = obs[tested] / exp[tested]
+        null_var = np.var(np.log(np.maximum(sims[:, tested], .5) / exp[tested]), axis=1)
+        pre[label] = {"judges_tested": int(len(tested)), "sig_holm_above": int(((ph < .05) & (ratio > 1)).sum()),
+                      "sig_holm_below": int(((ph < .05) & (ratio < 1)).sum()), "var_log_ratio": float(np.var(np.log(ratio))),
+                      "var_log_ratio_null_mean": float(null_var.mean()), "var_ratio_to_null": float(np.var(np.log(ratio)) / null_var.mean())}
+        print("pre-registered", label, pre[label], flush=True)
+    out["nullo_preregistrato"] = pre
+    json.dump(out, open(REPO / "reports/d2_results.json", "w"), indent=1, ensure_ascii=False, default=float)
 
-    # ---------------- D4
+    # ---------------- D4 (own random stream: changes to D2 must not alter D4)
+    rng = np.random.default_rng(SEED + 4)
     jj = pd.read_csv(P / "edges_judges.csv")
     jj = jj[jj.a != jj.b]
     att = judges.set_index("judge_id")

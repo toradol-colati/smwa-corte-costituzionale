@@ -15,7 +15,7 @@
 1. **Risultato principale: nessuna "memoria collegiale" misurabile.** Un redattore non cita di più i precedenti decisi da collegi in cui sedeva, rispetto a quelli decisi mentre era in carica ma assente: odds ratio 1,00, intervallo di confidenza al 95% da 0,92 a 1,09. Il dato esclude effetti superiori al 9% circa in più o all'8% in meno; non dimostra che l'effetto sia esattamente zero.
 2. **Però un redattore cita molto di più ciò che ha scritto lui**: odds ratio 5,47 (4,76–6,27), a parità di età e materia del precedente. È un risultato esplorativo, e la spiegazione resta aperta: una preferenza personale o la prassi di affidare allo stesso relatore le questioni che si ripetono (sezione 3.4).
 3. **Una gerarchia di fatto esiste.** Le citazioni sono molto più concentrate di quanto vorrebbe il caso: l'1% delle pronunce più citate raccoglie il 10,3% delle citazioni, contro il 3,4% atteso.
-4. **I redattori non sono intercambiabili.** Su 113 giudici, le pronunce di 27 sono citate più dell'atteso e quelle di 39 meno, e la differenza resta nei dieci anni dopo la fine del mandato.
+4. **Pochi redattori si distinguono.** Su 113 giudici, dopo la correzione di Holm le pronunce di 7 sono citate più di pronunce prese a caso dello stesso anno e quelle di 8 meno; e chi è citato più dell'atteso in carica lo resta dopo il mandato, più di quanto darebbero le sole pronunce. Esplorativo.
 5. **Due risultati della letteratura sulla Corte italiana non reggono**: la distribuzione delle citazioni non è una legge di potenza, e le pronunce più "autorevoli" secondo l'algoritmo HITS non coincidono con le più citate.
 
 **Il "fattore wow"** è nella sezione 5.
@@ -113,7 +113,7 @@ Nell'1,3% delle menzioni il tipo scritto (sentenza o ordinanza) non coincide con
 
 Le soglie erano fissate prima: precisione almeno 0,95 e richiamo almeno 0,90. La **precisione** è la quota di citazioni estratte che sono vere; il **richiamo** è la quota di citazioni vere che l'estrattore trova.
 
-L'annotazione di riferimento l'ha fatta Claude leggendo i testi, **non una persona**, e prima di far girare l'estrattore su quei testi. È il limite più importante di questa parte: i file `data/validation/gold_test.txt` e `gold_test2.txt` permettono a chiunque di ricontrollare.
+L'annotazione di riferimento l'ha fatta Claude, **non una persona**, prima di far girare l'estrattore su quei testi, e leggendo solo i passi che contengono una parola chiave o un richiamo, non i testi interi. È il limite più importante di questa parte: le parole chiave del filtro somigliano a quelle dell'estrattore, quindi una forma di citazione che nessuno dei due riconosce sfuggirebbe a entrambi, e il richiamo risulterebbe più alto del vero. Per questo è pronto un foglio per il controllo di una persona: 36 pronunce mai usate, con il testo intero e senza il risultato dell'estrattore (`data/validation/human_check.md`; quadro in `reports/validation.md`).
 
 | Campione | Pronunce | Coppie vere | Precisione (IC 95%) | Richiamo (IC 95%) |
 | --- | --- | --- | --- | --- |
@@ -160,16 +160,16 @@ Esempi di temi: lavoro e pensioni; processo penale; competenze delle Regioni; im
 
 ### 2.8 Le misure e i modelli, uno per domanda
 
-**Il principio comune: confrontare con il caso.** Un numero da solo non dice nulla. Ogni risultato è confrontato con un **modello nullo**: una versione rimescolata dei dati che conserva ciò che è ovvio (quante citazioni fa ogni pronuncia, quanto sono vecchi i precedenti citati) e distrugge il resto. Se il dato vero sta fuori dall'intervallo dei dati rimescolati, c'è qualcosa oltre il caso. Ripetizioni: 1.000, seed fisso.
+**Il principio comune: confrontare con il caso.** Un numero da solo non dice nulla. Ogni risultato è confrontato con un **modello nullo**: una versione rimescolata dei dati che conserva ciò che è ovvio (quante citazioni fa ogni pronuncia, quanto sono vecchi i precedenti citati) e distrugge il resto. Se il dato vero sta fuori dall'intervallo dei dati rimescolati, c'è qualcosa oltre il caso. Ripetizioni: 1.000 (10.000 per i giudici di D2, 100 per alcune misure secondarie), seed fisso.
 
 | Domanda | Misura | Con cosa si confronta |
 | --- | --- | --- |
-| D1: le citazioni sono concentrate? | Indice di Gini, quota di citazioni all'1% più citato, quota di pronunce mai citate | Ogni citazione mantiene chi cita e l'anno del bersaglio; il bersaglio è ripescato a caso tra le pronunce di quell'anno |
+| D1: le citazioni sono concentrate? | Indice di Gini, quota di citazioni all'1% più citato, quota di pronunce mai citate | Ogni citazione mantiene chi cita e l'anno del bersaglio; il bersaglio è ripescato a caso tra le pronunce di quell'anno (variante: dello stesso anno e tipo) |
 | D1: che forma ha la distribuzione? | Legge di potenza contro lognormale, metodo di Clauset, Shalizi e Newman | Test del rapporto di verosimiglianza |
 | D1: authority e citazioni coincidono? | HITS e PageRank; correlazione tra le classifiche, sovrapposizione nell'1% più alto | Scambi di citazioni tra coppie con gli stessi anni (alla Uzzi), che conservano le citazioni fatte e ricevute da ognuno |
 | D1: l'authority aggiunge informazione? | Previsione delle citazioni dell'anno dopo, stimata fino al 2010 e verificata sul 2011–2025 | Stesso modello senza authority; criterio fissato prima: almeno il 2% di errore in meno |
 | D1b: quanto dura un precedente? | Frequenza di citazione per età; curva di sopravvivenza (Kaplan–Meier) | Scelta uniforme tra i precedenti disponibili |
-| D2: le pronunce di un redattore sono citate più dell'atteso? | Citazioni osservate / attese, senza autocitazioni | Come per D1; correzione di Holm per 113 test |
+| D2: le pronunce di un redattore sono citate più dell'atteso? | Citazioni osservate / attese, senza autocitazioni | Redattori rimescolati tra le pronunce dello stesso anno, che conservano le citazioni ricevute (10.000 volte); correzione di Holm per 113 test |
 | D3: memoria collegiale | Regressione logistica condizionata, verosimiglianza esatta | Dentro ogni pronuncia che cita: i precedenti citati contro 50 non citati |
 | D4: ci si cita tra simili? | Quota di citazioni tra giudici dello stesso gruppo | Etichette rimescolate tra giudici entrati nello stesso decennio |
 
@@ -189,6 +189,7 @@ Il confronto decisivo è tra precedenti in cui R **sedeva** e precedenti in cui 
 (`reports/network_basic.json`)
 
 - 22.427 pronunce, 93.467 citazioni, nessun ciclo.
+- La rete è sparsa: ogni pronuncia cita in media 4,2 precedenti, e la densità è 0,00037 (lo 0,037% dei legami possibili verso il passato).
 - L'86% delle pronunce forma un unico blocco connesso; 2.629 (12%) non citano e non sono citate.
 - Una sentenza riceve in media 6,4 citazioni, un'ordinanza 1,7.
 - Si cita sempre di più: da 1 precedente per pronuncia negli anni Cinquanta a 14,7 negli anni Venti di questo secolo.
@@ -199,24 +200,26 @@ Il confronto decisivo è tra precedenti in cui R **sedeva** e precedenti in cui 
 
 (`reports/d1_results.json`)
 
-| Misura | Osservato | Atteso dal caso (IC 95%) |
-| --- | --- | --- |
-| Quota di citazioni all'1% più citato | 10,3% | 3,4% (3,4–3,5) |
-| Indice di Gini | 0,66 | 0,37 (0,37–0,37) |
-| Pronunce mai citate | 29,5% | 4,3% (4,1–4,5) |
-| Citazioni della pronuncia più citata | 113 | 21 (18–23) |
+| Misura | Osservato | Atteso dal caso, bersaglio dello stesso anno (IC 95%) | Atteso dal caso, bersaglio dello stesso anno e tipo (IC 95%) |
+| --- | --- | --- | --- |
+| Quota di citazioni all'1% più citato | 10,3% | 3,4% (3,4–3,5) | 4,2% (4,1–4,2) |
+| Indice di Gini | 0,66 | 0,37 (0,37–0,37) | 0,48 (0,48–0,48) |
+| Pronunce mai citate | 29,5% | 4,3% (4,1–4,5) | 12,8% (12,5–13,0) |
+| Citazioni della pronuncia più citata | 113 | 21 (18–23) | 25 (22–28) |
+
+Le ordinanze sono citate molto meno delle sentenze: non è mai citato il 45,7% delle ordinanze e il 14,8% delle sentenze. Il primo modello nullo, fissato prima, non ne tiene conto; il secondo, aggiunto dopo il check del 17/11/2026, ripesca il bersaglio anche tra pronunce dello stesso tipo. Il divario si riduce ma resta ampio: la gerarchia non è solo la differenza tra sentenze e ordinanze.
 
 ![Figura 4](figures/fig4_concentrazione_vs_nullo.png)
 
 *Figura 4. Concentrazione delle citazioni ricevute, osservata e attesa sotto il modello nullo (barra d'errore: intervallo al 95% su 1.000 ripetizioni).*
 
-Le pronunce più citate sono la 303/2003, la 401/2007 e la 383/2005: tutte sul riparto di competenze tra Stato e Regioni dopo la riforma del 2001.
+Le pronunce più citate sono la 303/2003, la 401/2007 e la 383/2005: tutte decise in giudizi in via principale (il tipo di giudizio indicato nelle massime), dopo la riforma del 2001.
 
-**Non è una legge di potenza.** La lognormale descrive la coda meglio della legge di potenza (rapporto di verosimiglianza −7,5, p < 0,001). Agnoloni e Pagallo (2016) avevano concluso il contrario adattando una retta a occhio (Figura 3).
+**Non è una legge di potenza.** La lognormale descrive la coda meglio della legge di potenza (rapporto di verosimiglianza −7,5, p < 0,001; esponente stimato 2,92 da 10 citazioni in su). Agnoloni e Pagallo (2016, pp. 142–143) avevano proposto una legge di potenza (α = 2,414) adattata sulla scala log-log, senza test formali né confronto con altre distribuzioni, e su una rete diversa: le sole pronunce in via incidentale, 16.320 nodi (Figura 3).
 
 **Le più autorevoli non sono le più citate.** Sulla rete completa, l'1% più autorevole secondo HITS e l'1% più citato si sovrappongono per il 41,5%; a parità di citazioni ricevute, il caso darebbe il 55,7% (53,1–58,0). Chi ti cita conta, non solo quante volte (Figura 6).
 
-**La replica di Agnoloni e Pagallo non riesce.** Loro scrivono che le prime 30 pronunce per citazioni sono le stesse prime 30 per authority. Sul loro sottoinsieme (sentenze in via incidentale fino al 2014: 6.561 pronunce) solo 4 delle prime 30 per authority sono tra le prime 30 per citazioni. Il loro sottoinsieme però non è identico al nostro e non conosciamo il loro calcolo: è probabile che la loro "authority" fosse di fatto il numero di citazioni.
+**La replica di Agnoloni e Pagallo non riesce.** Loro scrivono che le prime 30 pronunce per citazioni sono le stesse prime 30 per authority. Sul loro sottoinsieme (sentenze in via incidentale fino al 2014: 6.561 pronunce) solo 4 delle prime 30 per authority sono tra le prime 30 per citazioni. Il loro sottoinsieme però non è identico al nostro, e il loro calcolo non è descritto. Nella loro tabella 5 le pronunce con lo stesso numero di citazioni hanno esattamente la stessa authority (p. 144): segno che la loro misura coincideva con il numero di citazioni.
 
 **Ma l'authority non aiuta a prevedere.** Aggiungerla al modello che prevede le citazioni dell'anno dopo **non** riduce l'errore: lo aumenta dello 0,27% (0,10–0,42). Il criterio fissato prima (almeno il 2% in meno) non è soddisfatto. Quindi HITS individua un nucleo diverso, ma per sapere quanto sarà citata una pronuncia basta contare quanto è già stata citata. Un limite di HITS su questa rete: un terzo delle pronunce ha authority nulla.
 
@@ -263,29 +266,36 @@ Nel modello completo, che usa anche la soglia del giuramento, i precedenti decis
 
 **Cautela sul 5,47.** I relatori li sceglie il Presidente, con criteri non pubblici. Due spiegazioni non si escludono: un giudice che segue sempre la stessa materia cita i propri precedenti perché sono quelli pertinenti; e le questioni che si ripetono (la stessa norma portata alla Corte da più giudici) possono essere affidate allo stesso relatore, che poi richiama la propria decisione. L'effetto è più forte nelle ordinanze (9,83) che nelle sentenze (3,53), e prima del 2001 (8,74) che dopo (3,64): è il profilo che ci si aspetta dalle questioni ripetute, spesso decise con ordinanza. La somiglianza di materia è nel modello, ma i topic sono grossolani. Il 5,47 è quindi un limite superiore dell'effetto "personale".
 
-### 3.5 D2 — I redattori non sono intercambiabili
+### 3.5 D2 — Pochi redattori si distinguono (esplorativo)
 
 (`reports/d2_results.json`)
 
-- Su 113 giudici con almeno 30 pronunce, dopo la correzione di Holm le pronunce di **27** sono citate più dell'atteso e quelle di **39** meno.
-- Il rapporto tra citazioni osservate e attese va da 0,68 (5° percentile) a 1,45 (95°). La dispersione (varianza del logaritmo del rapporto) è 29 volte quella attesa in media dal caso, e 21 volte il limite superiore del nullo.
-- In testa: Baldassarre (1,99; 1,85–2,15), Onida (1,71; 1,60–1,83), Crisafulli (1,68; 1,52–1,87); l'atteso è 1. Tenendo conto anche del tipo di pronuncia: Crisafulli (1,71; 1,55–1,89), Dell'Andro (1,65; 1,46–1,88), Baldassarre (1,53; 1,45–1,63).
-- **Dura oltre il mandato**: per gli 87 giudici usciti entro il 2015, chi era citato più dell'atteso in carica lo è anche nei dieci anni successivi (correlazione tra ranghi 0,67, intervallo al 95% 0,54–0,77 con ricampionamento; 0 se non ci fosse legame; Figura 10).
+**Come si misura.** Per ogni giudice: citazioni ricevute dalle pronunce che ha redatto, escluse le autocitazioni, divise per quelle attese. L'atteso e la variabilità vengono dal rimescolamento dei redattori: le pronunce di ogni anno si riassegnano a caso tra i redattori di quell'anno, e ogni pronuncia porta con sé le citazioni che ha davvero ricevuto da pronunce di altri redattori. 10,000 rimescolamenti; i valori p vengono dal loro conteggio.
+
+- Su 113 giudici con almeno 30 pronunce, dopo la correzione di Holm le pronunce di **7** sono citate più dell'atteso e quelle di **8** meno; per gli altri la differenza non si distingue dal caso (Figura 9).
+- Le differenze tra giudici sono comunque più ampie di quelle dei rimescolamenti: la varianza del logaritmo del rapporto è 3,6 volte quella attesa (p < 0,001).
+- In testa: Baldassarre (1,95; 1,66–2,27), Onida (1,73; 1,39–2,09), Crisafulli (1,67; 1,28–2,10); l'atteso è 1.
+- Tenendo conto anche del tipo di pronuncia, 4 sopra e 6 sotto; anche della materia, 2 e 5. Con le sole pronunce dalla 287/1986, dove il redattore è osservato, 7 e 8 su 74 giudici.
+- **Dopo il mandato.** Per gli 87 giudici usciti entro il 2015, chi era citato più dell'atteso in carica lo è anche nei dieci anni successivi: correlazione tra ranghi 0,66. Una parte è meccanica, perché le stesse pronunce restano citate: con pronunce prese a caso dello stesso anno la correlazione sarebbe 0,37 (95%: 0,16–0,55). Il dato osservato sta sopra (p < 0,001); a parità anche di tipo e materia, 0,62 contro 0,32 (0,12–0,51) (Figura 10).
 
 ![Figura 9](figures/fig9_d2_giudici.png)
 
-*Figura 9. Rapporto tra citazioni osservate e attese per le pronunce redatte da ciascun giudice. In blu gli intervalli dei giudici che si distinguono dal caso dopo la correzione di Holm.*
+*Figura 9. Rapporto tra citazioni osservate e attese per le pronunce redatte da ciascun giudice, con l'intervallo al 95% ottenuto ricampionando le sue pronunce. In blu i giudici che si distinguono dal caso dopo la correzione di Holm.*
 
-I valori p vengono dalla distanza dal nullo misurata in deviazioni standard (approssimazione normale), non dal conteggio delle ripetizioni: con 1.000 ripetizioni e 113 giudici il conteggio, dopo Holm, non poteva mai scendere sotto 0,23. È una scelta fatta in corso d'opera, registrata tra gli scostamenti in `docs/decisions.md`.
+![Figura 10](figures/fig10_d2_dopo_mandato.png)
 
-Le autocitazioni sono escluse. Resta il limite della materia: chi ha redatto pronunce su temi molto frequentati (per esempio le competenze regionali dopo il 2001) è favorito.
+*Figura 10. Rapporto tra citazioni osservate e attese durante il mandato e nei dieci anni dopo, per i giudici usciti entro il 2015.*
+
+**Perché D2 è esplorativo.** Il modello nullo fissato prima (ogni citazione ripescata a caso tra le pronunce dello stesso anno) dà lo stesso atteso, ma ignora quanto diversamente sono citate le pronunce: con quel nullo i giudici fuori dall'atteso erano 27 e 39, con una dispersione 29 volte il caso. Passare al rimescolamento dei redattori è il secondo cambiamento fatto in D2 dopo aver visto i risultati (il primo, i valori p dalle deviazioni standard, è ora superato): per questo D2 va letto come esplorativo. Entrambi i nulli restano nel file dei risultati.
+
+Resta il limite della materia: i topic sono grossolani, e i redattori non sono assegnati a caso.
 
 ### 3.6 D4 — Poca omofilia
 
-(`reports/d4_results.json`) La potenza simulata per un effetto del 20% è 1,0, quindi il test si poteva fare.
+(`reports/d4_results.json`) La potenza simulata per un effetto del 20% è 1,00 per l'organo e 1,00 per la provenienza: il test si poteva fare. Le soglie erano fissate prima: un effetto minimo d'interesse del 20% e la correzione di Holm sui due test.
 
-- **Organo di nomina** (Presidente della Repubblica, Parlamento, magistrature): le citazioni tra giudici dello stesso gruppo sono il 32,4%, contro il 31,6% atteso (30,8–32,6); p = 0,08 (anche dopo Holm). Nessun effetto.
-- **Provenienza** (professori, magistrati; gli avvocati sono solo 3): 48,4% contro 46,2% (44,4–48,1); p = 0,013, che diventa 0,026 con la correzione di Holm sui due test. La differenza si distingue dal caso, ma è il 4,8% in più: molto sotto l'effetto minimo d'interesse fissato prima (20%). Va letta come "omofilia trascurabile", non come una scoperta. La provenienza è codificata in automatico dalla nota biografica dell'anagrafica dei giudici.
+- **Organo di nomina** (Presidente della Repubblica, Parlamento, magistrature): le citazioni tra giudici dello stesso gruppo sono il 32,4%, contro il 31,6% atteso (30,7–32,7); p = 0,074, 0,074 con Holm. Nessun effetto.
+- **Provenienza** (professori, magistrati; gli avvocati sono solo 3): 48,4% contro 46,1% (44,4–48,0); p = 0,011, 0,022 con Holm. L'eccesso è del 4,9%, molto sotto l'effetto minimo d'interesse: omofilia trascurabile, non una scoperta. La provenienza è codificata in automatico dalla nota biografica dell'anagrafica dei giudici.
 
 ### 3.7 Due risultati in più, con le API
 
@@ -295,7 +305,7 @@ Le autocitazioni sono escluse. Resta il limite della materia: chi ha redatto pro
 ## 4. Cosa risponde alla domanda
 
 - **La Corte costruisce una gerarchia di precedenti?** Sì, di fatto: poche pronunce concentrano le citazioni molto oltre il caso, un'ossatura resta citata per decenni, la rete si organizza in filoni per materia. Ma il grosso dei precedenti è consumato in pochi anni.
-- **Quanto passa dai giudici?** Dal collegio, nulla che si riesca a misurare. Dal redattore, molto: le probabilità (odds) che citi ciò che ha scritto sono circa cinque volte e mezzo quelle di un precedente deciso in sua assenza, e le pronunce di alcuni redattori pesano stabilmente più di altre, anche dopo che hanno lasciato la Corte.
+- **Quanto passa dai giudici?** Dal collegio, nulla che si riesca a misurare. Dal redattore, molto: le probabilità (odds) che citi ciò che ha scritto sono circa cinque volte e mezzo quelle di un precedente deciso in sua assenza, e le pronunce di pochi redattori pesano più di quanto darebbe il caso, anche dopo che hanno lasciato la Corte (esplorativo).
 
 ## 5. Il "fattore wow"
 

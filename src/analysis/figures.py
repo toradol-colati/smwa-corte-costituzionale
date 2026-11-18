@@ -91,38 +91,51 @@ ax.set_title("Sedere nel collegio di un precedente non aumenta la probabilità d
 save(fig, "fig7_d3_memoria_collegiale.png")
 
 # 8. self vs sat
-fig, ax = plt.subplots(figsize=(6.6, 2.8))
+fig, ax = plt.subplots(figsize=(6.6, 3.2))
 c = d3["primary"]["coef"]
-for i, (k, lab) in enumerate([("sat_not_drafted", "Sedeva nel collegio,\nnon l'ha redatto"), ("self_drafted", "L'ha redatto lui")]):
-    ax.errorbar(c[k]["or"], i, xerr=[[c[k]["or"] - c[k]["lo"]], [c[k]["hi"] - c[k]["or"]]], fmt="o", color=RED if k == "self_drafted" else GREY, capsize=4)
-ax.axvline(1, color="k", lw=1); ax.set_yticks([0, 1]); ax.set_yticklabels(["Sedeva nel collegio,\nnon l'ha redatto", "L'ha redatto lui"]); ax.set_ylim(-0.6, 1.6)
-ax.set_xscale("log"); ax.set_xlim(0.7, c["self_drafted"]["hi"] * 1.25)
+cn = d3["variants"].get("controllo per norma impugnata in comune (esplorativo)", {}).get("coef")
+rows8 = [("Sedeva nel collegio,\nnon l'ha redatto", c["sat_not_drafted"], GREY), ("L'ha redatto lui", c["self_drafted"], RED)]
+if cn:
+    rows8.append(("L'ha redatto lui, a parità\ndi norma impugnata (esplorativo)", cn["self_drafted"], BLUE))
+for i, (lab, cc, col) in enumerate(rows8):
+    ax.errorbar(cc["or"], i, xerr=[[cc["or"] - cc["lo"]], [cc["hi"] - cc["or"]]], fmt="o", color=col, capsize=4)
+ax.axvline(1, color="k", lw=1); ax.set_yticks(range(len(rows8))); ax.set_yticklabels([r[0] for r in rows8]); ax.set_ylim(-0.6, len(rows8) - 0.4)
+ax.set_xscale("log"); ax.set_xlim(0.7, max(r[1]["hi"] for r in rows8) * 1.25)
 ax.set_xticks([0.8, 1, 2, 4, 6]); ax.set_xticklabels(["0,8", "1", "2", "4", "6"]); ax.xaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
 ax.set_xlabel("Odds ratio rispetto a un precedente deciso in sua assenza (scala log.)")
 ax.set_title("Il redattore cita molto di più ciò che ha scritto lui;\naver seduto nel collegio non fa una differenza misurabile", loc="left", fontsize=10)
 save(fig, "fig8_d3_redatto_vs_collegio.png")
 
-# 9. D2 caterpillar
-d2 = json.load(open(R / "d2_results.json"))["age_only"]
+# 9. D2 caterpillar (label-permutation null within the deposit year)
+d2all = json.load(open(R / "d2_results.json"))
+d2 = d2all["permutazione_anno"]
 t = pd.DataFrame(d2["table"]).sort_values("rapporto").reset_index(drop=True)
 fig, ax = plt.subplots(figsize=(8, 3.6))
 sig = t.p_holm < 0.05
 ax.vlines(t.index, t.lo, t.hi, color=np.where(sig, BLUE, "#cccccc"), lw=1)
 ax.plot(t.index, t.rapporto, ".", ms=4, color="k"); ax.axhline(1, color=RED, lw=1)
-for n, i in enumerate(t.index[-3:]):
-    ax.annotate(t.nome[i].split()[-1], (i, t.rapporto[i]), fontsize=7, xytext=(-8, [-12, 7, 7][n]), textcoords="offset points", ha="right")
+for n_, i in enumerate(t.index[-3:]):
+    ax.annotate(t.nome[i].split()[-1], (i, t.rapporto[i]), fontsize=7, xytext=(-8, [-12, 7, 7][n_]), textcoords="offset points", ha="right")
 ax.set_yscale("log"); ax.set_yticks([0.5, 0.75, 1, 1.5, 2]); ax.set_yticklabels(["0,5", "0,75", "1", "1,5", "2"])
 ax.yaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
-ax.set_xlabel("113 giudici con almeno 30 pronunce, ordinati per rapporto"); ax.set_ylabel("Citazioni osservate / attese")
-ax.set_title("Le pronunce di alcuni redattori sono citate molto più dell'atteso, altre molto meno", loc="left", fontsize=10)
+ax.set_xlabel(f"{d2['judges_tested']} giudici con almeno 30 pronunce, ordinati per rapporto"); ax.set_ylabel("Citazioni osservate / attese")
+ax.set_title(f"Dopo la correzione di Holm, le pronunce di {d2['sig_holm_above']} redattori sono citate più dell'atteso\n"
+             f"e quelle di {d2['sig_holm_below']} meno; per gli altri la differenza non si distingue dal caso", loc="left", fontsize=10)
 save(fig, "fig9_d2_giudici.png")
 
-# 10. during vs post mandate
+# 10. during vs post mandate, with the correlation expected for pronunce drawn at random
 pm = t.dropna(subset=["rapporto_post"])
-fig, ax = plt.subplots(figsize=(4.2, 4))
+pmr = d2["post_mandate"]
+fig, ax = plt.subplots(figsize=(4.6, 4.2))
 ax.loglog(pm.rapporto_durante, pm.rapporto_post, "o", ms=4, color=BLUE, alpha=.7)
-ax.plot([.4, 2.5], [.4, 2.5], color=GREY, lw=1)
+ax.plot([.3, 3], [.3, 3], color=GREY, lw=1)
+for axis in (ax.xaxis, ax.yaxis):
+    axis.set_major_locator(matplotlib.ticker.FixedLocator([0.5, 1, 2]))
+    axis.set_major_formatter(matplotlib.ticker.FixedFormatter(["0,5", "1", "2"]))
+    axis.set_minor_formatter(matplotlib.ticker.NullFormatter())
 ax.set_xlabel("Osservate / attese durante il mandato"); ax.set_ylabel("Osservate / attese nei 10 anni dopo")
-ax.set_title("Chi è citato più dell'atteso in carica\nlo resta dopo il mandato", loc="left", fontsize=10)
+fmt = lambda x: f"{x:.2f}".replace(".", ",")
+ax.set_title(f"Durante e dopo il mandato: correlazione {fmt(pmr['spearman_during_post'])},\n"
+             f"contro {fmt(pmr['spearman_null_mean'])} (fino a {fmt(pmr['spearman_null_hi'])}) per pronunce prese a caso", loc="left", fontsize=9)
 save(fig, "fig10_d2_dopo_mandato.png")
 print(sorted(p.name for p in F.glob("*.png")))
