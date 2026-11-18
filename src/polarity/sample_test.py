@@ -3,7 +3,7 @@ all flagged contexts of the test half of the citing pronunce, shuffled with 30 t
 contain a distinguishing word but are not flagged. One mention per context, shown between ⟦ ⟧.
 The labels are written to a separate file, so that the annotator does not see them.
 Outputs: data/validation/polarity_test_sample.csv (no labels), data/interim/polarity_test_labels.csv,
-data/validation/polarity_human_check.md, data/validation/gold_polarity_test.txt (template)
+data/validation/polarity_human_check.md, data/validation/gold_polarity_human.txt (template)
 Usage: .venv/bin/python src/polarity/sample_test.py
 """
 import sys
@@ -40,11 +40,12 @@ s[["item", "context_id", "flagged", "rule"]].to_csv(REPO / "data/interim/polarit
 head = ["# Controllo della polarità delle citazioni\n",
         f"{len(s)} passi. Per ognuno, la domanda è: **la pronuncia che cita dichiara il precedente tra ⟦ ⟧ non pertinente o non conferente, "
         "dice che riguardava un caso diverso, che non è un precedente in termini, che non ha affermato ciò che gli si attribuisce, "
-        "oppure lo supera?** Scrivere 1 (sì) o 0 (no) in `data/validation/gold_polarity_test.txt`, accanto al numero del passo. "
-        "Se a distinguere il precedente sono il giudice rimettente o una parte, e non la Corte, la risposta è 0.\n"]
+        "oppure lo supera?** Scrivere 1 (sì) o 0 (no) in `data/validation/gold_polarity_human.txt`, accanto al numero del passo. "
+        "Se a distinguere il precedente sono il giudice rimettente o una parte, e non la Corte, la risposta è 0.\n",
+        "Alla fine: `.venv/bin/python src/polarity/evaluate.py human`.\n"]
 body = [f"\n**{r.item}** ({r.citing_id}) … {r.text} …\n" for r in s.itertuples()]
 (REPO / "data/validation/polarity_human_check.md").write_text("\n".join(head + body), encoding="utf-8")
-gold = REPO / "data/validation/gold_polarity_test.txt"
+gold = REPO / "data/validation/gold_polarity_human.txt"
 if not gold.exists():
     gold.write_text("".join(f"{i}:\n" for i in s.item), encoding="utf-8")
 print(len(s), "items:", int(s.flagged.sum()), "flagged,", int((1 - s.flagged).sum()), "not flagged")

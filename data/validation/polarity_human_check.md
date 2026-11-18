@@ -1,6 +1,7 @@
 # Controllo della polarità delle citazioni
 
-67 passi. Per ognuno, la domanda è: **la pronuncia che cita dichiara il precedente tra ⟦ ⟧ non pertinente o non conferente, dice che riguardava un caso diverso, che non è un precedente in termini, che non ha affermato ciò che gli si attribuisce, oppure lo supera?** Scrivere 1 (sì) o 0 (no) in `data/validation/gold_polarity_test.txt`, accanto al numero del passo. Se a distinguere il precedente sono il giudice rimettente o una parte, e non la Corte, la risposta è 0.
+67 passi. Per ognuno, la domanda è: **la pronuncia che cita dichiara il precedente tra ⟦ ⟧ non pertinente o non conferente, dice che riguardava un caso diverso, che non è un precedente in termini, che non ha affermato ciò che gli si attribuisce, oppure lo supera?** Scrivere 1 (sì) o 0 (no) in `data/validation/gold_polarity_human.txt`, accanto al numero del passo. Se a distinguere il precedente sono il giudice rimettente o una parte, e non la Corte, la risposta è 0.
+Alla fine: `.venv/bin/python src/polarity/evaluate.py human`.
 
 
 **1** (20120171) …  Il richiamo alla  ⟦sentenza di questa Corte, n. 278 del 2010⟧ , non è pertinente. …
