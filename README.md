@@ -29,12 +29,11 @@ Fonte: [portale open data della Corte costituzionale](https://dati.cortecostituz
 
 ## Come rieseguire
 
-Serve Python 3.11 o successivo.
+I risultati sono stati prodotti con Python 3.12.4 e le versioni dei pacchetti fissate in `requirements.lock` (installazione da zero non ancora provata).
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.lock
+python3.12 -m venv .venv
+.venv/bin/pip install -r requirements.lock
 ```
 
 Scaricare i dati dal portale della Corte (registra le versioni in `data/raw/MANIFEST.csv`):

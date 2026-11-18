@@ -16,7 +16,7 @@ Apri le sessioni di Claude Code dentro questa cartella (`smwa-corte-costituziona
 - Dati scaricati l'8/11/2026 (`data/raw/MANIFEST.csv`). Tutte le scelte aperte sono state fissate il 16/11/2026 prima dei risultati.
 - Redattore prima del 23/12/1986 (pronunce fino alla 286/1986): si usa il relatore come approssimazione, con colonna `redattore_source`; D2 e D3 si rifanno sulle sole pronunce dal 1987 come variante.
 - Analisi eseguite il 16/11/2026: risultati in `reports/relazione_for_dummies.md`; scostamenti dal piano in `docs/decisions.md`. Restano aperti: approvazione del docente, controllo umano a campione di `data/validation/gold_test*.txt`.
-- Ambiente: `.venv` creato con `python3 -m venv --system-site-packages .venv`; i comandi della pipeline si lanciano con `.venv/bin/python`.
+- Ambiente: i risultati del 16–18/11/2026 vengono da un `.venv` creato con `--system-site-packages` sopra Anaconda (Python 3.12.4); le versioni usate sono fissate in `requirements.lock`. I comandi della pipeline si lanciano con `.venv/bin/python`.
 
 ## Domande di ricerca
 Formulazione unica, da usare identica in relazione, abstract e presentazione: "In un ordinamento in cui il precedente non vincola, la Corte costituzionale costruisce comunque una gerarchia di precedenti? E quanto di quell'autorità passa attraverso i giudici che redigono e decidono le pronunce?"
@@ -55,12 +55,12 @@ docs/             spec.md, context.md, decisions.md, data_schema.md
 ```
 
 ## Ambiente e comandi
-- Python 3.11 o successivo: `python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt`
-- Dopo la prima installazione: `pip freeze > requirements.lock`, da versionare. Da lì in poi si installa da `requirements.lock`, e lo si rigenera solo quando si aggiunge un pacchetto.
+- Installazione riproducibile: `python3.12 -m venv .venv && .venv/bin/pip install -r requirements.lock` (versioni esatte; non ancora provata da zero). `requirements.txt` elenca solo i pacchetti usati dal codice.
+- Quando si aggiunge un pacchetto: aggiungerlo a `requirements.txt` e la sua versione, con le dipendenze, a `requirements.lock`.
 - Test: `pytest`
 - Scaricare i dati: `python3 -I src/ingest/download.py` (tutti) oppure con un gruppo (`pronunce`, `massime`, `giudici`). Aggiunge righe al manifest.
 - Ispezionare i dati: `python3 src/ingest/inspect_raw.py`, che scrive `reports/data_inspection.md`.
-- Pipeline completa, nell'ordine (ambiente: `python3 -m venv --system-site-packages .venv`, poi i pacchetti in `requirements.txt`):
+- Pipeline completa, nell'ordine (ambiente da `requirements.lock`):
   `src/ingest/download.py` → `src/ingest/inspect_raw.py` → `src/ingest/build_pronunce.py` → `src/extract/citations.py` → `src/extract/citations_massime.py` → `src/validation/evaluate.py test` e `test2` → `src/judges/build_judges.py` → `src/analysis/topics.py` → `src/networks/build.py` → `src/ingest/fetch_api.py` → `src/analysis/d1_pronunce.py` → `src/analysis/d2_d4_giudici.py` → `src/analysis/d3_memoria_collegiale.py` → `src/analysis/extras.py` → `src/analysis/figures.py` → `src/analysis/interactive.py`. Tutti con `.venv/bin/python`; `REPS=100` riduce le ripetizioni dei nulli per una prova veloce.
 - Risultati: `reports/relazione_for_dummies.md` (relazione completa), `reports/validation.md` (qualità), `reports/*.json` (numeri), `reports/figures/`.
 - Codice, nomi di file e commenti in inglese; documenti di lavoro in italiano.

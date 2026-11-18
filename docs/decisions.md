@@ -54,6 +54,7 @@ Una riga per decisione: data, decisione, motivo, chi l'ha presa. Le indicazioni 
 | 2026-11-16 | Provenienza professionale e organo di nomina (D4) codificati in automatico: l'organo dal campo `eletto_da`, la provenienza dalla nota biografica dell'anagrafica, senza controllo manuale riga per riga | `data/manual/judges_attributes.csv` non è stato compilato a mano; D4 resta un'estensione esplorativa | Claude, durante l'esecuzione |
 | 2026-11-16 | Risultati esplorativi, non fissati prima: confronto `self_drafted` contro `sat_not_drafted` come "fattore wow"; replica di Agnoloni e Pagallo; analisi di esito, comunità e Wikipedia | Vanno presentati come esplorativi | Claude, durante l'esecuzione |
 | 2026-11-18 | D3: la regressione logistica condizionata usa la verosimiglianza esatta al posto dell'approssimazione di Breslow. Risultato principale da 1,03 (0,96–1,10) a 1,00 (0,92–1,09); `self_drafted` da 3,01 a 5,47 (4,77–6,27); nel modello completo `sat_not_drafted` da 0,96 a 0,88 (0,80–0,96). Il valore di Breslow resta nel JSON (`or_breslow`) | Con più citati per pronuncia (media 3,4, fino a 60) Breslow schiaccia verso 1 gli effetti forti. Il modello fissato resta lo stesso, cambia solo il calcolo. Verifica: la log-verosimiglianza coincide con quella di statsmodels sugli stessi 1.494 strati (−9.797,54), con punteggio nullo all'ottimo | Claude, dal check del 17/11/2026; correzioni approvate da Umberto il 18/11 |
+| 2026-11-18 | Ambiente: `requirements.lock` con le versioni esatte dell'ambiente che ha prodotto i risultati (Python 3.12.4); `requirements.txt` ridotto ai pacchetti usati dal codice (tolti SPARQLWrapper, requests, pyvis, infomap, jupyter, mai usati) | Il `.venv` con `--system-site-packages` e le installazioni senza dipendenze non si possono ricostruire. L'installazione da zero dal lock non è ancora stata provata | Claude, dal check del 17/11/2026 |
 
 ## Da confermare
 Proposte dalla revisione dell'8/11/2026 e già scritte in `docs/spec.md` e nelle regole. Una volta confermate, passano nella tabella qui sopra.
@@ -86,7 +87,8 @@ Le altre scelte sono state fissate il 16/11/2026, prima dei risultati (tabella s
   - la sezione "Prossimi passi" e i punti "Da concordare con il docente".
 - [ ] Completare `README.md`: comandi della pipeline, licenza del codice.
 - [ ] Aggiungere `LICENSE`: CC BY-SA 3.0 per i dati derivati, più la licenza scelta per il codice.
-- [ ] Generare e versionare `requirements.lock`.
-- [ ] `git init`, e controllare che `data/raw/` (salvo `MANIFEST.csv`) e `data/interim/` non entrino nel repository.
+- [x] Generare e versionare `requirements.lock` (18/11/2026). Resta da provare l'installazione da zero.
+- [ ] La storia git contiene le note personali di `docs/spec.md` e l'indirizzo email nei metadati dei commit: pubblicare da un repository nuovo, con la storia ripulita, oppure riscriverla prima del primo push.
+- [x] `git init` (18/11/2026): `data/raw/` (salvo `MANIFEST.csv`), `data/interim/`, `literature/` e `.venv/` restano fuori.
 - [ ] Rileggere questo registro e togliere le note personali.
 - [ ] Decidere se `docs/project_guide.md`, documento personale di metodo, resta nel repository pubblico.

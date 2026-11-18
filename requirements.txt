@@ -1,15 +1,14 @@
-requests
-SPARQLWrapper
+# Pacchetti usati dal codice. Versioni esatte, con le dipendenze: requirements.lock
+numpy
 pandas
+scipy
+scikit-learn
+statsmodels
+matplotlib
 lxml
 networkx
-python-igraph
+igraph
 leidenalg
-scikit-learn
-lifelines
 powerlaw
-statsmodels
-scipy
-matplotlib
-jupyter
+lifelines
 pytest
