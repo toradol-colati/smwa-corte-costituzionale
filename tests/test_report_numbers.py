@@ -194,6 +194,10 @@ def checks():
     ]
     rb = cm2["robustness"]["after_removal"]["0.2"]
     out.append(("Robustezza 20%", f"| 20% | {pc(rb['targeted'])}% | {pc(rb['random_mean'])}% ({pc(rb['random_lo'])}%–{pc(rb['random_hi'])}%) |"))
+    # polarity (validation only: the threshold was not passed, so no analyses)
+    pv = load("polarity_validation_claude.json")
+    out.append(("Polarità", f"{pv['flagged_true']} su {pv['flagged']} sono vere distinzioni, una precisione di {it(pv['precision'])} "
+                            f"(intervallo al 95% {it(pv['precision_lo'])}–{it(pv['precision_hi'])}), **sotto la soglia**"))
     return out
 
 

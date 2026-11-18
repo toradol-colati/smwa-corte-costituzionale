@@ -1,0 +1,34 @@
+{
+ "annotator": "claude",
+ "items": 67,
+ "flagged": 37,
+ "flagged_true": 28,
+ "precision": 0.7567567567567568,
+ "precision_lo": 0.5988239750929105,
+ "precision_hi": 0.8663879656733671,
+ "threshold": 0.8,
+ "passed": false,
+ "not_flagged": 30,
+ "not_flagged_true": 5,
+ "not_flagged_true_share": 0.16666666666666666,
+ "not_flagged_true_lo": 0.07336434240351683,
+ "not_flagged_true_hi": 0.33564705185680177,
+ "precision_by_rule": {
+  "caso_diverso": {
+   "n": 8,
+   "true": 7
+  },
+  "non_affermato": {
+   "n": 1,
+   "true": 0
+  },
+  "non_pertinente": {
+   "n": 21,
+   "true": 19
+  },
+  "superamento": {
+   "n": 7,
+   "true": 2
+  }
+ }
+}

@@ -300,7 +300,7 @@ Il programma 2026/27 dichiara come obiettivo l'analisi di "dati digitali e dati 
 - l'endpoint SPARQL della Corte come API, per l'esito delle pronunce;
 - i link da Wikipedia come misura esterna di attenzione sul web, solo per validare D1.
 
-Il sentiment resta fuori. Che i dati non siano social resta comunque da chiarire con il docente, Pierluigi Zama Ramirez, prima di iniziare. Il §14.5 di Easley e Kleinberg mostra che il libro di testo tratta le citazioni tra sentenze come analisi dei link; non basta da solo a dire che il progetto rientri nel corso.
+Il sentiment, escluso il 12/11, è stato affrontato il 18/11/2026 su richiesta di Umberto come polarità delle citazioni: il lessico non ha superato la soglia di qualità fissata prima, quindi non entra nelle analisi (`docs/decisions.md`). Che i dati non siano social resta comunque da chiarire con il docente, Pierluigi Zama Ramirez, prima di iniziare. Il §14.5 di Easley e Kleinberg mostra che il libro di testo tratta le citazioni tra sentenze come analisi dei link; non basta da solo a dire che il progetto rientri nel corso.
 
 **Le regole del progetto** ([programma 2026/27](https://www.unive.it/data/insegnamento/790312/programma)): vale il 70% del voto ed è un'analisi originale con metodi e strumenti del corso. Si fa da soli o in due, con il tema concordato con il docente. Si valuta la qualità dell'esecuzione rispetto alle linee guida e la complessità tecnica. La discussione del progetto è ammessa solo dopo aver superato la parte teorica dell'orale, che vale il 30%.
 
@@ -311,7 +311,7 @@ Il sentiment resta fuori. Che i dati non siano social resta comunque da chiarire
 | Lavorare con le API | Endpoint SPARQL della Corte per l'esito delle pronunce (dal 2005) e per il controllo incrociato dei conteggi; API di MediaWiki per i link da Wikipedia. Il download degli archivi è da file statici, non da API |
 | Visualizzazione | Rete esplorabile del nucleo delle pronunce (`reports/rete_interattiva.html`; quella dei giudici non è stata fatta); curve di invecchiamento dei precedenti; figure secondo `docs/project_guide.md`, §3 |
 | Estrazione dei temi | Modello di topic sui testi delle massime: dà la materia di ogni pronuncia (controllo in D2 e D3) e serve a interpretare e validare le comunità |
-| Analisi del sentiment | Fuori dal progetto: sulle motivazioni di una corte non ha un significato chiaro. Al suo posto, come attributo delle pronunce, l'esito preso dall'endpoint SPARQL, dal 2005 |
+| Analisi del sentiment | In forma adattata: polarità delle citazioni (distinzione o distacco da un precedente), con un lessico validato alla cieca (`src/polarity/`); il 18/11/2026 la precisione (0,76) è rimasta sotto la soglia di 0,80, quindi nessuna analisi. Come attributo delle pronunce resta l'esito preso dall'endpoint SPARQL, dal 2005 |
 
 **Il legame con i testi del corso:** Easley e Kleinberg, capitolo 4 per le reti di affiliazione e capitolo 14 per hub, authority e PageRank; Barabási per distribuzioni dei gradi, attaccamento preferenziale e comunità.
 

@@ -25,7 +25,8 @@
 > - D2 usa un modello nullo che tiene conto di quanto diversamente sono citate le pronunce, e la finestra di 10 anni fissata prima: i giudici fuori dall'atteso passano da 27 e 39 (versione del 16/11) a 6 e 7, e D2 diventa esplorativo;
 > - D1: un secondo modello nullo tiene conto delle ordinanze; l'interpretazione "conta chi ti cita" è ritirata;
 > - etichette dei topic, modularità con 100 ricablaggi, un numero sbagliato (i testi senza divisione) e alcuni arrotondamenti corretti; un test confronta ora i numeri della relazione con i file dei risultati;
-> - aggiunte le misure del corso (sezione 3.8), la mappa del programma (sezione 9) e un foglio per il controllo umano dell'estrazione.
+> - aggiunte le misure del corso (sezione 3.8), la mappa del programma (sezione 9) e un foglio per il controllo umano dell'estrazione;
+> - la voce sentiment è stata affrontata con la polarità delle citazioni (sezione 3.9): il lessico non ha superato la soglia di qualità fissata prima, quindi non se ne traggono risultati.
 
 ## 1. Da dove siamo partiti: i dati
 
@@ -331,6 +332,21 @@ Resta il limite della materia: i topic sono grossolani, e i redattori non sono a
 
 Prima di togliere nulla, la componente gigante contiene l'86,2% delle pronunce.
 
+### 3.9 La polarità delle citazioni, forma adattata di sentiment: lo strumento non supera la soglia
+
+(`reports/polarity_validation_claude.md`, script in `src/polarity/`) Su richiesta di Umberto del 18/11/2026, la voce "sentiment analysis" del programma è stata affrontata nella forma che ha senso per una corte: la **polarità delle citazioni**, cioè se una pronuncia segue il precedente che cita o se ne distingue. Il sostegno è il caso normale: quasi tutte le citazioni richiamano un precedente come autorità, senza parole che lo segnalino. Si cerca quindi la classe rara, **distinzione o distacco**: il precedente è dichiarato non pertinente, riferito a un caso diverso, non un precedente in termini, oppure superato.
+
+**Come.** Un lessico di regole scritte a mano (`src/polarity/lexicon.py`) sulla metà delle pronunce che citano, scelte a caso. Ogni regola deve essere legata al precedente: entro 120 caratteri dalla menzione, nella stessa frase, senza negazioni né forme ipotetiche, non nelle parole del giudice rimettente o delle parti. Prima del test sono stati fissati nel registro la soglia (precisione almeno 0,80), il campione e cosa fare se la soglia non fosse superata.
+
+**Esito.** Sull'altra metà, i 37 contesti segnalati sono stati annotati senza vedere l'etichetta, mescolati con 30 contesti non segnalati: 28 su 37 sono vere distinzioni, una precisione di 0,76 (intervallo al 95% 0,60–0,87), **sotto la soglia**. Come stabilito prima, non si fanno analisi: niente stima della quota di distinzioni, niente equilibrio strutturale (Easley e Kleinberg, cap. 5), niente elenco dei precedenti più distinti.
+
+**Cosa si impara comunque.**
+
+- Le regole "non pertinente" sono precise (19 su 21) e "caso diverso" quasi (7 su 8); "superamento" no (2 su 7): scambia per un superamento quello negato o riferito a un'altra pronuncia.
+- Il lessico perde distinzioni: tra i 30 contesti non segnalati che hanno una parola di distinzione, 5 lo sono.
+- Il lessico segnala 78 citazioni su 93.467. Con uno strumento che non ha superato la soglia, questo numero non si può leggere come una stima.
+- Per andare avanti servono due cose: il controllo di una persona sul foglio già pronto (`data/validation/polarity_human_check.md`, 67 passi) e una nuova versione delle regole, fissata prima e provata su dati mai visti.
+
 ## 4. Cosa risponde alla domanda
 
 - **La Corte costruisce una gerarchia di precedenti?** Sì, di fatto: poche pronunce concentrano le citazioni molto oltre il caso, un'ossatura resta citata per decenni, la rete si organizza in filoni per materia. Ma il grosso dei precedenti è consumato in pochi anni.
@@ -356,7 +372,7 @@ Sono risultati esplorativi, non preannunciati, solo il punto 2 e la replica al p
 | I relatori non sono assegnati a caso | Il 5,47 di D3 (3,27 a parità di disposizione impugnata), le classifiche di D2 | Gonfia l'effetto del redattore |
 | Le assenze dal collegio possono non essere casuali | D3 principale | Incerta; nel modello completo, che usa anche la soglia del giuramento, presenza e assenza non differiscono (0,88 in entrambi i casi) |
 | I topic sono 20, in parte formule di stile, poco stabili | Il controllo per materia in D2, D3 | Controllo imperfetto |
-| Citare non vuol dire approvare | Tutto | Un precedente può essere citato per discostarsene |
+| Citare non vuol dire approvare | Tutto | Un precedente può essere citato per discostarsene; il tentativo di misurarlo (sezione 3.9) non ha superato la soglia di qualità |
 | Le pronunce recenti hanno avuto meno tempo per essere citate | D1, D2 | Gestito con percentili per annata e finestre fisse; le pronunce dal 2020 restano poco informative |
 | HITS dà authority nulla a un terzo delle pronunce e concentra il resto in una sola comunità | Confronto authority e citazioni | La differenza dal caso misura soprattutto le comunità; PageRank, senza zeri, premia le pronunce antiche |
 | In D2 il modello nullo è cambiato dopo aver visto i risultati | D2 | Esplorativo: nessuna conclusione formale |
@@ -365,6 +381,8 @@ Sono risultati esplorativi, non preannunciati, solo il punto 2 e la replica al p
 ## 7. Cosa si potrebbe fare in più
 
 **Fatto in questa sessione perché si poteva fare:** estrazione e validazione, tutti e tre gli strati, D1–D4, topic, esito via SPARQL, Wikipedia, comunità, sei varianti di D3.
+
+**Aggiunto il 18/11/2026, su richiesta di Umberto:** la polarità delle citazioni (sezione 3.9), con esito negativo.
 
 **Aggiunto dopo il check del 17/11/2026:** verosimiglianza esatta in D3 e variante con la norma impugnata; rimescolamento dei redattori, finestra di 10 anni e variante dal 1987 in D2; nullo per tipo in D1; controllo delle comunità per HITS; modularità con 100 ricablaggi; etichette dei topic per specificità; misure del corso (sezione 3.8); mappa del programma (sezione 9); foglio per il controllo umano; test dei numeri; versioni dei pacchetti fissate.
 
@@ -385,13 +403,14 @@ Sono risultati esplorativi, non preannunciati, solo il punto 2 e la replica al p
 **Serve una persona o un accesso che non ho:**
 
 - il controllo umano dell'estrazione, già preparato: 36 pronunce con il testo intero, circa 100 coppie (`data/validation/human_check.md`, istruzioni in testa al foglio);
+- il controllo umano della polarità: 67 passi (`data/validation/polarity_human_check.md`);
 - la risposta del docente su tema, perimetro, lingua e regole sull'uso dell'intelligenza artificiale;
 - gli articoli a pagamento non letti (Black e Spriggs 2013; Agnoloni e Pagallo 2015): oggi non si possono citare;
 - la traduzione in inglese, se il corso la chiede.
 
 **Magari** (utile, costo medio):
 
-- distinguere le citazioni di adesione da quelle di distacco ("contrariamente a quanto affermato nella sentenza…"): è anche la forma sensata di sentiment per questi dati, e darebbe un segno ai legami;
+- una seconda versione del lessico di polarità (per esempio senza la regola sul superamento), fissata prima e provata su dati mai visti con un'annotazione umana: se superasse la soglia, darebbe un segno ai legami e renderebbe possibile l'equilibrio strutturale;
 - una materia più fine, usando gli articoli della Costituzione invocati, già presenti nell'86% delle massime;
 - studiare i 93 casi in cui il relatore è stato sostituito: le pronunce "con dissenso" sono citate diversamente?
 
@@ -403,7 +422,7 @@ Sono risultati esplorativi, non preannunciati, solo il punto 2 e la replica al p
 
 **No:**
 
-- l'analisi del sentiment sulle motivazioni, esclusa il 12/11/2026: non ha un significato chiaro per un testo giuridico. Se il docente la chiede, l'opzione concreta è la polarità delle citazioni (in "Magari");
+- usare la polarità delle citazioni nelle analisi finché uno strumento non supera la soglia di qualità (sezione 3.9);
 - attribuire "idee" o "voti" ai singoli giudici: i dati non lo permettono, il voto è segreto.
 
 ## 8. Come rifare tutto
@@ -430,6 +449,9 @@ python3.12 -m venv .venv
 .venv/bin/python src/analysis/figures.py
 .venv/bin/python src/analysis/interactive.py
 .venv/bin/python src/report/report_numbers.py
+.venv/bin/python src/polarity/contexts.py
+.venv/bin/python src/polarity/sample_test.py
+.venv/bin/python src/polarity/evaluate.py claude
 .venv/bin/python -m pytest
 ```
 
@@ -448,4 +470,4 @@ Il programma 2026/27 elenca sei voci, senza sotto-argomenti; concetti, misure e 
 | Lavorare con API | Applicato | Endpoint SPARQL della Corte e API di MediaWiki: sezioni 1.1, 2.5, 3.7 |
 | Data and information visualisation | Applicata | Figure 1–10 e rete interattiva (sezione 3.2) |
 | Topic extraction | Applicata | Sezione 2.7 |
-| Sentiment analysis | Non applicata | Esclusa il 12/11/2026; al suo posto l'esito delle pronunce. Alternativa da decidere: la polarità delle citazioni (sezione 7, "Magari") |
+| Sentiment analysis | Applicata come metodo, con esito negativo | Polarità delle citazioni con un lessico validato alla cieca (sezione 3.9): precisione 0,76, sotto la soglia fissata di 0,80, quindi nessuna analisi sui dati |

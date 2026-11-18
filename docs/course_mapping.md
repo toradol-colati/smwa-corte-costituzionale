@@ -18,7 +18,7 @@
 | Lavorare con API | Applicato | `src/ingest/sparql_check.py` e `fetch_api.py` → `data/processed/esiti.csv`, `data/interim/sedute_membri.csv`, `data/processed/wikipedia_links.csv`, `reports/api_fetch.json`, `reports/sparql_reconciliation.md`; relazione §1.1, §2.5, §3.7 | Endpoint SPARQL della Corte (query in SPARQL, risposte in JSON) per l'esito, i membri delle sedute e il controllo del relatore; API di MediaWiki (`list=exturlusage`, paginazione con `continue`) per i link da Wikipedia |
 | Data and information visualisation | Applicato | `src/analysis/figures.py` → `reports/figures/` (10 figure); `src/analysis/interactive.py` → `reports/rete_interattiva.html` (rete esplorabile, disposizione a forze di Fruchterman e Reingold); relazione, figure 1–10 e §3.2 | Regole delle figure in `docs/project_guide.md`, §3: un titolo che dice il risultato, intervalli sempre visibili |
 | Topic extraction | Applicato | `src/analysis/topics.py` → `reports/topics.md`, `reports/topics.json`, `data/processed/topics_pronunce.csv`; relazione §2.7 | LDA sulle massime: scelta del numero di temi con la coerenza NPMI, stabilità su 5 seed, verifica con i titoli e con i parametri costituzionali. Usata come controllo in D2 e D3 e per leggere le comunità |
-| Sentiment analysis | Non applicato | — | Escluso da Umberto il 12/11/2026: sulle motivazioni di una corte il "sentiment" non ha un significato chiaro. Al suo posto, come attributo delle pronunce, l'esito preso dall'endpoint SPARQL (§3.7). Alternativa concreta, da decidere: la polarità delle citazioni (parte 5) |
+| Sentiment analysis | Applicato come metodo, con esito negativo | `src/polarity/` (contesti, lessico, campione alla cieca, valutazione) → `reports/polarity_validation_claude.md`; relazione §3.9 | Forma adattata decisa da Umberto il 18/11/2026: la polarità delle citazioni (distinzione o distacco da un precedente). Il lessico ha precisione 0,76 (0,60–0,87), sotto la soglia di 0,80 fissata prima: nessuna analisi sui dati. Foglio per il controllo di una persona: `data/validation/polarity_human_check.md` |
 
 ## 2. Risultati di apprendimento attesi e prerequisiti
 
@@ -88,7 +88,7 @@
 | 4. Selezione e influenza sociale | Non applicato | Con una rete cumulata non si distinguono. D3 separa però l'esposizione a un precedente (sedere nel collegio) dalla scrittura (redigerlo) |
 | 4. Reti di affiliazione | Applicato | Lo strato del collegio è una rete di affiliazione tra giudici e decisioni, usata in D3; §2.6, §3.4 |
 | 4. Formazione dei legami online; segregazione spaziale | Non applicato | Nessun dato online sui giudici; nessuna dimensione spaziale |
-| 5. Relazioni positive e negative, equilibrio strutturale | Non applicato | Le citazioni non hanno segno. Servirebbe distinguere adesione e distacco (parte 5) |
+| 5. Relazioni positive e negative, equilibrio strutturale | Non applicato | Il segno dei legami doveva venire dalla polarità delle citazioni (§3.9), che non ha superato la soglia di qualità: l'analisi, fissata prima con una soglia minima di triangoli, non si è fatta |
 | 13. Il web come grafo orientato | Applicato | La rete delle citazioni è orientata e aciclica; §2.6 |
 | 13. Struttura a farfallino (bow-tie) | Non applicato | In un grafo aciclico non ci sono componenti fortemente connesse: ogni nodo è una componente a sé |
 | 14. Hub e authority (HITS) | Applicato | D1 (`d1_results.json`); §3.2 |
@@ -124,6 +124,6 @@
 
 ## 5. Cosa resta da decidere
 
-- **Sentiment.** La decisione del 12/11/2026 lo esclude. Se il docente lo considera necessario, l'opzione concreta è la polarità delle citazioni: per ogni menzione di un precedente, la frase che la contiene classificata come adesione ("come già affermato", "in linea con") o distacco ("diversamente da", "superando"), con un lessico scritto a mano e verificato su un campione. Darebbe un segno ai legami e renderebbe applicabile l'equilibrio strutturale (Easley e Kleinberg, cap. 5).
+- **Sentiment.** Affrontato il 18/11/2026 con la polarità delle citazioni (§3.9): il lessico non ha superato la soglia (precisione 0,76 contro 0,80). Una seconda versione andrebbe fissata prima e provata su dati mai visti, con un'annotazione umana; il foglio per il controllo di questa versione è pronto.
 - **Dati social.** Non ce ne sono: il tema resta da concordare con il docente.
 - **Elenco delle lezioni.** Questa mappa va confrontata con le slide del corso su Moodle.
