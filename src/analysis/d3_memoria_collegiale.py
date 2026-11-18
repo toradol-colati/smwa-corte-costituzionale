@@ -18,6 +18,10 @@ Design (all fixed in docs/decisions.md before any estimate):
 Secondary "full" model: risk set = all earlier precedents, reference category =
 precedent decided before R joined the Court.
 
+Exploratory variant (18/11/2026): the same model plus two pair variables, same challenged act and
+same challenged article (norme oggetto from the massime, legge 87/1953 art. 23), to see whether the
+self-drafted effect comes from repeated questions assigned to the same relatore.
+
 Outputs: reports/d3_results.json, reports/d3_results.md
 Usage: .venv/bin/python src/analysis/d3_memoria_collegiale.py
 """
@@ -62,13 +66,17 @@ def clogit_breslow(X: np.ndarray, y: np.ndarray, strata: np.ndarray, cluster: np
         H = (Xc * (p * d[sid])[:, None]).T @ Xc
         return ll, score_s, H
 
+    ll, score_s, H = parts(beta)
     for _ in range(50):
-        ll, score_s, H = parts(beta)
         step = np.linalg.solve(H, score_s.sum(0))
-        beta = beta + step
+        for _half in range(30):  # step-halving: the plain Newton step can overshoot
+            ll2, score2, H2 = parts(beta + step)
+            if np.isfinite(ll2) and ll2 >= ll - 1e-10:
+                break
+            step = step / 2
+        beta, ll, score_s, H = beta + step, ll2, score2, H2
         if np.abs(step).max() < 1e-9:
             break
-    ll, score_s, H = parts(beta)
     Hinv = np.linalg.inv(H)
     cl = cluster[starts]
     S = pd.DataFrame(score_s).groupby(cl).sum().values
@@ -322,8 +330,9 @@ def estimate(t: pd.DataFrame, mode="mandate", extra=False, label="", norme=False
 
 def main():
     nodes, coll, app, edges, theta = load()
-    out = {}
-    t = build(nodes, coll, app, edges, theta, "mandate")
+    acts, arts, cov = load_norme()
+    out = {"norme_coverage": cov}
+    t = build(nodes, coll, app, edges, theta, "mandate", norme=(acts, arts))
     t.to_pickle(REPO / "data/interim/d3_mandate.pkl")
     # descriptive: raw citation rates by category (per 1,000 pairs of the full risk set are not
     # available after sampling; cases vs sampled controls are reported instead)
@@ -347,6 +356,14 @@ def main():
     V["testo intero (anche Ritenuto in fatto)"] = estimate(tf)
     tn = build(nodes, coll, app, edges, theta, "mandate", edges_file="edges_citations_with_notes.csv")
     V["con le citazioni delle massime (note editoriali)"] = estimate(tn)
+    # exploratory (18/11/2026): are self-citations repeated questions? Same challenged act / article
+    V["controllo per norma impugnata in comune (esplorativo)"] = estimate(t, norme=True)
+    known = t[t.norme_missing == 0]
+    out["norme_descrittive"] = {lab: {"cases_same_article": float(known[m & (known.y == 1)].same_article.mean()),
+                                      "controls_same_article": float(known[m & (known.y == 0)].same_article.mean()),
+                                      "cases": int((m & (known.y == 1)).sum())}
+                                for lab, m in [("self_drafted", known.self_drafted == 1), ("sat_not_drafted", known.sat_not_drafted == 1),
+                                               ("absent", known.sat == 0)]}
     # sensitivity to the control sample: 5 other seeds
     ors = []
     for s in range(1, 6):

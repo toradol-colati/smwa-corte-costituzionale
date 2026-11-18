@@ -87,11 +87,12 @@ for i, (lab, c, main) in enumerate(rows[::-1]):
 ax.axvline(1, color="k", lw=1)
 ax.set_yticks(range(len(rows))); ax.set_yticklabels([r[0] for r in rows[::-1]], fontsize=8)
 ax.set_xlabel("Odds ratio (1 = nessun effetto), con intervallo di confidenza al 95%")
+ax.xaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda x, _: f"{x:.1f}".replace(".", ",")))
 ax.set_title("Sedere nel collegio di un precedente non aumenta la probabilità di citarlo", loc="left", fontsize=10)
 save(fig, "fig7_d3_memoria_collegiale.png")
 
 # 8. self vs sat
-fig, ax = plt.subplots(figsize=(6.6, 3.2))
+fig, ax = plt.subplots(figsize=(8.4, 3.2))
 c = d3["primary"]["coef"]
 cn = d3["variants"].get("controllo per norma impugnata in comune (esplorativo)", {}).get("coef")
 rows8 = [("Sedeva nel collegio,\nnon l'ha redatto", c["sat_not_drafted"], GREY), ("L'ha redatto lui", c["self_drafted"], RED)]
@@ -102,7 +103,7 @@ for i, (lab, cc, col) in enumerate(rows8):
 ax.axvline(1, color="k", lw=1); ax.set_yticks(range(len(rows8))); ax.set_yticklabels([r[0] for r in rows8]); ax.set_ylim(-0.6, len(rows8) - 0.4)
 ax.set_xscale("log"); ax.set_xlim(0.7, max(r[1]["hi"] for r in rows8) * 1.25)
 ax.set_xticks([0.8, 1, 2, 4, 6]); ax.set_xticklabels(["0,8", "1", "2", "4", "6"]); ax.xaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
-ax.set_xlabel("Odds ratio rispetto a un precedente deciso in sua assenza (scala log.)")
+ax.set_xlabel("Odds ratio, scala logaritmica (1 = come un precedente deciso in sua assenza)")
 ax.set_title("Il redattore cita molto di più ciò che ha scritto lui;\naver seduto nel collegio non fa una differenza misurabile", loc="left", fontsize=10)
 save(fig, "fig8_d3_redatto_vs_collegio.png")
 

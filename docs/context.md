@@ -11,7 +11,7 @@ Una pronuncia della Corte costituzionale non è l'opera di un giudice. La decide
 ## Fonti
 
 **Lette per questo documento**
-- [Legge 11 marzo 1953, n. 87](https://www.cortecostituzionale.it/documenti/filesDoc/Legge_11_marzo_1953_n_87.pdf), testo coordinato sul sito della Corte: artt. 16–19.
+- [Legge 11 marzo 1953, n. 87](https://www.cortecostituzionale.it/documenti/filesDoc/Legge_11_marzo_1953_n_87.pdf), testo coordinato sul sito della Corte: artt. 16–19; artt. 23 e 27 letti il 18/11/2026.
 - [Norme integrative per i giudizi davanti alla Corte costituzionale](https://www.cortecostituzionale.it/documenti/download/pdf/norme_integrative_2026.pdf), testo del 2021 aggiornato al 12 marzo 2026: artt. 9 e 20.
 - [Norme integrative del 7 ottobre 2008](https://www.cortecostituzionale.it/documenti/download/pdf/CC_Fonti_NORME_INTEGRATIVE%20_05032011.pdf): artt. 7 e 17.
 - Portale open data della Corte: [Il progetto](https://dati.cortecostituzionale.it/Il_progetto/Il_progetto) (composizione, funzioni, flusso di lavoro), [I DTD](https://dati.cortecostituzionale.it/Scarica_i_dati/I_dtd/I_dtd), [ECLI](https://dati.cortecostituzionale.it/ECLI/ECLI).
@@ -47,6 +47,7 @@ Una pronuncia della Corte costituzionale non è l'opera di un giudice. La decide
 | Redattore | Scrive la sentenza o l'ordinanza dopo la votazione. Di regola è il relatore; il Presidente può affidare la redazione "ad altro o a più giudici" per indisponibilità o per altro motivo. Nei giudici comuni la stessa funzione si chiama giudice estensore | Non è chi decide: il testo è approvato dal collegio | Fonte: Norme integrative 2026 art. 20, commi 4–5 |
 | Assistenti di studio | Vengono dalle magistrature o dalle università; aiutano i giudici nell'istruttoria e nella redazione delle pronunce | Non firmano: il loro contributo non compare nei dati | Fonte: Annuario 2025 |
 | Cancelliere | Firma la pronuncia e ne riceve il deposito | — | Fonte: legge 87/1953 artt. 18–19 |
+| Norma oggetto e parametro | La questione di legittimità indica "le disposizioni della legge o dell'atto avente forza di legge dello Stato o di una Regione, viziate da illegittimità costituzionale" (la norma oggetto, o impugnata) e "le disposizioni della Costituzione o delle leggi costituzionali, che si assumono violate" (il parametro). La Corte, se accoglie, dichiara illegittime le disposizioni "nei limiti dell'impugnazione". Nei dati: `norme/norma` e `parametri/parametro` delle massime, compilati dall'Ufficio del massimario | Due pronunce con la stessa norma oggetto decidono questioni sulla stessa disposizione, non necessariamente la stessa questione: possono cambiare il parametro, il giudice rimettente o gli argomenti | Fonte: legge 87/1953 artt. 23 e 27; DTD delle massime sul portale. Dati: `norme` in almeno una massima nel 96,6% delle pronunce con massime |
 | Ufficio del massimario | Compila le massime e cura la raccolta ufficiale (il portale open data le attribuisce al Servizio studi, che fa analisi e documentazione) | Non sono giudici: materie e titoli delle massime sono una classificazione d'ufficio | Fonte: Annuario 2024 [C2]; portale, Il progetto |
 
 **Le firme sono cambiate nel tempo.**

@@ -13,7 +13,7 @@
 **Cosa abbiamo trovato.**
 
 1. **Risultato principale: nessuna "memoria collegiale" misurabile.** Un redattore non cita di più i precedenti decisi da collegi in cui sedeva, rispetto a quelli decisi mentre era in carica ma assente: odds ratio 1,00, intervallo di confidenza al 95% da 0,92 a 1,09. Il dato esclude effetti superiori al 9% circa in più o all'8% in meno; non dimostra che l'effetto sia esattamente zero.
-2. **Però un redattore cita molto di più ciò che ha scritto lui**: odds ratio 5,47 (4,76–6,27), a parità di età e materia del precedente. È un risultato esplorativo, e la spiegazione resta aperta: una preferenza personale o la prassi di affidare allo stesso relatore le questioni che si ripetono (sezione 3.4).
+2. **Però un redattore cita molto di più ciò che ha scritto lui**: odds ratio 5,47 (4,76–6,27), a parità di età e materia del precedente. Gran parte viene dalle questioni che si ripetono: il 40,0% dei precedenti scritti dallo stesso redattore che vengono citati riguarda la stessa disposizione impugnata. A parità di disposizione impugnata l'odds ratio scende a 3,27 (2,95–3,63). Risultato esplorativo (sezione 3.4).
 3. **Una gerarchia di fatto esiste.** Le citazioni sono molto più concentrate di quanto vorrebbe il caso: l'1% delle pronunce più citate raccoglie il 10,3% delle citazioni, contro il 3,4% atteso.
 4. **Pochi redattori si distinguono.** Su 113 giudici, dopo la correzione di Holm le pronunce di 6 sono citate più di pronunce prese a caso dello stesso anno e quelle di 7 meno; e chi è citato più dell'atteso in carica lo resta dopo il mandato, più di quanto darebbero le sole pronunce. Esplorativo.
 5. **Due risultati della letteratura sulla Corte italiana non reggono**: la distribuzione delle citazioni non è una legge di potenza, e le pronunce più "autorevoli" secondo l'algoritmo HITS non coincidono con le più citate.
@@ -252,11 +252,11 @@ Base: 13.654 pronunce che citano, 46.969 citazioni, di cui 1.658 a precedenti de
 
 ![Figura 8](figures/fig8_d3_redatto_vs_collegio.png)
 
-*Figura 8. Odds ratio di citazione per i precedenti redatti dal redattore e per quelli decisi da un collegio in cui sedeva, rispetto ai precedenti decisi in sua assenza. Barre: intervalli al 95%.*
+*Figura 8. Odds ratio di citazione per i precedenti redatti dal redattore e per quelli decisi da un collegio in cui sedeva, rispetto ai precedenti decisi in sua assenza; in blu, i precedenti redatti dal redattore a parità di disposizione impugnata (esplorativo). Barre: intervalli al 95%.*
 
 **Come si legge.** Avere partecipato alla decisione di un precedente non lo rende più citato da quel giudice: le differenze compatibili con i dati sono piccole, entro il 9% circa. Averlo scritto sì, e di molto. L'ipotesi di partenza ("il precedente circola attraverso le persone che lo hanno deciso") non trova sostegno; resta in piedi una forma più stretta, ancora da spiegare: il precedente circola attraverso chi lo ha scritto.
 
-**Tiene in tutte le varianti** (Figura 7): senza autocitazioni 0,99 (0,91–1,08); solo dal 1987, dove il redattore è osservato, 1,01 (0,93–1,10); senza gli anni dell'arretrato 1,04 (0,96–1,13); sul testo intero 0,99 (0,90–1,09); aggiungendo le citazioni delle massime 0,99 (0,91–1,08); con altri cinque campioni di controlli tra 0,98 e 1,01. Nessuna variante esclude l'1.
+**Tiene in tutte le varianti** (Figura 7): senza autocitazioni 0,99 (0,91–1,08); solo dal 1987, dove il redattore è osservato, 1,01 (0,93–1,10); senza gli anni dell'arretrato 1,04 (0,96–1,13); sul testo intero 0,99 (0,90–1,09); aggiungendo le citazioni delle massime 0,99 (0,91–1,08); a parità di disposizione impugnata 0,99 (0,91–1,07); con altri cinque campioni di controlli tra 0,98 e 1,01. Nessuna variante esclude l'1.
 
 Nel modello completo, che usa anche la soglia del giuramento, i precedenti decisi durante il mandato del redattore sono citati meno di quelli della stessa età decisi prima del suo arrivo, sia quando sedeva (0,88; 0,80–0,96) sia quando era assente (0,88; 0,77–1,01). Presenza e assenza, di nuovo, non differiscono.
 
@@ -264,7 +264,9 @@ Nel modello completo, che usa anche la soglia del giuramento, i precedenti decis
 
 *Figura 7. Odds ratio di "sedeva nel collegio senza redigere" nell'analisi principale (in rosso) e nelle varianti.*
 
-**Cautela sul 5,47.** I relatori li sceglie il Presidente, con criteri non pubblici. Due spiegazioni non si escludono: un giudice che segue sempre la stessa materia cita i propri precedenti perché sono quelli pertinenti; e le questioni che si ripetono (la stessa norma portata alla Corte da più giudici) possono essere affidate allo stesso relatore, che poi richiama la propria decisione. L'effetto è più forte nelle ordinanze (9,83) che nelle sentenze (3,53), e prima del 2001 (8,74) che dopo (3,64): è il profilo che ci si aspetta dalle questioni ripetute, spesso decise con ordinanza. La somiglianza di materia è nel modello, ma i topic sono grossolani. Il 5,47 è quindi un limite superiore dell'effetto "personale".
+**Cautela sul 5,47.** I relatori li sceglie il Presidente, con criteri non pubblici. Due spiegazioni non si escludono: un giudice che segue sempre la stessa materia cita i propri precedenti perché sono quelli pertinenti; e le questioni che si ripetono (la stessa norma portata alla Corte da più giudici) possono essere affidate allo stesso relatore, che poi richiama la propria decisione. L'effetto è più forte nelle ordinanze (9,83) che nelle sentenze (3,53), e prima del 2001 (8,74) che dopo (3,64): è il profilo che ci si aspetta dalle questioni ripetute, spesso decise con ordinanza. La somiglianza di materia è nel modello, ma i topic sono grossolani.
+
+**La prova delle questioni ripetute** (esplorativa, aggiunta il 18/11/2026). Le massime indicano per ogni pronuncia le disposizioni impugnate, cioè le norme di legge di cui si discute la legittimità (legge 87/1953, art. 23). Il 40,0% dei precedenti scritti dallo stesso redattore e citati riguarda la stessa disposizione impugnata della pronuncia che cita, contro il 7,8% dei precedenti decisi in collegi in cui sedeva e il 9,8% di quelli decisi in sua assenza; tra i precedenti non citati la quota è sotto l'1%. Aggiungendo al modello due variabili, stessa legge impugnata e stesso articolo impugnato, l'odds ratio di "l'ha redatto lui" scende da 5,47 a 3,27 (2,95–3,63), mentre "sedeva nel collegio" resta 0,99 (0,91–1,07). Le questioni ripetute spiegano quindi una parte importante dell'effetto, non tutto: il 3,27 che resta può essere preferenza personale, specializzazione per materia o legami tra questioni che le massime non registrano. È un limite superiore dell'effetto "personale".
 
 ### 3.5 D2 — Pochi redattori si distinguono (esplorativo)
 
@@ -305,13 +307,13 @@ Resta il limite della materia: i topic sono grossolani, e i redattori non sono a
 ## 4. Cosa risponde alla domanda
 
 - **La Corte costruisce una gerarchia di precedenti?** Sì, di fatto: poche pronunce concentrano le citazioni molto oltre il caso, un'ossatura resta citata per decenni, la rete si organizza in filoni per materia. Ma il grosso dei precedenti è consumato in pochi anni.
-- **Quanto passa dai giudici?** Dal collegio, nulla che si riesca a misurare. Dal redattore, molto: le probabilità (odds) che citi ciò che ha scritto sono circa cinque volte e mezzo quelle di un precedente deciso in sua assenza, e le pronunce di pochi redattori pesano più di quanto darebbe il caso, anche dopo che hanno lasciato la Corte (esplorativo).
+- **Quanto passa dai giudici?** Dal collegio, nulla che si riesca a misurare. Dal redattore, molto: le probabilità (odds) che citi ciò che ha scritto sono circa cinque volte e mezzo quelle di un precedente deciso in sua assenza (3,27 a parità di disposizione impugnata), e le pronunce di pochi redattori pesano più di quanto darebbe il caso, anche dopo che hanno lasciato la Corte (esplorativo).
 
 ## 5. Il "fattore wow"
 
 Tre cose che un docente di analisi delle reti difficilmente si aspetta, tutte verificabili nel repository:
 
-1. **Un risultato nullo preannunciato.** L'ipotesi su cui il progetto era costruito non trova sostegno, con un intervallo che esclude effetti superiori al 9% circa (0,92–1,09) e con il criterio scritto prima dei risultati. Accanto c'è un effetto forte (5,47) per i precedenti scritti di proprio pugno: trovato guardando i dati, quindi esplorativo, e con due spiegazioni possibili (sezione 3.4). Il contrasto sta in una figura (Figura 8).
+1. **Un risultato nullo preannunciato.** L'ipotesi su cui il progetto era costruito non trova sostegno, con un intervallo che esclude effetti superiori al 9% circa (0,92–1,09) e con il criterio scritto prima dei risultati. Accanto c'è un effetto forte (5,47) per i precedenti scritti di proprio pugno: trovato guardando i dati, quindi esplorativo, e in buona parte dovuto alle questioni ripetute: a parità di disposizione impugnata scende a 3,27 (sezione 3.4). Il contrasto sta in una figura (Figura 8).
 2. **Una scoperta fatta guardando i dati, non in letteratura.** Il 23 dicembre 1986, tra la pronuncia 286 e la 287, la Corte smette di far firmare tutti i giudici e comincia a indicare il redattore. Il cambio si vede al giorno nei testi, mentre la dottrina lo data alla norma del luglio 1987. Senza accorgersene, metà dell'analisi sui giudici sarebbe stata costruita su un dato che non esiste.
 3. **Due risultati pubblicati che non reggono al controllo**: la legge di potenza e l'identità tra authority e citazioni, entrambi di Agnoloni e Pagallo. Qui sono testati contro alternative e modelli nulli, come chiede la critica di Frankenreiter (2017).
 
@@ -324,7 +326,7 @@ Sono risultati esplorativi, non preannunciati, solo il punto 2 e la replica al p
 | L'annotazione di riferimento è di Claude, non di una persona, e copre solo i passi con parole chiave; 342 coppie invece di 460. Il controllo di una persona è preparato, non ancora fatto | Tutta la rete | Se l'annotatore e l'estrattore sbagliano allo stesso modo, precisione e richiamo sono sovrastimati |
 | Richiamo più basso nei testi fino al 1986 (0,92; limite inferiore 0,83) | D1b, D2 per i giudici più antichi | Citazioni ai precedenti antichi sottostimate |
 | Prima del 1987 il redattore è approssimato dal relatore | D2, D3 | Attenua le differenze; la variante dal 1987 dà lo stesso risultato per D3 |
-| I relatori non sono assegnati a caso | Il 5,47 di D3, le classifiche di D2 | Gonfia l'effetto del redattore |
+| I relatori non sono assegnati a caso | Il 5,47 di D3 (3,27 a parità di disposizione impugnata), le classifiche di D2 | Gonfia l'effetto del redattore |
 | Le assenze dal collegio possono non essere casuali | D3 principale | Incerta; nel modello completo, che usa anche la soglia del giuramento, presenza e assenza non differiscono (0,88 in entrambi i casi) |
 | I topic sono 20, in parte formule di stile, poco stabili | Il controllo per materia in D2, D3 | Controllo imperfetto |
 | Citare non vuol dire approvare | Tutto | Un precedente può essere citato per discostarsene |

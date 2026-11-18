@@ -53,7 +53,7 @@ Radice `<corte_costituzionale_archiviomassime>`, un `<pronuncia>` per decisione:
 | `massime/massima/titolo` | "Demanio e patrimonio … - Norme della Regione Liguria - … - Illegittimità costituzionale …" | Voci separate da " - "; fino al 2014 spesso tutto maiuscolo e con prefisso "SENT. 1/60 A." (56% dei titoli) |
 | `massime/massima/testo` | testo della massima | CDATA |
 | `massime/massima/parametri/parametro` | `codice`, `descrizione`, `numero`, `data`, `articolo`, `specificazione_articolo`, `comma`, `specificazione_comma` | Parametri costituzionali invocati; nell'86,3% delle massime. `codice` non è nel DTD |
-| `massime/massima/norme/norma` | stessi campi | Norme oggetto del giudizio; nell'85,6% delle massime |
+| `massime/massima/norme/norma` | stessi campi | Norme oggetto del giudizio (legge 87/1953, art. 23); nell'85,6% delle massime, con l'articolo nel 77,3%. Per decennio, massime con norme: 1950 72,6%, 1960 84,0%, 1970 81,0%, 1980 91,1%, 1990 86,5%, 2000 88,3%, 2010 90,8%, 2020 71,0%. Pronunce con norme in almeno una massima: 96,6%. Conteggi del 18/11/2026, da `src/analysis/d3_memoria_collegiale.py` (`norme_coverage` in `reports/d3_results.json`) |
 
 Massime per pronuncia: mediana 1, massimo 59. Pronunce con almeno una massima: tutte fino al 2025, 73% nel 2026.
 
