@@ -6,7 +6,7 @@ Questo file riassume le verifiche di qualità. È scritto a mano a partire dai r
 
 Soglie fissate prima: precisione almeno 0,95, richiamo almeno 0,90, sulle coppie (pronuncia che cita, pronuncia citata) del testo di base. Intervalli al 95% di Wilson.
 
-**Chi ha annotato.** Claude, leggendo i testi, prima di eseguire l'estrattore sul campione. Non è un'annotazione umana. I file `data/validation/gold_test.txt` e `gold_test2.txt` elencano le citazioni annotate, pronuncia per pronuncia, per il controllo di una persona.
+**Chi ha annotato.** Claude, prima di eseguire l'estrattore sul campione, leggendo solo i passi che contengono una parola chiave o un richiamo (`src/validation/sample_passages.py`), non i testi interi. Non è un'annotazione umana, e le parole chiave del filtro somigliano a quelle dell'estrattore: una citazione scritta in una forma che nessuno dei due riconosce sfuggirebbe a entrambi, e il richiamo risulterebbe più alto del vero. I file `data/validation/gold_test.txt` e `gold_test2.txt` elencano le citazioni annotate, pronuncia per pronuncia.
 
 | Passo | Campione | Pronunce | Coppie vere | Precisione | Richiamo | File |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -24,6 +24,8 @@ Come leggere la tabella.
 - `validation_round1.md` è la fotografia della prima misura, fatta con l'estrattore prima della correzione: non si può rigenerare con il codice attuale.
 - Scostamento dal piano: 342 coppie annotate, non le 460 previste.
 - Le 6 coppie mancate nel secondo campione e l'unica coppia falsa sono elencate in `validation_test2.md`.
+
+**Controllo umano, da fare.** `data/validation/human_check.md` contiene 36 pronunce mai usate prima (seed 20261119), con tutto il testo di base e senza il risultato dell'estrattore: da 3 pronunce per decennio e tipo negli anni 1950–1980 a 1 negli anni 2010–2020, per circa 100 coppie attese. Una persona annota le citazioni in `data/validation/gold_human.txt` (istruzioni in testa al foglio); poi `.venv/bin/python src/validation/evaluate.py human` scrive `reports/validation_human.md`. Finché questo non è fatto, precisione e richiamo restano quelli stimati da Claude.
 
 ## 2. Giudici
 

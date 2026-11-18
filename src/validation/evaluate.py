@@ -15,12 +15,22 @@ def wilson(k, n, z=1.96):
     return c - h, c + h
 
 WHICH = sys.argv[1] if len(sys.argv) > 1 else "test"
+ANNOTATOR = {
+    "test": "è stata fatta da Claude leggendo i passi dei testi che contengono una parola chiave o un richiamo "
+            "(`src/validation/sample_passages.py`), prima di eseguire l'estrattore su questo campione e senza vederne il risultato. "
+            "Non è un'annotazione umana, e non copre i testi interi.",
+    "human": "è stata fatta da una persona leggendo per intero il testo di base di ogni pronuncia "
+             "(`data/validation/human_check.md`), senza vedere il risultato dell'estrattore.",
+}
+ANNOTATOR["test2"] = ANNOTATOR["test"]
 SAMPLE_DESC = {
     "test": "Campione: primo campione di verifica, 4 pronunce per decennio e tipo, seed 20261117. Dopo la prima misura "
             "(conservata in `validation_round1.md`) l'estrattore è stato corretto guardando gli errori di questo campione: "
             "i numeri qui sotto non sono più una stima indipendente.",
     "test2": "Campione: secondo campione di verifica, solo pronunce fino alla 286/1986, 6 per decennio e tipo, seed 20261118, "
              "estratto dopo la correzione dell'estrattore e mai usato per metterlo a punto.",
+    "human": "Campione: controllo umano, da 3 pronunce per decennio e tipo negli anni 1950–1980 a 1 negli anni 2010–2020 "
+             "(circa 100 coppie attese), seed 20261119, escluse le pronunce dei campioni precedenti.",
 }
 gold = {}
 for line in (REPO / f"data/validation/gold_{WHICH}.txt").read_text().splitlines():
@@ -43,9 +53,8 @@ def line(d, label):
     return f"| {label} | {len(d)} | {tp + fn} | {tp} | {fp} | {fn} | {P:.3f} ({pl:.3f}–{ph:.3f}) | {R:.3f} ({rl:.3f}–{rh:.3f}) |"
 out = ["# Validazione dell'estrazione delle citazioni\n",
        "Generato da `src/validation/evaluate.py`. Unità: la coppia (pronuncia che cita, pronuncia citata) nel testo di base.\n",
-       f"**Chi ha annotato.** L'annotazione di riferimento (`data/validation/gold_{WHICH}.txt`) è stata fatta da Claude leggendo i passi dei testi "
-       "che contengono una parola chiave o un richiamo (`src/validation/sample_passages.py`), prima di eseguire l'estrattore su questo campione "
-       "e senza vederne il risultato. Non è un'annotazione umana. " + SAMPLE_DESC[WHICH] + " È separato "
+       f"**Chi ha annotato.** L'annotazione di riferimento (`data/validation/gold_{WHICH}.txt`) " + ANNOTATOR[WHICH] + " "
+       + SAMPLE_DESC[WHICH] + " È separato "
        "da quello usato per mettere a punto l'estrattore (2 per strato, seed 20261116). Per il controllo a campione di una persona: "
        f"`data/validation/gold_{WHICH}.txt` elenca per ogni pronuncia le citazioni annotate.\n",
        "Intervalli di confidenza al 95% di Wilson.\n",

@@ -2,7 +2,7 @@
 
 Generato da `src/validation/evaluate.py`. Unità: la coppia (pronuncia che cita, pronuncia citata) nel testo di base.
 
-**Chi ha annotato.** L'annotazione di riferimento (`data/validation/gold_test2.txt`) è stata fatta da Claude leggendo i passi dei testi che contengono una parola chiave o un richiamo (`src/validation/sample_passages.py`), prima di eseguire l'estrattore su questo campione e senza vederne il risultato. Non è un'annotazione umana. Campione: secondo campione di verifica, solo pronunce fino alla 286/1986, 6 per decennio e tipo, seed 20261118, estratto dopo la correzione dell'estrattore e mai usato per metterlo a punto. È separato da quello usato per mettere a punto l'estrattore (2 per strato, seed 20261116). Per il controllo a campione di una persona: `data/validation/gold_test2.txt` elenca per ogni pronuncia le citazioni annotate.
+**Chi ha annotato.** L'annotazione di riferimento (`data/validation/gold_test2.txt`) è stata fatta da Claude leggendo i passi dei testi che contengono una parola chiave o un richiamo (`src/validation/sample_passages.py`), prima di eseguire l'estrattore su questo campione e senza vederne il risultato. Non è un'annotazione umana, e non copre i testi interi. Campione: secondo campione di verifica, solo pronunce fino alla 286/1986, 6 per decennio e tipo, seed 20261118, estratto dopo la correzione dell'estrattore e mai usato per metterlo a punto. È separato da quello usato per mettere a punto l'estrattore (2 per strato, seed 20261116). Per il controllo a campione di una persona: `data/validation/gold_test2.txt` elenca per ogni pronuncia le citazioni annotate.
 
 Intervalli di confidenza al 95% di Wilson.
 

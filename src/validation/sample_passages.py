@@ -10,7 +10,7 @@ from pathlib import Path
 import pandas as pd
 REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO / "src" / "extract"))
-SEEDS = {"dev": (20261116, 2), "test": (20261117, 4)}
+SEEDS = {"dev": (20261116, 2), "test": (20261117, 4)}  # test2: 20261118, 6 per stratum; human: 20261119
 CUE = re.compile(r"sentenz|ordinanz|\bsentt?\.|\bordd?\.|decision[ei]\b|pronunc|pronunz|\bcfr\b|ex plurimis|ex multis|giurisprudenza|precedent", re.I)
 
 def draw(df, seed, k):
@@ -29,7 +29,14 @@ def sample(which):
         s = test
     else:
         old = df[(df.pid < 19860287) & ~df.pid.isin(dev.pid) & ~df.pid.isin(test.pid)]
-        s = draw(old, 20261118, 6)
+        test2 = draw(old, 20261118, 6)
+        if which == "test2":
+            s = test2
+        else:  # human: check by a person on full texts, never seen before (check of 17/11/2026)
+            rest = df[~df.pid.isin(dev.pid) & ~df.pid.isin(test.pid) & ~df.pid.isin(test2.pid)]
+            per_decade = {1950: 3, 1960: 3, 1970: 3, 1980: 3, 1990: 2, 2000: 2, 2010: 1, 2020: 1}  # about 100 pairs in all
+            s = pd.concat([g.sample(min(per_decade[dec], len(g)), random_state=20261119)
+                           for (dec, _t), g in rest.groupby(["decade", "tipo"])])
     return s.sort_values("pid")
 
 def passages(text):
