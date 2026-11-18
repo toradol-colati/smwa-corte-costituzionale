@@ -15,7 +15,7 @@
 1. **Risultato principale: nessuna "memoria collegiale" misurabile.** Un redattore non cita di più i precedenti decisi da collegi in cui sedeva, rispetto a quelli decisi mentre era in carica ma assente: odds ratio 1,00, intervallo di confidenza al 95% da 0,92 a 1,09. Il dato esclude effetti superiori al 9% circa in più o all'8% in meno; non dimostra che l'effetto sia esattamente zero.
 2. **Però un redattore cita molto di più ciò che ha scritto lui**: odds ratio 5,47 (4,76–6,27), a parità di età e materia del precedente. È un risultato esplorativo, e la spiegazione resta aperta: una preferenza personale o la prassi di affidare allo stesso relatore le questioni che si ripetono (sezione 3.4).
 3. **Una gerarchia di fatto esiste.** Le citazioni sono molto più concentrate di quanto vorrebbe il caso: l'1% delle pronunce più citate raccoglie il 10,3% delle citazioni, contro il 3,4% atteso.
-4. **Pochi redattori si distinguono.** Su 113 giudici, dopo la correzione di Holm le pronunce di 7 sono citate più di pronunce prese a caso dello stesso anno e quelle di 8 meno; e chi è citato più dell'atteso in carica lo resta dopo il mandato, più di quanto darebbero le sole pronunce. Esplorativo.
+4. **Pochi redattori si distinguono.** Su 113 giudici, dopo la correzione di Holm le pronunce di 6 sono citate più di pronunce prese a caso dello stesso anno e quelle di 7 meno; e chi è citato più dell'atteso in carica lo resta dopo il mandato, più di quanto darebbero le sole pronunce. Esplorativo.
 5. **Due risultati della letteratura sulla Corte italiana non reggono**: la distribuzione delle citazioni non è una legge di potenza, e le pronunce più "autorevoli" secondo l'algoritmo HITS non coincidono con le più citate.
 
 **Il "fattore wow"** è nella sezione 5.
@@ -270,12 +270,12 @@ Nel modello completo, che usa anche la soglia del giuramento, i precedenti decis
 
 (`reports/d2_results.json`)
 
-**Come si misura.** Per ogni giudice: citazioni ricevute dalle pronunce che ha redatto, escluse le autocitazioni, divise per quelle attese. L'atteso e la variabilità vengono dal rimescolamento dei redattori: le pronunce di ogni anno si riassegnano a caso tra i redattori di quell'anno, e ogni pronuncia porta con sé le citazioni che ha davvero ricevuto da pronunce di altri redattori. 10,000 rimescolamenti; i valori p vengono dal loro conteggio.
+**Come si misura.** Per ogni giudice: le citazioni che ricevono, nei 10 anni dal deposito, le pronunce che ha redatto, escluse le autocitazioni, divise per quelle attese. L'atteso e la variabilità vengono dal rimescolamento dei redattori: le pronunce di ogni anno si riassegnano a caso tra i redattori di quell'anno, e ogni pronuncia porta con sé le citazioni che ha davvero ricevuto da pronunce di altri redattori. 10.000 rimescolamenti; i valori p vengono dal loro conteggio.
 
-- Su 113 giudici con almeno 30 pronunce, dopo la correzione di Holm le pronunce di **7** sono citate più dell'atteso e quelle di **8** meno; per gli altri la differenza non si distingue dal caso (Figura 9).
-- Le differenze tra giudici sono comunque più ampie di quelle dei rimescolamenti: la varianza del logaritmo del rapporto è 3,6 volte quella attesa (p < 0,001).
-- In testa: Baldassarre (1,95; 1,66–2,27), Onida (1,73; 1,39–2,09), Crisafulli (1,67; 1,28–2,10); l'atteso è 1.
-- Tenendo conto anche del tipo di pronuncia, 4 sopra e 6 sotto; anche della materia, 2 e 5. Con le sole pronunce dalla 287/1986, dove il redattore è osservato, 7 e 8 su 74 giudici.
+- Su 113 giudici con almeno 30 pronunce, dopo la correzione di Holm le pronunce di **6** sono citate più dell'atteso e quelle di **7** meno; per gli altri la differenza non si distingue dal caso (Figura 9).
+- Le differenze tra giudici sono comunque più ampie di quelle dei rimescolamenti: la varianza del logaritmo del rapporto è 3,0 volte quella attesa (p < 0,001).
+- In testa: Baldassarre (1,88; 1,60–2,17), Onida (1,61; 1,28–1,99), De Siervo (1,48; 1,21–1,80); l'atteso è 1.
+- Tenendo conto anche del tipo di pronuncia, 2 sopra e 4 sotto; anche della materia, 1 e 3. Con le sole pronunce dalla 287/1986, dove il redattore è osservato, 7 e 7 su 74 giudici.
 - **Dopo il mandato.** Per gli 87 giudici usciti entro il 2015, chi era citato più dell'atteso in carica lo è anche nei dieci anni successivi: correlazione tra ranghi 0,66. Una parte è meccanica, perché le stesse pronunce restano citate: con pronunce prese a caso dello stesso anno la correlazione sarebbe 0,37 (95%: 0,16–0,55). Il dato osservato sta sopra (p < 0,001); a parità anche di tipo e materia, 0,62 contro 0,32 (0,12–0,51) (Figura 10).
 
 ![Figura 9](figures/fig9_d2_giudici.png)
@@ -286,7 +286,7 @@ Nel modello completo, che usa anche la soglia del giuramento, i precedenti decis
 
 *Figura 10. Rapporto tra citazioni osservate e attese durante il mandato e nei dieci anni dopo, per i giudici usciti entro il 2015.*
 
-**Perché D2 è esplorativo.** Il modello nullo fissato prima (ogni citazione ripescata a caso tra le pronunce dello stesso anno) dà lo stesso atteso, ma ignora quanto diversamente sono citate le pronunce: con quel nullo i giudici fuori dall'atteso erano 27 e 39, con una dispersione 29 volte il caso. Passare al rimescolamento dei redattori è il secondo cambiamento fatto in D2 dopo aver visto i risultati (il primo, i valori p dalle deviazioni standard, è ora superato): per questo D2 va letto come esplorativo. Entrambi i nulli restano nel file dei risultati.
+**Perché D2 è esplorativo.** Il modello nullo fissato prima (ogni citazione ripescata a caso tra le pronunce dello stesso anno) dà lo stesso atteso, ma ignora quanto diversamente sono citate le pronunce: con quel nullo i giudici fuori dall'atteso erano 22 e 26, con una dispersione 15 volte il caso. Passare al rimescolamento dei redattori è il secondo cambiamento fatto in D2 dopo aver visto i risultati (il primo, i valori p dalle deviazioni standard, è ora superato): per questo D2 va letto come esplorativo. Entrambi i nulli restano nel file dei risultati.
 
 Resta il limite della materia: i topic sono grossolani, e i redattori non sono assegnati a caso.
 
@@ -321,7 +321,7 @@ Sono risultati esplorativi, non preannunciati, solo il punto 2 e la replica al p
 
 | Limite | Quale risultato tocca | In che direzione |
 | --- | --- | --- |
-| L'annotazione di riferimento è di Claude, non di una persona; 342 coppie invece di 460 | Tutta la rete | Se l'annotatore e l'estrattore sbagliano allo stesso modo, precisione e richiamo sono sovrastimati |
+| L'annotazione di riferimento è di Claude, non di una persona, e copre solo i passi con parole chiave; 342 coppie invece di 460. Il controllo di una persona è preparato, non ancora fatto | Tutta la rete | Se l'annotatore e l'estrattore sbagliano allo stesso modo, precisione e richiamo sono sovrastimati |
 | Richiamo più basso nei testi fino al 1986 (0,92; limite inferiore 0,83) | D1b, D2 per i giudici più antichi | Citazioni ai precedenti antichi sottostimate |
 | Prima del 1987 il redattore è approssimato dal relatore | D2, D3 | Attenua le differenze; la variante dal 1987 dà lo stesso risultato per D3 |
 | I relatori non sono assegnati a caso | Il 5,47 di D3, le classifiche di D2 | Gonfia l'effetto del redattore |
@@ -329,7 +329,8 @@ Sono risultati esplorativi, non preannunciati, solo il punto 2 e la replica al p
 | I topic sono 20, in parte formule di stile, poco stabili | Il controllo per materia in D2, D3 | Controllo imperfetto |
 | Citare non vuol dire approvare | Tutto | Un precedente può essere citato per discostarsene |
 | Le pronunce recenti hanno avuto meno tempo per essere citate | D1, D2 | Gestito con percentili per annata e finestre fisse; le pronunce dal 2020 restano poco informative |
-| HITS dà authority nulla a un terzo delle pronunce | Confronto authority e citazioni | PageRank, senza zeri, dà una sovrapposizione ancora più bassa (22%) |
+| HITS dà authority nulla a un terzo delle pronunce e concentra il resto nella comunità più fitta | Confronto authority e citazioni | La differenza dal caso misura soprattutto le comunità; PageRank, senza zeri, premia le pronunce antiche |
+| In D2 il modello nullo è cambiato dopo aver visto i risultati | D2 | Esplorativo: nessuna conclusione formale |
 | Provenienza dei giudici codificata in automatico | D4 | Errori di codifica attenuano l'effetto |
 
 ## 7. Cosa si potrebbe fare in più
@@ -352,14 +353,14 @@ Sono risultati esplorativi, non preannunciati, solo il punto 2 e la replica al p
 
 **Serve una persona o un accesso che non ho:**
 
-- un'annotazione umana di un campione di citazioni, anche solo 100 coppie, per confermare la validazione;
+- il controllo umano dell'estrazione, già preparato: 36 pronunce con il testo intero, circa 100 coppie (`data/validation/human_check.md`, istruzioni in testa al foglio);
 - la risposta del docente su tema, perimetro, lingua e regole sull'uso dell'intelligenza artificiale;
 - gli articoli a pagamento non letti (Black e Spriggs 2013; Agnoloni e Pagallo 2015): oggi non si possono citare;
 - la traduzione in inglese, se il corso la chiede.
 
 **Magari** (utile, costo medio):
 
-- distinguere le citazioni di adesione da quelle di distacco ("contrariamente a quanto affermato nella sentenza…");
+- distinguere le citazioni di adesione da quelle di distacco ("contrariamente a quanto affermato nella sentenza…"): è anche la forma sensata di sentiment per questi dati, e darebbe un segno ai legami;
 - una materia più fine, usando gli articoli della Costituzione invocati, già presenti nell'86% delle massime;
 - studiare i 93 casi in cui il relatore è stato sostituito: le pronunce "con dissenso" sono citate diversamente?
 
@@ -371,7 +372,7 @@ Sono risultati esplorativi, non preannunciati, solo il punto 2 e la replica al p
 
 **No:**
 
-- l'analisi del sentiment sulle motivazioni: non ha un significato chiaro per un testo giuridico;
+- l'analisi del sentiment sulle motivazioni, esclusa il 12/11/2026: non ha un significato chiaro per un testo giuridico. Se il docente la chiede, l'opzione concreta è la polarità delle citazioni (in "Magari");
 - attribuire "idee" o "voti" ai singoli giudici: i dati non lo permettono, il voto è segreto.
 
 ## 8. Come rifare tutto

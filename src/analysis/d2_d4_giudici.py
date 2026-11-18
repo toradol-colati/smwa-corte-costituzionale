@@ -37,7 +37,7 @@ SEED = 20261116
 REPS = int(os.environ.get("REPS", 1000))
 MIN_PRONUNCE = 30
 POST_WINDOW = 10
-WINDOW_YEARS = None  # set in the next step to the pre-registered 10-year window
+WINDOW_YEARS = 10  # citations received within 10 years of the deposit (docs/decisions.md, 16/11/2026)
 PERM = int(os.environ.get("PERM", 10000))
 SWITCH = 19860287  # first pronuncia with the redattore recorded
 

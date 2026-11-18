@@ -114,8 +114,9 @@ fig, ax = plt.subplots(figsize=(8, 3.6))
 sig = t.p_holm < 0.05
 ax.vlines(t.index, t.lo, t.hi, color=np.where(sig, BLUE, "#cccccc"), lw=1)
 ax.plot(t.index, t.rapporto, ".", ms=4, color="k"); ax.axhline(1, color=RED, lw=1)
+sur = pd.read_csv(P / "judges.csv").set_index("judge_id").surname.str.title()
 for n_, i in enumerate(t.index[-3:]):
-    ax.annotate(t.nome[i].split()[-1], (i, t.rapporto[i]), fontsize=7, xytext=(-8, [-12, 7, 7][n_]), textcoords="offset points", ha="right")
+    ax.annotate(sur[t.judge_id[i]], (i, t.rapporto[i]), fontsize=7, xytext=(-8, [-12, 7, 7][n_]), textcoords="offset points", ha="right")
 ax.set_yscale("log"); ax.set_yticks([0.5, 0.75, 1, 1.5, 2]); ax.set_yticklabels(["0,5", "0,75", "1", "1,5", "2"])
 ax.yaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
 ax.set_xlabel(f"{d2['judges_tested']} giudici con almeno 30 pronunce, ordinati per rapporto"); ax.set_ylabel("Citazioni osservate / attese")
