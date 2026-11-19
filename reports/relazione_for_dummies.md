@@ -15,7 +15,7 @@
 1. **Risultato principale: nessuna "memoria collegiale" misurabile.** Un redattore non cita di più i precedenti decisi da collegi in cui sedeva, rispetto a quelli decisi mentre era in carica ma assente: odds ratio 1,00, intervallo di confidenza al 95% da 0,92 a 1,09. Il dato esclude effetti superiori al 9% circa in più o all'8% in meno; non dimostra che l'effetto sia esattamente zero.
 2. **Però un redattore cita molto di più ciò che ha scritto lui**: odds ratio 5,47 (4,76–6,27), a parità di età e materia del precedente. Gran parte viene dalle questioni che si ripetono: il 40,0% dei precedenti scritti dallo stesso redattore che vengono citati riguarda la stessa disposizione impugnata. A parità di disposizione impugnata l'odds ratio scende a 3,27 (2,95–3,63). Risultato esplorativo (sezione 3.4).
 3. **Una gerarchia di fatto esiste.** Le citazioni sono molto più concentrate di quanto vorrebbe il caso: l'1% delle pronunce più citate raccoglie il 10,3% delle citazioni, contro il 3,4% atteso (4,2% tenendo conto che le ordinanze sono citate molto meno delle sentenze).
-4. **Pochi redattori si distinguono.** Su 113 giudici, dopo la correzione di Holm le pronunce di 6 sono citate più di pronunce prese a caso dello stesso anno e quelle di 7 meno. Chi è citato più dell'atteso in carica lo resta dopo il mandato, ma a parità di articolo della Costituzione invocato questa persistenza non supera il caso. Esplorativo.
+4. **Pochi redattori si distinguono.** Su 113 giudici, dopo la correzione di Holm le pronunce di 6 sono citate più di pronunce prese a caso dello stesso anno e quelle di 7 meno. Esplorativo.
 5. **Due risultati della letteratura sulla Corte italiana non reggono**: la distribuzione delle citazioni non è una legge di potenza, e le pronunce più "autorevoli" secondo l'algoritmo HITS non coincidono con le più citate, anche se la differenza dipende soprattutto dal fatto che HITS, su questa rete, concentra l'autorità in un solo gruppo di pronunce molto collegate.
 
 **Il "fattore wow"** è nella sezione 5. **Come ogni argomento del programma d'esame entra nel lavoro**: sezione 9.
@@ -27,7 +27,7 @@
 > - etichette dei topic, modularità con 100 ricablaggi, un numero sbagliato (i testi senza divisione) e alcuni arrotondamenti corretti; un test confronta ora i numeri della relazione con i file dei risultati;
 > - aggiunte le misure del corso (sezione 3.8), la mappa del programma (sezione 9) e un foglio per il controllo umano dell'estrazione;
 > - la voce sentiment è stata affrontata con la polarità delle citazioni (sezione 3.9): il lessico non ha superato la soglia di qualità fissata prima, quindi non se ne traggono risultati;
-> - il 19/11: una materia più fine, dagli articoli della Costituzione invocati (varianti esplorative: risultato principale invariato, effetto del redattore 4,78, persistenza dopo il mandato non più sopra il caso), e un controllo del contesto e dei dati delle altre corti prima di costruire la rete tra corti (`docs/context_corti.md`).
+> - il 19/11: una materia più fine, dagli articoli della Costituzione invocati (varianti esplorative: risultato principale invariato, effetto del redattore 4,78, persistenza dopo il mandato incerta), e un controllo del contesto e dei dati delle altre corti prima di costruire la rete tra corti (`docs/context_corti.md`).
 
 ## 1. Da dove siamo partiti: i dati
 
@@ -289,7 +289,7 @@ Nel modello completo, che usa anche la soglia del giuramento, i precedenti decis
 - Le differenze tra giudici sono comunque più ampie di quelle dei rimescolamenti: la varianza del logaritmo del rapporto è 3,0 volte quella attesa (p < 0,001).
 - In testa: Baldassarre (1,88; 1,60–2,17), Onida (1,61; 1,28–1,99), De Siervo (1,48; 1,21–1,80); l'atteso è 1.
 - Tenendo conto anche del tipo di pronuncia, 2 sopra e 4 sotto; anche della materia, 1 e 3; anche dell'articolo della Costituzione invocato più spesso (variante esplorativa del 19/11), 0 e 3. Con le sole pronunce dalla 287/1986, dove il redattore è osservato, 7 e 7 su 74 giudici.
-- **Dopo il mandato.** Per gli 87 giudici usciti entro il 2015, chi era citato più dell'atteso in carica lo è anche nei dieci anni successivi: correlazione tra ranghi 0,66. Una parte è meccanica, perché le stesse pronunce restano citate: con pronunce prese a caso dello stesso anno la correlazione sarebbe 0,37 (95%: 0,16–0,55). Il dato osservato sta sopra (p < 0,001); a parità anche di tipo e materia, 0,62 contro 0,32 (0,12–0,51) (Figura 10). Con la variante per articolo della Costituzione, invece, la correlazione è 0,42 e resta dentro quella attesa (0,32; 0,11–0,51): la persistenza può dipendere dalla materia in cui un giudice si specializza più che dal giudice.
+- **Dopo il mandato.** Per gli 87 giudici usciti entro il 2015, chi era citato più dell'atteso in carica lo è anche nei dieci anni successivi: correlazione tra ranghi 0,66. Una parte è meccanica, perché le stesse pronunce restano citate: con pronunce prese a caso dello stesso anno la correlazione sarebbe 0,37 (95%: 0,16–0,55). Il dato osservato sta sopra (p < 0,001); a parità anche di tipo e materia, 0,62 contro 0,32 (0,12–0,51) (Figura 10). Con la variante per articolo della Costituzione la correlazione è 0,42 e resta dentro quella attesa (0,32; 0,11–0,51). Quella variante separa giudice e materia solo in parte: il 86,1% delle pronunce dei giudici testati sta in gruppi con almeno due redattori diversi, il resto non si può scambiare e spinge i rapporti verso 1 (`reports/d2_strata_check.json`). La persistenza dopo il mandato resta quindi incerta.
 
 ![Figura 9](figures/fig9_d2_giudici.png)
 
@@ -354,7 +354,7 @@ Il verdetto è fragile: mancano due contesti per arrivare a 0,80, l'intervallo c
 ## 4. Cosa risponde alla domanda
 
 - **La Corte costruisce una gerarchia di precedenti?** Sì, di fatto: poche pronunce concentrano le citazioni molto oltre il caso, un'ossatura resta citata per decenni, la rete si organizza in filoni per materia. Ma il grosso dei precedenti è consumato in pochi anni.
-- **Quanto passa dai giudici?** Dal collegio, nulla che si riesca a misurare. Dal redattore, molto: le probabilità (odds) che citi ciò che ha scritto sono circa cinque volte e mezzo quelle di un precedente deciso in sua assenza (3,27 a parità di disposizione impugnata), e le pronunce di pochi redattori pesano più di quanto darebbe il caso; la persistenza dopo il mandato non regge a parità di articolo della Costituzione invocato (esplorativo).
+- **Quanto passa dai giudici?** Dal collegio, nulla che si riesca a misurare. Dal redattore, molto: le probabilità (odds) che citi ciò che ha scritto sono circa cinque volte e mezzo quelle di un precedente deciso in sua assenza (3,27 a parità di disposizione impugnata), e le pronunce di pochi redattori pesano più di quanto darebbe il caso (esplorativo); se il loro peso duri oltre il mandato resta incerto.
 
 ## 5. Il "fattore wow"
 
@@ -375,7 +375,7 @@ Sono risultati esplorativi, non preannunciati, solo il punto 2 e la replica al p
 | Prima del 1987 il redattore è approssimato dal relatore | D2, D3 | Attenua le differenze; la variante dal 1987 dà lo stesso risultato per D3 |
 | I relatori non sono assegnati a caso | Il 5,47 di D3 (3,27 a parità di disposizione impugnata), le classifiche di D2 | Gonfia l'effetto del redattore |
 | Le assenze dal collegio possono non essere casuali | D3 principale | Incerta; nel modello completo, che usa anche la soglia del giuramento, presenza e assenza non differiscono (0,88 in entrambi i casi) |
-| I topic sono 20, in parte formule di stile, poco stabili | Il controllo per materia in D2, D3 | Controllo imperfetto. Con gli articoli della Costituzione invocati (variante del 19/11) il risultato principale non cambia, l'effetto del redattore scende a 4,78 e in D2 la persistenza dopo il mandato non supera più il caso |
+| I topic sono 20, in parte formule di stile, poco stabili | Il controllo per materia in D2, D3 | Controllo imperfetto. Con gli articoli della Costituzione invocati (variante del 19/11) il risultato principale non cambia, l'effetto del redattore scende a 4,78 e in D2 la persistenza dopo il mandato diventa incerta |
 | Citare non vuol dire approvare | Tutto | Un precedente può essere citato per discostarsene; il tentativo di misurarlo (sezione 3.9) non ha superato la soglia di qualità |
 | Le pronunce recenti hanno avuto meno tempo per essere citate | D1, D2 | Gestito con percentili per annata e finestre fisse; le pronunce dal 2020 restano poco informative |
 | HITS dà authority nulla a un terzo delle pronunce e concentra il resto in una sola comunità | Confronto authority e citazioni | La differenza dal caso misura soprattutto le comunità; PageRank, senza zeri, premia le pronunce antiche |

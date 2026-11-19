@@ -1,0 +1,18 @@
+{
+ "anno": {
+  "share_tested_pronunce_in_mixed_strata": 1.0,
+  "strata": 71
+ },
+ "anno_tipo": {
+  "share_tested_pronunce_in_mixed_strata": 1.0,
+  "strata": 142
+ },
+ "anno_tipo_materia": {
+  "share_tested_pronunce_in_mixed_strata": 0.9795651978214881,
+  "strata": 2166
+ },
+ "anno_tipo_parametro": {
+  "share_tested_pronunce_in_mixed_strata": 0.8607372732592159,
+  "strata": 5650
+ }
+}

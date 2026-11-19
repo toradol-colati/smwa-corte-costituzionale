@@ -151,8 +151,9 @@ def checks():
     pm, pmm = a["post_mandate"], am["post_mandate"]
     out += [
         ("D2 Holm", f"le pronunce di **{a['sig_holm_above']}** sono citate più dell'atteso e quelle di **{a['sig_holm_below']}** meno"),
-        ("D2 sintesi", f"le pronunce di {a['sig_holm_above']} sono citate più di pronunce prese a caso dello stesso anno e quelle di {a['sig_holm_below']} meno. "
-                       f"Chi è citato più dell'atteso in carica lo resta dopo il mandato, ma a parità di articolo della Costituzione invocato questa persistenza non supera il caso"),
+        ("D2 sintesi", f"le pronunce di {a['sig_holm_above']} sono citate più di pronunce prese a caso dello stesso anno e quelle di {a['sig_holm_below']} meno. Esplorativo."),
+        ("D2 gruppi misti", f"il {it(load('d2_strata_check.json')['anno_tipo_parametro']['share_tested_pronunce_in_mixed_strata'] * 100, 1)}% delle pronunce dei giudici testati "
+                            f"sta in gruppi con almeno due redattori diversi"),
         ("D2 dispersione", f"la varianza del logaritmo del rapporto è {it(a['var_ratio_to_null'], 1)} volte quella attesa"),
         ("D2 varianti", f"Tenendo conto anche del tipo di pronuncia, {at['sig_holm_above']} sopra e {at['sig_holm_below']} sotto; anche della materia, "
                         f"{am['sig_holm_above']} e {am['sig_holm_below']}; anche dell'articolo della Costituzione invocato più spesso (variante esplorativa del 19/11), "
