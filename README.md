@@ -58,6 +58,7 @@ Il resto della pipeline, nell'ordine (`REPS=100` davanti ai comandi di analisi r
 .venv/bin/python src/validation/evaluate.py test2
 .venv/bin/python src/judges/build_judges.py
 .venv/bin/python src/analysis/topics.py
+.venv/bin/python src/analysis/parametri.py
 .venv/bin/python src/networks/build.py
 .venv/bin/python src/ingest/fetch_api.py
 .venv/bin/python src/analysis/d1_pronunce.py

@@ -146,6 +146,9 @@ def main():
 
     from scipy.stats import norm, spearmanr, wilcoxon
     topic = pd.read_csv(P / "topics_pronunce.csv").set_index("pid").topic.reindex(nodes.pid).fillna(-1).astype(int).values
+    main_art = pd.read_csv(P / "parametri_pronunce.csv").set_index("pid").main_article.astype(str).reindex(nodes.pid).fillna("nessuno")
+    codes = {a: k for k, a in enumerate(sorted(main_art.unique()))}
+    main_code = main_art.map(codes).values.astype(int)
     in87 = nodes.pid.values >= SWITCH
     m87 = in87[ci_all] & in87[cj_all]
     variants = {
@@ -154,6 +157,8 @@ def main():
         "permutazione_anno_tipo_materia": ((year * 2 + tipo) * 100 + topic + 1, np.ones(len(ci_all), bool), tested),
         "permutazione_anno_dal_1987": (np.where(in87, year, -1), m87,
                                        np.array([j for j in tested if D[in87, j].sum() >= MIN_PRONUNCE])),
+        # exploratory (19/11/2026): year, type and main constitutional article (src/analysis/parametri.py)
+        "permutazione_anno_tipo_parametro": ((year * 2 + tipo) * 1000 + main_code, np.ones(len(ci_all), bool), tested),
     }
     jinfo = judges.set_index("judge_id")
     for vi, (vname, (strata, cmask, js)) in enumerate(variants.items()):

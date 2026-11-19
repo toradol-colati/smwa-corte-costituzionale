@@ -228,7 +228,23 @@ def load_norme():
     return acts, arts, cov
 
 
-def build(nodes, coll, app, edges, theta, mode="mandate", edges_file=None, rng=None, norme=None):
+def load_parametri():
+    """Constitutional articles of every pronuncia (src/analysis/parametri.py), their idf weights and
+    the norm of each pronuncia's weighted vector, for the cosine similarity of a pair."""
+    import math
+    t = pd.read_csv(P / "parametri_pronunce.csv")
+    sets = {r.pid: set(str(r.articles).split("|")) for r in t.itertuples()}
+    N = len(sets)
+    n_a = {}
+    for st in sets.values():
+        for a in st:
+            n_a[a] = n_a.get(a, 0) + 1
+    w = {a: math.log(N / c) for a, c in n_a.items()}
+    norm = {p: math.sqrt(sum(w[a] ** 2 for a in st)) for p, st in sets.items()}
+    return sets, w, norm
+
+
+def build(nodes, coll, app, edges, theta, mode="mandate", edges_file=None, rng=None, norme=None, param=None):
     """Case-control table. mode = 'mandate' (primary risk set) or 'full'."""
     rng = rng or np.random.default_rng(SEED)
     if edges_file:
@@ -272,6 +288,7 @@ def build(nodes, coll, app, edges, theta, mode="mandate", edges_file=None, rng=N
         sel = np.r_[np.flatnonzero(is_case), ctrl]
         tc = theta[r.pid]
         acts_c, arts_c = (norme[0].get(r.pid, set()), norme[1].get(r.pid, set())) if norme else (set(), set())
+        par_c = param[0].get(r.pid, set()) if param else set()
         for s in sel:
             j = cand[s]
             p = pid[j]
@@ -282,16 +299,25 @@ def build(nodes, coll, app, edges, theta, mode="mandate", edges_file=None, rng=N
                 nm = (int(bool(acts_c & acts_p)), int(bool(arts_c & arts_p)), int(not acts_c or not acts_p))
             else:
                 nm = (0, 0, 1)
+            if param:
+                par_p = param[0].get(p, set())
+                if par_c and par_p:
+                    nm = nm + (sum(param[1][a] ** 2 for a in par_c & par_p) / (param[2][r.pid] * param[2][p]), 0)
+                else:
+                    nm = nm + (0.0, 1)
+            else:
+                nm = nm + (0.0, 1)
             rows.append((r.pid, p, int(is_case[s]), R, int(dj), int(sj and not dj), int(sj),
                          int(in_mand[s]) if mode == "full" else 1,
                          (dep[i] - dep[j]).astype(int) / 365.25, float(tc @ theta[p]),
                          r.anno, r.tipo, nodes.tipo.values[j], r.giudizio, nodes.in_deg.values[j]) + nm)
     cols = ["citing", "cited", "y", "R", "self_drafted", "sat_not_drafted", "sat", "in_mandate", "age", "sim",
-            "anno", "tipo", "tipo_cited", "giudizio", "in_deg_cited", "same_act", "same_article", "norme_missing"]
+            "anno", "tipo", "tipo_cited", "giudizio", "in_deg_cited", "same_act", "same_article", "norme_missing",
+            "param_sim", "param_missing"]
     return pd.DataFrame(rows, columns=cols)
 
 
-def design(t: pd.DataFrame, mode: str, extra=False, norme=False):
+def design(t: pd.DataFrame, mode: str, extra=False, norme=False, param=False):
     age = pd.cut(t.age, AGE_BINS, right=False, labels=False)
     used = sorted(age.dropna().unique())[1:]
     cols = {"self_drafted": t.self_drafted.values, "sat_not_drafted": t.sat_not_drafted.values}
@@ -307,14 +333,17 @@ def design(t: pd.DataFrame, mode: str, extra=False, norme=False):
         cols["same_challenged_act"] = t.same_act.values
         cols["same_challenged_article"] = t.same_article.values
         cols["challenged_norms_missing"] = t.norme_missing.values
+    if param:  # exploratory (19/11/2026): finer subject, weighted similarity of the constitutional articles invoked
+        cols["param_similarity"] = t.param_sim.values
+        cols["param_missing"] = t.param_missing.values
     X = np.column_stack([np.asarray(v, float) for v in cols.values()])
     keep = X.std(0) > 0
     return X[:, keep], [c for c, k in zip(cols, keep) if k]
 
 
-def estimate(t: pd.DataFrame, mode="mandate", extra=False, label="", norme=False):
+def estimate(t: pd.DataFrame, mode="mandate", extra=False, label="", norme=False, param=False):
     t = t.sort_values(["citing", "y"], ascending=[True, False]).reset_index(drop=True)
-    X, names = design(t, mode, extra, norme)
+    X, names = design(t, mode, extra, norme, param)
     beta, V, ll, G, S, b_breslow = clogit(X, t.y.values.astype(float), t.citing.values, t.R.values)
     se = np.sqrt(np.diag(V))
     res = {"label": label, "strata": int(S), "clusters": int(G), "rows": int(len(t)), "cases": int(t.y.sum()),
@@ -331,8 +360,9 @@ def estimate(t: pd.DataFrame, mode="mandate", extra=False, label="", norme=False
 def main():
     nodes, coll, app, edges, theta = load()
     acts, arts, cov = load_norme()
+    par = load_parametri()
     out = {"norme_coverage": cov}
-    t = build(nodes, coll, app, edges, theta, "mandate", norme=(acts, arts))
+    t = build(nodes, coll, app, edges, theta, "mandate", norme=(acts, arts), param=par)
     t.to_pickle(REPO / "data/interim/d3_mandate.pkl")
     # descriptive: raw citation rates by category (per 1,000 pairs of the full risk set are not
     # available after sampling; cases vs sampled controls are reported instead)
@@ -358,6 +388,8 @@ def main():
     V["con le citazioni delle massime (note editoriali)"] = estimate(tn)
     # exploratory (18/11/2026): are self-citations repeated questions? Same challenged act / article
     V["controllo per norma impugnata in comune (esplorativo)"] = estimate(t, norme=True)
+    # exploratory (19/11/2026): finer subject from the constitutional articles invoked (docs/decisions.md)
+    V["materia fine: parametri costituzionali (esplorativo)"] = estimate(t, param=True)
     known = t[t.norme_missing == 0]
     out["norme_descrittive"] = {lab: {"cases_same_article": float(known[m & (known.y == 1)].same_article.mean()),
                                       "controls_same_article": float(known[m & (known.y == 0)].same_article.mean()),

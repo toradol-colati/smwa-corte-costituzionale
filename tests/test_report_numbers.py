@@ -48,6 +48,9 @@ def checks():
                         ("con le citazioni delle massime (note editoriali)", "aggiungendo le citazioni delle massime")]:
         c = v[key]["coef"]["sat_not_drafted"]
         out.append((f"D3 variante: {key}", f"{phrase} {it(c['or'])} ({ci(c)})"))
+    cpar = v["materia fine: parametri costituzionali (esplorativo)"]["coef"]
+    out.append(("D3 parametri", f"a parità di articoli della Costituzione invocati {it(cpar['sat_not_drafted']['or'])} ({ci(cpar['sat_not_drafted'])})"))
+    out.append(("D3 parametri, redatto da lui", f"l'odds ratio di \"l'ha redatto lui\" scende a {it(cpar['self_drafted']['or'])} ({ci(cpar['self_drafted'])})"))
     seeds = d3["seed_sensitivity_or"]
     out.append(("D3 altri campioni", f"con altri cinque campioni di controlli tra {it(min(seeds))} e {it(max(seeds))}"))
     sub = {k: it(v[k]["coef"]["self_drafted"]["or"]) for k in ["solo ordinanze che citano", "solo sentenze che citano",
@@ -148,14 +151,21 @@ def checks():
     pm, pmm = a["post_mandate"], am["post_mandate"]
     out += [
         ("D2 Holm", f"le pronunce di **{a['sig_holm_above']}** sono citate più dell'atteso e quelle di **{a['sig_holm_below']}** meno"),
-        ("D2 sintesi", f"le pronunce di {a['sig_holm_above']} sono citate più di pronunce prese a caso dello stesso anno e quelle di {a['sig_holm_below']} meno"),
+        ("D2 sintesi", f"le pronunce di {a['sig_holm_above']} sono citate più di pronunce prese a caso dello stesso anno e quelle di {a['sig_holm_below']} meno. "
+                       f"Chi è citato più dell'atteso in carica lo resta dopo il mandato, ma a parità di articolo della Costituzione invocato questa persistenza non supera il caso"),
         ("D2 dispersione", f"la varianza del logaritmo del rapporto è {it(a['var_ratio_to_null'], 1)} volte quella attesa"),
         ("D2 varianti", f"Tenendo conto anche del tipo di pronuncia, {at['sig_holm_above']} sopra e {at['sig_holm_below']} sotto; anche della materia, "
-                        f"{am['sig_holm_above']} e {am['sig_holm_below']}. Con le sole pronunce dalla 287/1986, dove il redattore è osservato, "
+                        f"{am['sig_holm_above']} e {am['sig_holm_below']}; anche dell'articolo della Costituzione invocato più spesso (variante esplorativa del 19/11), "
+                        f"{d2['permutazione_anno_tipo_parametro']['sig_holm_above']} e {d2['permutazione_anno_tipo_parametro']['sig_holm_below']}. "
+                        f"Con le sole pronunce dalla 287/1986, dove il redattore è osservato, "
                         f"{a87['sig_holm_above']} e {a87['sig_holm_below']} su {a87['judges_tested']} giudici."),
         ("D2 dopo il mandato", f"correlazione tra ranghi {it(pm['spearman_during_post'])}. Una parte è meccanica"),
         ("D2 dopo il mandato, nullo", f"la correlazione sarebbe {it(pm['spearman_null_mean'])} (95%: {it(pm['spearman_null_lo'])}–{it(pm['spearman_null_hi'])})"),
         ("D2 dopo il mandato, materia", f"{it(pmm['spearman_during_post'])} contro {it(pmm['spearman_null_mean'])} ({it(pmm['spearman_null_lo'])}–{it(pmm['spearman_null_hi'])})"),
+        ("D2 dopo il mandato, parametri", f"la correlazione è {it(d2['permutazione_anno_tipo_parametro']['post_mandate']['spearman_during_post'])} e resta dentro quella attesa "
+                                          f"({it(d2['permutazione_anno_tipo_parametro']['post_mandate']['spearman_null_mean'])}; "
+                                          f"{it(d2['permutazione_anno_tipo_parametro']['post_mandate']['spearman_null_lo'])}–"
+                                          f"{it(d2['permutazione_anno_tipo_parametro']['post_mandate']['spearman_null_hi'])})"),
         ("D2 nullo fissato", f"con quel nullo i giudici fuori dall'atteso erano {pre['age_only']['sig_holm_above']} e {pre['age_only']['sig_holm_below']}, "
                              f"con una dispersione {it(pre['age_only']['var_ratio_to_null'], 0)} volte il caso"),
     ]

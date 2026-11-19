@@ -21,6 +21,7 @@ Odds ratio di `sat_not_drafted`: quanto più spesso il redattore cita un precede
 | testo intero (anche Ritenuto in fatto) | 14,406 | 52,453 | 1,899 | 0.99 | 0.90–1.09 | 0.86 |
 | con le citazioni delle massime (note editoriali) | 13,844 | 48,212 | 1,702 | 0.99 | 0.91–1.08 | 0.79 |
 | controllo per norma impugnata in comune (esplorativo) | 13,654 | 46,969 | 1,658 | 0.99 | 0.91–1.07 | 0.8 |
+| materia fine: parametri costituzionali (esplorativo) | 13,654 | 46,969 | 1,658 | 0.99 | 0.91–1.08 | 0.79 |
 
 **Tutti i coefficienti del modello principale**
 
