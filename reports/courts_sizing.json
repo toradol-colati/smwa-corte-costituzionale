@@ -1,0 +1,79 @@
+{
+ "pronunce": 22427,
+ "pronunce_by_decade": {
+  "1950": 315,
+  "1960": 1271,
+  "1970": 2065,
+  "1980": 4462,
+  "1990": 5010,
+  "2000": 4603,
+  "2010": 3036,
+  "2020": 1665
+ },
+ "courts": {
+  "Cassazione": {
+   "pronunce_base": 3172,
+   "pronunce_base_with_identifier": 1349,
+   "pronunce_facts": 3010,
+   "mentions_base": 8810,
+   "pronunce_base_by_decade": {
+    "1950": 27,
+    "1960": 57,
+    "1970": 216,
+    "1980": 534,
+    "1990": 634,
+    "2000": 506,
+    "2010": 604,
+    "2020": 594
+   }
+  },
+  "Corte EDU": {
+   "pronunce_base": 405,
+   "pronunce_base_with_identifier": 221,
+   "pronunce_facts": 466,
+   "mentions_base": 1906,
+   "pronunce_base_by_decade": {
+    "1950": 0,
+    "1960": 0,
+    "1970": 0,
+    "1980": 2,
+    "1990": 1,
+    "2000": 28,
+    "2010": 201,
+    "2020": 173
+   }
+  },
+  "Corte di giustizia UE": {
+   "pronunce_base": 442,
+   "pronunce_base_with_identifier": 230,
+   "pronunce_facts": 507,
+   "mentions_base": 1760,
+   "pronunce_base_by_decade": {
+    "1950": 0,
+    "1960": 2,
+    "1970": 8,
+    "1980": 11,
+    "1990": 32,
+    "2000": 64,
+    "2010": 156,
+    "2020": 169
+   }
+  },
+  "Consiglio di Stato": {
+   "pronunce_base": 1053,
+   "pronunce_base_with_identifier": 369,
+   "pronunce_facts": 1133,
+   "mentions_base": 2910,
+   "pronunce_base_by_decade": {
+    "1950": 18,
+    "1960": 52,
+    "1970": 81,
+    "1980": 181,
+    "1990": 134,
+    "2000": 142,
+    "2010": 232,
+    "2020": 213
+   }
+  }
+ }
+}
