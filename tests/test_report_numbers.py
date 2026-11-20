@@ -258,6 +258,10 @@ def checks():
         ("D3 completo, rapporti", f"(stime da {it(min(rr))} a {it(max(rr))})"),
         ("D3 completo, limiti", f"nel modello completo presenza e assenza non differiscono (rapporto {it(rb['or'])}; {ci(rb)})"),
     ]
+    if v4f["converged"] and v4f["reaches_half"]:
+        inside = sat(v4f)["lo"] <= sat(fc["baseline"])["or"] <= sat(v4f)["hi"]
+        out.append(("D3 completo, intervallo (4)", "l'intervallo comprende ancora la stima del modello di base" if inside
+                    else "L'intervallo non comprende la stima del modello di base"))
     if loc(p2, p1):
         out.append(("D3 completo, periodo", f"nelle pronunce che citano fino al 2000 ({it(sat(p1)['or'])}; {ci(sat(p1))}) e non in quelle dal 2001 "
                                             f"({it(sat(p2)['or'])}; {ci(sat(p2))})"))
