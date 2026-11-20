@@ -57,7 +57,7 @@ def fit(t, label, start=None, **kw):
     res = {"label": label, "strata": int(S), "clusters": int(G), "rows": int(len(t)), "cases": int(t.y.sum()),
            "sat_not_drafted": coef["sat_not_drafted"], "in_mandate_absent": coef["in_mandate_absent"],
            "ratio_present_absent": {"or": float(np.exp(dr)), "lo": float(np.exp(dr - 1.96 * sr)), "hi": float(np.exp(dr + 1.96 * sr))},
-           "reaches_half": bool(coef["sat_not_drafted"]["or"] >= HALF), "converged": model.converged, "newton_iterations": model.n_iter,
+           "reaches_half": bool(coef["sat_not_drafted"]["or"] >= HALF), "converged": model.converged, "max_newton_step": model.max_newton_step, "newton_iterations": model.n_iter,
            "start": "breslow" if start is None else "baseline exact estimates", "beta": dict(zip(names, map(float, b))), "coef": coef}
     log(f"{label} [{'converged' if model.converged else 'NOT CONVERGED'}, {model.n_iter} it.]: sat {res['sat_not_drafted']['or']:.3f} ({res['sat_not_drafted']['lo']:.3f}-{res['sat_not_drafted']['hi']:.3f}), "
         f"absent {res['in_mandate_absent']['or']:.3f}, ratio {res['ratio_present_absent']['or']:.3f} "

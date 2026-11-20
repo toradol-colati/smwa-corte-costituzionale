@@ -119,7 +119,11 @@ class ExactCLogit:
         """Returns log-likelihood, per-stratum scores (S x k) and the Hessian (k x k)."""
         X, k = self.X, self.X.shape[1]
         eta = X @ b
-        m = np.maximum.reduceat(eta, self.starts)
+        # each stratum is centred on its d-th largest linear predictor (d = cases), not on the largest: the likelihood
+        # does not change, and e_d stays representable (at least d weights are >= 1), where centring on the largest
+        # let it underflow in strata with many cases and widely spread weights
+        order = np.lexsort((-eta, self.sid))
+        m = eta[order][self.starts + self.d - 1]
         w_all = np.exp(eta - m[self.sid])
         S = len(self.starts)
         logden = np.zeros(S)
@@ -185,8 +189,10 @@ class ExactCLogit:
             self.n_iter = _ + 1
             if np.abs(step).max() < tol:
                 break
-        self.converged = bool(np.abs(step).max() < tol)  # recorded, not used by the main analysis
         Hinv = np.linalg.inv(-H)
+        # convergence = the full (not halved) Newton step at the final point is negligible; recorded, not used by the main analysis
+        self.max_newton_step = float(np.abs(Hinv @ sc.sum(0)).max())
+        self.converged = self.max_newton_step < 1e-6
         Sc = pd.DataFrame(sc).groupby(self.cluster).sum().values
         G = len(Sc)
         V = Hinv @ (Sc.T @ Sc) @ Hinv * G / (G - 1)
