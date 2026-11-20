@@ -38,12 +38,17 @@ def log(msg):
     print(f"[{time.time() - T0:7.0f}s] {msg}", flush=True)
 
 
-def fit(t, label, **kw):
+def fit(t, label, start=None, **kw):
+    """Exact conditional logit. Starts from the Breslow estimate, as in d3_memoria_collegiale.py, unless `start`
+    (name -> beta) is given: then from those values, and zero for the other columns."""
     t = t.sort_values(["citing", "y"], ascending=[True, False]).reset_index(drop=True)
     X, names = d3.design(t, "full", **kw)
     for need in ["sat_not_drafted", "in_mandate_absent"] + (["same_challenged_act", "param_similarity"] if kw.get("norme") else []):
         assert need in names, f"{need} missing from the design of {label}"
-    b, V, ll, G, S, _ = d3.clogit(X, t.y.values.astype(float), t.citing.values, t.R.values)
+    y, strata, cluster = t.y.values.astype(float), t.citing.values, t.R.values
+    b0 = d3.clogit_breslow(X, y, strata, cluster)[0] if start is None else np.array([start.get(n, 0.0) for n in names])
+    model = d3.ExactCLogit(X, y, strata, cluster)
+    b, V, ll, G, S = model.fit(b0)
     i, j = names.index("sat_not_drafted"), names.index("in_mandate_absent")
     se = np.sqrt(np.diag(V))
     coef = {n: {"or": float(np.exp(b[k])), "lo": float(np.exp(b[k] - 1.96 * se[k])), "hi": float(np.exp(b[k] + 1.96 * se[k]))}
@@ -52,8 +57,9 @@ def fit(t, label, **kw):
     res = {"label": label, "strata": int(S), "clusters": int(G), "rows": int(len(t)), "cases": int(t.y.sum()),
            "sat_not_drafted": coef["sat_not_drafted"], "in_mandate_absent": coef["in_mandate_absent"],
            "ratio_present_absent": {"or": float(np.exp(dr)), "lo": float(np.exp(dr - 1.96 * sr)), "hi": float(np.exp(dr + 1.96 * sr))},
-           "reaches_half": bool(coef["sat_not_drafted"]["or"] >= HALF), "coef": coef}
-    log(f"{label}: sat {res['sat_not_drafted']['or']:.3f} ({res['sat_not_drafted']['lo']:.3f}-{res['sat_not_drafted']['hi']:.3f}), "
+           "reaches_half": bool(coef["sat_not_drafted"]["or"] >= HALF), "converged": model.converged, "newton_iterations": model.n_iter,
+           "start": "breslow" if start is None else "baseline exact estimates", "beta": dict(zip(names, map(float, b))), "coef": coef}
+    log(f"{label} [{'converged' if model.converged else 'NOT CONVERGED'}, {model.n_iter} it.]: sat {res['sat_not_drafted']['or']:.3f} ({res['sat_not_drafted']['lo']:.3f}-{res['sat_not_drafted']['hi']:.3f}), "
         f"absent {res['in_mandate_absent']['or']:.3f}, ratio {res['ratio_present_absent']['or']:.3f} "
         f"({res['ratio_present_absent']['lo']:.3f}-{res['ratio_present_absent']['hi']:.3f})")
     return res
@@ -104,7 +110,9 @@ def main():
     out["v2_period"] = {"fino al 2000": fit(t[t.anno <= 2000], "2 citanti fino al 2000"), "dal 2001": fit(t[t.anno >= 2001], "2 citanti dal 2001")}
     out["v3_type"] = {"sentenze": fit(t[t.tipo == "S"], "3 solo sentenze che citano"), "ordinanze": fit(t[t.tipo == "O"], "3 solo ordinanze che citano")}
     # 4. challenged provision and constitutional articles
-    out["v4_norme_param"] = fit(t, "4 disposizione impugnata e articoli della Costituzione", norme=True, param=True)
+    # from the Breslow start this model does not converge: "same challenged article" almost separates cases from controls
+    # (docs/decisions.md, 20/11/2026); it starts from the exact baseline estimates, zero for the new columns
+    out["v4_norme_param"] = fit(t, "4 disposizione impugnata e articoli della Costituzione", start=base["beta"], norme=True, param=True)
     # 5. other control samples
     out["v5_seeds"] = {}
     for s in (1, 2):

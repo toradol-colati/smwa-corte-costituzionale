@@ -182,8 +182,10 @@ class ExactCLogit:
                 raise FloatingPointError("e_d underflow at every trial step")
             ll2, sc2, H2 = ok
             b, ll, sc, H = b + step, ll2, sc2, H2
+            self.n_iter = _ + 1
             if np.abs(step).max() < tol:
                 break
+        self.converged = bool(np.abs(step).max() < tol)  # recorded, not used by the main analysis
         Hinv = np.linalg.inv(-H)
         Sc = pd.DataFrame(sc).groupby(self.cluster).sum().values
         G = len(Sc)
