@@ -86,6 +86,7 @@ def checks():
         ("Senza materia", f"le {num['pronunce_without_topic']} pronunce per cui manca la materia ({num['pronunce_without_topic_by_type']['O']} ordinanze e "
                           f"{num['pronunce_without_topic_by_type']['S']} sentenze): {num['without_topic_short_massime']} hanno solo massime di rinvio"),
         ("Senza massime", f"{num['without_topic_no_massime']} non hanno ancora massime, {num['without_topic_no_massime_2026']} delle quali sono del 2026"),
+        ("Massime di rinvio, anni", f"tutte tra il {num['without_topic_short_massime_years'][0]} e il {num['without_topic_short_massime_years'][1]};"),
     ]
     # D1
     d1 = load("d1_results.json")
@@ -210,6 +211,30 @@ def checks():
     pv = load("polarity_validation_claude.json")
     out.append(("Polarità", f"{pv['flagged_true']} su {pv['flagged']} sono vere distinzioni, una precisione di {it(pv['precision'])} "
                             f"(intervallo al 95% {it(pv['precision_lo'])}–{it(pv['precision_hi'])}), **sotto la soglia**"))
+    # D3: absences from the collegio (src/analysis/d3_absences.py)
+    ab = load("d3_absences.json")
+    g, dc, art = ab["by"]["giudizio"]["rates"], ab["by"]["decade"]["rates"], ab["by"]["main10"]["rates"]
+    bal, cq, sp = ab["balance"]["covariates"], ab["collegio_quality"], ab["spread_by_drafter"]
+    pc = lambda x, d=1: it(x * 100, d)
+    vmax = max(v["cramers_v"] for v in ab["by"].values())
+    age_largest = max(bal, key=lambda k: abs(bal[k]["smd"])) == "age"
+    out += [
+        ("Assenze, coppie", f"Su {n(ab['pairs'])} coppie giudice–pronuncia decisa mentre il giudice era in carica"),
+        ("Assenze, quota", f"il giudice manca nel {pc(ab['absence_rate'])}% dei casi"),
+        ("Assenze, tipo", f"dal {pc(g['referendum']['rate'])}% dei giudizi sul referendum al {pc(g['incidentale']['rate'])}% di quelli in via incidentale; "
+                          f"{pc(g['altro']['rate'])}% nelle {g['altro']['n']} coppie"),
+        ("Assenze, decennio", f"dal {pc(dc['2020']['rate'])}% degli anni 2020 al {pc(dc['1990']['rate'])}% degli anni 1980 e 1990"),
+        ("Assenze, articolo", f"dal {pc(art['117']['rate'])}% dell'art. 117 al {pc(art['53']['rate'])}% dell'art. 53"),
+        ("Assenze, materia", f"dal {pc(ab['by']['topic']['min_rate'])}% al {pc(ab['by']['topic']['max_rate'])}% tra i 20 topic"),
+        ("Assenze, V di Cramér", "non supera 0,05 in nessuna delle quattro classificazioni" if vmax < 0.05 else f"V di Cramér massima {it(vmax, 3)}"),
+        ("Assenze, bilanciamento", "resta sotto 0,1 in valore assoluto" if ab["balance"]["max_abs_smd"] < 0.1 else "differenza standardizzata oltre 0,1"),
+        ("Assenze, età", (f"la più grande riguarda l'età, {it(bal['age']['mean_present'])} contro {it(bal['age']['mean_absent'])} anni"
+                          if age_largest else "la differenza standardizzata più grande non è l'età")),
+        ("Assenze, collegi incompleti", f"solo lo {pc(cq['absent']['share_collegio_under_11'])}% dei precedenti della tabella decisi in assenza del redattore "
+                                        f"ha un collegio riconosciuto con meno di 11 giudici, il numero legale (lo {pc(cq['present']['share_collegio_under_11'])}%"),
+        ("Assenze, redattori", f"{sp['drafters_with_absent_cases']} dei {sp['drafters']} redattori citano almeno un precedente deciso in loro assenza, "
+                               f"e i cinque che ne citano di più raccolgono il {pc(sp['top5_share_absent_cases'], 0)}% di queste citazioni"),
+    ]
     return out
 
 
