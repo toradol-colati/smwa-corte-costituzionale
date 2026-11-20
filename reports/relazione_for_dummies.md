@@ -1,39 +1,82 @@
 # Chi fa il precedente? La rete delle pronunce della Corte costituzionale, 1956–2026
 
-**Relazione "for dummies"** · 16 novembre 2026, rivista il 18 novembre dopo un check del lavoro · Umberto Toraldo, con Claude Code
+Umberto Toraldo · Social Media and Web Analytics (EM1421), Università Ca' Foscari Venezia · novembre 2026 · lavoro svolto con Claude Code
 
-> Questa relazione spiega tutto il lavoro a chi non lo ha seguito: da quali dati siamo partiti, cosa abbiamo fatto e perché, cosa abbiamo trovato, cosa resta da fare. Ogni numero viene da uno script del repository; il file da cui è preso è indicato tra parentesi. Il tema non è ancora stato approvato dal docente.
+> La relazione ha due livelli. La **Parte I** racconta in poche pagine la domanda, i dati e le tre idee principali, senza formule. La **Parte II** è l'appendice tecnica: dati, metodo, risultati completi, limiti, istruzioni per rifare tutto e corrispondenza con il programma d'esame. Ogni numero viene da uno script del repository; tra parentesi è indicato il file da cui è preso. Ogni risultato porta un'etichetta: *principale* (fissato prima di vedere i dati), *esplorativo* (trovato, aggiunto o cambiato dopo), *descrittivo*. Il tema non è ancora approvato dal docente.
 
-## In una pagina
+## Parte I — Il lavoro in breve
 
-**La domanda.** In un ordinamento in cui il precedente non vincola, la Corte costituzionale costruisce comunque una gerarchia di precedenti? E quanto di quell'autorità passa attraverso i giudici che redigono e decidono le pronunce?
+### La domanda
 
-**Cosa abbiamo fatto.** Abbiamo preso tutte le 22.427 pronunce della Corte dal 1956 al 2026, abbiamo estratto dal testo le citazioni tra pronunce (93.467 legami) e le abbiamo incrociate con chi ha scritto ogni pronuncia e chi sedeva nel collegio che l'ha decisa.
+In Italia il precedente non vincola: una pronuncia della Corte costituzionale non obbliga la Corte a decidere allo stesso modo in futuro. La Corte però cita di continuo le proprie pronunce. Da qui la domanda del lavoro, formulata prima di vedere i dati: in un ordinamento in cui il precedente non vincola, la Corte costituzionale costruisce comunque una gerarchia di precedenti? E quanto di quell'autorità passa attraverso i giudici che redigono e decidono le pronunce?
 
-**Cosa abbiamo trovato.**
+### I dati e il metodo, in breve
 
-1. **Risultato principale: nessuna "memoria collegiale" misurabile.** Un redattore non cita di più i precedenti decisi da collegi in cui sedeva, rispetto a quelli decisi mentre era in carica ma assente: odds ratio 1,00, intervallo di confidenza al 95% da 0,92 a 1,09. Il dato esclude effetti superiori al 9% circa in più o all'8% in meno; non dimostra che l'effetto sia esattamente zero.
-2. **Però un redattore cita molto di più ciò che ha scritto lui**: odds ratio 5,47 (4,76–6,27), a parità di età e materia del precedente. Gran parte viene dalle questioni che si ripetono: il 40,0% dei precedenti scritti dallo stesso redattore che vengono citati riguarda la stessa disposizione impugnata. A parità di disposizione impugnata l'odds ratio scende a 3,27 (2,95–3,63). Risultato esplorativo (sezione 3.4).
-3. **Una gerarchia di fatto esiste.** Le citazioni sono molto più concentrate di quanto vorrebbe il caso: l'1% delle pronunce più citate raccoglie il 10,3% delle citazioni, contro il 3,4% atteso (4,2% tenendo conto che le ordinanze sono citate molto meno delle sentenze).
-4. **Pochi redattori si distinguono.** Su 113 giudici, dopo la correzione di Holm le pronunce di 6 sono citate più di pronunce prese a caso dello stesso anno e quelle di 7 meno. Esplorativo.
-5. **Due risultati della letteratura sulla Corte italiana non reggono**: la distribuzione delle citazioni non è una legge di potenza, e le pronunce più "autorevoli" secondo l'algoritmo HITS non coincidono con le più citate, anche se la differenza dipende soprattutto dal fatto che HITS, su questa rete, concentra l'autorità in un solo gruppo di pronunce molto collegate.
+Il lavoro usa tutte le 22.427 pronunce della Corte dal 1956 al 2026, scaricate dal portale open data della Corte. Dal testo di ogni pronuncia sono state estratte le citazioni di pronunce precedenti: 93.467 legami. Ogni pronuncia è poi collegata al giudice che ne ha scritto la motivazione (il redattore) e ai giudici del collegio che l'hanno decisa. La pronuncia è della Corte: la decide il collegio, il redattore la scrive. Per questo si parla di "pronunce redatte da" un giudice, mai di sue "decisioni".
 
-**Il "fattore wow"** è nella sezione 5. **Come ogni argomento del programma d'esame entra nel lavoro**: sezione 9.
+Un numero da solo non dice se qualcosa è grande o piccolo. Ogni risultato è quindi confrontato con un **modello nullo**: molte versioni dei dati rimescolate a caso, che conservano ciò che è ovvio (per esempio quante citazioni fa ogni pronuncia e quanto sono vecchi i precedenti citati) e cancellano il resto. Se il dato vero sta fuori dall'intervallo dei dati rimescolati, c'è qualcosa oltre il caso. Il risultato principale, le soglie di qualità e i criteri di decisione sono stati scritti prima dei risultati; ciò che è stato aggiunto o cambiato dopo è elencato nella sezione 2.9 dell'appendice.
 
-> **Cosa è cambiato dopo il check del 17/11/2026.** Un controllo del lavoro ha trovato errori e punti deboli. Le correzioni sono nel registro delle decisioni (`docs/decisions.md`, righe del 18/11) e nella storia del repository (su `main`, un commit per correzione dopo la fotografia del 17/11, etichetta git `versione-17-11`):
-> - D3 si calcola con la verosimiglianza esatta: il risultato principale passa da 1,03 a 1,00, e "l'ha redatto lui" da 3,01 a 5,47, che scende a 3,27 a parità di disposizione impugnata;
-> - D2 usa un modello nullo che tiene conto di quanto diversamente sono citate le pronunce, e la finestra di 10 anni fissata prima: i giudici fuori dall'atteso passano da 27 e 39 (versione del 16/11) a 6 e 7, e D2 diventa esplorativo;
-> - D1: un secondo modello nullo tiene conto delle ordinanze; l'interpretazione "conta chi ti cita" è ritirata;
-> - etichette dei topic, modularità con 100 ricablaggi, un numero sbagliato (i testi senza divisione) e alcuni arrotondamenti corretti; un test confronta ora i numeri della relazione con i file dei risultati;
-> - aggiunte le misure del corso (sezione 3.8), la mappa del programma (sezione 9) e un foglio per il controllo umano dell'estrazione;
-> - la voce sentiment è stata affrontata con la polarità delle citazioni (sezione 3.9): il lessico non ha superato la soglia di qualità fissata prima, quindi non se ne traggono risultati;
-> - il 19/11: una materia più fine, dagli articoli della Costituzione invocati (varianti esplorative: risultato principale invariato, effetto del redattore 4,78, persistenza dopo il mandato incerta), e un controllo del contesto e dei dati delle altre corti prima di costruire la rete tra corti (`docs/context_corti.md`).
+### Prima idea: la Corte costruisce una gerarchia di fatto, ma la consuma in fretta
 
-## 1. Da dove siamo partiti: i dati
+Le citazioni sono molto più concentrate di quanto darebbe il caso. L'1% delle pronunce più citate raccoglie il 10,3% delle citazioni. Se ogni citazione andasse a una pronuncia presa a caso tra quelle depositate nello stesso anno, quell'1% ne raccoglierebbe il 3,4%, e il 4,2% tenendo conto che le ordinanze sono citate molto meno delle sentenze. Esiste anche un'ossatura stabile: il 13,4% delle pronunce con almeno trent'anni viene citato ancora dopo trent'anni. Il grosso dei precedenti però invecchia presto: la frequenza di citazione è massima a un anno dal deposito e si dimezza in 3 anni, e metà delle citazioni va a precedenti con meno di 3,5 anni. La rete si organizza in filoni che seguono la materia (sezioni 3.1–3.3).
+
+Due affermazioni della letteratura sulla Corte italiana non reggono al controllo. La distribuzione delle citazioni ricevute non è una legge di potenza: la descrive meglio una distribuzione lognormale. E le pronunce più "autorevoli" secondo l'algoritmo HITS, che premia le pronunce citate da pronunce che citano molti precedenti autorevoli, non coincidono con le più citate. La differenza però dipende soprattutto da un fatto della rete: HITS vi concentra l'autorità in un solo gruppo di pronunce molto collegate tra loro (sezione 3.2).
+
+### Seconda idea: il collegio non lascia una traccia misurabile; chi scrive sì
+
+È il risultato principale, fissato prima di vedere i dati. La domanda: un giudice che scrive una pronuncia cita di più i precedenti decisi da collegi di cui faceva parte? Il confronto è tra precedenti decisi mentre il giudice era in carica, con lui presente oppure assente: stesso periodo, stesso giudice, cambia solo la presenza. Un giudice in carica manca dal 6,3% delle pronunce, e queste assenze rendono possibile il confronto.
+
+La risposta è no, entro un margine stretto. La misura è l'**odds ratio**. Gli *odds* di essere citato sono la probabilità di essere citato divisa per quella di non esserlo; l'odds ratio dice quante volte sono più alti per un precedente deciso con il giudice presente che per uno deciso in sua assenza, e vale 1 se non c'è differenza. Il risultato è odds ratio 1,00, intervallo di confidenza al 95% da 0,92 a 1,09. Il dato esclude effetti superiori al 9% circa in più o all'8% in meno; non dimostra che l'effetto sia esattamente zero. Il risultato regge in tutte le varianti previste. Nulla indica che le assenze siano un artefatto dei dati: sono distribuite tra quasi tutti i giudici, i precedenti decisi con e senza il giudice si somigliano per età, materia e tipo, e quasi mai vengono da collegi letti male (sezione 3.4).
+
+Chi scrive, invece, conta molto. Un redattore cita ciò che ha scritto lui con odds ratio 5,47 (4,76–6,27), a parità di età e materia del precedente. Non era tra le ipotesi fissate prima: è un risultato esplorativo. Gran parte dell'effetto viene dalle questioni che si ripetono, cioè dalla stessa norma portata davanti alla Corte più volte e affidata allo stesso relatore: il 40,0% dei precedenti scritti dallo stesso redattore che vengono citati riguarda la stessa disposizione impugnata. A parità di disposizione impugnata l'odds ratio scende a 3,27 (2,95–3,63). Quanto pesi questa riduzione dipende dalla scala: l'eccesso rispetto a 1 passa da 4,47 a 2,27, cioè si riduce del 49%; sulla scala logaritmica, quella in cui il modello è stimato, si riduce del 30%. In entrambi i casi resta un effetto netto, che può essere preferenza personale, specializzazione per materia o legame tra questioni che le massime non registrano.
+
+### Terza idea: i giudici, presi uno per uno, pesano poco
+
+**Pochi redattori si distinguono.** Su 113 giudici, dopo la correzione di Holm le pronunce di 6 sono citate più di pronunce prese a caso dello stesso anno e quelle di 7 meno. Esplorativo.
+
+La correzione di Holm tiene conto dei molti test fatti insieme, uno per giudice. Per tutti gli altri giudici la differenza non si distingue dal caso. Le differenze tra giudici restano più ampie di quelle del caso, ma si riducono quando si tiene conto del tipo di pronuncia e della materia; se il peso di un giudice duri oltre il mandato resta incerto (sezione 3.5). Anche l'appartenenza a un gruppo conta poco: tra giudici con la stessa provenienza professionale le citazioni sono il 4,9% più frequenti dell'atteso, molto sotto l'effetto minimo d'interesse fissato prima (20%); tra giudici nominati dallo stesso organo non c'è differenza (sezione 3.6).
+
+### Che cosa aggiunge il lavoro
+
+1. **Un risultato nullo fissato prima e misurato con precisione** (principale). L'ipotesi su cui il progetto era costruito non trova sostegno, con un intervallo stretto e con il criterio scritto prima dei risultati. Accanto c'è un effetto forte dei precedenti scritti dallo stesso redattore, in buona parte spiegato dalle questioni ripetute (esplorativo). Il contrasto sta in una figura (Figura 8).
+2. **Un fatto dei dati datato diversamente dalla dottrina** (descrittivo). Il 23 dicembre 1986, tra la pronuncia 286 e la 287, la Corte smette di far firmare tutti i giudici e comincia a indicare il redattore. Il cambio si vede al giorno nei testi, mentre la dottrina lo data alla norma del luglio 1987. Senza questo controllo, metà dell'analisi sui giudici avrebbe usato un dato che per quelle pronunce non esiste.
+3. **Due risultati pubblicati messi alla prova** (esplorativo). La legge di potenza e l'identità tra authority e citazioni, entrambe di Agnoloni e Pagallo (2016), sono testate contro alternative e modelli nulli, come chiede la critica di Frankenreiter (2017): non reggono.
+
+### Che cosa resta aperto
+
+- **Il controllo di una persona sull'estrazione delle citazioni** (36 pronunce, foglio pronto). Oggi la qualità dell'estrazione è misurata da un annotatore automatico (Claude) che non è indipendente dallo strumento; quando ci sarà, l'annotazione della persona diventerà il riferimento per le soglie. È il passo più importante prima di qualsiasi estensione.
+- **Il controllo di una persona sulla polarità delle citazioni** (67 passi), solo come verifica: lo strumento non ha superato la soglia fissata prima e non è stato usato nelle analisi (sezione 3.9).
+- **L'approvazione del tema da parte del docente**, con le sue indicazioni su lingua, forma della consegna e uso dell'intelligenza artificiale.
+- **I limiti principali** (sezione 4): i relatori non sono assegnati a caso; la materia è misurata in modo grossolano; il motivo delle assenze non è nei dati; citare non vuol dire approvare.
+
+## Parte II — Appendice tecnica
+
+### Glossario
+
+- **Odds e odds ratio.** Gli odds di un evento sono la sua probabilità divisa per la probabilità che non accada: una probabilità del 20% dà odds 0,25. L'odds ratio è il rapporto tra gli odds di due gruppi: 1 vuol dire nessuna differenza, 2 odds doppi, 0,5 odds dimezzati.
+- **Intervallo al 95%.** L'insieme dei valori compatibili con i dati, costruito in modo da contenere il valore vero in 95 ripetizioni dello studio su 100.
+- **Modello nullo.** Una versione dei dati rimescolata a caso, che conserva alcune caratteristiche (per esempio quante citazioni fa ogni pronuncia) e ne cancella altre. Ripetuta molte volte con un seme fisso, dice che cosa ci si aspetterebbe per caso.
+- **Valore p e correzione di Holm.** Il valore p è la probabilità di osservare un risultato almeno così lontano dall'atteso se valesse il caso. Con molti test, alcuni risultano "significativi" per caso: la correzione di Holm alza la soglia in modo che la probabilità di anche un solo falso positivo resti sotto il 5%.
+- **Regressione logistica condizionata.** Un modello che stima quanto una caratteristica aumenta gli odds di essere citato, confrontando ogni precedente solo con gli altri precedenti disponibili per la stessa pronuncia che cita.
+- **Verosimiglianza esatta e approssimazione di Breslow.** Due modi di stimare quel modello. Quello esatto considera tutti i modi in cui una pronuncia poteva scegliere i precedenti che cita; l'approssimazione di Breslow è più rapida ma, quando una pronuncia cita molti precedenti, schiaccia verso 1 gli effetti forti.
+- **Errori standard raggruppati.** Un calcolo dell'incertezza che tiene conto che le pronunce scritte dallo stesso redattore non sono indipendenti tra loro.
+- **Indice di Gini.** La disuguaglianza di una distribuzione, da 0 (tutte le pronunce ricevono lo stesso numero di citazioni) a 1 (una sola le riceve tutte).
+- **Legge di potenza e lognormale.** Due forme possibili della coda di una distribuzione, cioè delle pronunce molto citate. Si confrontano con un test del rapporto di verosimiglianza, non a occhio su un grafico in scala logaritmica.
+- **HITS, authority e PageRank.** Algoritmi che danno un punteggio a ogni nodo. In HITS una pronuncia ha authority alta se è citata da pronunce che citano molti precedenti con authority alta; PageRank premia le pronunce citate da pronunce a loro volta citate.
+- **Comunità, modularità, Leiden, Infomap.** Una comunità è un gruppo di nodi collegati più tra loro che con il resto della rete; la modularità misura quanto la divisione è netta; Leiden e Infomap sono due metodi per trovarla.
+- **Betweenness.** Quante volte un nodo sta sul cammino più breve tra altri due: misura quanto fa da ponte.
+- **Transitività e clustering.** Quanto spesso due vicini dello stesso nodo sono collegati anche tra loro, cioè quanti triangoli sono chiusi.
+- **Componente gigante.** Il gruppo più grande di nodi raggiungibili l'uno dall'altro.
+- **Precisione e richiamo.** La precisione è la quota di citazioni estratte che sono vere; il richiamo è la quota di citazioni vere che l'estrattore trova.
+- **Topic (LDA).** Un modello che raggruppa in temi le parole che compaiono spesso insieme; qui misura la materia di ogni pronuncia.
+- **Differenza standardizzata e V di Cramér.** La prima confronta le medie di due gruppi in unità di deviazione standard; la seconda misura da 0 a 1 quanto una quota dipende da una categoria.
+- **Curva di sopravvivenza (Kaplan–Meier).** Stima per quanto tempo una pronuncia continua a essere citata, tenendo conto delle pronunce troppo recenti per saperlo.
+
+## 1. I dati
 
 ### 1.1 La fonte
 
-Tutti i dati vengono dal portale open data della Corte costituzionale ([dati.cortecostituzionale.it](https://dati.cortecostituzionale.it)), con licenza CC BY-SA 3.0. Li abbiamo scaricati l'8 novembre 2026 con lo script `src/ingest/download.py`, che registra indirizzo, data e impronta SHA-256 di ogni file in `data/raw/MANIFEST.csv`: così si sa esattamente quale versione dei dati ha prodotto i risultati.
+Tutti i dati vengono dal portale open data della Corte costituzionale ([dati.cortecostituzionale.it](https://dati.cortecostituzionale.it)), con licenza CC BY-SA 3.0. Sono stati scaricati l'8 novembre 2026 con lo script `src/ingest/download.py`, che registra indirizzo, data e impronta SHA-256 di ogni file in `data/raw/MANIFEST.csv`: così si sa esattamente quale versione dei dati ha prodotto i risultati.
 
 | Archivio | Cosa contiene | Quanto |
 | --- | --- | --- |
@@ -61,7 +104,7 @@ Nelle ordinanze il ragionamento («Considerato che…») sta dentro l'epigrafe.
 
 Una pronuncia non è l'opera di un giudice. La decide un collegio a maggioranza, in camera di consiglio; il voto non è pubblico e non esistono opinioni dissenzienti. Poi un giudice, il **redattore**, scrive la motivazione, e il collegio approva il testo. Di regola il redattore è il **relatore**, cioè il giudice che ha studiato la causa. Per questo nella relazione si scrive sempre "pronunce redatte da X", mai "decisioni di X".
 
-Ispezionando i file abbiamo scoperto tre cose che cambiano il lavoro (`reports/data_inspection.md`):
+L'ispezione dei file ha mostrato tre cose che cambiano il lavoro (`reports/data_inspection.md`):
 
 - **Il redattore è registrato solo dal 23 dicembre 1986** (Figura 2). Fino alla pronuncia 286/1986 firmavano tutti i giudici e si conosce solo il relatore. Dalla 287/1986 al 2001 il redattore compare solo nelle firme in fondo al testo; dal 2002 è un campo dei dati.
 - **L'anno e il numero di una pronuncia seguono il deposito**, non la decisione. La numerazione riparte ogni anno, è unica per sentenze e ordinanze e non ha buchi: anno più numero identifica una pronuncia senza ambiguità.
@@ -75,7 +118,7 @@ Ispezionando i file abbiamo scoperto tre cose che cambiano il lavoro (`reports/d
 
 *Figura 2. Da dove si ricava il nome di chi ha scritto la pronuncia, per anno di deposito.*
 
-## 2. Cosa abbiamo fatto, passo per passo
+## 2. Il metodo, passo per passo
 
 ### 2.1 Il piano, e come è stato messo alla prova
 
@@ -130,7 +173,7 @@ L'annotazione di riferimento l'ha fatta Claude, **non una persona**, prima di fa
 | di cui pronunce fino alla 286/1986 | 27 | 40 | 1,000 | **0,750**: sotto soglia |
 | Secondo campione indipendente, solo fino alla 286/1986, dopo la correzione dell'estrattore | 48 | 72 | 0,985 (0,920–0,997) | 0,917 (0,830–0,961) |
 
-Il primo campione ha mostrato che l'estrattore perdeva le forme antiche. Come previsto dalle regole, ci siamo fermati, lo abbiamo corretto e lo abbiamo verificato su un secondo campione mai visto. Le coppie annotate sono 342 in tutto, meno delle 460 previste: gli intervalli sono più larghi di quanto pianificato, soprattutto per i testi più vecchi (quadro in `reports/validation.md`; dettagli in `validation_round1.md` e `validation_test2.md`). Per i testi fino al 1986 la stima supera la soglia, ma il limite inferiore dell'intervallo (0,830) no.
+Il primo campione ha mostrato che l'estrattore perdeva le forme antiche. Come previsto dalle regole, il lavoro si è fermato: l'estrattore è stato corretto e verificato su un secondo campione mai visto. Le coppie annotate sono 342 in tutto, meno delle 460 previste: gli intervalli sono più larghi di quanto pianificato, soprattutto per i testi più vecchi (quadro in `reports/validation.md`; dettagli in `validation_round1.md` e `validation_test2.md`). Per i testi fino al 1986 la stima supera la soglia, ma il limite inferiore dell'intervallo (0,830) no.
 
 **Un controllo in più, indipendente.** Anche le massime, scritte dall'Ufficio del massimario, elencano i precedenti citati. Passandole allo stesso estrattore si trovano 46.737 coppie: il 95,4% è già nella rete estratta dal testo di base. Le 2.129 coppie in più (il 2,3% della rete) servono per una variante di D3 (`reports/massime_citations.json`, script `src/extract/citations_massime.py`).
 
@@ -159,7 +202,7 @@ Script: `src/networks/build.py`. Per ogni rete: cos'è un nodo, cos'è un legame
 
 ### 2.7 La materia: un modello di topic
 
-Script: `src/analysis/topics.py`. Per confrontare precedenti "a parità di materia" serve la materia di ogni pronuncia. L'abbiamo ricavata dai testi delle massime con un modello LDA, che raggruppa le parole che compaiono insieme in "temi".
+Script: `src/analysis/topics.py`. Per confrontare precedenti "a parità di materia" serve la materia di ogni pronuncia. È ricavata dai testi delle massime con un modello LDA, che raggruppa le parole che compaiono insieme in "temi".
 
 - Numero di temi: provati 10, 20, 30, 40, 50, 60; scelto il più piccolo con coerenza entro il 2% della migliore: **20**.
 - La materia di una pronuncia è la media dei temi delle sue massime.
@@ -191,6 +234,21 @@ Esempi di temi: lavoro e pensioni; processo penale; competenze delle Regioni; im
 
 Il confronto decisivo è tra precedenti in cui R **sedeva** e precedenti in cui R era **assente** pur essendo in carica: stessa epoca, stesso giudice, cambia solo la presenza. Le assenze non sono rare (un giudice in carica manca dal 6,3% delle pronunce; i collegi hanno da 11 a 15 giudici), e questo rende il confronto possibile. Gli errori standard tengono conto che le pronunce dello stesso redattore si somigliano.
 
+### 2.9 Che cosa era fissato prima e che cosa è cambiato dopo
+
+Il piano, le soglie di qualità e il risultato principale sono stati scritti prima di vedere i risultati (`docs/decisions.md`, con la data di ogni decisione). Ciò che è stato aggiunto o cambiato dopo è elencato qui con il motivo; nelle sezioni dei risultati porta l'etichetta *esplorativo*.
+
+| Parte | Fissato prima | Cambiato o aggiunto dopo i risultati, e perché | Come si legge |
+| --- | --- | --- | --- |
+| D3, risultato principale | Odds ratio di "sedeva nel collegio senza redigere", sui precedenti decisi durante il mandato del redattore, con "l'ha redatto lui", classi di età e somiglianza di materia come controlli; 50 controlli per pronuncia; errori raggruppati per redattore | Il calcolo: la verosimiglianza esatta al posto dell'approssimazione di Breslow, che schiacciava verso 1 gli effetti forti (da 1,03 a 1,00; "l'ha redatto lui" da 3,01 a 5,47). La definizione non è cambiata | Principale |
+| D3, altre stime | Sei varianti di robustezza; il modello completo con la soglia del giuramento | Aggiunti: disposizione impugnata in comune, articoli della Costituzione invocati, descrizione delle assenze, controllo del coefficiente del modello completo | Esplorative o descrittive |
+| D1 | Concentrazione contro il ripescaggio del bersaglio tra le pronunce dello stesso anno; HITS contro gli scambi di citazioni; criterio di previsione (almeno il 2% di errore in meno) | Aggiunto un secondo nullo, con il bersaglio dello stesso anno e tipo; ritirata la lettura "conta chi ti cita" dopo aver visto che HITS concentra l'autorità in una comunità | Il primo nullo resta il riferimento |
+| D2 | Giudici con almeno 30 pronunce; citazioni entro 10 anni dal deposito; ogni citazione ripescata a caso tra le pronunce dello stesso anno | Il nullo è diventato il rimescolamento dei redattori, perché quello fissato ignorava quanto diversamente sono citate le pronunce; la finestra di 10 anni, fissata ma non applicata nella prima esecuzione, è stata applicata; aggiunta la variante dal 1987 | Esplorativo |
+| D4 | Effetto minimo d'interesse del 20%, potenza di almeno 0,80, correzione di Holm sui due test | Nessun cambiamento di metodo | Come fissato |
+| Misure del corso | Non previste | Aggiunte per coprire gli argomenti dei libri di testo | Esplorative |
+| Polarità delle citazioni | Soglia di precisione 0,80, campione di prova estratto a caso, regola d'arresto | Nessuno: la soglia non è stata superata e, come stabilito, non si sono fatte analisi | Come fissato |
+| Validazione dell'estrazione | Precisione almeno 0,95 e richiamo almeno 0,90, su almeno 460 coppie | 342 coppie invece di 460; dopo il primo campione l'estrattore è stato corretto e riverificato su un secondo campione; l'annotazione di una persona, quando ci sarà, diventerà il riferimento | Da completare |
+
 ## 3. Risultati
 
 ### 3.1 La rete, descritta
@@ -216,7 +274,7 @@ Il confronto decisivo è tra precedenti in cui R **sedeva** e precedenti in cui 
 | Pronunce mai citate | 29,5% | 4,3% (4,1–4,5) | 12,8% (12,5–13,0) |
 | Citazioni della pronuncia più citata | 113 | 21 (18–23) | 25 (22–28) |
 
-Le ordinanze sono citate molto meno delle sentenze: non è mai citato il 45,7% delle ordinanze e il 14,8% delle sentenze. Il primo modello nullo, fissato prima, non ne tiene conto; il secondo, aggiunto dopo il check del 17/11/2026, ripesca il bersaglio anche tra pronunce dello stesso tipo. Il divario si riduce ma resta ampio: la gerarchia non è solo la differenza tra sentenze e ordinanze.
+Le ordinanze sono citate molto meno delle sentenze: non è mai citato il 45,7% delle ordinanze e il 14,8% delle sentenze. Il primo modello nullo, fissato prima, non ne tiene conto; il secondo, aggiunto dopo i risultati, ripesca il bersaglio anche tra pronunce dello stesso tipo. Il divario si riduce ma resta ampio: la gerarchia non è solo la differenza tra sentenze e ordinanze.
 
 ![Figura 4](figures/fig4_concentrazione_vs_nullo.png)
 
@@ -228,7 +286,7 @@ Le pronunce più citate sono la 303/2003, la 401/2007 e la 383/2005: tutte decis
 
 **Le più autorevoli non sono le più citate, e i dati dicono perché.** Sulla rete completa, l'1% più autorevole secondo HITS e l'1% più citato si sovrappongono per il 41,5%; a parità di citazioni ricevute, il caso darebbe il 55,7% (53,1–58,0) (Figura 6). Ma il motivo non è che "conta chi ti cita". Su questa rete HITS concentra l'autorità in un solo gruppo di pronunce molto collegate tra loro: il 95,1% dell'1% più autorevole sta in una sola comunità (2.045 pronunce, anno mediano 2013), che raccoglie il 91,6% dell'autorità totale, mentre l'1% più citato è sparso in 22 comunità (`reports/extras.json`). Il modello nullo rimescola le citazioni e cancella le comunità: il confronto misura soprattutto la loro esistenza. PageRank, all'opposto, premia le pronunce antiche (anno mediano 1970 nel suo 1% più alto). Sul sottoinsieme di Agnoloni e Pagallo la sovrapposizione è quella del caso (20% contro 20%).
 
-**La replica di Agnoloni e Pagallo non riesce.** Loro scrivono che le prime 30 pronunce per citazioni sono le stesse prime 30 per authority. Sul loro sottoinsieme (sentenze in via incidentale fino al 2014: 6.561 pronunce) solo 4 delle prime 30 per authority sono tra le prime 30 per citazioni. Il loro sottoinsieme però non è identico al nostro, e il loro calcolo non è descritto. Nella loro tabella 5 le pronunce con lo stesso numero di citazioni hanno esattamente la stessa authority (p. 144): segno che la loro misura coincideva con il numero di citazioni.
+**La replica di Agnoloni e Pagallo non riesce.** Loro scrivono che le prime 30 pronunce per citazioni sono le stesse prime 30 per authority. Sul loro sottoinsieme (sentenze in via incidentale fino al 2014: 6.561 pronunce) solo 4 delle prime 30 per authority sono tra le prime 30 per citazioni. Il loro sottoinsieme però non è identico a quello usato qui, e il loro calcolo non è descritto. Nella loro tabella 5 le pronunce con lo stesso numero di citazioni hanno esattamente la stessa authority (p. 144): segno che la loro misura coincideva con il numero di citazioni.
 
 **Ma l'authority non aiuta a prevedere.** Aggiungerla al modello che prevede le citazioni dell'anno dopo **non** riduce l'errore: lo aumenta dello 0,27% (0,10–0,42). Il criterio fissato prima (almeno il 2% in meno) non è soddisfatto. Quindi HITS individua un nucleo diverso, ma per sapere quanto sarà citata una pronuncia basta contare quanto è già stata citata. Un limite di HITS su questa rete: un terzo delle pronunce ha authority nulla.
 
@@ -259,7 +317,7 @@ Base: 13.654 pronunce che citano, 46.969 citazioni, di cui 1.658 a precedenti de
 
 **Le assenze, descritte** (`src/analysis/d3_absences.py`, `reports/d3_absences.json`). Il risultato principale si regge sulle assenze, quindi va detto quante sono e dove cadono. Su 327.252 coppie giudice–pronuncia decisa mentre il giudice era in carica (tra la sua prima e la sua ultima presenza in un collegio), il giudice manca nel 6,3% dei casi. La quota cambia poco con il tipo di giudizio (dal 3,9% dei giudizi sul referendum al 6,6% di quelli in via incidentale; 10,0% nelle 200 coppie del tipo "altro"), con l'articolo della Costituzione invocato più spesso nella pronuncia (dal 5,0% dell'art. 117 al 7,0% dell'art. 53, tra i dieci più frequenti) e con la materia (dal 3,9% al 7,3% tra i 20 topic); cambia di più con il decennio (dal 3,4% degli anni 2020 al 7,2% degli anni 1980 e 1990). La V di Cramér, che misura da 0 a 1 quanto la presenza dipende dalla categoria, è al massimo 0,049, per il decennio. Nella tabella del modello, i precedenti non citati decisi con il redattore presente e quelli decisi in sua assenza si somigliano: la differenza standardizzata (differenza delle medie divisa per la radice quadrata della media delle due varianze) per età, somiglianza di materia, somiglianza degli articoli invocati, quota di sentenze, quota di giudizi in via incidentale e anno è al massimo 0,097 in valore assoluto, per l'età (2,35 contro 2,54 anni). Le assenze non sono collegi letti male: solo lo 0,6% dei precedenti della tabella decisi in assenza del redattore ha un collegio riconosciuto con meno di 11 giudici, il numero legale (lo 0,1% di quelli con il redattore presente). E non dipendono da pochi giudici: 106 dei 122 redattori citano almeno un precedente deciso in loro assenza, e i cinque che ne citano di più raccolgono il 21% di queste citazioni. Resta ciò che i dati non dicono: il motivo delle singole assenze (malattia, astensione, altri impegni) non è registrato, quindi un legame tra il motivo di un'assenza e la propensione a citare quel precedente non si può escludere.
 
-**Il calcolo.** Il modello è la regressione logistica condizionata con la verosimiglianza esatta, che considera tutti i modi in cui i precedenti citati da una pronuncia potevano essere scelti tra quelli disponibili. Fino al 17/11/2026 si usava un'approssimazione (di Breslow) che, quando una pronuncia cita molti precedenti, schiaccia verso 1 gli effetti forti: dava 1,03 e 3,01. La verosimiglianza calcolata dal nostro codice coincide con quella di una seconda implementazione indipendente (statsmodels) sugli stessi dati.
+**Il calcolo.** Il modello è la regressione logistica condizionata con la verosimiglianza esatta, che considera tutti i modi in cui i precedenti citati da una pronuncia potevano essere scelti tra quelli disponibili. Una prima versione usava un'approssimazione (di Breslow) che, quando una pronuncia cita molti precedenti, schiaccia verso 1 gli effetti forti: dava 1,03 e 3,01. La verosimiglianza calcolata dal codice del progetto coincide con quella di una seconda implementazione indipendente (statsmodels) sugli stessi dati.
 
 ![Figura 8](figures/fig8_d3_redatto_vs_collegio.png)
 
@@ -277,9 +335,9 @@ Nel modello completo, che usa anche la soglia del giuramento, i precedenti decis
 
 **Cautela sul 5,47.** I relatori li sceglie il Presidente, con criteri non pubblici. Due spiegazioni non si escludono: un giudice che segue sempre la stessa materia cita i propri precedenti perché sono quelli pertinenti; e le questioni che si ripetono (la stessa norma portata alla Corte da più giudici) possono essere affidate allo stesso relatore, che poi richiama la propria decisione. L'effetto è più forte nelle ordinanze (9,83) che nelle sentenze (3,53), e prima del 2001 (8,74) che dopo (3,64): è il profilo che ci si aspetta dalle questioni ripetute, spesso decise con ordinanza. La somiglianza di materia è nel modello, ma i topic sono grossolani.
 
-**La prova delle questioni ripetute** (esplorativa, aggiunta il 18/11/2026). Le massime indicano per ogni pronuncia le disposizioni impugnate, cioè le norme di legge di cui si discute la legittimità (legge 87/1953, art. 23). Il 40,0% dei precedenti scritti dallo stesso redattore e citati riguarda la stessa disposizione impugnata della pronuncia che cita, contro il 7,8% dei precedenti decisi in collegi in cui sedeva e il 9,8% di quelli decisi in sua assenza; tra i precedenti non citati la quota è sotto l'1%. Aggiungendo al modello due variabili, stessa legge impugnata e stesso articolo impugnato, l'odds ratio di "l'ha redatto lui" scende da 5,47 a 3,27 (2,95–3,63), mentre "sedeva nel collegio" resta 0,99 (0,91–1,07). Le questioni ripetute spiegano quindi una parte importante dell'effetto, non tutto: il 3,27 che resta può essere preferenza personale, specializzazione per materia o legami tra questioni che le massime non registrano. È un limite superiore dell'effetto "personale".
+**La prova delle questioni ripetute** (esplorativa, aggiunta dopo i risultati). Le massime indicano per ogni pronuncia le disposizioni impugnate, cioè le norme di legge di cui si discute la legittimità (legge 87/1953, art. 23). Il 40,0% dei precedenti scritti dallo stesso redattore e citati riguarda la stessa disposizione impugnata della pronuncia che cita, contro il 7,8% dei precedenti decisi in collegi in cui sedeva e il 9,8% di quelli decisi in sua assenza; tra i precedenti non citati la quota è sotto l'1%. Aggiungendo al modello due variabili, stessa legge impugnata e stesso articolo impugnato, l'odds ratio di "l'ha redatto lui" scende da 5,47 a 3,27 (2,95–3,63), mentre "sedeva nel collegio" resta 0,99 (0,91–1,07). Le questioni ripetute spiegano quindi una parte importante dell'effetto, non tutto: il 3,27 che resta può essere preferenza personale, specializzazione per materia o legami tra questioni che le massime non registrano. È un limite superiore dell'effetto "personale".
 
-**La materia più fine** (esplorativa, aggiunta il 19/11/2026). Con gli articoli della Costituzione invocati nelle massime, pesati in modo che quelli comuni (come l'art. 3) contino poco, l'odds ratio di "l'ha redatto lui" scende a 4,78 (4,18–5,47): la materia ne spiega una piccola parte, molto meno della disposizione impugnata in comune.
+**La materia più fine** (esplorativa, aggiunta dopo i risultati). Con gli articoli della Costituzione invocati nelle massime, pesati in modo che quelli comuni (come l'art. 3) contino poco, l'odds ratio di "l'ha redatto lui" scende a 4,78 (4,18–5,47): la materia ne spiega una piccola parte, molto meno della disposizione impugnata in comune.
 
 ### 3.5 D2 — Pochi redattori si distinguono (esplorativo)
 
@@ -290,7 +348,7 @@ Nel modello completo, che usa anche la soglia del giuramento, i precedenti decis
 - Su 113 giudici con almeno 30 pronunce, dopo la correzione di Holm le pronunce di **6** sono citate più dell'atteso e quelle di **7** meno; per gli altri la differenza non si distingue dal caso (Figura 9).
 - Le differenze tra giudici sono comunque più ampie di quelle dei rimescolamenti: la varianza del logaritmo del rapporto è 3,0 volte quella attesa (p < 0,001).
 - In testa: Baldassarre (1,88; 1,60–2,17), Onida (1,61; 1,28–1,99), De Siervo (1,48; 1,21–1,80); l'atteso è 1.
-- Tenendo conto anche del tipo di pronuncia, 2 sopra e 4 sotto; anche della materia, 1 e 3; anche dell'articolo della Costituzione invocato più spesso (variante esplorativa del 19/11), 0 e 3. Con le sole pronunce dalla 287/1986, dove il redattore è osservato, 7 e 7 su 74 giudici.
+- Tenendo conto anche del tipo di pronuncia, 2 sopra e 4 sotto; anche della materia, 1 e 3; anche dell'articolo della Costituzione invocato più spesso (variante esplorativa), 0 e 3. Con le sole pronunce dalla 287/1986, dove il redattore è osservato, 7 e 7 su 74 giudici.
 - **Dopo il mandato.** Per gli 87 giudici usciti entro il 2015, chi era citato più dell'atteso in carica lo è anche nei dieci anni successivi: correlazione tra ranghi 0,66. Una parte è meccanica, perché le stesse pronunce restano citate: con pronunce prese a caso dello stesso anno la correlazione sarebbe 0,37 (95%: 0,16–0,55). Il dato osservato sta sopra (p < 0,001); a parità anche di tipo e materia, 0,62 contro 0,32 (0,12–0,51) (Figura 10). Con la variante per articolo della Costituzione la correlazione è 0,42 e resta dentro quella attesa (0,32; 0,11–0,51). Quella variante separa giudice e materia solo in parte: il 86,1% delle pronunce dei giudici testati sta in gruppi con almeno due redattori diversi, il resto non si può scambiare e spinge i rapporti verso 1 (`reports/d2_strata_check.json`). La persistenza dopo il mandato resta quindi incerta.
 
 ![Figura 9](figures/fig9_d2_giudici.png)
@@ -319,7 +377,7 @@ Resta il limite della materia: i topic sono grossolani, e i redattori non sono a
 
 ### 3.8 Le misure del corso (esplorative)
 
-(`reports/course_measures.json`, script `src/analysis/course_measures.py`) Aggiunte il 18/11/2026 per coprire gli argomenti dei libri di testo del corso; non erano nel piano fissato prima. Ognuna ha il suo termine di confronto.
+(`reports/course_measures.json`, script `src/analysis/course_measures.py`) Aggiunte dopo i risultati principali, per coprire gli argomenti dei libri di testo del corso: non erano nel piano fissato prima. Ognuna ha il suo termine di confronto.
 
 - **Chi è ricco diventa più ricco** (attaccamento preferenziale). Confrontando ogni pronuncia solo con quelle depositate nello stesso anno, le citazioni nuove di un anno crescono con quelle già ricevute come (1 + citazioni)^a, con a = 1,12 (1,11–1,14). Nelle reti del modello nullo di D1, dove le citazioni passate non contano, la stessa stima dà 0,00. Con a = 1 le citazioni nuove crescerebbero in proporzione a quelle già ricevute; qui crescono un po' più che in proporzione. Limite: l'attrattiva propria di ogni pronuncia, che non dipende da quante citazioni ha già, si confonde con l'attaccamento, quindi a ne è un limite superiore.
 - **Chiusura triadica.** Se una pronuncia cita due precedenti, quanto spesso uno dei due cita l'altro? Transitività 0,151, contro 0,009 (0,008–0,009) nelle 100 reti rimescolate che conservano citazioni fatte, ricevute ed età: tutte molto sotto il dato vero; clustering locale medio 0,241 contro 0,005. Si usa la rete non orientata: in un grafo aciclico la versione orientata non ha senso.
@@ -339,13 +397,13 @@ Prima di togliere nulla, la componente gigante contiene l'86,2% delle pronunce.
 
 ### 3.9 La polarità delle citazioni, forma adattata di sentiment: lo strumento non supera la soglia
 
-(`reports/polarity_validation_claude.md`, script in `src/polarity/`) Su richiesta di Umberto del 18/11/2026, la voce "sentiment analysis" del programma è stata affrontata nella forma che ha senso per una corte: la **polarità delle citazioni**, cioè se una pronuncia segue il precedente che cita o se ne distingue. L'ipotesi di partenza, suggerita dalla lettura di qualche decina di passi, è che il sostegno sia il caso normale: una citazione richiama di solito un precedente come autorità, senza parole che lo segnalino. Si cerca quindi la classe rara, **distinzione o distacco**: il precedente è dichiarato non pertinente, riferito a un caso diverso, non un precedente in termini, oppure superato.
+(`reports/polarity_validation_claude.md`, script in `src/polarity/`) La voce "sentiment analysis" del programma è stata affrontata nella forma che ha senso per una corte: la **polarità delle citazioni**, cioè se una pronuncia segue il precedente che cita o se ne distingue. L'ipotesi di partenza, suggerita dalla lettura di qualche decina di passi, è che il sostegno sia il caso normale: una citazione richiama di solito un precedente come autorità, senza parole che lo segnalino. Si cerca quindi la classe rara, **distinzione o distacco**: il precedente è dichiarato non pertinente, riferito a un caso diverso, non un precedente in termini, oppure superato.
 
 **Come.** Un lessico di regole scritte a mano (`src/polarity/lexicon.py`) sulla metà delle pronunce che citano, scelte a caso. Ogni regola deve essere legata al precedente: entro 120 caratteri dalla menzione, nella stessa frase, senza negazioni né forme ipotetiche, non nelle parole del giudice rimettente o delle parti. Prima del test sono stati fissati nel registro la soglia (precisione almeno 0,80), il campione e cosa fare se la soglia non fosse superata.
 
 **Esito.** Sull'altra metà, i 37 contesti segnalati sono stati annotati senza vedere l'etichetta, mescolati con 30 contesti non segnalati: 28 su 37 sono vere distinzioni, una precisione di 0,76 (intervallo al 95% 0,60–0,87), **sotto la soglia**. Come stabilito prima, non si fanno analisi: niente stima della quota di distinzioni, niente equilibrio strutturale, niente elenco dei precedenti più distinti. Sull'equilibrio strutturale c'è anche un limite di principio. Nei libri di testo la teoria riguarda legami non orientati, con segno positivo o negativo: un triangolo è equilibrato se i suoi tre legami sono positivi o se lo è uno solo (Easley e Kleinberg, §5.1, p. 122), e la definizione si estende alle reti in cui non tutte le coppie sono collegate (§5.5, pp. 134–135). Le citazioni sono orientate, e gli stessi autori osservano che con legami orientati, come la fiducia e la sfiducia tra gli utenti di un sito di recensioni, le previsioni della teoria possono non valere (§5.3, p. 128). Anche con una polarità affidabile, l'analisi andrebbe adattata, non applicata così com'è.
 
-Il verdetto è fragile: mancano due contesti per arrivare a 0,80, l'intervallo comprende la soglia, e chi ha annotato ha anche scritto le regole. Il controllo di una persona sullo stesso campione servirà solo come verifica: non cambia l'esito sulla soglia (decisione di Umberto del 18/11/2026).
+Il verdetto è fragile: mancano due contesti per arrivare a 0,80, l'intervallo comprende la soglia, e chi ha annotato ha anche scritto le regole. Il controllo di una persona sullo stesso campione servirà solo come verifica: per una regola scritta prima del controllo non cambia l'esito sulla soglia, così che non diventi un secondo tentativo.
 
 **Cosa si impara comunque.**
 
@@ -353,22 +411,7 @@ Il verdetto è fragile: mancano due contesti per arrivare a 0,80, l'intervallo c
 - Il lessico perde distinzioni: tra i 30 contesti non segnalati che hanno una parola di distinzione, 5 lo sono.
 - Per andare avanti servono due cose: il controllo di una persona sul foglio già pronto (`data/validation/polarity_human_check.md`, 67 passi) e una nuova versione delle regole, fissata prima e provata su dati mai visti.
 
-## 4. Cosa risponde alla domanda
-
-- **La Corte costruisce una gerarchia di precedenti?** Sì, di fatto: poche pronunce concentrano le citazioni molto oltre il caso, un'ossatura resta citata per decenni, la rete si organizza in filoni per materia. Ma il grosso dei precedenti è consumato in pochi anni.
-- **Quanto passa dai giudici?** Dal collegio, nulla che si riesca a misurare. Dal redattore, molto: le probabilità (odds) che citi ciò che ha scritto sono circa cinque volte e mezzo quelle di un precedente deciso in sua assenza (3,27 a parità di disposizione impugnata), e le pronunce di pochi redattori pesano più di quanto darebbe il caso (esplorativo); se il loro peso duri oltre il mandato resta incerto.
-
-## 5. Il "fattore wow"
-
-Tre cose che un docente di analisi delle reti difficilmente si aspetta, tutte verificabili nel repository:
-
-1. **Un risultato nullo preannunciato.** L'ipotesi su cui il progetto era costruito non trova sostegno, con un intervallo che esclude effetti superiori al 9% circa (0,92–1,09) e con il criterio scritto prima dei risultati. Accanto c'è un effetto forte (5,47) per i precedenti scritti di proprio pugno: trovato guardando i dati, quindi esplorativo, e in buona parte dovuto alle questioni ripetute: a parità di disposizione impugnata scende a 3,27 (sezione 3.4). Il contrasto sta in una figura (Figura 8).
-2. **Una scoperta fatta guardando i dati, non in letteratura.** Il 23 dicembre 1986, tra la pronuncia 286 e la 287, la Corte smette di far firmare tutti i giudici e comincia a indicare il redattore. Il cambio si vede al giorno nei testi, mentre la dottrina lo data alla norma del luglio 1987. Senza accorgersene, metà dell'analisi sui giudici sarebbe stata costruita su un dato che non esiste.
-3. **Due risultati pubblicati che non reggono al controllo**: la legge di potenza e l'identità tra authority e citazioni, entrambi di Agnoloni e Pagallo. Qui sono testati contro alternative e modelli nulli, come chiede la critica di Frankenreiter (2017).
-
-Sono risultati esplorativi, non preannunciati, solo il punto 2 e la replica al punto 3: vanno presentati come tali.
-
-## 6. Limiti
+## 4. Limiti
 
 | Limite | Quale risultato tocca | In che direzione |
 | --- | --- | --- |
@@ -377,38 +420,23 @@ Sono risultati esplorativi, non preannunciati, solo il punto 2 e la replica al p
 | Prima del 1987 il redattore è approssimato dal relatore | D2, D3 | Attenua le differenze; la variante dal 1987 dà lo stesso risultato per D3 |
 | I relatori non sono assegnati a caso | Il 5,47 di D3 (3,27 a parità di disposizione impugnata), le classifiche di D2 | Gonfia l'effetto del redattore |
 | Le assenze dal collegio possono non essere casuali | D3 principale | Descritte nella sezione 3.4: variano poco per tipo di giudizio, articolo invocato e materia, di più per decennio (dal 3,4% al 7,2%); i precedenti con e senza il redattore sono simili sulle covariate. Il motivo delle assenze non è nei dati, quindi la direzione resta incerta; nel modello completo, che usa anche la soglia del giuramento, presenza e assenza non differiscono (0,88 in entrambi i casi) |
-| I topic sono 20, in parte formule di stile, poco stabili | Il controllo per materia in D2, D3 | Controllo imperfetto. Con gli articoli della Costituzione invocati (variante del 19/11) il risultato principale non cambia, l'effetto del redattore scende a 4,78 e in D2 la persistenza dopo il mandato diventa incerta |
+| I topic sono 20, in parte formule di stile, poco stabili | Il controllo per materia in D2, D3 | Controllo imperfetto. Con gli articoli della Costituzione invocati (variante esplorativa) il risultato principale non cambia, l'effetto del redattore scende a 4,78 e in D2 la persistenza dopo il mandato diventa incerta |
 | Citare non vuol dire approvare | Tutto | Un precedente può essere citato per discostarsene; il tentativo di misurarlo (sezione 3.9) non ha superato la soglia di qualità |
 | Le pronunce recenti hanno avuto meno tempo per essere citate | D1, D2 | Gestito con percentili per annata e finestre fisse; le pronunce dal 2020 restano poco informative |
 | HITS dà authority nulla a un terzo delle pronunce e concentra il resto in una sola comunità | Confronto authority e citazioni | La differenza dal caso misura soprattutto le comunità; PageRank, senza zeri, premia le pronunce antiche |
 | In D2 il modello nullo è cambiato dopo aver visto i risultati | D2 | Esplorativo: nessuna conclusione formale |
 | Provenienza dei giudici codificata in automatico | D4 | Errori di codifica attenuano l'effetto |
 
-## 7. Cosa si potrebbe fare in più
+## 5. Cosa si potrebbe fare in più
 
-**Fatto in questa sessione perché si poteva fare:** estrazione e validazione, tutti e tre gli strati, D1–D4, topic, esito via SPARQL, Wikipedia, comunità, sei varianti di D3.
-
-**Aggiunto il 19/11/2026, su richiesta di Umberto:** la materia più fine dagli articoli della Costituzione invocati (varianti di D2 e D3); il controllo del contesto e dei dati delle altre corti (`docs/context_corti.md`), primo passo della rete tra corti.
-
-**Aggiunto il 18/11/2026, su richiesta di Umberto:** la polarità delle citazioni (sezione 3.9), con esito negativo.
-
-**Aggiunto dopo il check del 17/11/2026:** verosimiglianza esatta in D3 e variante con la norma impugnata; rimescolamento dei redattori, finestra di 10 anni e variante dal 1987 in D2; nullo per tipo in D1; controllo delle comunità per HITS; modularità con 100 ricablaggi; etichette dei topic per specificità; misure del corso (sezione 3.8); mappa del programma (sezione 9); foglio per il controllo umano; test dei numeri; versioni dei pacchetti fissate.
-
-**Aggiunto dopo la revisione finale del 16/11, perché si poteva fare:**
-
-- variante di D3 con le citazioni delle massime (note editoriali): 0,99 (0,91–1,08), stessa conclusione;
-- Infomap accanto a Leiden;
-- vista interattiva del nucleo della rete (`reports/rete_interattiva.html`);
-- intervallo per la correlazione dopo il mandato e correzione di Holm sui due test di D4.
-
-**Non fatto, pur essendo previsto, e perché:**
+**Previsto e non fatto, e perché:**
 
 - modello nullo di Karrer e Newman come variante: su una rete orientata nel tempo richiede di ricostruire i blocchi rispettando l'ordine delle date; un'implementazione affrettata darebbe un nullo sbagliato, peggio di nessuno. Il nullo usato conserva già gradi e anni;
-- percentile dell'authority su finestra di più anni: richiede di rifare il pannello annuale di D1 (HITS per 61 anni); non cambia il risultato principale e il criterio di previsione è già fallito con margine;
-- nullo degli scambi anno per anno: 1.000 ripetizioni per 61 anni, circa 60 volte il costo attuale; è calcolato sulla rete finale, la serie annuale resta descrittiva;
-- 118 coppie annotate in meno delle 460 previste: l'annotazione utile adesso è quella di una persona, non altre coppie annotate da me.
+- percentile dell'authority su finestra di più anni: richiede di rifare il pannello annuale di D1 (HITS per 61 anni); non cambia il risultato principale, e il criterio di previsione è già fallito con margine;
+- nullo degli scambi anno per anno: 1.000 ripetizioni per 61 anni, circa 60 volte il costo attuale; è calcolato sulla rete finale, e la serie annuale resta descrittiva;
+- 118 coppie annotate in meno delle 460 previste: ciò che serve adesso è l'annotazione di una persona, non altre coppie annotate dallo stesso annotatore automatico.
 
-**Serve una persona o un accesso che non ho:**
+**Serve una persona o un accesso esterno:**
 
 - il controllo umano dell'estrazione, già preparato: 36 pronunce con il testo intero, circa 100 coppie (`data/validation/human_check.md`, istruzioni in testa al foglio);
 - il controllo umano della polarità: 67 passi (`data/validation/polarity_human_check.md`);
@@ -416,23 +444,13 @@ Sono risultati esplorativi, non preannunciati, solo il punto 2 e la replica al p
 - gli articoli a pagamento non letti (Black e Spriggs 2013; Agnoloni e Pagallo 2015): oggi non si possono citare;
 - la traduzione in inglese, se il corso la chiede.
 
-**Magari** (utile, costo medio):
+**Estensioni possibili.**
 
-- una seconda versione del lessico di polarità (per esempio senza la regola sul superamento), fissata prima e provata su dati mai visti con un'annotazione umana: se superasse la soglia, darebbe un segno ai legami e renderebbe possibile l'equilibrio strutturale;
-- studiare i 93 casi in cui il relatore è stato sostituito: le pronunce "con dissenso" sono citate diversamente?
+- *Utili, costo medio*: una seconda versione del lessico di polarità (per esempio senza la regola sul superamento), fissata prima e provata su dati mai visti con un'annotazione umana: se superasse la soglia, darebbe un segno ai legami, e l'equilibrio strutturale andrebbe comunque adattato a legami orientati (sezione 3.9); lo studio dei 93 casi in cui il relatore è stato sostituito, per vedere se le pronunce "con dissenso" sono citate diversamente.
+- *Interessanti, esito incerto*: una rete tra corti. Il controllo del contesto e dei dati di Cassazione, Consiglio di Stato, Corte europea dei diritti dell'uomo e Corte di giustizia dell'Unione europea è fatto (`docs/context_corti.md`): con dati aperti si può costruire il verso dalla Corte costituzionale alle altre corti, mentre il verso opposto è possibile in principio solo per la Corte di giustizia. Poi l'effetto del Presidente, che assegna le cause (i relatori scelti da uno stesso Presidente si citano di più?), e un confronto con il Tribunale costituzionale tedesco, che ha dati simili.
+- *Da non fare*: usare la polarità delle citazioni nelle analisi finché uno strumento non supera la soglia di qualità (sezione 3.9); attribuire "idee" o "voti" ai singoli giudici, perché i dati non lo permettono e il voto è segreto.
 
-**Forse** (interessante, esito incerto):
-
-- le citazioni di altre corti (Cassazione, Corte europea), che l'estrattore oggi scarta: una rete tra corti;
-- l'effetto del Presidente, che assegna le cause: i relatori scelti da uno stesso Presidente si citano di più?
-- un confronto con il Tribunale costituzionale tedesco, che ha dati simili.
-
-**No:**
-
-- usare la polarità delle citazioni nelle analisi finché uno strumento non supera la soglia di qualità (sezione 3.9);
-- attribuire "idee" o "voti" ai singoli giudici: i dati non lo permettono, il voto è segreto.
-
-## 8. Come rifare tutto
+## 6. Come rifare tutto
 
 ```
 python3.12 -m venv .venv
@@ -451,12 +469,18 @@ python3.12 -m venv .venv
 .venv/bin/python src/ingest/fetch_api.py
 .venv/bin/python src/analysis/d1_pronunce.py
 .venv/bin/python src/analysis/d2_d4_giudici.py
+.venv/bin/python src/analysis/d2_strata_check.py
 .venv/bin/python src/analysis/d3_memoria_collegiale.py
+.venv/bin/python src/analysis/d3_absences.py
+.venv/bin/python src/analysis/d3_full_check.py
 .venv/bin/python src/analysis/extras.py
 .venv/bin/python src/analysis/course_measures.py
 .venv/bin/python src/analysis/figures.py
 .venv/bin/python src/analysis/interactive.py
 .venv/bin/python src/report/report_numbers.py
+.venv/bin/python src/report/render_d2.py
+.venv/bin/python src/report/render_d4.py
+.venv/bin/python src/report/render_course.py
 .venv/bin/python src/courts/sizing.py
 .venv/bin/python src/polarity/contexts.py
 .venv/bin/python src/polarity/evaluate.py claude
@@ -469,9 +493,9 @@ Per il controllo umano dell'estrazione: `.venv/bin/python src/validation/human_s
 
 Fonti e letteratura, con lo stato di lettura di ogni voce: `docs/sources.md`. Decisioni e scostamenti dal piano: `docs/decisions.md`.
 
-## 9. Il programma d'esame, punto per punto
+## 7. Il programma d'esame, punto per punto
 
-Il programma 2026/27 elenca sei voci, senza sotto-argomenti; concetti, misure e modelli più fini vengono dagli indici dei due libri di testo (Easley e Kleinberg; Barabási), non dall'elenco delle lezioni, che va ancora confrontato. La mappa completa, concetto per concetto, con lo script, il file dei risultati e la sezione di questa relazione, oppure il motivo per cui un argomento non è applicato, è in `docs/course_mapping.md`.
+Il programma 2026/27 elenca sei voci, senza sotto-argomenti. L'elenco più fine di concetti, misure e modelli viene dagli indici dei due libri di testo (Easley e Kleinberg; Barabási); i capitoli citati nella relazione sono stati letti, con le pagine in `docs/sources.md`. L'elenco delle lezioni, su Moodle, va ancora confrontato. La mappa completa, concetto per concetto, con lo script, il file dei risultati e la sezione di questa relazione, oppure il motivo per cui un argomento non è applicato, è in `docs/course_mapping.md`.
 
 | Voce del programma | Stato | Dove |
 | --- | --- | --- |

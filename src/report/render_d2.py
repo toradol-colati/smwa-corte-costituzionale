@@ -27,7 +27,7 @@ sec = f"""### 3.5 D2 — Pochi redattori si distinguono (esplorativo)
 - Su {a['judges_tested']} giudici con almeno {d['min_pronunce']} pronunce, dopo la correzione di Holm le pronunce di **{a['sig_holm_above']}** sono citate più dell'atteso e quelle di **{a['sig_holm_below']}** meno; per gli altri la differenza non si distingue dal caso (Figura 9).
 - Le differenze tra giudici sono comunque più ampie di quelle dei rimescolamenti: la varianza del logaritmo del rapporto è {f(a['var_ratio_to_null'], 1)} volte quella attesa (p {p(a['p_heterogeneity'])}).
 - In testa: {tt}; l'atteso è 1.
-- Tenendo conto anche del tipo di pronuncia, {at['sig_holm_above']} sopra e {at['sig_holm_below']} sotto; anche della materia, {am['sig_holm_above']} e {am['sig_holm_below']}; anche dell'articolo della Costituzione invocato più spesso (variante esplorativa del 19/11), {ap['sig_holm_above']} e {ap['sig_holm_below']}. Con le sole pronunce dalla 287/1986, dove il redattore è osservato, {a87['sig_holm_above']} e {a87['sig_holm_below']} su {a87['judges_tested']} giudici.
+- Tenendo conto anche del tipo di pronuncia, {at['sig_holm_above']} sopra e {at['sig_holm_below']} sotto; anche della materia, {am['sig_holm_above']} e {am['sig_holm_below']}; anche dell'articolo della Costituzione invocato più spesso (variante esplorativa), {ap['sig_holm_above']} e {ap['sig_holm_below']}. Con le sole pronunce dalla 287/1986, dove il redattore è osservato, {a87['sig_holm_above']} e {a87['sig_holm_below']} su {a87['judges_tested']} giudici.
 - **Dopo il mandato.** Per gli {pm['judges']} giudici usciti entro il 2015, chi era citato più dell'atteso in carica lo è anche nei dieci anni successivi: correlazione tra ranghi {f(pm['spearman_during_post'])}. Una parte è meccanica, perché le stesse pronunce restano citate: con pronunce prese a caso dello stesso anno la correlazione sarebbe {f(pm['spearman_null_mean'])} (95%: {f(pm['spearman_null_lo'])}–{f(pm['spearman_null_hi'])}). Il dato osservato sta sopra (p {p(pm['p_above_null'])}); a parità anche di tipo e materia, {f(pmm['spearman_during_post'])} contro {f(pmm['spearman_null_mean'])} ({f(pmm['spearman_null_lo'])}–{f(pmm['spearman_null_hi'])}) (Figura 10). Con la variante per articolo della Costituzione la correlazione è {f(ap['post_mandate']['spearman_during_post'])} e resta dentro quella attesa ({f(ap['post_mandate']['spearman_null_mean'])}; {f(ap['post_mandate']['spearman_null_lo'])}–{f(ap['post_mandate']['spearman_null_hi'])}). Quella variante separa giudice e materia solo in parte: il {f(sc['anno_tipo_parametro']['share_tested_pronunce_in_mixed_strata'] * 100, 1)}% delle pronunce dei giudici testati sta in gruppi con almeno due redattori diversi, il resto non si può scambiare e spinge i rapporti verso 1 (`reports/d2_strata_check.json`). La persistenza dopo il mandato resta quindi incerta.
 
 ![Figura 9](figures/fig9_d2_giudici.png)
@@ -46,8 +46,9 @@ Resta il limite della materia: i topic sono grossolani, e i redattori non sono a
 s = open("reports/relazione_for_dummies.md").read()
 i, j = s.index("### 3.5 D2"), s.index("### 3.6 D4")
 s = s[:i] + sec + s[j:]
-summary = (f"4. **Pochi redattori si distinguono.** Su {a['judges_tested']} giudici, dopo la correzione di Holm le pronunce di {a['sig_holm_above']} sono citate più "
+summary = (f"**Pochi redattori si distinguono.** Su {a['judges_tested']} giudici, dopo la correzione di Holm le pronunce di {a['sig_holm_above']} sono citate più "
            f"di pronunce prese a caso dello stesso anno e quelle di {a['sig_holm_below']} meno. Esplorativo.")
-s = re.sub(r"^4\. \*\*[^\n]*$", summary, s, count=1, flags=re.M)
+s, k = re.subn(r"^\*\*Pochi redattori si distinguono\.\*\*[^\n]*$", summary, s, count=1, flags=re.M)
+assert k == 1, "summary paragraph of Part I not found"
 open("reports/relazione_for_dummies.md", "w").write(s)
 print(summary)

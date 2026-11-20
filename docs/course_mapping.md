@@ -29,7 +29,7 @@
 | Metodologie della social network analysis, con le basi teoriche | Applicato | Parte 3 |
 | Dati strutturati e non strutturati | Applicato | Strutturati: i campi dell'XML. Non strutturati: il testo delle motivazioni (estrazione delle citazioni) e delle massime (topic) |
 | Software e linguaggi di programmazione adeguati | Applicato | Python: pandas, igraph, networkx, leidenalg, scikit-learn, statsmodels, lifelines, powerlaw, matplotlib (`requirements.lock`) |
-| Interpretare criticamente i risultati e comunicarli con rigore | Applicato | Un modello nullo per ogni statistica (§2.8), limiti (§6), il check del 17/11/2026 e le correzioni (`docs/decisions.md`) |
+| Interpretare criticamente i risultati e comunicarli con rigore | Applicato | Un modello nullo per ogni statistica (§2.8), limiti (§4), che cosa era fissato prima e che cosa è cambiato dopo (§2.9; date e motivi in `docs/decisions.md`) |
 | Consultare la documentazione tecnica di strumenti e librerie | Applicato | DTD del portale (`docs/data_schema.md`), endpoint SPARQL (`reports/sparql_reconciliation.md`), API di MediaWiki |
 | Prerequisiti: programmazione, statistica descrittiva, probabilità, inferenza | Applicati | Parte 4 |
 

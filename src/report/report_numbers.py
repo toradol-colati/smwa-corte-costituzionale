@@ -45,5 +45,11 @@ out["without_topic_short_massime"] = int(len(short))
 out["without_topic_short_massime_years"] = [int(short.pid.min() // 10000), int(short.pid.max() // 10000)] if len(short) else []
 out["without_topic_no_massime"] = int(len(none_))
 out["without_topic_no_massime_2026"] = int((none_.pid // 10000 == 2026).sum())
+# D3: how much of the self-drafted effect goes away at equal challenged provision, on two scales
+d3 = json.load(open(REPO / "reports/d3_results.json"))
+sd = d3["primary"]["coef"]["self_drafted"]["or"]
+sn = d3["variants"]["controllo per norma impugnata in comune (esplorativo)"]["coef"]["self_drafted"]["or"]
+out["d3_self_drafted_scale"] = {"excess_before": sd - 1, "excess_after": sn - 1, "excess_reduction": 1 - (sn - 1) / (sd - 1),
+                                "log_reduction": 1 - float(np.log(sn) / np.log(sd))}
 json.dump(out, open(REPO / "reports/numbers.json", "w"), indent=1)
 print(out)

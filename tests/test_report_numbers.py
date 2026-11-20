@@ -158,7 +158,7 @@ def checks():
                             f"sta in gruppi con almeno due redattori diversi"),
         ("D2 dispersione", f"la varianza del logaritmo del rapporto è {it(a['var_ratio_to_null'], 1)} volte quella attesa"),
         ("D2 varianti", f"Tenendo conto anche del tipo di pronuncia, {at['sig_holm_above']} sopra e {at['sig_holm_below']} sotto; anche della materia, "
-                        f"{am['sig_holm_above']} e {am['sig_holm_below']}; anche dell'articolo della Costituzione invocato più spesso (variante esplorativa del 19/11), "
+                        f"{am['sig_holm_above']} e {am['sig_holm_below']}; anche dell'articolo della Costituzione invocato più spesso (variante esplorativa), "
                         f"{d2['permutazione_anno_tipo_parametro']['sig_holm_above']} e {d2['permutazione_anno_tipo_parametro']['sig_holm_below']}. "
                         f"Con le sole pronunce dalla 287/1986, dove il redattore è osservato, "
                         f"{a87['sig_holm_above']} e {a87['sig_holm_below']} su {a87['judges_tested']} giudici."),
@@ -236,6 +236,27 @@ def checks():
                                         f"ha un collegio riconosciuto con meno di 11 giudici, il numero legale (lo {pc(cq['present']['share_collegio_under_11'])}%"),
         ("Assenze, redattori", f"{sp['drafters_with_absent_cases']} dei {sp['drafters']} redattori citano almeno un precedente deciso in loro assenza, "
                                f"e i cinque che ne citano di più raccolgono il {pc(sp['top5_share_absent_cases'], 0)}% di queste citazioni"),
+    ]
+    # Part I repeats the main numbers in plain words: they are checked separately
+    sc = load("numbers.json")["d3_self_drafted_scale"]
+    s3 = d3["primary"]["coef"]["sat_not_drafted"]
+    up, down = round((s3["hi"] - 1) * 100), round((1 - s3["lo"]) * 100)
+    c1, ct1, ag1, sv1 = d1["concentration"], d1["concentration_by_type"], d1["ageing"], d1["survival"]
+    out += [
+        ("Parte I, dati", f"Il lavoro usa tutte le {n(nb['nodes'])} pronunce della Corte dal 1956 al 2026"),
+        ("Parte I, legami", f"citazioni di pronunce precedenti: {n(nb['edges'])} legami"),
+        ("Parte I, concentrazione", f"L'1% delle pronunce più citate raccoglie il {pc(c1['top1_share']['observed'])}% delle citazioni"),
+        ("Parte I, nulli", f"quell'1% ne raccoglierebbe il {pc(c1['top1_share']['null_mean'])}%, e il {pc(ct1['top1_share']['null_mean'])}% tenendo conto"),
+        ("Parte I, ossatura", f"il {pc(sv1['share_cited_after_30y'])}% delle pronunce con almeno trent'anni viene citato ancora dopo trent'anni"),
+        ("Parte I, invecchiamento", (f"massima a un anno dal deposito e si dimezza in {ag1['half_life_after_peak']} anni" if ag1["peak_age"] == 1
+                                     else "il picco di citazione non è a un anno")),
+        ("Parte I, età mediana", f"metà delle citazioni va a precedenti con meno di {it(nb['citation_age_median'], 1)} anni"),
+        ("Parte I, assenze", f"Un giudice in carica manca dal {pc(ab['absence_rate'])}% delle pronunce"),
+        ("Parte I, margine", f"Il dato esclude effetti superiori al {up}% circa in più o all'{down}% in meno"),
+        ("Parte I, scala", f"l'eccesso rispetto a 1 passa da {it(sc['excess_before'])} a {it(sc['excess_after'])}, cioè si riduce del "
+                           f"{pc(sc['excess_reduction'], 0)}%; sulla scala logaritmica, quella in cui il modello è stimato, si riduce del {pc(sc['log_reduction'], 0)}%"),
+        ("Parte I, giudici", f"Su {a['judges_tested']} giudici, dopo la correzione di Holm le pronunce di {a['sig_holm_above']}"),
+        ("Parte I, omofilia", f"le citazioni sono il {pc(d4['provenienza']['excess_over_null'])}% più frequenti dell'atteso"),
     ]
     return out
 

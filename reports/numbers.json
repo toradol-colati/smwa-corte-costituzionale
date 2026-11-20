@@ -22,5 +22,11 @@
   2009
  ],
  "without_topic_no_massime": 54,
- "without_topic_no_massime_2026": 51
+ "without_topic_no_massime_2026": 51,
+ "d3_self_drafted_scale": {
+  "excess_before": 4.466168936868919,
+  "excess_after": 2.27280881373386,
+  "excess_reduction": 0.4911054987258835,
+  "log_reduction": 0.30197577919611696
+ }
 }
