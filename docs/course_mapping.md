@@ -1,13 +1,13 @@
 # Il programma d'esame, punto per punto
 
-> Per ogni argomento: se è applicato, dove (script → file dei risultati → sezione della relazione `reports/relazione_for_dummies.md`); se non lo è, perché. "Applicato" vale solo se esistono lo script, il file dei risultati e la sezione della relazione. Aggiornato il 18/11/2026.
+> Per ogni argomento: se è applicato, dove (script → file dei risultati → sezione della relazione `reports/relazione_for_dummies.md`); se non lo è, perché. "Applicato" vale solo se esistono lo script, il file dei risultati e la sezione della relazione. Aggiornato il 20/11/2026.
 
 ## Da dove viene l'elenco
 
 - **Il programma ufficiale** di EM1421 per il 2026/27 ([pagina del corso](https://www.unive.it/data/insegnamento/790312/programma), letta il 18/11/2026, "programma definitivo", ultima modifica 26/06/2026) elenca sei voci senza sotto-argomenti: introduzione alla data science e alla social media analysis; social network analysis; lavorare con API; data and information visualisation; topic extraction; sentiment analysis. Aggiunge i risultati di apprendimento attesi, i prerequisiti e due libri di testo, senza indicare capitoli.
 - **Concetti, misure e modelli più fini** vengono quindi dagli indici dei due libri, letti il 18/11/2026: Easley e Kleinberg, *Networks, Crowds, and Markets* (2010, [versione degli autori](https://www.cs.cornell.edu/home/kleinber/networks-book/)); Barabási, *Network Science* (2016, [networksciencebook.com](http://networksciencebook.com/)).
 - **Non vengono dall'elenco delle lezioni**, che sta su Moodle e non è stato visto. Questa mappa va confrontata con le slide del corso: gli argomenti trattati a lezione possono essere di meno, o diversi.
-- **Dei libri sono stati letti gli indici** (e il §14.5 di Easley e Kleinberg), non i capitoli: le descrizioni dei concetti qui sotto sono nostre, e un capitolo va letto prima di citarlo nella relazione (`docs/sources.md`).
+- **Dei libri sono stati letti gli indici**, e per intero solo le parti citate nella relazione: Easley e Kleinberg §14.5 (18/11/2026), cap. 5 e cap. 20 (20/11/2026); Barabási §3.8–3.10 (20/11/2026). Per gli altri argomenti le descrizioni qui sotto sono nostre, e un capitolo va letto prima di citarlo nella relazione (`docs/sources.md`).
 
 ## 1. Le sei voci del programma
 
@@ -50,7 +50,7 @@
 | 3. Modello di Erdős–Rényi | Applicato come riferimento | Distanze e clustering confrontati con un grafo casuale con gli stessi nodi e legami (`course_measures.json`); §3.8 |
 | 3. Distribuzione di Poisson | In parte | Il nullo di D1, che ripesca a caso il bersaglio, produce gradi quasi di Poisson: la distanza dalla rete vera è la misura della concentrazione; §3.2 |
 | 3. Componente gigante e transizioni di fase | In parte | Componente gigante misurata (§3.1, §3.8). Transizioni di fase no: la rete non si genera aggiungendo legami a caso |
-| 3. Piccolo mondo | Applicato | `course_measures.json`; §3.8 |
+| 3. Piccolo mondo | Applicato | `course_measures.json`; §3.8. Letti §3.8, §3.9 e box 3.9 (Watts e Strogatz) |
 | 4. Leggi di potenza e reti a invarianza di scala | Applicato | Test di Clauset, Shalizi e Newman, legge di potenza contro lognormale (`d1_results.json`); §3.2 |
 | 4. Hub | Applicato | Le pronunce più citate; §3.2 |
 | 4. Stima dell'esponente | Applicato | α = 2,92 da k = 10 in su (`d1_results.json`); §3.2 |
@@ -88,7 +88,7 @@
 | 4. Selezione e influenza sociale | Non applicato | Con una rete cumulata non si distinguono. D3 separa però l'esposizione a un precedente (sedere nel collegio) dalla scrittura (redigerlo) |
 | 4. Reti di affiliazione | Applicato | Lo strato del collegio è una rete di affiliazione tra giudici e decisioni, usata in D3; §2.6, §3.4 |
 | 4. Formazione dei legami online; segregazione spaziale | Non applicato | Nessun dato online sui giudici; nessuna dimensione spaziale |
-| 5. Relazioni positive e negative, equilibrio strutturale | Non applicato | Il segno dei legami doveva venire dalla polarità delle citazioni (§3.9), che non ha superato la soglia di qualità: l'analisi, fissata prima con una soglia minima di triangoli, non si è fatta |
+| 5. Relazioni positive e negative, equilibrio strutturale | Non applicato | Il segno dei legami doveva venire dalla polarità delle citazioni (§3.9), che non ha superato la soglia di qualità: l'analisi, fissata prima con una soglia minima di triangoli, non si è fatta. Capitolo letto (pp. 119–152): la teoria riguarda legami non orientati, e con legami orientati le sue previsioni possono non valere (§5.3, p. 128); per le citazioni andrebbe adattata |
 | 13. Il web come grafo orientato | Applicato | La rete delle citazioni è orientata e aciclica; §2.6 |
 | 13. Struttura a farfallino (bow-tie) | Non applicato | In un grafo aciclico non ci sono componenti fortemente connesse: ogni nodo è una componente a sé |
 | 14. Hub e authority (HITS) | Applicato | D1 (`d1_results.json`); §3.2 |
@@ -101,7 +101,7 @@
 | 18. Imprevedibilità del successo | In parte | Si misura quanto le citazioni passate prevedono quelle future (`d1_results.json`, "prediction"; §3.2). Il fenomeno di cui parla il libro (letto solo il titolo) non è stato applicato |
 | 18. Coda lunga | In parte | La coda della distribuzione delle citazioni: il 29,5% delle pronunce non è mai citato (§3.2). Il concetto del libro, che dal titolo riguarda la coda lunga dei mercati, non è applicato |
 | 19. Comportamento a cascata nelle reti (diffusione con soglie) | Non applicato | Non c'è un comportamento che si adotta |
-| 20. Piccolo mondo: sei gradi di separazione, struttura e casualità | Applicato | §3.8 |
+| 20. Piccolo mondo: sei gradi di separazione, struttura e casualità | Applicato | §3.8. Capitolo letto (pp. 611–644) |
 | 20. Ricerca decentrata | Non applicato | Nessuno cerca un bersaglio muovendosi nella rete |
 | 20. Strutture centro-periferia | Non applicato | Possibile in futuro con la decomposizione in k-core |
 | 21. Epidemie | Non applicato | Come per Barabási, cap. 10 |
