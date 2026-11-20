@@ -203,7 +203,9 @@ def clogit(X: np.ndarray, y: np.ndarray, strata: np.ndarray, cluster: np.ndarray
     """Exact conditional logit, started from the Breslow estimate. Returns beta, cluster-robust
     covariance, log-likelihood, number of clusters, number of strata, Breslow beta."""
     b0 = clogit_breslow(X, y, strata, cluster)[0]
-    b, V, ll, G, S = ExactCLogit(X, y, strata, cluster).fit(b0)
+    model = ExactCLogit(X, y, strata, cluster)
+    b, V, ll, G, S = model.fit(b0)
+    clogit.last = {"converged": model.converged, "max_newton_step": model.max_newton_step, "newton_iterations": model.n_iter}
     return b, V, ll, G, S, b0
 
 
@@ -367,7 +369,7 @@ def estimate(t: pd.DataFrame, mode="mandate", extra=False, label="", norme=False
     res = {"label": label, "strata": int(S), "clusters": int(G), "rows": int(len(t)), "cases": int(t.y.sum()),
            "cases_sat_not_drafted": int((t.y * t.sat_not_drafted).sum()), "cases_self_drafted": int((t.y * t.self_drafted).sum()),
            "cases_absent": int((t.y * (1 - t.sat) * t.in_mandate).sum()),
-           "controls_absent": int(((1 - t.y) * (1 - t.sat) * t.in_mandate).sum()), "loglik": ll, "coef": {}}
+           "controls_absent": int(((1 - t.y) * (1 - t.sat) * t.in_mandate).sum()), "loglik": ll, **clogit.last, "coef": {}}
     for n, b, s, bb in zip(names, beta, se, b_breslow):
         res["coef"][n] = {"or": float(np.exp(b)), "lo": float(np.exp(b - 1.96 * s)), "hi": float(np.exp(b + 1.96 * s)),
                           "beta": float(b), "se": float(s), "p": float(2 * stats.norm.sf(abs(b / s))),
