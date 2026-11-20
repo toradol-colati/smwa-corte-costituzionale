@@ -28,5 +28,22 @@ theta_pid = set(np.load(P / "topics_theta.npz")["pid"])
 nt = pr[~pr.pid.isin(theta_pid)]
 out["pronunce_without_topic"] = int(len(nt))
 out["pronunce_without_topic_by_type"] = {k: int(v) for k, v in nt.tipo.value_counts().items()}
+# why they have no topic: no massime at all, or only massime of 50 characters or less (topics.py
+# drops them), which are cross-references to another massima ("Ved. ord. 84/57 B.")
+import glob  # noqa: E402
+from lxml import etree  # noqa: E402
+maxlen = {}
+for path in sorted(glob.glob(str(REPO / "data/raw/massime/*/*.xml"))):
+    for p_ in etree.parse(path).getroot().iter("pronuncia"):
+        h = p_.find("pronuncia_testata")
+        pid = int(h.findtext("anno_pronuncia")) * 10000 + int(h.findtext("numero_pronuncia"))
+        lens = [len((m.findtext("testo") or "").strip()) for m in p_.findall("massime/massima")]
+        maxlen[pid] = max(lens) if lens else -1
+ml = nt.pid.map(maxlen).fillna(-1)
+short, none_ = nt[ml >= 0], nt[ml < 0]
+out["without_topic_short_massime"] = int(len(short))
+out["without_topic_short_massime_years"] = [int(short.pid.min() // 10000), int(short.pid.max() // 10000)] if len(short) else []
+out["without_topic_no_massime"] = int(len(none_))
+out["without_topic_no_massime_2026"] = int((none_.pid // 10000 == 2026).sum())
 json.dump(out, open(REPO / "reports/numbers.json", "w"), indent=1)
 print(out)

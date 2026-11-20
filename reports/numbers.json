@@ -15,5 +15,12 @@
  "pronunce_without_topic_by_type": {
   "O": 271,
   "S": 49
- }
+ },
+ "without_topic_short_massime": 266,
+ "without_topic_short_massime_years": [
+  1957,
+  2009
+ ],
+ "without_topic_no_massime": 54,
+ "without_topic_no_massime_2026": 51
 }

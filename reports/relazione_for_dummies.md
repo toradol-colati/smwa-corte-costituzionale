@@ -255,7 +255,7 @@ Le pronunce più citate sono la 303/2003, la 401/2007 e la 383/2005: tutte decis
 | **sedeva nel collegio senza averlo redatto** (risultato principale) | **1,00** | 0,92–1,09 | 1,00 |
 | l'ha redatto lui | 5,47 | 4,76–6,27 | < 0,001 |
 
-Base: 13.654 pronunce che citano, 46.969 citazioni, di cui 1.658 a precedenti decisi in assenza del redattore; 122 redattori. Restano fuori, come pronunce che citano e come precedenti, le 320 pronunce senza massime (271 ordinanze e 49 sentenze), per cui manca la materia (`reports/numbers.json`).
+Base: 13.654 pronunce che citano, 46.969 citazioni, di cui 1.658 a precedenti decisi in assenza del redattore; 122 redattori. Restano fuori, come pronunce che citano e come precedenti, le 320 pronunce per cui manca la materia (271 ordinanze e 49 sentenze): 266 hanno solo massime di rinvio, di 50 caratteri o meno (per esempio "Ved. ord. 84/57 B."), tutte tra il 1957 e il 2009; 54 non hanno ancora massime, 51 delle quali sono del 2026 (`reports/numbers.json`).
 
 **Il calcolo.** Il modello è la regressione logistica condizionata con la verosimiglianza esatta, che considera tutti i modi in cui i precedenti citati da una pronuncia potevano essere scelti tra quelli disponibili. Fino al 17/11/2026 si usava un'approssimazione (di Breslow) che, quando una pronuncia cita molti precedenti, schiaccia verso 1 gli effetti forti: dava 1,03 e 3,01. La verosimiglianza calcolata dal nostro codice coincide con quella di una seconda implementazione indipendente (statsmodels) sugli stessi dati.
 

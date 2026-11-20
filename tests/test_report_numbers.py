@@ -83,8 +83,9 @@ def checks():
         ("Menzioni errate", f"inesistenti o successive | {n(num['mentions_errors'])} |"),
         ("Stesso giorno", f"tenute a parte | {n(num['mentions_same_date'])} |"),
         ("Tipo scritto diverso", f"Nell'{it(num['type_mismatch_share'] * 100, 1)}% delle menzioni"),
-        ("Senza massime", f"le {num['pronunce_without_topic']} pronunce senza massime ({num['pronunce_without_topic_by_type']['O']} ordinanze e "
-                          f"{num['pronunce_without_topic_by_type']['S']} sentenze)"),
+        ("Senza materia", f"le {num['pronunce_without_topic']} pronunce per cui manca la materia ({num['pronunce_without_topic_by_type']['O']} ordinanze e "
+                          f"{num['pronunce_without_topic_by_type']['S']} sentenze): {num['without_topic_short_massime']} hanno solo massime di rinvio"),
+        ("Senza massime", f"{num['without_topic_no_massime']} non hanno ancora massime, {num['without_topic_no_massime_2026']} delle quali sono del 2026"),
     ]
     # D1
     d1 = load("d1_results.json")
