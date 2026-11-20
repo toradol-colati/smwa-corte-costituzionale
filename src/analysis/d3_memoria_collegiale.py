@@ -317,15 +317,16 @@ def build(nodes, coll, app, edges, theta, mode="mandate", edges_file=None, rng=N
     return pd.DataFrame(rows, columns=cols)
 
 
-def design(t: pd.DataFrame, mode: str, extra=False, norme=False, param=False):
-    age = pd.cut(t.age, AGE_BINS, right=False, labels=False)
+def design(t: pd.DataFrame, mode: str, extra=False, norme=False, param=False, bins=None):
+    bins = AGE_BINS if bins is None else bins  # other classes only in the check of the full model (d3_full_check.py)
+    age = pd.cut(t.age, bins, right=False, labels=False)
     used = sorted(age.dropna().unique())[1:]
     cols = {"self_drafted": t.self_drafted.values, "sat_not_drafted": t.sat_not_drafted.values}
     if mode == "full":
         cols["in_mandate_absent"] = (t.in_mandate.values == 1) & (t.sat.values == 0)
     cols["topic_similarity"] = t.sim.values
     for a in used:
-        cols[f"age_{AGE_BINS[int(a)]}_{AGE_BINS[int(a) + 1]}"] = (age == a).values
+        cols[f"age_{bins[int(a)]}_{bins[int(a) + 1]}"] = (age == a).values
     if extra:
         cols["cited_is_sentenza"] = (t.tipo_cited == "S").values
         cols["log1p_citations_cited"] = np.log1p(t.in_deg_cited.values)
