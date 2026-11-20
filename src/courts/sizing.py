@@ -2,7 +2,8 @@
 before any extractor: how many pronunce name each court, in the base text (Considerato in diritto and
 dispositivo) and in the facts, how many with a decision identifier nearby, by decade. Also fixes the
 development/test split of the citing pronunce for the court extractors (seed 20261123), before reading.
-A mention of a court is not a citation of a decision: many are generic ("la giurisprudenza della Cassazione").
+The court-name patterns come from mentions.py (on 20/11/2026 they were made to accept a capital or small
+initial on the words after "Corte"/"Consiglio"; before, "Corte di Giustizia" was missed). A mention of a court is not a citation of a decision: many are generic ("la giurisprudenza della Cassazione").
 Outputs: reports/courts_sizing.json, data/interim/courts_split.csv
 Usage: .venv/bin/python src/courts/sizing.py
 """
@@ -13,12 +14,10 @@ import numpy as np
 import pandas as pd
 
 REPO = Path(__file__).resolve().parents[2]
-COURTS = {
-    "Cassazione": r"Corte (?:suprema )?di cassazione|\bCassazione\b|\bCass\.",
-    "Corte EDU": r"Corte europea dei diritti dell['’]uomo|Corte EDU|Corte di Strasburgo|Corte europea dei diritti umani",
-    "Corte di giustizia UE": r"Corte di giustizia|CGUE|Corte di Lussemburgo",
-    "Consiglio di Stato": r"Consiglio di Stato|Cons\. ?Stato",
-}
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from mentions import COURTS  # noqa: E402  same court names as the mention records (case of the second word fixed on 20/11/2026)
+
 IDENT = {"Cassazione": r"n\.\s*\d{2,6}", "Corte EDU": r"\bc\.\s|\bcontro\b|ricors[oi] n\.",
          "Corte di giustizia UE": r"\bC-\d+/\d+|caus[ae]\s+C", "Consiglio di Stato": r"n\.\s*\d{2,6}"}
 df = pd.read_pickle(REPO / "data/interim/pronunce.pkl")

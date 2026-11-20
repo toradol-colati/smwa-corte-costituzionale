@@ -16,14 +16,14 @@
 
 ## 2. Come le nomina la Corte costituzionale
 
-*Dati* (`src/courts/sizing.py`, `reports/courts_sizing.json`): pronunce della Corte costituzionale che nominano ciascuna corte nel testo di base («Considerato in diritto» e dispositivo).
+*Dati* (`src/courts/sizing.py`, `reports/courts_sizing.json`): pronunce della Corte costituzionale che nominano ciascuna corte nel testo di base («Considerato in diritto» e dispositivo). Conteggi rifatti il 20/11/2026: il 19/11 i nomi completi si cercavano solo con l'iniziale minuscola dopo "Corte" o "Consiglio", e per esempio "Corte di Giustizia" sfuggiva (Corte di giustizia: 472 pronunce invece di 442).
 
 | Corte | Pronunce che la nominano | Con un identificativo di decisione vicino | Menzioni |
 | --- | --- | --- | --- |
-| Corte di cassazione | 3.172 | 1.349 | 8.810 |
-| Consiglio di Stato | 1.053 | 369 | 2.910 |
-| Corte di giustizia dell'UE | 442 | 230 | 1.760 |
-| Corte europea dei diritti dell'uomo | 405 | 221 | 1.906 |
+| Corte di cassazione | 3.175 | 1.349 | 8.816 |
+| Consiglio di Stato | 1.058 | 372 | 2.921 |
+| Corte di giustizia dell'UE | 472 | 239 | 1.849 |
+| Corte europea dei diritti dell'uomo | 408 | 222 | 1.911 |
 
 "Identificativo vicino" vuol dire soltanto che entro 160 caratteri compare un numero, un "c." o "contro", oppure un numero di causa: è una misura grezza, non un'estrazione. Molte menzioni sono generiche ("la giurisprudenza di legittimità", "il diritto vivente"), e non indicano una decisione.
 
@@ -34,16 +34,23 @@
 3. **Ogni corte ha il suo modo di essere citata.** Numero e data per Cassazione e Consiglio di Stato, nome del caso per la Corte europea dei diritti dell'uomo, numero di causa per la Corte di giustizia. Nessuna ha un ECLI utilizzabile per le corti italiane. Serve un estrattore, e una validazione, per ogni corte; i conteggi tra corti si confrontano solo con il richiamo di ciascun estrattore.
 4. **Riferimento generico o decisione precisa.** Per la Cassazione il riferimento generico al suo orientamento può avere un peso proprio, distinto dalla citazione di una sentenza. Il concetto (per esempio il "diritto vivente") va definito con una fonte letta prima di usarlo; oggi non c'è.
 
-## 4. Da verificare prima di costruire la rete
+## 4. Verifiche aperte: stato al 20/11/2026
 
-- Copertura, formati e accesso di SentenzeWeb (Cassazione).
-- Contenuto dei dataset di Open GA: se ci sono le singole decisioni o solo aggregati.
-- Formato ECLI e numeri di ricorso della Corte europea dei diritti dell'uomo, e le condizioni di riuso di HUDOC.
-- Le condizioni d'uso del servizio web e di CELLAR (oltre alla politica di riuso di EUR-Lex).
-- Struttura delle decisioni di ciascuna corte, e se esistono opinioni separate.
-- Una definizione con fonte del "diritto vivente".
+| Verifica | Stato | Conseguenza |
+| --- | --- | --- |
+| Dati del Consiglio di Stato su Open GA | *Fonte* [CDS-5]: il dataset "CDS - Sentenze" ha una riga per sentenza (sezione, numero del provvedimento, numero di ricorso, data di pubblicazione, esito, oggetto, numero di componenti del collegio) per il 2017–2026, in licenza CC BY 4.0, senza testi | Le sentenze del Consiglio di Stato citate dalla Corte si possono verificare (esistenza di numero, anno e sezione) solo dal 2017; prima no |
+| Riuso dei testi della Corte europea dei diritti dell'uomo | *Fonte* [EDU-6]: riproduzione ammessa con l'indicazione della fonte, gratuita, per uso privato o per informazione ed educazione legate all'attività della Corte; ogni altro uso chiede un permesso scritto. Nessuna licenza per l'accesso in blocco | Nessuno scaricamento in blocco da HUDOC: gli identificativi si verificano solo a mano, su un campione |
+| Formato ECLI e numeri di ricorso della Corte europea dei diritti dell'uomo | *Non verificato* | Non serve per costruire la rete: la Corte costituzionale la cita per nome del caso e data |
+| Corte di giustizia: metadati di CELLAR | *Fonte* [EURLEX] (19/11): metadati CC0 | I numeri di causa citati si possono verificare con i metadati, anche in automatico |
+| SentenzeWeb (Cassazione) | Non più necessario | Le condizioni d'uso vietano accessi massivi e riuso con sistemi di intelligenza artificiale [CASS-4]: nessuna verifica automatica degli identificativi della Cassazione, solo controlli a mano |
+| Struttura delle decisioni e opinioni separate | *Non verificato* | Resta un limite del confronto tra corti; non serve per estrarre le citazioni |
+| Definizione con fonte del "diritto vivente" | *Non verificato* | Il concetto non si usa: i riferimenti generici a una corte si contano come tali, senza qualificarli |
 
-## Fonti lette il 19/11/2026
+## 5. Che cosa è già stato visto dei dati
+
+`src/courts/sizing.py` (19/11) ha contato, su tutte le pronunce e per decennio, quante nominano ciascuna corte (sezione 2), e ha fissato la divisione delle pronunce in due metà, sviluppo e prova (seed 20261123, `data/interim/courts_split.csv`). Conseguenze: le regole degli estrattori si scrivono leggendo solo la metà di sviluppo, e la metà di prova resta mai letta; ma l'andamento per decennio è già noto, quindi ogni ipotesi sull'andamento nel tempo è esplorativa.
+
+## Fonti lette il 19/11/2026 (e il 20/11/2026, dove indicato)
 
 - [CASS-1] https://www.cortedicassazione.it e https://www.cortedicassazione.it/it/le_funzioni_della_corte.page
 - [CASS-2] https://www.cortedicassazione.it/it/organizzazione_delle_attivita.page
@@ -62,6 +69,8 @@
 - [EDU-4] Regolamento della Corte europea dei diritti dell'uomo, edizione del 15 settembre 2025 (PDF), art. 1 (definizioni di camera e Grande Camera)
 - [EDU-5] Manuale di HUDOC (ottobre 2022) e FAQ (gennaio 2026), PDF
 - [EURLEX] https://eur-lex.europa.eu/content/legal-notice/legal-notice.html (note legali e politica di riuso)
+- [CDS-5] https://openga.giustizia-amministrativa.it/dataset/cds-sentenze e la pagina della risorsa 2017–2024 con il dizionario dei dati (20/11/2026)
+- [EDU-6] https://www.echr.coe.int/copyright-and-disclaimer (20/11/2026)
 - [ECLI-IT] https://e-justice.europa.eu/topics/legislation-and-case-law/european-case-law-identifier-ecli/it_en (aggiornata al 13/10/2020: per l'Italia il coordinatore nazionale ECLI "has not yet been appointed")
 
 Non raggiungibili: https://www.italgiure.giustizia.it/sncass/ (errore di certificato) e le pagine di EUR-Lex sul riuso dei dati collegati (`data-reuse`), sostituite dalle note legali. I PDF della Corte europea sono stati letti estraendone il testo.
