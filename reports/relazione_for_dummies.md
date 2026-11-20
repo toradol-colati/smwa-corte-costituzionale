@@ -238,7 +238,7 @@ Il confronto decisivo è tra precedenti in cui R **sedeva** e precedenti in cui 
 
 Il piano, le soglie di qualità e il risultato principale sono stati scritti prima di vedere i risultati (`docs/decisions.md`, con la data di ogni decisione). Ciò che è stato aggiunto o cambiato dopo è elencato qui con il motivo; nelle sezioni dei risultati porta l'etichetta *esplorativo*.
 
-**Come si verifica che una regola sia venuta prima dei risultati.** Il repository nasce il 18/11/2026: per le regole scritte da quel giorno lo dice l'ordine dei commit. Per quelle precedenti, comprese le soglie di qualità e il disegno di D3, la prova sta solo nel registro della sessione di lavoro con l'assistente (Claude Code), che non fa parte del repository: per esempio, il disegno di D3 vi risulta scritto il 16/11/2026 alle 10:48 e la prima stima eseguita alle 17:21 dello stesso giorno. Le regole sono state scritte dallo stesso assistente che poi ha eseguito le analisi, su delega di Umberto Toraldo (sezione 8).
+**Come si verifica che una regola sia venuta prima dei risultati.** Il repository nasce il 18/11/2026: per le regole scritte da quel giorno lo dice l'ordine dei commit. Per quelle precedenti, comprese le soglie di qualità e il disegno di D3, la prova sta solo nel registro della sessione di lavoro con l'assistente (Claude Code), che non fa parte del repository: per esempio, vi risultano le righe sul disegno di D3 scritte nel registro delle decisioni il 16/11/2026 alle 10:48, e il primo avvio dello script di D3 alle 17:21 dello stesso giorno (ora italiana). Le regole sono state scritte dallo stesso assistente che poi ha eseguito le analisi, su delega di Umberto Toraldo (sezione 8).
 
 | Parte | Fissato prima | Cambiato o aggiunto dopo i risultati, e perché | Come si legge |
 | --- | --- | --- | --- |
@@ -485,6 +485,7 @@ python3.12 -m venv .venv
 .venv/bin/python src/report/render_d2.py
 .venv/bin/python src/report/render_d4.py
 .venv/bin/python src/report/render_course.py
+.venv/bin/python src/report/render_d3_full.py
 .venv/bin/python src/courts/sizing.py
 .venv/bin/python src/polarity/contexts.py
 .venv/bin/python src/polarity/evaluate.py claude
@@ -518,4 +519,4 @@ Tre conseguenze per chi legge i risultati:
 
 - le annotazioni di riferimento usate per misurare la qualità dell'estrazione delle citazioni e della polarità sono dell'assistente, non di una persona; i controlli di una persona sono preparati ma non ancora fatti (sezioni 2.4 e 3.9);
 - le regole fissate prima dei risultati sono state scritte dallo stesso assistente che poi ha eseguito le analisi (sezione 2.9);
-- le regole del corso sull'uso dell'intelligenza artificiale sono state chieste al docente; questa sezione va adattata alla sua risposta.
+- le regole del corso sull'uso dell'intelligenza artificiale non sono ancora note: la domanda è nella bozza della mail al docente, non ancora inviata; questa sezione va adattata alla sua risposta.
