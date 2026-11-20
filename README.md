@@ -73,7 +73,7 @@ Il resto della pipeline, nell'ordine (`REPS=100` davanti ai comandi di analisi r
 .venv/bin/python src/polarity/evaluate.py claude
 ```
 
-Risultati: [`reports/relazione_for_dummies.md`](reports/relazione_for_dummies.md); qualità dei dati: [`reports/validation.md`](reports/validation.md).
+Risultati: [`reports/relazione_for_dummies.md`](reports/relazione_for_dummies.md) (Parte I, il lavoro in breve; Parte II, appendice tecnica); qualità dei dati: [`reports/validation.md`](reports/validation.md).
 
 Test:
 

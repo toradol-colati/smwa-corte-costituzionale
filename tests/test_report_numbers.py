@@ -237,6 +237,34 @@ def checks():
         ("Assenze, redattori", f"{sp['drafters_with_absent_cases']} dei {sp['drafters']} redattori citano almeno un precedente deciso in loro assenza, "
                                f"e i cinque che ne citano di più raccolgono il {pc(sp['top5_share_absent_cases'], 0)}% di queste citazioni"),
     ]
+    # D3, check of the full model (src/analysis/d3_full_check.py); phrases follow the reading rule fixed beforehand
+    fc = load("d3_full_check.json")
+    H = fc["half_threshold"]
+    sat = lambda m: m["sat_not_drafted"]
+    rb, v1f, v4f = fc["baseline"]["ratio_present_absent"], fc["v1_fine_young_ages"], fc["v4_norme_param"]
+    p1, p2 = fc["v2_period"]["fino al 2000"], fc["v2_period"]["dal 2001"]
+    so, oo = fc["v3_type"]["sentenze"], fc["v3_type"]["ordinanze"]
+    sds = [fc["v5_seeds"][k]["sat_not_drafted"]["or"] for k in ["seed+1", "seed+2"]]
+    rr = [m["ratio_present_absent"]["or"] for m in [fc["baseline"], v1f, p1, p2, so, oo] + list(fc["v5_seeds"].values()) + ([v4f] if v4f["converged"] else [])]
+    loc = lambda a, c: sat(a)["or"] >= H and sat(c)["hi"] < 1
+    out += [
+        ("D3 completo, rapporto", f"il rapporto tra le due stime, con l'intervallo calcolato dalla covarianza completa, è {it(rb['or'])} ({ci(rb)})"),
+        ("D3 completo, classi fini", (f"la stima sale a {it(sat(v1f)['or'])} ({ci(sat(v1f))})" if v1f["reaches_half"]
+                                      else f"la stima non si sposta ({it(sat(v1f)['or'])}; {ci(sat(v1f))})")),
+        ("D3 completo, questioni", ("non converge, nemmeno partendo dalle stime del modello di base" if not v4f["converged"] else
+                                    f"la stima sale a {it(sat(v4f)['or'])} ({ci(sat(v4f))}): secondo la regola fissata prima" if v4f["reaches_half"]
+                                    else f"la stima resta {it(sat(v4f)['or'])} ({ci(sat(v4f))}): le questioni in comune non lo spiegano")),
+        ("D3 completo, seed", f"Con altri due campioni di controlli la stima è {it(sds[0])} e {it(sds[1])}."),
+        ("D3 completo, rapporti", f"(stime da {it(min(rr))} a {it(max(rr))})"),
+        ("D3 completo, limiti", f"nel modello completo presenza e assenza non differiscono (rapporto {it(rb['or'])}; {ci(rb)})"),
+    ]
+    if loc(p2, p1):
+        out.append(("D3 completo, periodo", f"nelle pronunce che citano fino al 2000 ({it(sat(p1)['or'])}; {ci(sat(p1))}) e non in quelle dal 2001 "
+                                            f"({it(sat(p2)['or'])}; {ci(sat(p2))})"))
+    if loc(so, oo):
+        out.append(("D3 completo, tipo", f"nelle ordinanze che citano ({it(sat(oo)['or'])}; {ci(sat(oo))}) e non nelle sentenze ({it(sat(so)['or'])}; {ci(sat(so))})"))
+    if not (loc(p2, p1) or loc(so, oo)):
+        out.append(("D3 completo, non concentrato", f"(fino al 2000 {it(sat(p1)['or'])}, dal 2001 {it(sat(p2)['or'])})"))
     # Part I repeats the main numbers in plain words: they are checked separately
     sc = load("numbers.json")["d3_self_drafted_scale"]
     s3 = d3["primary"]["coef"]["sat_not_drafted"]
