@@ -226,10 +226,12 @@ def checks():
         ("Assenze, decennio", f"dal {pc(dc['2020']['rate'])}% degli anni 2020 al {pc(dc['1990']['rate'])}% degli anni 1980 e 1990"),
         ("Assenze, articolo", f"dal {pc(art['117']['rate'])}% dell'art. 117 al {pc(art['53']['rate'])}% dell'art. 53"),
         ("Assenze, materia", f"dal {pc(ab['by']['topic']['min_rate'])}% al {pc(ab['by']['topic']['max_rate'])}% tra i 20 topic"),
-        ("Assenze, V di Cramér", "non supera 0,05 in nessuna delle quattro classificazioni" if vmax < 0.05 else f"V di Cramér massima {it(vmax, 3)}"),
-        ("Assenze, bilanciamento", "resta sotto 0,1 in valore assoluto" if ab["balance"]["max_abs_smd"] < 0.1 else "differenza standardizzata oltre 0,1"),
-        ("Assenze, età", (f"la più grande riguarda l'età, {it(bal['age']['mean_present'])} contro {it(bal['age']['mean_absent'])} anni"
-                          if age_largest else "la differenza standardizzata più grande non è l'età")),
+        ("Assenze, V di Cramér", (f"è al massimo {it(vmax, 3)}, per il decennio" if vmax == ab["by"]["decade"]["cramers_v"]
+                                  else "la V di Cramér più alta non è quella per decennio")),
+        ("Assenze, bilanciamento", (f"è al massimo {it(abs(bal['age']['smd']), 3)} in valore assoluto, per l'età ({it(bal['age']['mean_present'])} contro "
+                                    f"{it(bal['age']['mean_absent'])} anni)" if age_largest else "la differenza standardizzata più grande non è l'età")),
+        ("Assenze, quota nel disegno", f"un giudice in carica manca dal {pc(ab['absence_rate'])}% delle pronunce"),
+        ("Assenze, decennio nei limiti", f"di più per decennio (dal {pc(dc['2020']['rate'])}% al {pc(dc['1990']['rate'])}%)"),
         ("Assenze, collegi incompleti", f"solo lo {pc(cq['absent']['share_collegio_under_11'])}% dei precedenti della tabella decisi in assenza del redattore "
                                         f"ha un collegio riconosciuto con meno di 11 giudici, il numero legale (lo {pc(cq['present']['share_collegio_under_11'])}%"),
         ("Assenze, redattori", f"{sp['drafters_with_absent_cases']} dei {sp['drafters']} redattori citano almeno un precedente deciso in loro assenza, "

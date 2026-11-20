@@ -405,9 +405,7 @@ def main():
     out["variants"] = V
     full = build(nodes, coll, app, edges, theta, "full")
     out["full"] = estimate(full, mode="full", label="Modello completo: tutti i precedenti, riferimento = precedente al mandato")
-    # absences by time since first appearance (mechanical-absence check)
-    c2 = coll.merge(app, left_on="judge_id", right_index=True)
-    out["absence_check"] = "risk set starts at the first collegio appearance of the drafter"
+    # absences from the collegio are described in src/analysis/d3_absences.py (reports/d3_absences.json)
     json.dump(out, open(REPO / "reports/d3_results.json", "w"), indent=1, ensure_ascii=False)
 
     def row(name, r):
