@@ -263,10 +263,10 @@ def checks():
         out.append(("D3 completo, intervallo (4)", "l'intervallo comprende ancora la stima del modello di base" if inside
                     else "L'intervallo non comprende la stima del modello di base"))
     if loc(p2, p1):
-        out.append(("D3 completo, periodo", f"nelle pronunce che citano fino al 2000 ({it(sat(p1)['or'])}; {ci(sat(p1))}) e non in quelle dal 2001 "
+        out.append(("D3 completo, periodo", f"più marcato nelle pronunce che citano fino al 2000 ({it(sat(p1)['or'])}; {ci(sat(p1))}) che in quelle dal 2001 "
                                             f"({it(sat(p2)['or'])}; {ci(sat(p2))})"))
     if loc(so, oo):
-        out.append(("D3 completo, tipo", f"nelle ordinanze che citano ({it(sat(oo)['or'])}; {ci(sat(oo))}) e non nelle sentenze ({it(sat(so)['or'])}; {ci(sat(so))})"))
+        out.append(("D3 completo, tipo", f"più marcato nelle ordinanze che citano ({it(sat(oo)['or'])}; {ci(sat(oo))}) che nelle sentenze ({it(sat(so)['or'])}; {ci(sat(so))})"))
     if not (loc(p2, p1) or loc(so, oo)):
         out.append(("D3 completo, non concentrato", f"(fino al 2000 {it(sat(p1)['or'])}, dal 2001 {it(sat(p2)['or'])})"))
     # Part I repeats the main numbers in plain words: they are checked separately
