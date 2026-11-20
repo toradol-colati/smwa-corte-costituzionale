@@ -167,11 +167,20 @@ class ExactCLogit:
         ll, sc, H = self.evaluate(b)
         for _ in range(max_iter):
             step = np.linalg.solve(-H, sc.sum(0))
+            ok = None
             for _half in range(30):
-                ll2, sc2, H2 = self.evaluate(b + step)
-                if ll2 >= ll - 1e-10:
+                try:
+                    trial = self.evaluate(b + step)
+                except FloatingPointError:  # trial point so far off that e_d underflows: worse by definition, halve
+                    step /= 2
+                    continue
+                ok = trial
+                if trial[0] >= ll - 1e-10:
                     break
                 step /= 2
+            if ok is None:
+                raise FloatingPointError("e_d underflow at every trial step")
+            ll2, sc2, H2 = ok
             b, ll, sc, H = b + step, ll2, sc2, H2
             if np.abs(step).max() < tol:
                 break
