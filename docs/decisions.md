@@ -1,6 +1,26 @@
 # Registro delle decisioni
 
-Una riga per decisione: data, decisione, motivo, chi l'ha presa. Le indicazioni del docente si segnano qui.
+## Come leggere questo registro
+
+Ogni scelta che cambia i dati, il metodo o il perimetro del lavoro è scritta qui, in una riga: la data, la decisione, il motivo, chi l'ha presa. Le righe si aggiungono in fondo alla tabella e non si riscrivono: servono a dimostrare che cosa era deciso prima dei risultati e che cosa è cambiato dopo. Quando una riga era sbagliata, la correzione è scritta accanto, con la sua data. Per questo la tabella resta scritta come è stata scritta giorno per giorno, anche dove usa termini tecnici: le parole tecniche sono spiegate in fondo alla relazione ("Le parole tecniche, spiegate"). La sezione qui sotto riassume le decisioni principali in parole semplici.
+
+Nella colonna "Chi o fonte": "Umberto" vuol dire che la scelta è sua; "Claude, su delega di Umberto" che l'ha presa l'assistente, a cui Umberto l'aveva affidata; "Claude" che l'assistente l'ha presa mentre faceva il lavoro; "dal check" o "revisione" che viene da un controllo del lavoro.
+
+## Le decisioni principali, in breve
+
+- **Il tema e il metodo di lavoro** (7–8/11): la rete delle pronunce della Corte costituzionale, con chi le ha scritte e chi le ha decise; prima di scrivere qualsiasi programma, capire come funziona la Corte e che cosa vuol dire ogni campo dei dati (`docs/context.md`).
+- **I dati** (8/11): gli archivi del portale della Corte, scaricati con uno script che annota la versione di ogni file. Una pronuncia si identifica con anno e numero.
+- **Le soglie di qualità** (8/11): l'estrazione delle citazioni deve essere precisa almeno al 95% e trovare almeno il 90% delle citazioni vere; chi ha scritto una pronuncia deve essere riconosciuto in almeno il 98% dei casi, il collegio completo in almeno il 98%.
+- **Il disegno delle analisi** (16/11, prima dei risultati): quanti precedenti non citati prendere in D3 (50 per pronuncia), come misurare l'età e la materia, quali giudici studiare in D2 (almeno 30 pronunce), quale effetto minimo cercare in D4 (20%), quante ripetizioni dei confronti con il caso (1.000 dove possibile).
+- **Le analisi partono prima dell'approvazione del docente** (16/11), su richiesta di Umberto, accettando il rischio che il tema non venga approvato.
+- **Le correzioni dopo il primo controllo** (18/11): in D3 un calcolo esatto al posto di un'approssimazione; in D2 un confronto con il caso diverso, che rende D2 esplorativo; in D1 un secondo confronto per tipo di pronuncia; un test che controlla i numeri della relazione.
+- **La polarità delle citazioni** (18/11): affrontata come forma di sentiment analysis, con la soglia decisa prima; non l'ha superata, quindi non è usata.
+- **La materia più fine** (19/11): gli articoli della Costituzione invocati, come prova in più per D2 e D3.
+- **Le altre corti** (19–20/11): prima il controllo di che cosa fanno e di che dati pubblicano, poi l'impostazione del lavoro, con le regole di controllo decise prima (`docs/context_corti.md`).
+- **Le verifiche chieste dalla revisione esterna** (20/11): le assenze descritte, il coefficiente 0,88 del secondo confronto di D3 spiegato con regole decise prima, le citazioni dei libri solo da capitoli letti, la relazione in due livelli.
+- **Le domande e le richieste del 21/11**: la verifica della sostituzione dei precedenti, con regole decise prima; tutta la relazione e i documenti riscritti in linguaggio semplice.
+
+## Il registro, giorno per giorno
 
 | Data | Decisione | Motivo | Chi o fonte |
 | --- | --- | --- | --- |
@@ -99,41 +119,46 @@ Una riga per decisione: data, decisione, motivo, chi l'ha presa. Le indicazioni 
 | 2026-11-21 | Parte I della relazione riscritta in linguaggio semplice (domanda, che cosa si è fatto, che cosa si è trovato), con i termini tecnici solo tra parentesi, e con una sezione "Chiarimenti di base": completezza delle pronunce, perché il collegio ha da 11 a 15 giudici (conteggio in `d3_absences.py`), come si distinguono redattore e assenti, che cosa vuol dire "pronunce redatte da", come è codificata la provenienza, sostituzione dei precedenti | Richiesta di Umberto del 21/11: la relazione precedente non si capiva | Umberto |
 | 2026-11-21 | Tutta la relazione riscritta in linguaggio semplice, anche la Parte II ("I dettagli, spiegati"), con un elenco finale delle parole tecniche. I generatori delle sezioni (`src/report/render_*.py`) sono tolti: riscriverebbero il vecchio testo tecnico. Il test dei numeri ora controlla che i numeri di ogni frase compaiano nello stesso ordine e vicini, nella Parte I o nella Parte II separatamente, invece della frase esatta; provato alterando numeri a mano. Definizioni di giudizio in via incidentale e principale aggiunte a `docs/context.md` con fonte | Richiesta di Umberto del 21/11: "devi riscrivere tutto" | Umberto |
 
-## Da confermare
-Proposte dalla revisione dell'8/11/2026 e già scritte in `docs/spec.md` e nelle regole. Una volta confermate, passano nella tabella qui sopra.
+## Proposte dell'8/11 applicate nel lavoro
+
+Queste proposte vengono dalla revisione dell'8/11/2026, prima di qualsiasi risultato. Sono state applicate in tutto il lavoro (`docs/spec.md`, le regole in `.claude/rules/` e la relazione), anche se non sono mai state spostate nella tabella principale.
 
 | Data | Proposta | Motivo | Chi o fonte |
 | --- | --- | --- | --- |
-| 2026-11-08 | Testo di base: «Considerato in diritto» e dispositivo nelle sentenze, «Considerato che» e dispositivo nelle ordinanze. Varianti: testo intero; testo con le note editoriali | Il «Ritenuto in fatto» riporta le citazioni del giudice che ha sollevato la questione e delle parti, non della Corte | Revisione del 2026-11-08 |
-| 2026-11-08 | Strategia di D3: `self_drafted` e `sat_not_drafted` distinte; età per classi; identificazione dalle assenze dal collegio e dalla soglia del giuramento; logit condizionato con un campione casuale di non citati | Con il collegio quasi completo, "sedeva nel collegio" coincide quasi con l'età del precedente | Revisione del 2026-11-08 |
-| 2026-11-08 | Un nullo per ogni statistica: per la coda delle citazioni ricevute si conservano gradi in uscita e curva per età; per la struttura oltre i gradi, Karrer e Newman (2009); per i giudici, scelta pesata per età | Conservare i gradi in entrata annullerebbe il test sulla coda; una scelta uniforme favorirebbe per costruzione chi ha redatto in anni vicini alle pronunce che citano | Revisione del 2026-11-08 |
-| 2026-11-08 | Collegio valido tra 11 e 15 giudici, non tra 13 e 15 | Verificato sulla legge (art. 16 della legge 87/1953: "La Corte funziona con l'intervento di almeno undici giudici") e sui dati: il 17,6% dei collegi ha 11 o 12 giudici | Claude; legge 87/1953; ispezione dei dati |
-| 2026-11-08 | Le pronunce si ordinano nel tempo per data di deposito; le citazioni tra pronunce depositate lo stesso giorno si tengono a parte, non tra gli errori | La numerazione segue il deposito; dal deposito la decisione è pubblica (legge 87/1953, art. 19); una sonda grezza trova 145 citazioni tra pronunce dello stesso giorno e 328 testi con "in pari data" | Claude; ispezione dei dati |
-| 2026-11-08 | Motivazione delle ordinanze letta dentro `<epigrafe>`, non `<testo>` | Nelle ordinanze `<testo>` è vuoto nel 96% dei casi | Ispezione dei dati |
+| 2026-11-08 | Le citazioni si cercano solo nel ragionamento della Corte e nel dispositivo («Considerato in diritto» nelle sentenze, «Considerato che» nelle ordinanze). Come prove in più: il testo intero; il testo con le note aggiunte dagli uffici | Il «Ritenuto in fatto» riporta le citazioni del giudice che ha sollevato la questione e delle parti, non della Corte | Revisione dell'8/11/2026 |
+| 2026-11-08 | In D3 si distinguono "l'ha scritto lui" e "sedeva nel collegio senza scriverlo"; l'età si misura per classi; il confronto sfrutta le assenze dal collegio e la data di arrivo del giudice; il modello confronta, dentro ogni pronuncia che cita, i precedenti citati con un campione a caso di non citati | Il collegio è quasi sempre completo, quindi "sedeva nel collegio" coincide quasi con "il precedente è recente" | Revisione dell'8/11/2026 |
+| 2026-11-08 | Un confronto con il caso diverso per ogni domanda. Per la concentrazione delle citazioni si conservano le citazioni fatte e l'età dei precedenti citati; per i giudici, i precedenti si scelgono a caso tenendo conto dell'età | Conservare anche le citazioni ricevute renderebbe impossibile misurarne la concentrazione; una scelta a caso senza età favorirebbe chi ha scritto in anni vicini alle pronunce che citano | Revisione dell'8/11/2026 |
+| 2026-11-08 | Un collegio è valido se ha da 11 a 15 giudici, non da 13 a 15 | Lo dice la legge (art. 16 della legge 87/1953: "La Corte funziona con l'intervento di almeno undici giudici") e lo confermano i dati | Claude; legge 87/1953; ispezione dei dati |
+| 2026-11-08 | Le pronunce si mettono in ordine di tempo con la data del deposito; le citazioni tra pronunce depositate lo stesso giorno si tengono da parte, non tra gli errori | La numerazione segue il deposito, e dal deposito la decisione è pubblica (legge 87/1953, art. 19); un primo controllo trova 145 citazioni tra pronunce dello stesso giorno e 328 testi con "in pari data" | Claude; ispezione dei dati |
+| 2026-11-08 | Il ragionamento delle ordinanze si legge nell'intestazione (`<epigrafe>`), non nella parte `<testo>` | Nelle ordinanze `<testo>` è vuoto nel 96% dei casi | Ispezione dei dati |
 
-## Da decidere
-- [ ] Licenza del codice
-- [ ] Polarità, seconda versione (da decidere da Umberto dopo aver visto il materiale; richiesta del 19/11). Nel corpus non restano dati mai letti: ogni contesto che una versione ridotta segnalerebbe è già stato letto o annotato. Raccomandazione di Claude: fissarla ora sul solo materiale di sviluppo e provarla sulle pronunce depositate dopo l'8/11/2026; in alternativa, regole nuove scritte sulla metà di sviluppo e provate una per una sui soli contesti mai letti
-- [ ] Rete tra corti, unità di analisi: non blocca più l'estrazione, che produce record per menzione (riga del 20/11); si sceglie all'analisi. Raccomandazione di Claude: due livelli, riferimenti alla corte e singole decisioni identificate.
+## Ancora da decidere
 
-Le altre scelte sono state fissate il 16/11/2026, prima dei risultati (tabella sopra).
+- [ ] **La licenza del codice** (con quali regole altri possono riusarlo).
+- [ ] **La seconda versione delle regole di polarità** (da decidere da Umberto dopo aver visto il materiale; richiesta del 19/11). Nei dati non restano passi mai letti: ogni passo che una versione ridotta segnalerebbe è già stato letto. Proposta di Claude: decidere ora le nuove regole sul solo materiale di sviluppo e provarle sulle pronunce depositate dopo l'8/11/2026, che nessuno ha ancora letto; in alternativa, regole nuove scritte sulla metà di sviluppo e provate una per una sui soli passi mai letti.
+- [ ] **Come costruire la rete tra corti**: non blocca più l'estrazione, che registra ogni volta che un'altra corte è nominata (riga del 20/11); si sceglie quando si fa l'analisi. Proposta di Claude: due livelli, i riferimenti alla corte in generale e le singole decisioni citate.
 
-## Da concordare con il docente
-- [ ] Che un tema giuridico, con dati aperti ma non social, rientri nel corso
-- [ ] Perimetro: tutti e tre gli strati, con o senza l'estensione D4
-- [ ] Individuale o in coppia
-- [ ] Formato e scadenze della consegna, lingua della relazione (italiano o inglese) ed eventuali limiti di lunghezza: prevalgono sulla guida generale in `docs/project_guide.md`
-- [ ] Regole del corso sull'uso dell'intelligenza artificiale
+Le altre scelte sono state decise il 16/11/2026, prima dei risultati (tabella sopra).
 
-## Prima della pubblicazione
+## Da chiedere al docente
+
+- [ ] Se un tema giuridico, con dati aperti ma non di social network, rientra nel corso.
+- [ ] Il perimetro: tutte e tre le reti (citazioni, chi scrive, collegio), con o senza D4.
+- [ ] Se il progetto può essere individuale o in coppia.
+- [ ] La forma della consegna e le scadenze, la lingua della relazione (italiano o inglese) ed eventuali limiti di lunghezza: valgono più della guida generale in `docs/project_guide.md`.
+- [ ] Le regole del corso sull'uso dell'intelligenza artificiale.
+
+## Prima di rendere pubblico il repository
+
 - [ ] Togliere da `docs/spec.md` le note personali di pianificazione:
-  - il punto 1 dei Prossimi passi, con il nome del collega e il progetto RfA;
-  - il link alla scheda privata su Claude Docs, in apertura;
+  - il punto 1 dei "Prossimi passi", con il nome del collega e il progetto RfA;
+  - il link alla scheda privata su Claude Docs, all'inizio;
   - la sezione "Prossimi passi" e i punti "Da concordare con il docente".
-- [ ] Completare `README.md`: comandi della pipeline, licenza del codice.
-- [ ] Aggiungere `LICENSE`: CC BY-SA 3.0 per i dati derivati, più la licenza scelta per il codice.
-- [x] Generare e versionare `requirements.lock` (18/11/2026). Resta da provare l'installazione da zero.
-- [ ] La storia git contiene le note personali di `docs/spec.md` e l'indirizzo email nei metadati dei commit: pubblicare da un repository nuovo, con la storia ripulita, oppure riscriverla prima del primo push. Nel ripulire, cambiare solo autore, email e file personali, senza fondere i commit: date e ordine dei commit sono la prova che le regole dal 18/11/2026 in poi sono venute prima dei risultati.
-- [x] `git init` (18/11/2026): `data/raw/` (salvo `MANIFEST.csv`), `data/interim/`, `literature/` e `.venv/` restano fuori.
+- [ ] Completare `README.md` con la licenza del codice.
+- [ ] Aggiungere un file `LICENSE`: CC BY-SA 3.0 per i dati derivati, più la licenza scelta per il codice.
+- [x] Fissare le versioni dei pacchetti in `requirements.lock` (18/11/2026). Resta da provare l'installazione da zero.
+- [ ] La storia del repository contiene le note personali di `docs/spec.md` e l'indirizzo email nei dati di ogni modifica: pubblicare da un repository nuovo con la storia ripulita, oppure ripulirla prima della prima pubblicazione. Nel ripulire, cambiare solo autore, email e file personali, senza fondere le modifiche tra loro: le date e l'ordine delle modifiche sono la prova che le regole dal 18/11/2026 in poi sono venute prima dei risultati.
+- [x] Repository creato (18/11/2026): `data/raw/` (salvo `MANIFEST.csv`), `data/interim/`, `literature/` e `.venv/` restano fuori.
 - [ ] Rileggere questo registro e togliere le note personali.
-- [ ] Decidere se `docs/project_guide.md`, documento personale di metodo, resta nel repository pubblico.
+- [ ] Decidere se `docs/project_guide.md`, un documento personale di metodo, resta nel repository pubblico.
+- [ ] Copia di sicurezza della storia del repository fuori da iCloud (la cartella del progetto è sincronizzata con iCloud e alcuni file vengono tolti dal disco).
