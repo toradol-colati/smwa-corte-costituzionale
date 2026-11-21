@@ -2,6 +2,10 @@
 
 Generato da `src/judges/build_judges.py`.
 
+## In breve
+
+Questo file dice quanto bene il programma ha riconosciuto i giudici: chi ha scritto ciascuna pronuncia e chi sedeva nel collegio, collegando i nomi all'elenco ufficiale dei giudici. Le soglie decise prima erano il 98% per entrambe le cose. "Fonte del redattore" dice da dove viene il nome di chi ha scritto: dal campo dei dati (`field`), dalla firma in fondo al testo (`signature`), dal relatore usato al suo posto fino al 1986 (`relatore_proxy`), o da nessuna parte (`none`).
+
 - Redattore abbinato all'anagrafica: **99.84%** delle pronunce (soglia 98%).
 - Fonte del redattore: {'field': 8384, 'signature': 8349, 'relatore_proxy': 5678, 'none': 16}.
 - Collegio riconosciuto per intero, tra 11 e 15 giudici tutti abbinati: **98.85%** (soglia 98%). Collegi tra 11 e 15 giudici abbinati: 99.79%.

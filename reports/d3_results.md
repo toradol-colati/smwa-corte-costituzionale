@@ -2,6 +2,10 @@
 
 Generato da `src/analysis/d3_memoria_collegiale.py`.
 
+## In breve
+
+Questo file contiene i risultati di D3, il risultato principale del lavoro: un giudice cita di più i precedenti decisi da collegi in cui sedeva? Per ogni prova la tabella dà l'odds ratio: quante volte sono più alte le probabilità relative (odds) che il giudice citi un precedente deciso con lui presente, rispetto a uno deciso mentre era assente. 1 vuol dire nessuna differenza. "IC 95%" è l'intervallo di confidenza: i valori compatibili con i dati. La spiegazione completa è nella relazione, sezione 3.4.
+
 Odds ratio di `sat_not_drafted`: quanto più spesso il redattore cita un precedente deciso da un collegio in cui sedeva (senza averlo redatto) rispetto a un precedente deciso mentre era in carica ma assente. Errori standard raggruppati per redattore.
 
 | Analisi | Pronunce che citano | Citazioni | Citazioni a precedenti con redattore assente | OR | IC 95% | p |

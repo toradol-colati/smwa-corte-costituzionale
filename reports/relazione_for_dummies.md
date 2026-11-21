@@ -550,6 +550,7 @@ python3.12 -m venv .venv
 .venv/bin/python src/analysis/figures.py
 .venv/bin/python src/analysis/interactive.py
 .venv/bin/python src/report/report_numbers.py
+.venv/bin/python src/report/plain_intros.py
 .venv/bin/python src/courts/sizing.py
 .venv/bin/python src/polarity/contexts.py
 .venv/bin/python src/polarity/evaluate.py claude

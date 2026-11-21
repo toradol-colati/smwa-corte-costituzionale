@@ -2,6 +2,10 @@
 
 Generato da `src/validation/evaluate.py`. Unità: la coppia (pronuncia che cita, pronuncia citata) nel testo di base.
 
+## In breve
+
+Questo file ricalcola il primo campione dopo la correzione del programma. Non è una misura indipendente, perché la correzione è stata scritta guardando gli errori di questo stesso campione: serve solo a controllare che non abbia rotto altro. La **precisione** è la quota di citazioni trovate dal programma che sono vere; il **richiamo** è la quota di citazioni vere che il programma trova. Le soglie decise prima erano 0,95 e 0,90. Tra parentesi c'è l'intervallo di confidenza al 95%, cioè i valori compatibili con i dati. Chi ha deciso quali citazioni sono vere è l'assistente automatico (Claude), non una persona. Il quadro di tutti i controlli, spiegato, è in `reports/validation.md`.
+
 **Chi ha annotato.** L'annotazione di riferimento (`data/validation/gold_test.txt`) è stata fatta da Claude leggendo i passi dei testi che contengono una parola chiave o un richiamo (`src/validation/sample_passages.py`), prima di eseguire l'estrattore su questo campione e senza vederne il risultato. Non è un'annotazione umana, e non copre i testi interi. Campione: primo campione di verifica, 4 pronunce per decennio e tipo, seed 20261117. Dopo la prima misura (conservata in `validation_round1.md`) l'estrattore è stato corretto guardando gli errori di questo campione: i numeri qui sotto non sono più una stima indipendente. È separato da quello usato per mettere a punto l'estrattore (2 per strato, seed 20261116). Per il controllo a campione di una persona: `data/validation/gold_test.txt` elenca per ogni pronuncia le citazioni annotate.
 
 Intervalli di confidenza al 95% di Wilson.

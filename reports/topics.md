@@ -2,6 +2,10 @@
 
 Generato da `src/analysis/topics.py`.
 
+## In breve
+
+Questo file descrive come è stata ricavata la materia di ogni pronuncia: un programma (modello LDA) ha raggruppato in temi le parole che compaiono spesso insieme nelle massime. Qui ci sono le prove per scegliere il numero di temi (la "coerenza" misura quanto le parole di un tema stanno insieme: più è alta, meglio è), quanto i temi restano uguali ripetendo il calcolo (stabilità: 1 identici, 0 del tutto diversi), il confronto con i titoli delle massime e con gli articoli della Costituzione, e le parole principali di ogni tema.
+
 - Massime usate: 46,126 (testo oltre 50 caratteri); vocabolario: 8,000 parole.
 - Coerenza NPMI per numero di topic: K=10: 0.1912, K=20: 0.2031, K=30: 0.1937, K=40: 0.1845, K=50: 0.1786, K=60: 0.1598.
 - K scelto con la regola fissata (il più piccolo entro il 2% del migliore): **20**.

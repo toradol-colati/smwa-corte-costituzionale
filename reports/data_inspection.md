@@ -2,6 +2,10 @@
 
 Generato da `src/ingest/inspect_raw.py` sui file elencati in `data/raw/MANIFEST.csv`. Solo controlli descrittivi: struttura, copertura, coerenza. Non modificare a mano.
 
+## In breve
+
+Questo file è il primo controllo fatto sui file scaricati dal portale, prima di qualsiasi analisi: com'è fatto ogni file, quanto è completo anno per anno, se i dati sono coerenti tra loro. Le cose più importanti che ne sono uscite: la numerazione delle pronunce non ha buchi né doppioni; il nome di chi ha scritto la pronuncia c'è solo dal dicembre 1986; l'elenco ufficiale dei giudici ha date mancanti o sbagliate. Le tabelle sono prodotte da un programma e usano i nomi tecnici dei campi, spiegati in `docs/data_schema.md` e `docs/context.md`.
+
 ## Versione dei dati
 
 | file | downloaded_at | sha256 |

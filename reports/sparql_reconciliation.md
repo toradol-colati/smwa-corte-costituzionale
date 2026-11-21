@@ -2,6 +2,10 @@
 
 Generato da `src/ingest/sparql_check.py` il 2026-11-12 00:20 UTC, interrogando `https://dati.cortecostituzionale.it/sparql/endpoint` e confrontando con i file di `data/raw/MANIFEST.csv`. L'endpoint è aggiornato in continuo; i file sono quelli del download registrato nel manifest.
 
+## In breve
+
+Questo file confronta i file scaricati con una seconda fonte ufficiale della Corte, la sua banca dati interrogabile con il linguaggio SPARQL, per scoprire errori nei file. Il risultato principale: il relatore coincide quasi sempre, e quasi tutte le differenze sono due errori di grafia nei file ("Caianello" per Caianiello, "Capolozza" per Capalozza), poi corretti. Le tabelle usano i nomi tecnici della banca dati.
+
 ## Metadati esposti
 
 **Pronuncia**
