@@ -138,26 +138,51 @@ def main() -> None:
     pj["decade"] = pj.anno // 10 * 10
     red_ok = pj.redattore_ids.map(lambda s: s != "" and "0" not in s.split("|"))
     coll_ok = pj.n_collegio.between(11, 15) & (pj.n_collegio >= pj.n_listed)
-    out = ["# Giudici: qualità dell'abbinamento\n", "Generato da `src/judges/build_judges.py`.\n",
-           f"- Redattore abbinato all'anagrafica: **{red_ok.mean():.2%}** delle pronunce (soglia 98%).",
-           f"- Fonte del redattore: {pj.redattore_source.value_counts().to_dict()}.",
-           f"- Collegio riconosciuto per intero, tra 11 e 15 giudici tutti abbinati: **{coll_ok.mean():.2%}** (soglia 98%). "
-           f"Collegi tra 11 e 15 giudici abbinati: {pj.n_collegio.between(11, 15).mean():.2%}.",
-           f"- Pronunce con più redattori: {(pj.n_redattori > 1).sum()}.",
-           f"- Relatore abbinato: {(pj.relatore_ids.map(lambda s: s != '' and '0' not in s.split('|'))).mean():.2%}.\n",
-           "| Decennio | Redattore abbinato | Collegio completo | Giudici per collegio (media) |", "| --- | --- | --- | --- |"]
+    pct = lambda x: f"{100 * x:.2f}%".replace(".", ",")  # Italian format
+    pct1 = lambda x: f"{100 * x:.1f}%".replace(".", ",")
+    num = lambda x: f"{x:,}".replace(",", ".")
+    src = pj.redattore_source.value_counts().to_dict()
+    out = ["# Giudici: quanto bene sono stati riconosciuti\n",
+           "Prodotto da `src/judges/build_judges.py`. Per ogni pronuncia il programma cerca chi l'ha scritta (il redattore), chi l'ha "
+           "seguita come relatore e chi sedeva nel collegio, e collega ogni nome all'elenco ufficiale dei giudici pubblicato dalla Corte.\n",
+           "## Le misure principali\n",
+           f"- Pronunce in cui il nome di chi ha scritto è stato collegato all'elenco dei giudici: **{pct(red_ok.mean())}** "
+           "(soglia decisa prima: 98%).",
+           f"- Da dove viene il nome di chi ha scritto: dal campo dei dati in {num(src.get('field', 0))} pronunce; dalla firma in fondo al "
+           f"testo in {num(src.get('signature', 0))}; dal relatore, usato al suo posto fino alla 286/1986, in {num(src.get('relatore_proxy', 0))}; "
+           f"in {num(src.get('none', 0))} non c'è.",
+           f"- Pronunce con il collegio riconosciuto per intero, cioè con un numero di giudici tra 11 e 15, tutti collegati all'elenco e "
+           f"non meno dei nomi scritti nel testo: **{pct(coll_ok.mean())}** (soglia decisa prima: 98%). Senza il confronto con i nomi "
+           f"scritti nel testo: {pct(pj.n_collegio.between(11, 15).mean())}.",
+           f"- Pronunce scritte da più giudici insieme: {(pj.n_redattori > 1).sum()}.",
+           f"- Pronunce in cui il nome del relatore è stato collegato all'elenco: "
+           f"{pct((pj.relatore_ids.map(lambda s: s != '' and '0' not in s.split('|'))).mean())}.\n",
+           "## Per decennio\n",
+           "| Decennio | Chi ha scritto: nome collegato | Collegio riconosciuto per intero | Giudici per collegio, in media |",
+           "| --- | --- | --- | --- |"]
     for d, x in pj.groupby("decade"):
-        out.append(f"| {d} | {red_ok[x.index].mean():.3f} | {coll_ok[x.index].mean():.3f} | {x.n_collegio.mean():.2f} |")
-    out.append("\nDistribuzione della dimensione del collegio: " + str(pj.n_collegio.value_counts().sort_index().to_dict()))
+        mean = f"{x.n_collegio.mean():.2f}".replace(".", ",")
+        out.append(f"| anni {d} | {pct1(red_ok[x.index].mean())} | {pct1(coll_ok[x.index].mean())} | {mean} |")
+    out += ["\n## Quanti giudici sono stati riconosciuti in ogni collegio\n",
+            "Il collegio decide con almeno 11 giudici (il numero legale): un numero più basso vuol dire che il programma non ha "
+            "riconosciuto tutti i nomi.\n",
+            "| Giudici riconosciuti nel collegio | Pronunce |", "| --- | --- |"]
+    out += [f"| {k} | {num(v)} |" for k, v in pj.n_collegio.value_counts().sort_index().items()]
     last = coll.merge(df[["pid", "dec"]], on="pid").groupby("judge_id").dec.agg(["min", "max", "size"])
     chk = g.set_index("judge_id").join(last)
     chk["gap_end_days"] = (chk.data_cessazione - chk["max"]).dt.days
     odd = chk[(chk.gap_end_days > 400) | (chk["size"].isna())]
-    out.append("\nGiudici con ultima comparsa in collegio oltre 400 giorni prima della fine del mandato, o mai comparsi:\n")
-    out += [f"- {r.Nome_Cognome}: giuramento {r.data_giuramento:%d/%m/%Y}, fine {r.data_cessazione:%d/%m/%Y} ({r.end_source}), "
-            f"ultima comparsa {r['max']:%d/%m/%Y}" if pd.notna(r['max']) else f"- {r.Nome_Cognome}: mai abbinato in un collegio"
+    end_label = {"registry": "dall'elenco ufficiale", "giuramento + 9 years (art. 135 Cost.)": "calcolata: giuramento più 9 anni",
+                 "corrected (official list)": "corretta sull'elenco del sito della Corte"}
+    out += ["\n## Giudici da controllare\n",
+            "Giudici che non compaiono in nessun collegio, o la cui ultima presenza in un collegio è più di 400 giorni prima della fine "
+            "del mandato. Per i giudici ancora in carica è normale: il mandato non è finito. Quando l'elenco ufficiale non dà la fine del "
+            "mandato, la data è calcolata come giuramento più 9 anni, la durata fissata dalla Costituzione (art. 135).\n"]
+    out += [f"- {r.Nome_Cognome}: giuramento {r.data_giuramento:%d/%m/%Y}; fine del mandato {r.data_cessazione:%d/%m/%Y} "
+            f"({end_label.get(r.end_source, r.end_source)}); ultima presenza in un collegio {r['max']:%d/%m/%Y}."
+            if pd.notna(r['max']) else f"- {r.Nome_Cognome}: non compare in nessun collegio."
             for _, r in odd.iterrows()]
-    (REPO / "reports/judges_quality.md").write_text("\n".join(out), encoding="utf-8")
+    (REPO / "reports/judges_quality.md").write_text("\n".join(out) + "\n", encoding="utf-8")
     print("\n".join(out))
 
 

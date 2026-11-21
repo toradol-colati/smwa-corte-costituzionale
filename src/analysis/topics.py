@@ -78,6 +78,61 @@ def specific_labels(pr_topic: pd.Series, m: pd.DataFrame, min_count: int = 15, m
     return labels
 
 
+TABLE_HEAD = "| Tema | Massime | Parole che pesano di più | Voce dei titoli più tipica del tema (dal 2015): quota nel tema, volte la media |"
+NO_LABEL = "nessuna voce arriva al 10% delle massime del tema"
+
+
+def it(x, d):  # Italian format: comma for decimals
+    return f"{x:.{d}f}".replace(".", ",")
+
+
+def thousands(x):  # Italian format: dot for thousands
+    return f"{x:,}".replace(",", ".")
+
+
+def label_text(v):
+    if not v["label"]:
+        return NO_LABEL
+    return f"{v['label']}: {v['share_in_topic']:.0%}, {it(v['lift'], 1)} volte la media"
+
+
+def render_md(st, rows):
+    """st: numbers computed in main(); rows: (topic, n massime, top words, label text). Returns the report text."""
+    coh = "; ".join(f"{k} temi: {it(v, 4)}" for k, v in st["coherence"].items())
+    out = ["# La materia delle pronunce, ricavata dalle massime\n",
+           "Prodotto da `src/analysis/topics.py`. Per sapere di che cosa parla ogni pronuncia, un programma (un modello LDA) legge i "
+           "testi delle massime e raggruppa in temi le parole che compaiono spesso insieme. Ogni massima riceve un peso per ogni tema; la "
+           "materia di una pronuncia è la media dei pesi delle sue massime.\n",
+           "## I numeri principali\n",
+           f"- **Che cosa è stato letto.** {thousands(st['n_massime'])} massime, quelle con un testo di più di 50 caratteri. Parole "
+           f"considerate: {thousands(st['n_vocab'])}, tolte quelle troppo comuni o troppo rare.",
+           f"- **Quanti temi.** Il programma è stato provato con {', '.join(map(str, st['coherence']))} temi. Per ogni prova si misura "
+           "quanto le parole principali di ogni tema compaiono davvero insieme nelle massime (la \"coerenza\", misurata con l'NPMI: più "
+           f"è alta, meglio è): {coh}. La regola, decisa prima, sceglie il numero più piccolo con una coerenza entro il 2% della migliore: "
+           f"**{st['k']} temi**.",
+           f"- **Quanto sono stabili i temi.** Il calcolo è stato rifatto partendo da altri {len(st['stability'])} punti di partenza "
+           "casuali (semi). Ogni tema è stato confrontato con il tema più simile del nuovo calcolo, guardando le prime 20 parole "
+           "(indice di Jaccard: 1 vuol dire le stesse parole, 0 nessuna in comune). In media l'indice vale "
+           f"{it(sum(st['stability']) / len(st['stability']), 3)}, al minimo {it(min(st['stability']), 3)}: ripetendo il calcolo "
+           "i temi cambiano parecchio.",
+           f"- **Le pronunce.** Pronunce con una materia: {thousands(st['n_pronunce'])}. In media il tema principale pesa "
+           f"{it(st['mean_weight'], 2)}; il {it(100 * st['share_multi'], 1)}% delle pronunce ha più di un tema con un peso di almeno 0,2.",
+           "- **Controllo con i titoli delle massime.** Dal 2015 il titolo di ogni massima comincia con una voce di classificazione "
+           f"(per esempio \"reati e pene\"). Sulle {thousands(st['n_title'])} massime con una voce che compare almeno 30 volte, temi e "
+           f"voci vanno d'accordo con un valore di {it(st['nmi_title'], 3)} (informazione mutua normalizzata: 0 nessun legame, 1 "
+           f"corrispondenza perfetta), contro {it(st['nmi_title_null'], 3)} se i temi vengono rimescolati a caso.",
+           f"- **Controllo con gli articoli della Costituzione.** Con il primo articolo della Costituzione invocato nella massima "
+           f"({thousands(st['n_art'])} massime): {it(st['nmi_art'], 3)}, contro {it(st['nmi_art_null'], 3)} rimescolando.\n",
+           "## I temi\n",
+           "Per ogni tema: quante massime lo hanno come tema principale; le 12 parole che pesano di più, scritte come le legge il "
+           "programma (a volte senza accenti, come \"puo\" e \"gia\", e con le abbreviazioni dei testi, come \"lgs\" per decreto "
+           "legislativo e \"cod\" per codice); la voce dei titoli delle massime più tipica del tema. \"Quota nel tema\" è la parte delle massime del tema che hanno "
+           "quella voce; \"volte la media\" dice quanto la voce è più frequente nel tema che in tutte le massime.\n",
+           TABLE_HEAD, "| --- | --- | --- | --- |"]
+    out += [f"| {k} | {thousands(n)} | {words} | {txt} |" for k, n, words, txt in rows]
+    return "\n".join(out) + "\n"
+
+
 def labels_only() -> None:
     """Recompute the labels from the saved topic assignment, without refitting the model."""
     m = load_massime()
@@ -92,15 +147,13 @@ def labels_only() -> None:
     out = []
     for line in md:
         cells = line.split(" | ")
-        if line.startswith("| Topic |"):
-            line = "| Topic | Massime | Parole più pesanti | Voce dei titoli più specifica del topic (dal 2015): quota nel topic, specificità |"
+        if line.startswith("| Tema |"):
+            line = TABLE_HEAD
         elif line.startswith("| ") and cells[0][2:].strip().isdigit():
             k = int(cells[0][2:].strip())
-            v = lab.get(k, {"label": "", "share_in_topic": 0, "lift": 0})
-            txt = f"{v['label']}: {v['share_in_topic']:.0%}, {v['lift']:.1f} volte la media" if v["label"] else "nessuna voce sopra il 10% delle massime del topic"
-            line = " | ".join(cells[:3]) + f" | {txt} |"
+            line = " | ".join(cells[:3]) + f" | {label_text(lab.get(k, {'label': ''}))} |"
         out.append(line)
-    (REPO / "reports/topics.md").write_text("\n".join(out), encoding="utf-8")
+    (REPO / "reports/topics.md").write_text("\n".join(out) + "\n", encoding="utf-8")
     print({k: (v["label"], round(v["share_in_topic"], 2), round(v["lift"], 1)) for k, v in lab.items()})
 
 
@@ -175,26 +228,17 @@ def main() -> None:
     nmi_art_null = float(np.mean([normalized_mutual_info_score(first_art[ka.index], rng.permutation(ka.topic.values)) for _ in range(20)]))
     tops = np.argsort(-lda.components_, axis=1)[:, :12]
     labels = {}
-    out = ["# Topic sulle massime\n", "Generato da `src/analysis/topics.py`.\n",
-           f"- Massime usate: {len(m):,} (testo oltre 50 caratteri); vocabolario: {len(vocab):,} parole.",
-           "- Coerenza NPMI per numero di topic: " + ", ".join(f"K={k}: {v:.4f}" for k, v in res.items()) + ".",
-           f"- K scelto con la regola fissata (il più piccolo entro il 2% del migliore): **{k_star}**.",
-           f"- Stabilità su 5 seed (Jaccard medio delle prime 20 parole, miglior abbinamento): {np.mean(stab):.3f} (min {min(stab):.3f}).",
-           f"- Pronunce con materia: {len(pr):,}; peso medio del topic dominante {pr.topic_weight.mean():.2f}; "
-           f"pronunce con più di un topic sopra 0,2: {(pr.n_topics_02 > 1).mean():.1%}.",
-           f"- Verifica con i titoli delle massime (dal 2015, prime voci con almeno 30 massime, {len(keep):,} massime): "
-           f"informazione mutua normalizzata {nmi_title:.3f}, contro {nmi_title_null:.3f} con topic rimescolati.",
-           f"- Verifica con il primo parametro costituzionale ({len(ka):,} massime): NMI {nmi_art:.3f}, contro {nmi_art_null:.3f} rimescolando.\n",
-           "| Topic | Massime | Parole più pesanti | Prima voce dei titoli più frequente (dal 2015) |", "| --- | --- | --- | --- |"]
     spec = specific_labels(pr.set_index("pid").topic, m)
-    out[-2] = "| Topic | Massime | Parole più pesanti | Voce dei titoli più specifica del topic (dal 2015): quota nel topic, specificità |"
+    rows = []
     for k in range(k_star):
-        words = ", ".join(vocab[tops[k]])
         v = spec.get(k, {"label": "", "share_in_topic": 0, "lift": 0})
         labels[k] = v["label"]
-        txt = f"{v['label']}: {v['share_in_topic']:.0%}, {v['lift']:.1f} volte la media" if v["label"] else "nessuna voce sopra il 10% delle massime del topic"
-        out.append(f"| {k} | {(m.topic == k).sum():,} | {words} | {txt} |")
-    (REPO / "reports/topics.md").write_text("\n".join(out), encoding="utf-8")
+        rows.append((k, int((m.topic == k).sum()), ", ".join(vocab[tops[k]]), label_text(v)))
+    st = {"n_massime": len(m), "n_vocab": len(vocab), "coherence": res, "k": k_star, "stability": stab,
+          "n_pronunce": len(pr), "mean_weight": pr.topic_weight.mean(), "share_multi": (pr.n_topics_02 > 1).mean(),
+          "n_title": len(keep), "nmi_title": nmi_title, "nmi_title_null": nmi_title_null,
+          "n_art": len(ka), "nmi_art": nmi_art, "nmi_art_null": nmi_art_null}
+    (REPO / "reports/topics.md").write_text(render_md(st, rows), encoding="utf-8")
     json.dump({"coherence": res, "k": k_star, "stability": stab, "nmi_title": nmi_title, "nmi_art": nmi_art,
                "labels": labels, "top_words": {int(k): list(vocab[tops[k]]) for k in range(k_star)}},
               open(REPO / "reports/topics.json", "w"), ensure_ascii=False, indent=1)

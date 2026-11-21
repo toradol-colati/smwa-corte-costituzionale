@@ -47,16 +47,37 @@ out = {"annotator": WHO, "items": int(len(t)), "flagged": int(len(f)), "flagged_
        "not_flagged_true_share": miss / len(nf) if len(nf) else float("nan"), "not_flagged_true_lo": mlo, "not_flagged_true_hi": mhi,
        "precision_by_rule": {r: {"n": int(len(g)), "true": int(g.true.sum())} for r, g in f.groupby("rule")}}
 json.dump(out, open(REPO / f"reports/polarity_validation_{WHO}.json", "w"), indent=1)
-md = [f"# Polarità delle citazioni: validazione ({'Claude' if WHO == 'claude' else 'controllo umano'})\n",
-      "Generato da `src/polarity/evaluate.py`. Campione: tutti i contesti segnalati della metà di prova, mescolati con contesti della stessa metà "
-      "che hanno una parola di distinzione ma non sono segnalati; annotati senza vedere l'etichetta. Unità: il contesto.\n",
-      f"- Precisione dei contesti segnalati: **{tp} su {len(f)} = {prec:.3f}** (intervallo di Wilson {plo:.3f}–{phi:.3f}); soglia fissata prima: 0,80. "
-      f"{'Superata.' if out['passed'] else 'NON superata: niente analisi.'}",
-      f"- Tra i {len(nf)} contesti non segnalati che hanno una parola di distinzione, le vere distinzioni sono {miss} ({miss / len(nf):.3f}; {mlo:.3f}–{mhi:.3f}): "
-      "il lessico ne perde una parte, e altre forme sfuggono del tutto. La quota trovata è un limite inferiore.\n",
-      "| Regola | Contesti segnalati | Veri |", "| --- | --- | --- |"]
-md += [f"| {r} | {v['n']} | {v['true']} |" for r, v in out["precision_by_rule"].items()]
+RULE_LABELS = {  # what each rule looks for (src/polarity/lexicon.py)
+    "caso_diverso": "il caso di oggi è diverso da quello deciso allora (\"a differenza di quanto deciso\", \"non è assimilabile a quella esaminata\")",
+    "non_affermato": "il precedente non ha detto quello che gli si attribuisce (\"la sentenza non ha affermato\")",
+    "non_pertinente": "il richiamo al precedente non è pertinente (\"il richiamo non è conferente\")",
+    "superamento": "la Corte cambia orientamento (\"superare il precedente\", \"mutamento di giurisprudenza\")",
+}
+
+
+def it(x):  # Italian format: comma for decimals
+    return f"{x:.3f}".replace(".", ",")
+
+
+md = [f"# Le citazioni in cui la Corte prende le distanze da un precedente: controllo delle regole "
+      f"({'letto da Claude' if WHO == 'claude' else 'letto da una persona'})\n",
+      "Prodotto da `src/polarity/evaluate.py`. Le regole cercano nel testo, intorno a una citazione, le frasi con cui la Corte dice che un "
+      "proprio precedente non si applica o non va seguito (`src/polarity/lexicon.py`). Ogni passo controllato è il pezzo di testo intorno a "
+      "una citazione (il \"contesto\").\n",
+      "**Il campione.** Tutti i passi segnalati dalle regole nella metà dei dati tenuta da parte per la prova, mescolati con passi della "
+      "stessa metà che contengono una parola tipica delle distinzioni ma che le regole non hanno segnalato. Chi ha letto i passi non sapeva "
+      "quali erano stati segnalati.\n",
+      f"- **Precisione** (quanti dei passi segnalati sono davvero distinzioni): **{tp} su {len(f)} = {it(prec)}**; intervallo al 95%, "
+      f"calcolato con il metodo di Wilson: {it(plo)}–{it(phi)}. La soglia decisa prima era 0,80: "
+      f"{'superata.' if out['passed'] else 'non superata, quindi le regole non sono state usate nelle analisi.'}",
+      f"- Tra i {len(nf)} passi non segnalati che contengono una parola tipica delle distinzioni, le vere distinzioni sono {miss} "
+      f"({it(miss / len(nf))}; intervallo {it(mlo)}–{it(mhi)}). Quindi le regole ne perdono una parte; e altre distinzioni, scritte senza "
+      "quelle parole, sfuggono del tutto. Quante distinzioni le regole perdono davvero non si può misurare: questo numero dà solo un minimo.\n",
+      "**I passi segnalati, regola per regola**\n",
+      "| Regola | Che cosa cerca | Passi segnalati | Di cui distinzioni vere |", "| --- | --- | --- | --- |"]
+md += [f"| `{r}` | {RULE_LABELS.get(r, '')} | {v['n']} | {v['true']} |" for r, v in out["precision_by_rule"].items()]
 if WHO == "claude":
-    md.append("\nL'annotatore (Claude) ha scritto anche le regole: l'annotazione non è indipendente. Il foglio per una persona è `data/validation/polarity_human_check.md`.")
-(REPO / f"reports/polarity_validation_{WHO}.md").write_text("\n".join(md), encoding="utf-8")
+    md.append("\n**Attenzione.** Chi ha letto i passi (Claude) aveva anche scritto le regole: il controllo non è indipendente. Il foglio "
+              "per il controllo di una persona è `data/validation/polarity_human_check.md`.")
+(REPO / f"reports/polarity_validation_{WHO}.md").write_text("\n".join(md) + "\n", encoding="utf-8")
 print(json.dumps(out, indent=1))
