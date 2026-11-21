@@ -289,5 +289,23 @@
   "drafters_with_absent_cases": 106,
   "top5_share_absent_rows": 0.17308220717907727,
   "top5_share_absent_cases": 0.21170084439083234
+ },
+ "collegio_size": {
+  "distribution": {
+   "0": 1,
+   "9": 1,
+   "10": 45,
+   "11": 1112,
+   "12": 2733,
+   "13": 5085,
+   "14": 6822,
+   "15": 6628
+  },
+  "share_under_15": 0.704463370045035,
+  "mean_in_office": 14.589557230124404,
+  "mean_size": 13.667454407633656,
+  "mean_absent": 0.9221028224907477,
+  "under_15_with_empty_seat": 0.39205012975504777,
+  "under_15_with_absent_judge": 0.8408127096651686
  }
 }

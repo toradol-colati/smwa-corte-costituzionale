@@ -81,6 +81,18 @@ out["spread_by_drafter"] = {"drafters": int(t.R.nunique()), "drafters_with_absen
                             "drafters_with_absent_cases": int((ab.cases > 0).sum()),
                             "top5_share_absent_rows": float(ab.rows.nlargest(5).sum() / ab.rows.sum()),
                             "top5_share_absent_cases": float(ab.cases.nlargest(5).sum() / ab.cases.sum())}
+# 4. why a collegio has fewer than 15 judges: empty seats or absent judges (in office = between first and last appearance)
+inoff = np.zeros(len(nodes), int)
+for _, r in app.iterrows():
+    inoff += ((dec >= r["first"]) & (dec <= r["last"])).astype(int)
+csize = nodes.pid.map(size).fillna(0).astype(int).values
+inoff = np.minimum(inoff, 15)
+small = csize < 15
+out["collegio_size"] = {"distribution": {int(k): int(v) for k, v in pd.Series(csize).value_counts().sort_index().items()},
+                        "share_under_15": float(small.mean()), "mean_in_office": float(inoff.mean()), "mean_size": float(csize.mean()),
+                        "mean_absent": float(np.maximum(inoff - csize, 0).mean()),
+                        "under_15_with_empty_seat": float((inoff[small] < 15).mean()),
+                        "under_15_with_absent_judge": float((inoff[small] - csize[small] > 0).mean())}
 json.dump(out, open(REPO / "reports/d3_absences.json", "w"), indent=1)
 print(json.dumps({k: (v if k != "by" else {c: {x: v[c][x] for x in ["cramers_v", "min_rate", "max_rate"]} for c in v}) for k, v in out.items() if k != "balance"}, indent=1))
 print(out["collegio_quality"], out["spread_by_drafter"])
