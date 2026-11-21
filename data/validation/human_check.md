@@ -1,17 +1,16 @@
-# Controllo umano delle citazioni
+# Il controllo a mano delle citazioni
 
-36 pronunce estratte a caso (seed 20261119), mai usate prima. Per ognuna c'è tutto il testo di base: il «Considerato in diritto» (sentenze) o il «Considerato che» (ordinanze), più il dispositivo.
+**A che cosa serve.** Un programma ha cercato in tutte le pronunce le citazioni di altre pronunce della Corte. Per sapere quanto sbaglia bisogna confrontarlo con la lettura di una persona. Questo foglio contiene 36 pronunce estratte a caso (seme 20261119), mai usate prima per costruire o provare il programma. Per ognuna c'è tutto il testo di base: il ragionamento della Corte («Considerato in diritto» nelle sentenze, «Considerato che» nelle ordinanze) e il dispositivo, cioè la decisione.
 
-**Cosa annotare**, in `data/validation/gold_human.txt`, sulla riga della pronuncia, separando con spazi:
+**Che cosa fare.** Leggere ogni pronuncia per intero e scrivere in `data/validation/gold_human.txt`, sulla riga che comincia con il numero della pronuncia, le pronunce della Corte che cita, separate da spazi:
 
-- ogni pronuncia della **Corte costituzionale** citata nel testo, scritta come `anno/numero` (per esempio `2007/348`);
-- anche le pronunce citate in elenco, con l'anno detto una volta sola, e quelle "in pari data";
-- una sola volta per pronuncia citata, anche se compare più volte;
-- **non** annotare: sentenze di altre corti (Cassazione, Consiglio di Stato, Corte europea…), ordinanze di rimessione ("r.o.", "reg. ord."), leggi e decreti;
+- ogni pronuncia della **Corte costituzionale** citata nel testo, scritta come `anno/numero` (per esempio `2007/348` per la sentenza n. 348 del 2007);
+- anche quelle citate in un elenco con l'anno detto una volta sola ("sentenze n. 26 e n. 320 del 2007" diventa `2007/26 2007/320`) e quelle "in pari data" (dello stesso giorno della pronuncia che cita);
+- ogni pronuncia citata una volta sola, anche se compare più volte;
+- **non** scrivere: le sentenze di altre corti (Cassazione, Consiglio di Stato, Corte europea…), le ordinanze con cui un giudice porta la questione alla Corte (citate come "r.o." o "reg. ord."), leggi e decreti;
 - se l'anno non si capisce, scrivere `?/numero` e aggiungere una nota in fondo al file.
 
-Una riga vuota dopo i due punti vuol dire: nessuna citazione. Non guardare i risultati dell'estrattore prima di aver finito.
-
+Se una pronuncia non cita nessun'altra pronuncia, la sua riga resta vuota dopo i due punti. Non guardare i risultati del programma prima di aver finito. Alla fine il comando `.venv/bin/python src/validation/evaluate.py human` confronta la lettura con il programma e scrive i risultati in `reports/validation_human.md`. Tempo stimato: 3–5 ore.
 
 ## 19560008: sentenza n. 8 del 1956
 

@@ -1,7 +1,10 @@
-# Controllo della polarità delle citazioni
+# Il controllo a mano della polarità delle citazioni
 
-67 passi. Per ognuno, la domanda è: **la pronuncia che cita dichiara il precedente tra ⟦ ⟧ non pertinente o non conferente, dice che riguardava un caso diverso, che non è un precedente in termini, che non ha affermato ciò che gli si attribuisce, oppure lo supera?** Scrivere 1 (sì) o 0 (no) in `data/validation/gold_polarity_human.txt`, accanto al numero del passo. Se a distinguere il precedente sono il giudice rimettente o una parte, e non la Corte, la risposta è 0.
-Alla fine: `.venv/bin/python src/polarity/evaluate.py human`.
+**A che cosa serve.** Un elenco di regole cerca le citazioni in cui la Corte prende le distanze da un proprio precedente. Per sapere quanto le regole sbagliano, una persona legge un campione di passi senza sapere che cosa hanno deciso le regole. Questo foglio contiene 67 passi, mescolati a caso: alcuni segnalati dalle regole, altri no.
+
+**Che cosa fare.** Per ogni passo, la domanda è: **la pronuncia che cita dice che il precedente tra ⟦ ⟧ non è pertinente, che riguardava un caso diverso, che non è un precedente sulla stessa questione, che non ha affermato ciò che gli si attribuisce, oppure che è superato?** Scrivere 1 (sì) o 0 (no) in `data/validation/gold_polarity_human.txt`, accanto al numero del passo. Se a prendere le distanze dal precedente sono il giudice che ha sollevato la questione o una delle parti, e non la Corte, la risposta è 0.
+
+Alla fine il comando `.venv/bin/python src/polarity/evaluate.py human` calcola la precisione. Serve solo come verifica: per una regola decisa prima, non cambia l'esito già misurato.
 
 
 **1** (20120171) …  Il richiamo alla  ⟦sentenza di questa Corte, n. 278 del 2010⟧ , non è pertinente. …
