@@ -107,6 +107,7 @@ Una pronuncia della Corte costituzionale non è l'opera di un giudice. La decide
   - il decreto è un atto del Presidente.
 
   Nei file ci sono solo sentenze (11.735) e ordinanze (10.692), nessun decreto (Dati).
+- **Giudizio in via incidentale**: la questione di legittimità è sollevata da un giudice nel corso di una causa (fonte: legge 87/1953, art. 23). **Giudizio in via principale**: il Governo impugna una legge regionale, o una Regione impugna una legge dello Stato o di un'altra Regione, entro sessanta giorni dalla pubblicazione (fonte: Costituzione, art. 127, letto il 21/11/2026 sul testo di Wikisource).
 - **Giudizio**: il campo `tipologia_giudizio` delle massime c'è per tutte le pronunce tranne 8 (Dati):
   - in via incidentale: 17.052;
   - in via principale: 3.234;

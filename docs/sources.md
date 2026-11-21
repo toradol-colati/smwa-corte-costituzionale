@@ -14,6 +14,7 @@ Raccolte e controllate il 10/11/2026 da Claude nel browser; riviste lo stesso gi
 | --- | --- | --- | --- |
 | Contesto | Legge 87/1953, artt. 16–19, 23 e 27 | Letto (artt. 23 e 27 il 18/11/2026) | — |
 | Contesto | Norme integrative 2008 (artt. 7, 17) e 2026 (artt. 9, 20) | Letto | — |
+| Contesto | Costituzione, art. 127 (giudizio in via principale) | Letto il 21/11/2026 ([testo su Wikisource](https://it.wikisource.org/wiki/Italia,_Repubblica_-_Costituzione)) | — |
 | Contesto | [B4] Pagina ufficiale "I Giudici costituzionali" | Letto | — |
 | Contesto | [C4] Caravita 2021, estratto gratuito | Letto (pp. 2–8) | — |
 | Contesto | [C5] Forum del Gruppo di Pisa 2021 | Letto (pagine indicate) | — |

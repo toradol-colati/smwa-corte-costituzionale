@@ -1,9 +1,12 @@
 """The main numbers of the report must match the result files (reports/*.json).
-Each check is a phrase of the report with the number in its context, rebuilt from the JSON:
-a bare number would match anywhere. When a result changes, the test fails until the report
-is updated. Usage: .venv/bin/pytest tests/test_report_numbers.py
+Each check is a phrase rebuilt from the JSON. The report is written in plain words, so the check does not
+require the exact wording: the numbers of the phrase must appear in the report in the same order, close to
+each other (within a window of the phrase length times three, at least 600 characters). A phrase without
+numbers must appear as it is. When a result changes, the test fails until the report is updated.
+Usage: .venv/bin/pytest tests/test_report_numbers.py
 """
 import json
+import re
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
@@ -302,7 +305,7 @@ def checks():
         ("Parte I, età mediana", f"metà delle citazioni va a precedenti con meno di {it(nb['citation_age_median'], 1)} anni"),
         ("Parte I, assenze", f"Un giudice in carica manca dal {pc(ab['absence_rate'])}% delle pronunce"),
         ("Parte I, margine", f"Il dato esclude effetti superiori al {up}% circa in più o all'{down}% in meno"),
-        ("Parte I, scala", f"l'eccesso rispetto a 1 passa da {it(sc['excess_before'])} a {it(sc['excess_after'])}, cioè si riduce del "
+        ("D3 scala, sezione 3.4", f"l'eccesso rispetto a 1 passa da {it(sc['excess_before'])} a {it(sc['excess_after'])}, cioè si riduce del "
                            f"{pc(sc['excess_reduction'], 0)}%; sulla scala logaritmica, quella in cui il modello è stimato, si riduce del {pc(sc['log_reduction'], 0)}%"),
         ("Parte I, giudici", f"Su {a['judges_tested']} giudici, dopo la correzione di Holm le pronunce di {a['sig_holm_above']}"),
         ("Parte I, omofilia", f"le citazioni sono il {pc(d4['provenienza']['excess_over_null'])}% più frequenti dell'atteso"),
@@ -310,6 +313,42 @@ def checks():
     return out
 
 
+NUMBER = re.compile(r"\d+(?:[.,]\d+)*")
+
+
+def found(phrase, text=REPORT):
+    """True if the numbers of `phrase` appear in `text` in the same order, within a window."""
+    toks = NUMBER.findall(phrase)
+    if not toks:
+        return phrase in text
+    pat = [re.compile(r"(?<![\d.,])" + re.escape(x) + r"(?!\d|[.,]\d)") for x in toks]
+    win = max(600, 3 * len(phrase))
+    for m in pat[0].finditer(text):
+        pos, ok = m.end(), True
+        for p in pat[1:]:
+            mm = p.search(text, pos, m.start() + win)
+            if not mm:
+                ok = False
+                break
+            pos = mm.end()
+        if ok:
+            return True
+    return False
+
+
+# checks on the plain summary (Part I) are searched only there, all the others only in Part II, so that a number
+# repeated in both parts is checked in each place
+PART1_CHECKS = {"D3 principale, sintesi", "D3 redatto da lui, sintesi", "D3 norma impugnata, sintesi", "D2 sintesi",
+                "Sostituzione, rapporto", "Sostituzione, 43%", "Sostituzione, precedenti", "Sostituzione, età", "Sostituzione, medie",
+                "Collegio, sotto 15", "Collegio, motivi", "Ultimo anno"}
+SPLIT = REPORT.index("## Parte II")
+PART1, PART2 = REPORT[:SPLIT], REPORT[SPLIT:]
+
+
+def where(name):
+    return PART1 if (name in PART1_CHECKS or name.startswith("Parte I,")) else PART2
+
+
 def test_report_numbers_match_results():
-    missing = [f"{name}: «{phrase}»" for name, phrase in checks() if phrase not in REPORT]
+    missing = [f"{name}: «{phrase}»" for name, phrase in checks() if not found(phrase, where(name))]
     assert not missing, "Numeri della relazione non allineati ai file dei risultati:\n" + "\n".join(missing)
