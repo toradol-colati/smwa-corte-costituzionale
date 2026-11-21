@@ -24,11 +24,11 @@ Le soglie, decise prima, erano una precisione di almeno 0,95 e un richiamo di al
 **Come si legge la tabella.**
 
 - Le stime da usare sono due: **dal 1987, richiamo 0,974** (passo 1); **fino al 1986, richiamo 0,917** (passo 3). La precisione è almeno 0,985 in entrambi i periodi.
-- Il file `validation_test.md` ricalcola il primo campione dopo la correzione (richiamo 0,978). Non è una stima indipendente, perché la correzione è stata scritta guardando proprio gli errori di quel campione: serve solo a controllare che la correzione non abbia rotto altro (nessuna citazione falsa in più).
+- Il file `validation_test.md` ricalcola il primo campione dopo la correzione (richiamo 0,978). Non è una stima indipendente, perché la correzione è stata scritta guardando proprio gli errori di quel campione: serve solo a controllare che la correzione non abbia rotto altro (nessuna citazione trovata per errore in più).
 - Per i testi fino al 1986 il valore stimato supera la soglia, ma il limite inferiore dell'intervallo (0,830) sta sotto 0,90: con 72 citazioni non si può escludere che il richiamo vero sia sotto la soglia.
 - `validation_round1.md` è la fotografia della prima misura, fatta con il programma prima della correzione: con il codice attuale non si può rifare.
 - Rispetto al piano, le citazioni controllate sono 342 invece delle 460 previste.
-- Le 6 citazioni mancate nel secondo campione e l'unica citazione falsa sono elencate in `validation_test2.md`.
+- Le 6 citazioni mancate nel secondo campione e l'unica citazione trovata per errore sono elencate in `validation_test2.md`.
 
 **Il controllo di una persona, ancora da fare.** `data/validation/human_check.md` contiene 36 pronunce mai usate prima (seme 20261119), con tutto il testo di base e senza il risultato del programma: 3 pronunce per decennio e tipo negli anni 1950–1980, scendendo a 1 negli anni 2010–2020, per circa 100 citazioni attese. Una persona scrive le citazioni che trova in `data/validation/gold_human.txt` (le istruzioni sono in testa al foglio); poi il comando `.venv/bin/python src/validation/evaluate.py human` calcola precisione e richiamo e scrive `reports/validation_human.md`. Con circa 100 citazioni il controllo può smentire le soglie, ma non confermarle con sicurezza: il limite inferiore dell'intervallo supera 0,95 solo con 100 citazioni giuste su 100, e 0,90 solo con almeno 97 su 100. Finché il controllo non è fatto, precisione e richiamo restano quelli stimati dall'assistente.
 
