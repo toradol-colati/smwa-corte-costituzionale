@@ -24,6 +24,7 @@ self-drafted effect comes from repeated questions assigned to the same relatore.
 
 Outputs: reports/d3_results.json, reports/d3_results.md
 Usage: .venv/bin/python src/analysis/d3_memoria_collegiale.py
+       add --md-only to rewrite reports/d3_results.md from reports/d3_results.json
 """
 
 from __future__ import annotations
@@ -377,6 +378,98 @@ def estimate(t: pd.DataFrame, mode="mandate", extra=False, label="", norme=False
     return res
 
 
+VARIANT_LABELS = {  # keys of reports/d3_results.json -> plain labels for the report
+    "controlli aggiuntivi (tipo del precedente, citazioni ricevute)": "con due controlli in più: tipo del precedente e citazioni già ricevute",
+    "senza autocitazioni del redattore": "senza i precedenti scritti dallo stesso giudice",
+    "solo pronunce dalla 287/1986 (redattore osservato)": "solo pronunce dalla 287/1986 (il nome di chi scrive è nei dati)",
+    "solo pronunce fino alla 286/1986 (relatore come approssimazione)": "solo pronunce che citano fino alla 286/1986 (al posto di chi scrive, il relatore)",
+    "senza gli anni dell'arretrato (citanti 1987-1989 escluse)": "senza gli anni dell'arretrato (tolte le pronunce che citano del 1987–1989)",
+    "senza le ordinanze di correzione": "senza le ordinanze che correggono errori materiali",
+    "solo sentenze che citano": "solo sentenze che citano",
+    "solo ordinanze che citano": "solo ordinanze che citano",
+    "citanti fino al 2000": "solo pronunce che citano fino al 2000",
+    "citanti dal 2001": "solo pronunce che citano dal 2001",
+    "solo giudizi in via incidentale": "solo giudizi in via incidentale",
+    "testo intero (anche Ritenuto in fatto)": "citazioni da tutto il testo (anche dal «Ritenuto in fatto»)",
+    "con le citazioni delle massime (note editoriali)": "con anche le citazioni delle note editoriali alle massime",
+    "controllo per norma impugnata in comune (esplorativo)": "con un controllo per la stessa legge impugnata (prova esplorativa)",
+    "materia fine: parametri costituzionali (esplorativo)": "materia più fine, dagli articoli della Costituzione invocati (prova esplorativa)",
+}
+COEF_LABELS = {
+    "self_drafted": "il precedente l'ha scritto lo stesso giudice (`self_drafted`)",
+    "sat_not_drafted": "il giudice sedeva nel collegio del precedente, senza scriverlo (`sat_not_drafted`)",
+    "in_mandate_absent": "il precedente è stato deciso mentre il giudice era in carica, ma assente (`in_mandate_absent`)",
+    "topic_similarity": "somiglianza di materia tra le due pronunce, da 0 a 1 (`topic_similarity`)",
+}
+
+
+def _num(x, d):  # Italian format: comma for decimals
+    return f"{x:.{d}f}".replace(".", ",")
+
+
+def _int(x):  # Italian format: dot for thousands
+    return f"{x:,}".replace(",", ".")
+
+
+def _p(p):
+    return "< 0,001" if p < 0.001 else _num(p, 3)
+
+
+def _coef_label(n):
+    if n.startswith("age_"):
+        lo, hi = n[4:].split("_")
+        return f"il precedente ha {lo} anni o più" if hi == "200" else f"il precedente ha tra {lo} e {hi} anni"
+    return COEF_LABELS.get(n, n)
+
+
+def render_md(out):
+    """Write reports/d3_results.md from the numbers in reports/d3_results.json (no estimation here)."""
+    def row(name, r):
+        c = r["coef"]["sat_not_drafted"]
+        return (f"| {name} | {_int(r['strata'])} | {_int(r['cases'])} | {_int(r['cases_absent'])} | {_num(c['or'], 2)} | "
+                f"{_num(c['lo'], 2)}–{_num(c['hi'], 2)} | {_p(c['p'])} |")
+
+    def coef_table(res):
+        lines = ["| Caratteristica del precedente | Odds ratio | Intervallo al 95% | Valore p |", "| --- | --- | --- | --- |"]
+        return lines + [f"| {_coef_label(n)} | {_num(c['or'], 3)} | {_num(c['lo'], 3)}–{_num(c['hi'], 3)} | {_p(c['p'])} |"
+                        for n, c in res["coef"].items()]
+
+    p = out["primary"]
+    md = ["# D3: un giudice cita di più le pronunce decise in collegi in cui sedeva?\n",
+          "Prodotto da `src/analysis/d3_memoria_collegiale.py`, con i numeri salvati in `reports/d3_results.json`.\n",
+          "## Che cosa misura la tabella principale\n",
+          "Per ogni pronuncia che cita, il programma mette a confronto i precedenti che cita con un campione di precedenti che avrebbe "
+          "potuto citare e non ha citato. Guarda solo i precedenti decisi mentre il giudice che scrive la pronuncia era già alla Corte. "
+          "Tra questi distingue due gruppi:\n",
+          "- i precedenti decisi da un collegio in cui il giudice sedeva, senza averli scritti lui;",
+          "- i precedenti decisi mentre il giudice era in carica, ma assente da quel collegio.\n",
+          "La colonna \"Odds ratio\" dice quanto è più probabile, in termini di odds, che il giudice citi un precedente del primo gruppo "
+          "invece che del secondo, a parità di età del precedente, di materia e del fatto di averlo scritto lui. 1 vuol dire nessuna "
+          "differenza; sopra 1 cita di più i precedenti decisi con lui presente; sotto 1, di meno. L'intervallo al 95% raccoglie i valori "
+          "compatibili con i dati. Il valore p dice quanto sarebbe raro un risultato così lontano da 1 se la differenza non ci fosse. "
+          "L'incertezza tiene conto che le pronunce scritte dallo stesso giudice si somigliano (errori standard raggruppati per chi scrive).\n",
+          "La prima riga è il risultato principale, deciso prima di vedere i dati. Le altre ripetono il calcolo cambiando una cosa alla "
+          "volta, per vedere se il risultato regge.\n",
+          "| Prova | Pronunce che citano | Citazioni | Di cui a precedenti decisi con il giudice assente | Odds ratio | "
+          "Intervallo al 95% | Valore p |",
+          "| --- | --- | --- | --- | --- | --- | --- |", row("**Risultato principale**", p)]
+    md += [row(VARIANT_LABELS.get(k, k), v) for k, v in out["variants"].items()]
+    md += ["\n## Tutti i numeri del modello principale\n",
+           "Ogni riga confronta i precedenti con quella caratteristica con quelli senza. Per le classi di età il confronto è con i "
+           "precedenti di meno di un anno. Per la somiglianza di materia il confronto è tra i due estremi, 0 (nessun tema in comune) e 1 "
+           "(gli stessi temi nelle stesse proporzioni): per questo il numero è così grande.\n"] + coef_table(p)
+    seeds = "; ".join(_num(x, 3) for x in out["seed_sensitivity_or"])
+    md += [f"\nLo stesso calcolo, ripetuto con altri 5 campioni casuali di precedenti non citati, dà questi odds ratio per "
+           f"`sat_not_drafted`: {seeds}.",
+           f"\nGiudici che scrivono (i gruppi usati per l'incertezza): {_int(p['clusters'])}. Righe del confronto: {_int(p['rows'])}.",
+           "\n## Il modello completo (secondario)\n",
+           "Qui entrano tutti i precedenti, anche quelli decisi prima che il giudice arrivasse alla Corte, e il confronto è con questi "
+           "ultimi. Il risultato non dice solo se il giudice sedeva nel collegio, ma anche quanto il precedente è vicino nel tempo: per "
+           "questo è secondario. Il controllo su questo modello è in `reports/d3_full_check.json` e nella relazione, sezione 3.4.\n"]
+    md += coef_table(out["full"])
+    return "\n".join(md) + "\n"
+
+
 def main():
     nodes, coll, app, edges, theta = load()
     acts, arts, cov = load_norme()
@@ -428,24 +521,12 @@ def main():
     # absences from the collegio are described in src/analysis/d3_absences.py (reports/d3_absences.json)
     json.dump(out, open(REPO / "reports/d3_results.json", "w"), indent=1, ensure_ascii=False)
 
-    def row(name, r):
-        c = r["coef"]["sat_not_drafted"]
-        return (f"| {name} | {r['strata']:,} | {r['cases']:,} | {r['cases_absent']:,} | {c['or']:.2f} | {c['lo']:.2f}–{c['hi']:.2f} | {c['p']:.2g} |")
-    md = ["# D3 - memoria collegiale\n", "Generato da `src/analysis/d3_memoria_collegiale.py`.\n",
-          "Odds ratio di `sat_not_drafted`: quanto più spesso il redattore cita un precedente deciso da un collegio in cui sedeva "
-          "(senza averlo redatto) rispetto a un precedente deciso mentre era in carica ma assente. Errori standard raggruppati per redattore.\n",
-          "| Analisi | Pronunce che citano | Citazioni | Citazioni a precedenti con redattore assente | OR | IC 95% | p |",
-          "| --- | --- | --- | --- | --- | --- | --- |", row("**Principale**", out["primary"])]
-    md += [row(k, v) for k, v in V.items()]
-    md.append("\n**Tutti i coefficienti del modello principale**\n\n| Variabile | OR | IC 95% | p |\n| --- | --- | --- | --- |")
-    md += [f"| {n} | {c['or']:.3f} | {c['lo']:.3f}–{c['hi']:.3f} | {c['p']:.2g} |" for n, c in out["primary"]["coef"].items()]
-    md.append(f"\nSensibilità al campione dei controlli (altri 5 seed), OR: {', '.join(f'{x:.3f}' for x in ors)}.")
-    md.append(f"\nGruppi (redattori): {out['primary']['clusters']}. Righe: {out['primary']['rows']:,}.")
-    md.append("\n**Modello completo** (tutti i precedenti; riferimento: precedente deciso prima dell'ingresso del redattore)\n\n| Variabile | OR | IC 95% | p |\n| --- | --- | --- | --- |")
-    md += [f"| {n} | {c['or']:.3f} | {c['lo']:.3f}–{c['hi']:.3f} | {c['p']:.2g} |" for n, c in out["full"]["coef"].items()]
-    (REPO / "reports/d3_results.md").write_text("\n".join(md), encoding="utf-8")
-    print("\n".join(md))
+    (REPO / "reports/d3_results.md").write_text(render_md(out), encoding="utf-8")
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    if "--md-only" in sys.argv:  # rewrite the report from the saved numbers, without estimating again
+        (REPO / "reports/d3_results.md").write_text(render_md(json.load(open(REPO / "reports/d3_results.json"))), encoding="utf-8")
+    else:
+        main()
