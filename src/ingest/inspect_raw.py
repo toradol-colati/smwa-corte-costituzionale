@@ -308,7 +308,7 @@ def main() -> None:
       ". \"Corte dei Conti\" e \"Corte dei conti\" sono la stessa cosa scritta in due modi.")
     real["anni"] = (real.data_cessazione_d - real.data_giuramento_d).dt.days / 365.25
     w(f"- Fine del mandato (`data_cessazione`) mancante: {int(real.data_cessazione_d.isna().sum())} giudici, molti dei quali hanno "
-      "chiaramente finito il mandato (tabella qui sotto). Va completata a mano in `data/manual/`, con la fonte.")
+      "chiaramente finito il mandato (tabella qui sotto). Va completata prima di usarla: come, è scritto in `docs/decisions.md`.")
     long = real[real.anni > 12.1]
     w(f"- Mandati di più di 12 anni, quindi date sbagliate: " +
       ", ".join(f"{r.Nome_Cognome} ({r.data_giuramento}–{r.data_cessazione})" for r in long.itertuples()) + ".")

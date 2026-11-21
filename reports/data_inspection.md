@@ -145,7 +145,7 @@ Il tipo di giudizio (campo `tipologia_giudizio`) sta solo nell'archivio delle ma
 
 - Righe: 136; giudici: 125. Le altre 11 righe hanno più nomi insieme ("Lattanzi - Cartabia"): corrispondono alle pronunce scritte da più giudici, non a persone.
 - Chi ha eletto o nominato il giudice (campo `Eletto_da`): Presidente della Repubblica: 43; Parlamento: 41; Corte di Cassazione: 23; Corte dei Conti: 9; Consiglio di Stato: 8; Corte dei conti: 1. "Corte dei Conti" e "Corte dei conti" sono la stessa cosa scritta in due modi.
-- Fine del mandato (`data_cessazione`) mancante: 33 giudici, molti dei quali hanno chiaramente finito il mandato (tabella qui sotto). Va completata a mano in `data/manual/`, con la fonte.
+- Fine del mandato (`data_cessazione`) mancante: 33 giudici, molti dei quali hanno chiaramente finito il mandato (tabella qui sotto). Va completata prima di usarla: come, è scritto in `docs/decisions.md`.
 - Mandati di più di 12 anni, quindi date sbagliate: Ugo Spagnoli (25/02/1986–25/02/2005).
 - Giudici che hanno giurato prima della legge costituzionale 2/1967, che riguarda la durata del mandato: 26; durata mediana del loro mandato 11,8 anni (per quelli venuti dopo: 9,0).
 - Giudici con lo stesso cognome di un altro: Aldo Sandulli, Nicola Reale, Oronzo Reale, Ettore Gallo, Annibale Marini, Franco Gallo, Maria Alessandra Sandulli, Francesco Saverio Marini. Per collegare i nomi all'elenco non basta il cognome.

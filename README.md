@@ -93,7 +93,7 @@ data/raw/         file originali del portale (non nel repository, salvo MANIFEST
 data/interim/     tabelle intermedie e registri degli errori (non nel repository)
 data/processed/   tabelle finali: le pronunce, le citazioni, i giudici, i collegi
 data/validation/  campioni per controllare la qualità dell'estrazione; la lettura di riferimento è dell'assistente, non di una persona
-data/manual/      correzioni fatte a mano, ognuna con la sua fonte
+data/manual/      correzioni fatte a mano (per ora vuota: le correzioni dichiarate sono nel codice)
 src/              i programmi, divisi per fase: lettura dei file, estrazione delle citazioni, giudici, reti, analisi, altre corti, polarità
 notebooks/        solo prove, nessun risultato finale
 reports/          la relazione, i controlli di qualità, i risultati in formato JSON e le figure
