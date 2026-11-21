@@ -45,6 +45,11 @@ out["without_topic_short_massime"] = int(len(short))
 out["without_topic_short_massime_years"] = [int(short.pid.min() // 10000), int(short.pid.max() // 10000)] if len(short) else []
 out["without_topic_no_massime"] = int(len(none_))
 out["without_topic_no_massime_2026"] = int((none_.pid // 10000 == 2026).sum())
+# completeness: the last year is partial (download of 8/11/2026)
+nd = pd.read_csv(P / "nodes.csv", usecols=["pid", "anno", "data_deposito"])
+last = nd[nd.anno == nd.anno.max()]
+out["last_year"] = {"year": int(last.anno.iloc[0]), "pronunce": int(len(last)), "last_number": int((last.pid % 10000).max()),
+                    "last_deposit": str(last.data_deposito.max())}
 # D3: how much of the self-drafted effect goes away at equal challenged provision, on two scales
 d3 = json.load(open(REPO / "reports/d3_results.json"))
 sd = d3["primary"]["coef"]["self_drafted"]["or"]

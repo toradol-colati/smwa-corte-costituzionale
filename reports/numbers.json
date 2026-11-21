@@ -23,10 +23,16 @@
  ],
  "without_topic_no_massime": 54,
  "without_topic_no_massime_2026": 51,
+ "last_year": {
+  "year": 2026,
+  "pronunce": 191,
+  "last_number": 191,
+  "last_deposit": "2026-11-06"
+ },
  "d3_self_drafted_scale": {
-  "excess_before": 4.466168936868919,
+  "excess_before": 4.466168936868927,
   "excess_after": 2.27280881373386,
-  "excess_reduction": 0.4911054987258835,
-  "log_reduction": 0.30197577919611696
+  "excess_reduction": 0.4911054987258844,
+  "log_reduction": 0.3019757791961176
  }
 }

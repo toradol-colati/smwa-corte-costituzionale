@@ -1,8 +1,8 @@
 """Is a precedent forgotten after a few years because one of the pronunce that cited it takes its place?
 Exploratory check asked by Umberto on 21/11/2026; rules fixed in docs/decisions.md before running.
-  precedents P     deposited 1970-2010 (at least 15 years of follow-up), cited at least 5 times in the first
-                   3 years after deposit (age < 4 years)
-  successors       pronunce deposited within 3 years after P that cite P
+  precedents P     deposited 1970-2010 (at least 15 years of follow-up), cited at least 5 times within 4 years
+                   of deposit (age < 4 years; the register first wrote "first 3 years")
+  successors       pronunce that cite P within 4 years of its deposit (age < 4)
   controls         for every successor, one pronuncia drawn at random (seed) with the same year of deposit, the
                    same type and the same main topic, that does not cite P
   later window     citations made when P is 4 to 15 years old, counted only from pronunce that do NOT cite P

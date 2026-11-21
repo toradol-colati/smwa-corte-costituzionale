@@ -269,6 +269,23 @@ def checks():
         out.append(("D3 completo, tipo", f"più marcato nelle ordinanze che citano ({it(sat(oo)['or'])}; {ci(sat(oo))}) che nelle sentenze ({it(sat(so)['or'])}; {ci(sat(so))})"))
     if not (loc(p2, p1) or loc(so, oo)):
         out.append(("D3 completo, non concentrato", f"(fino al 2000 {it(sat(p1)['or'])}, dal 2001 {it(sat(p2)['or'])})"))
+    # replacement of precedents (src/analysis/precedent_succession.py) and basic clarifications of Part I
+    ps = load("precedent_succession.json"); lw, ba = ps["later_window"], ps["p_citations_by_age"]
+    cs, ly = ab["collegio_size"], num["last_year"]
+    out += [
+        ("Sostituzione, rapporto", f"i successori ricevono {it(lw['ratio_successors_controls'])} volte le citazioni delle pronunce simili (intervallo "
+                                   f"{it(lw['ratio_lo'])}–{it(lw['ratio_hi'])})"),
+        ("Sostituzione, 43%", f"citate il {pc(lw['ratio_successors_controls'] - 1, 0)}% in più di pronunce simili"),
+        ("Sostituzione, precedenti", f"Sono stati presi {n(ps['precedents'])} precedenti depositati tra il 1970 e il 2010"),
+        ("Sostituzione, età", f"Entro 4 anni ricevono in media {it(ba['0-3'], 1)} citazioni; tra 4 e 8 anni {it(ba['4-7'], 1)}; tra 12 e 16 anni {it(ba['12-15'], 1)}"),
+        ("Sostituzione, medie", f"{it(lw['successors_mean'], 1)} contro {it(lw['p_itself_mean'], 1)} in media) è risultata poco utile, perché vale anche per le "
+                                f"pronunce simili ({it(lw['controls_mean'], 1)})"),
+        ("Sostituzione, 3.3", f"{it(lw['ratio_successors_controls'])} volte le citazioni di pronunce dello stesso anno, tipo e topic principale"),
+        ("Collegio, sotto 15", f"il {pc(cs['share_under_15'])}% delle pronunce ha meno di 15 giudici; in media ci sono {it(cs['mean_in_office'], 1)} giudici in "
+                               f"carica, {it(cs['mean_size'], 1)} nel collegio e {it(cs['mean_absent'], 1)} assenti"),
+        ("Collegio, motivi", f"il {pc(cs['under_15_with_empty_seat'])}% cade in un periodo con un seggio vuoto e l'{pc(cs['under_15_with_absent_judge'])}% ha almeno"),
+        ("Ultimo anno", f"del {ly['year']} ci sono le pronunce fino alla numero {ly['last_number']}, depositata il {ly['last_deposit']}"),
+    ]
     # Part I repeats the main numbers in plain words: they are checked separately
     sc = load("numbers.json")["d3_self_drafted_scale"]
     s3 = d3["primary"]["coef"]["sat_not_drafted"]
