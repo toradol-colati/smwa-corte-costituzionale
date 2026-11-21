@@ -79,8 +79,9 @@ save(fig, "fig6_authority_vs_citazioni.png")
 
 # 7. D3 forest
 d3 = json.load(open(R / "d3_results.json"))
-rows = [("PRINCIPALE: sedeva nel collegio, non redattore", d3["primary"]["coef"]["sat_not_drafted"], True)]
-rows += [(k, v["coef"]["sat_not_drafted"], False) for k, v in d3["variants"].items()]
+from d3_memoria_collegiale import VARIANT_LABELS  # plain labels for the JSON keys
+rows = [("Risultato principale: sedeva nel collegio, senza averlo scritto", d3["primary"]["coef"]["sat_not_drafted"], True)]
+rows += [(VARIANT_LABELS.get(k, k), v["coef"]["sat_not_drafted"], False) for k, v in d3["variants"].items()]
 fig, ax = plt.subplots(figsize=(8, 5))
 for i, (lab, c, main) in enumerate(rows[::-1]):
     ax.errorbar(c["or"], i, xerr=[[c["or"] - c["lo"]], [c["hi"] - c["or"]]], fmt="o", color=RED if main else GREY, capsize=3)

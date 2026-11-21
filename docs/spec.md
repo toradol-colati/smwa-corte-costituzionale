@@ -50,7 +50,7 @@ Per D1 resta una domanda aperta: il loro risultato su autorevolezza e citazioni 
 
 Prima di dirlo nella relazione restava da leggere per intero Agnoloni e Pagallo e da cercare studi sui singoli giudici in altre corti costituzionali europee.
 
-**Perché una legge di potenza non basta.** Una distribuzione di questo tipo la producono anche abitudini di citazione ripetitive: non prova che la Corte costruisca consapevolmente una gerarchia (Frankenreiter 2017, in risposta a Derlén e Lindholm). Per questo D1 si giudica solo con test veri e con il confronto con il caso.
+**Perché una legge di potenza non basta.** Agnoloni e Pagallo trovano che le citazioni seguono una legge di potenza. Una distribuzione di questo tipo la producono anche abitudini di citazione ripetitive: non prova che la Corte costruisca consapevolmente una gerarchia (Frankenreiter 2017, in risposta a Derlén e Lindholm). Per questo D1 si giudica solo con test veri e con il confronto con il caso.
 
 | Domanda | Che cosa ci si aspetta | Se è vero | Se è falso |
 | --- | --- | --- | --- |
@@ -204,7 +204,7 @@ Parole come "concentrata", "forte" o "alta" si usano solo con un test o un confr
         - Si riporta ogni anno quante pronunce hanno autorevolezza zero: HITS su una rete senza cicli può concentrare tutto su un solo gruppo.
      2. **Confronto con le citazioni, contro il caso.**
         - Tre misure: l'accordo tra le due classifiche (correlazione di Spearman), quante pronunce stanno nell'1% più alto di entrambe, R².
-        - Confronto con 1.000 versioni a citazioni scambiate.
+        - Confronto con 1.000 versioni a citazioni scambiate (gli scambi alla Uzzi descritti sopra).
         - Tre reti, in quest'ordine:
           - prima la ripetizione del lavoro di Agnoloni e Pagallo sul loro insieme: sentenze in via incidentale fino al 2014;
           - poi la rete completa;
@@ -397,3 +397,13 @@ In ordine: ogni passo serve al successivo.
 - [Fowler, Johnson, Spriggs, Jeon e Wahlbeck (2007), Network Analysis and the Law, Political Analysis](https://www.cambridge.org/core/journals/political-analysis/article/network-analysis-and-the-law-measuring-the-legal-importance-of-precedents-at-the-us-supreme-court/D9B2F13BE2594E1527780AAFDD6BF164)
 - [Lupu e Voeten (2012), Precedent in International Courts, British Journal of Political Science](https://econpapers.repec.org/RePEc:cup:bjposi:v:42:y:2012:i:02:p:413-439_00)
 - [Derlén e Lindholm (2014), sulla Corte di giustizia dell'UE, European Law Journal](https://zendy.io/title/10.1111/eulj.12077)
+
+Riferimenti da recuperare, di cui non è stata consultata una pagina precisa:
+
+- Kleinberg (1999), Authoritative Sources in a Hyperlinked Environment, Journal of the ACM
+- Easley e Kleinberg (2010), Networks, Crowds, and Markets, testo del corso
+- Barabási (2016), Network Science, testo del corso
+- Karrer e Newman (2009), Random graph models for directed acyclic networks, Physical Review E
+- Clauset, Shalizi e Newman (2009), Power-law distributions in empirical data, SIAM Review
+- Rosvall e Bergstrom (2008), Maps of random walks on complex networks reveal community structure, PNAS
+- Traag, Waltman e van Eck (2019), From Louvain to Leiden, Scientific Reports

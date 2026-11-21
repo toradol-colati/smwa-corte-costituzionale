@@ -72,8 +72,8 @@ Queste regole valgono quando si lavora sui programmi che leggono i dati, estragg
 - Ci sono giudici con lo stesso cognome (Sandulli, Reale, Gallo, Marini): il collegamento all'elenco dei giudici usa nome, cognome e periodo del mandato, mai il solo cognome. Le righe dell'elenco con più nomi ("Lattanzi - Cartabia") non sono giudici e si scartano.
 - L'elenco dei giudici va completato, con la fonte di ogni correzione: mancano 33 date di fine mandato (calcolate come giuramento più 9 anni, `docs/decisions.md`, 16/11/2026) e la fine del mandato di Spagnoli è sbagliata (1995, non 2005). Le correzioni stanno nel codice di `src/judges/build_judges.py`.
 - Relatore e redattore possono essere persone diverse: si conservano tutti e due, e si segnalano i casi in cui sono diversi.
-- Nei collegi dei giudizi d'accusa possono comparire giudici aggiunti, che non sono giudici costituzionali: non si collegano all'elenco dei giudici.
-- Una pronuncia può avere più redattori: nel campo `redattore_pronuncia` succede in 17 pronunce, dal 2016. Come contarle nella rete dei giudici si decide e si scrive in `docs/decisions.md`.
+- Nei collegi dei giudizi d'accusa possono comparire i giudici aggregati (i cittadini estratti a sorte che si aggiungono ai giudici della Corte, Costituzione art. 135), che non sono giudici costituzionali: non si collegano all'elenco dei giudici.
+- Una pronuncia può avere più redattori: nel campo `redattore_pronuncia` succede in 17 pronunce, dal 2016. Come contarle nello strato 2 (giudice → pronuncia scritta) e nella rete tra giudici si decide e si scrive in `docs/decisions.md`.
 - Il collegio non è un campo ordinato: l'elenco dei giudici presenti si ricava dal testo ("composta dai signori" o formule simili).
 - La soglia per il collegio: almeno il 98% delle pronunce con il collegio riconosciuto per intero, cioè tra 11 (il numero legale) e 15 giudici, tutti collegati all'elenco. Le pronunce sotto la soglia vanno in `data/interim/collegio_errors.csv`.
 

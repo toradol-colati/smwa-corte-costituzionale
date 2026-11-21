@@ -25,7 +25,7 @@ Questo file dice a chi lavora sul progetto, compreso Claude Code (l'assistente d
 
 - Il tema non è ancora approvato dal docente. Il 16/11/2026 Umberto ha chiesto di fare comunque tutte le analisi: la regola "nessuna analisi prima dell'approvazione" non vale più (`docs/decisions.md`).
 - I dati sono stati scaricati l'8/11/2026 (`data/raw/MANIFEST.csv`). Tutte le scelte aperte sono state fissate il 16/11/2026, prima di vedere i risultati.
-- Fino alla pronuncia 286/1986 (dicembre 1986) i dati non dicono chi ha scritto la pronuncia: al suo posto si usa il relatore, e la colonna `redattore_source` dice da dove viene il nome. D2 e D3 sono rifatti anche sulle sole pronunce dal 1987, come variante.
+- Fino alla pronuncia 286/1986 (cioè prima del 23/12/1986) i dati non dicono chi ha scritto la pronuncia: al suo posto si usa il relatore, e la colonna `redattore_source` dice da dove viene il nome. D2 e D3 sono rifatti anche sulle sole pronunce dal 1987, come variante.
 - Le analisi sono state fatte il 16/11/2026 e corrette il 18/11/2026 dopo un controllo (sul ramo `main`, un commit per ogni correzione dopo la fotografia del 17/11, che ha l'etichetta git `versione-17-11`). I risultati sono in `reports/relazione_for_dummies.md`; le correzioni in `docs/decisions.md`; il collegamento tra il programma d'esame e le analisi in `docs/course_mapping.md`.
 - 19/11/2026, su richiesta di Umberto: una materia più fine, ricavata dagli articoli della Costituzione invocati (varianti di D2 e D3, `src/analysis/parametri.py`); un controllo del contesto e dei dati di Cassazione, Consiglio di Stato, Corte europea dei diritti dell'uomo e Corte di giustizia dell'Unione europea (`docs/context_corti.md`), fatto prima di scrivere qualsiasi programma di estrazione.
 - 20/11/2026, dopo una revisione esterna incollata da Umberto: descritte le assenze dal collegio (`src/analysis/d3_absences.py`); controllato il numero 0,88 del modello completo di D3, con regole fissate prima (`src/analysis/d3_full_check.py`); citati i libri di testo solo nei capitoli letti (`docs/sources.md`); divisa la relazione in due parti (Parte I, il lavoro in breve; Parte II, i dettagli), senza la cronologia nel testo. La storia delle correzioni sta in `docs/decisions.md` e nella sezione 2.9 della relazione.
@@ -39,14 +39,14 @@ Questo file dice a chi lavora sul progetto, compreso Claude Code (l'assistente d
   - il confronto della mappa del programma d'esame con l'elenco delle lezioni;
   - due scelte che spettano a Umberto dopo aver visto il materiale: la seconda versione della polarità e l'unità della rete tra corti (`docs/decisions.md`, "Ancora da decidere").
 - Più avanti, dopo aver finito tutto in Python: l'analisi andava fatta in R, quindi andrà rifatta in R. Per ora non si cambia nulla.
-- L'ambiente: i risultati vengono da un ambiente virtuale (`.venv`) creato con `--system-site-packages` sopra Anaconda (Python 3.12.4); le versioni usate sono fissate in `requirements.lock`. I comandi si lanciano con `.venv/bin/python`.
+- L'ambiente: i risultati del 16–18/11/2026 vengono da un ambiente virtuale (`.venv`) creato con `--system-site-packages` sopra Anaconda (Python 3.12.4); le versioni usate sono fissate in `requirements.lock`. I comandi si lanciano con `.venv/bin/python`.
 - La cartella è sincronizzata con iCloud, con l'ottimizzazione dello spazio: molti file di `data/` restano sul cloud finché non servono, e la lettura può bloccarsi. `brctl download <file>` li riporta sul computer.
 
 ## Le domande di ricerca
 
 La formulazione unica, da usare identica nel riassunto e nella presentazione: "In un ordinamento in cui il precedente non vincola, la Corte costituzionale costruisce comunque una gerarchia di precedenti? E quanto di quell'autorità passa attraverso i giudici che redigono e decidono le pronunce?" Nella relazione la stessa domanda è spiegata in parole semplici (Parte I, "La domanda"), senza cambiarne il senso.
 
-Il risultato principale, l'unico da cui si traggono conclusioni formali, è l'odds ratio di `sat_not_drafted` in D3, stimato sulle assenze dal collegio (`docs/spec.md`, "Modelli nulli", punto 5). Gli altri risultati sono secondari.
+Il risultato principale, l'unico da cui si traggono conclusioni formali, è l'odds ratio di `sat_not_drafted` in D3, stimato sulle assenze dal collegio (`docs/spec.md`, "Come si controlla ogni risultato", punto 5). Gli altri risultati sono secondari.
 
 - **D1, le pronunce.** Le citazioni sono concentrate su poche pronunce? Le pronunce più autorevoli secondo il metodo HITS (le "authority") sono anche le più citate? Quanto dura un precedente?
 - **D2, i giudici.** Le pronunce scritte da un giudice sono citate più di quanto ci si aspetta date le sue occasioni? L'effetto dura oltre il mandato?

@@ -124,6 +124,6 @@
 
 ## 5. Che cosa resta da decidere
 
-- **Sentiment.** Affrontato con la polarità delle citazioni (sezione 3.9): le regole non hanno superato la soglia (precisione 0,76 contro 0,80). Una seconda versione andrebbe decisa prima e provata su dati mai visti, con la lettura di una persona.
+- **Sentiment.** Affrontato il 18/11/2026 con la polarità delle citazioni (sezione 3.9): le regole non hanno superato la soglia (precisione 0,76 contro 0,80). Una seconda versione andrebbe decisa prima e provata su dati mai visti, con la lettura di una persona.
 - **Dati dei social network.** Non ce ne sono: il tema resta da concordare con il docente.
 - **Elenco delle lezioni.** Questa mappa va confrontata con le slide del corso su Moodle.

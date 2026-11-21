@@ -1,5 +1,5 @@
 """Topic model (LDA) on the texts of the massime, to obtain the subject matter of
-each pronuncia. Rules fixed in docs/spec.md (Modelli nulli, point 8):
+each pronuncia. Rules fixed in docs/spec.md ("Come si controlla ogni risultato", point 8):
   - K in 10..60 step 10; choose the smallest K whose coherence is within 2% of the best
     (NPMI on document co-occurrence of the top-10 words; see docs/decisions.md);
   - stability over 5 seeds;
@@ -242,7 +242,7 @@ def main() -> None:
     json.dump({"coherence": res, "k": k_star, "stability": stab, "nmi_title": nmi_title, "nmi_art": nmi_art,
                "labels": labels, "top_words": {int(k): list(vocab[tops[k]]) for k in range(k_star)}},
               open(REPO / "reports/topics.json", "w"), ensure_ascii=False, indent=1)
-    print("\n".join(out[:12]))
+    print("\n".join(render_md(st, rows).splitlines()[:12]))
 
 
 if __name__ == "__main__":

@@ -34,7 +34,7 @@ Ogni risultato dice con quale confronto è stato fatto.
 
 - **La coda delle citazioni ricevute (D1),** cioè quante pronunce sono citate moltissimo: si rimescolano le pronunce citate, solo tra quelle già depositate. Si conservano le citazioni fatte da ogni pronuncia e la curva osservata delle citazioni per età del precedente. Non si conservano le citazioni ricevute, perché sono proprio quello che si vuole verificare.
 - **La struttura oltre i conteggi** (co-citazione, gruppi di pronunce, confronto tra le pronunce più autorevoli secondo HITS e le più citate): si scambiano le pronunce citate tra coppie di citazioni con lo stesso anno della pronuncia che cita e della pronuncia citata (Uzzi e altri, 2013). Uno scambio è ammesso solo se ogni pronuncia citata resta depositata prima, o lo stesso giorno, della pronuncia che la cita. Così si conservano le citazioni ricevute, le citazioni fatte e l'età delle citazioni. Variante: il modello di Karrer e Newman (2009), che non conserva l'età delle citazioni.
-- **D1, autorevolezza e citazioni** (`docs/spec.md`, "Modelli nulli", punto 3):
+- **D1, autorevolezza e citazioni** (`docs/spec.md`, "Come si controlla ogni risultato", punto 3):
   - HITS si calcola anno per anno, sulla rete fino a quell'anno; PageRank come variante;
   - la posizione di una pronuncia (il percentile) si calcola tra le pronunce depositate nello stesso anno, da quando la rete ha 1.000 pronunce (1966); una finestra di più anni come variante;
   - si riporta la quota di pronunce con autorevolezza zero;
