@@ -1,447 +1,447 @@
 # Guida al progetto scientifico
 
-2026-11-08, aggiornata il 2026-11-16 · Umberto Toraldo
+Scritta l'8/11/2026 e aggiornata il 16/11/2026 da Umberto Toraldo; riscritta in linguaggio semplice il 21/11/2026, con le stesse indicazioni.
 
-Un progetto di ricerca regge se chi legge capisce cosa si studia, può ricostruire dati e metodi e trova risultati con incertezza e termine di confronto. Questa guida raccoglie le regole per arrivarci: impostazione, stesura, grafici, ricerca della letteratura. Le istruzioni della destinazione (rivista, corso o committente) prevalgono sempre su queste indicazioni generali.
+Un progetto di ricerca funziona se chi legge capisce tre cose: che cosa si studia; come rifare la raccolta dei dati e i calcoli; quanto sono sicuri i risultati e con che cosa vanno confrontati. Questa guida raccoglie le regole per arrivarci: come impostare il lavoro, come scriverlo, come fare i grafici, come cercare gli studi precedenti. Le istruzioni di chi riceve il lavoro (una rivista, un corso, un committente) valgono sempre di più di queste indicazioni generali.
 
-## 1. Il progetto sezione per sezione
+## 1. Il progetto, sezione per sezione
 
 ### 1.1 Prima di scrivere
 
-- Il motto "publish or perish" resta valido: pubblicare serve per la carriera, per ottenere o giustificare finanziamenti e per titoli come master o dottorato. Eppure molti giovani ricercatori hanno poca o nessuna formazione nella scrittura scientifica, e chi lavora in clinica ha per la ricerca poco tempo, e irregolare.
-- Chi è coinvolto a fondo nel proprio lavoro fatica a prendere distanza e a spiegarlo con chiarezza a lettori che probabilmente non sono esperti del campo.
-- La concorrenza tra lavori di buona qualità è forte: un lavoro valido rischia di essere respinto per scrittura scadente e dati presentati in modo confuso, invece di essere giudicato sul merito scientifico.
-- L'obiettivo realistico è una prima bozza di buona qualità da far rifinire a coautori e mentori.
-- Il lavoro preparatorio precede la prima parola e di solito coincide con quello fatto per il progetto: il tempo investito nel protocollo è un anticipo sulla scrittura.
-- La rassegna della letteratura fatta per stabilire lo stato delle conoscenze e garantire l'originalità della ricerca serve anche per il testo.
-- Dove cercare la letteratura, come distinguere lavori pubblicati e non pubblicati, come valutare le riviste: sezione 4.
-- Mentre si legge, annotare i punti o le frasi da usare insieme al riferimento. Un software di gestione bibliografica, gratuito o commerciale, aiuta con il gran numero di fonti.
-- Di solito i risultati finali dell'analisi statistica ci sono già: sono la base della sezione risultati e alcuni grafici diventeranno figure. Evidenziare i risultati più importanti mentre li si rilegge, per non dimenticare nulla.
-- Scegliere quali risultati mostrare. Spesso conviene scegliere per prime le figure da pubblicare, con due criteri: la figura mostra qualcosa di nuovo? È importante per capire la tecnica o i risultati? L'interesse di chi scrive per i dettagli del proprio lavoro è maggiore di quello del lettore: scegliere.
-- Scegliere la destinazione prima di scrivere. Incide sul formato e soprattutto sullo stile, che va adattato al lettore: esperto del campo o di altre discipline. Da qui dipende quanta e quale informazione includere.
-- Per una rivista, considerare anche la linea editoriale (alcune preferiscono la ricerca di base, altre quella clinica) e, come minimo, verificare che il lavoro rientri nel suo ambito. Tipi di rivista (generaliste, di settore, interdisciplinari, regionali), impact factor, ranking e reputazione: 4.4.
-- Fissare la struttura del testo prima di scrivere (vedi 1.2).
-- Trovare l'ordine di stesura più naturale per sé. Esempi: dall'introduzione fino in fondo, poi didascalie, bibliografia e abstract; oppure didascalie, abstract, corpo del testo e di nuovo abstract.
+- Pubblicare conta ancora molto ("publish or perish", pubblica o sparisci): serve per la carriera, per ottenere o giustificare finanziamenti e per titoli come un master o un dottorato. Eppure molti giovani ricercatori non hanno mai imparato a scrivere un testo scientifico, e chi lavora come medico ha per la ricerca poco tempo, e a pezzi.
+- Chi è dentro il proprio lavoro fa fatica a guardarlo da fuori e a spiegarlo con chiarezza a lettori che, probabilmente, non sono esperti di quel campo.
+- I lavori di buona qualità sono tanti. Un lavoro valido può essere respinto perché è scritto male o perché i dati sono presentati in modo confuso, invece di essere giudicato per quello che scopre.
+- Un obiettivo realistico è una prima bozza di buona qualità, che i coautori e chi segue il lavoro (i mentori) poi rifiniscono.
+- Il lavoro di preparazione viene prima della prima parola, e di solito coincide con quello fatto per impostare il progetto: il tempo speso a scrivere il piano (il protocollo) è tempo guadagnato per la stesura.
+- La lettura degli studi precedenti, fatta per sapere che cosa si conosce già e per essere sicuri che la ricerca sia nuova, serve anche per scrivere il testo.
+- Dove cercare gli studi, come distinguere quelli pubblicati da quelli non pubblicati, come valutare le riviste: sezione 4.
+- Mentre si legge, conviene annotare i punti o le frasi da usare, insieme al riferimento preciso. Un programma per gestire la bibliografia, gratuito o a pagamento, aiuta quando le fonti sono tante.
+- Di solito, quando si comincia a scrivere, i risultati finali dei calcoli ci sono già. Sono la base della sezione dei risultati, e alcuni grafici diventeranno figure. Rileggendoli conviene evidenziare quelli più importanti, per non dimenticarne nessuno.
+- Bisogna scegliere quali risultati mostrare. Spesso conviene scegliere per prime le figure, con due domande: la figura mostra qualcosa di nuovo? È importante per capire il metodo o i risultati? A chi scrive interessano i dettagli del proprio lavoro più di quanto interessino al lettore: bisogna scegliere.
+- Bisogna scegliere a chi è destinato il lavoro prima di scrivere. La scelta decide il formato e soprattutto lo stile, che va adattato al lettore: esperto del campo o di altre materie. Da qui dipende quanta informazione mettere, e quale.
+- Per una rivista bisogna guardare anche che cosa pubblica di solito (alcune preferiscono la ricerca di base, altre quella applicata alla clinica) e, come minimo, controllare che il lavoro rientri nei suoi argomenti. I tipi di rivista (generali, di un settore, tra più discipline, regionali), l'impact factor, le classifiche e la reputazione sono spiegati nella sezione 4.4.
+- La struttura del testo va fissata prima di scrivere (sezione 1.2).
+- Ognuno trova l'ordine di stesura che gli viene più naturale. Due esempi: dall'introduzione fino alla fine, poi le didascalie, la bibliografia e il riassunto; oppure le didascalie, il riassunto, il resto del testo e di nuovo il riassunto.
 
-### 1.2 Struttura del testo
+### 1.2 Com'è fatto il testo
 
-- Il formato più diffuso è IMRAD: introduzione, metodi, risultati, discussione, in quest'ordine. Ci sono eccezioni: verificare sempre le istruzioni della destinazione.
-- Si aggiungono l'abstract, che riassume le sezioni principali, e il titolo, con autori, affiliazioni ed eventuali parole chiave (vedi 2.5). In fondo vanno bibliografia, tabelle e didascalie delle figure.
-- Sezioni facoltative: ringraziamenti, conflitti di interesse, contributi degli autori, appendici (vedi 1.12).
-- Variante diffusa: titolo, autori e affiliazioni, parole chiave; abstract; introduzione; rassegna della letteratura come sezione a sé; metodi, materiali e dati; risultati; conclusioni; bibliografia; appendici. Discussione e conclusioni possono essere un'unica sezione o due (vedi 1.10).
+- La struttura più diffusa è quella detta IMRAD, dalle iniziali inglesi delle quattro parti, in quest'ordine: introduzione, metodi, risultati, discussione. Ci sono eccezioni: bisogna sempre controllare le istruzioni di chi riceve il lavoro.
+- Si aggiungono il riassunto iniziale (l'abstract), che riassume le parti principali, e il titolo, con gli autori, i loro enti di appartenenza (le affiliazioni) ed eventualmente le parole chiave (sezione 2.5). In fondo vanno la bibliografia, le tabelle e le didascalie delle figure.
+- Parti che si possono aggiungere: i ringraziamenti, i conflitti di interesse, che cosa ha fatto ciascun autore, le appendici (sezione 1.12).
+- Una variante diffusa: titolo, autori e affiliazioni, parole chiave; riassunto; introduzione; rassegna degli studi precedenti come parte a sé; metodi, materiali e dati; risultati; conclusioni; bibliografia; appendici. Discussione e conclusioni possono stare in un'unica parte o in due (sezione 1.10).
 
-### 1.3 Domanda di ricerca e obiettivo
+### 1.3 La domanda di ricerca e l'obiettivo
 
-- Serve una domanda di ricerca, motivata. Non serve il punto interrogativo: conta che il lettore capisca cosa si studia e cosa conterebbe come risposta. Una domanda esplicita, un obiettivo chiaro o ipotesi esplicite possono tutti assolvere questo compito.
-- Le ipotesi rendono il lavoro verificabile; un'ipotesi respinta è un risultato, non un fallimento.
-- Una variabile non può stare da entrambi i lati della domanda.
-- Più sotto-domande vanno bene se un filo principale le tiene insieme.
-- L'obiettivo va formulato con cura ed esplicitamente: il parametro esatto da valutare e con quali mezzi, la popolazione o il contesto, gli eventuali obiettivi secondari. Può essere accompagnato dall'ipotesi di lavoro.
-- L'obiettivo dichiarato nel testo è lo stesso del protocollo; ogni progetto dovrebbe avere un protocollo scritto prima di iniziare.
-- Scegliere una formulazione dell'obiettivo e usarla identica in introduzione, risultati, discussione, abstract e, in parte, nel titolo. La ripetizione non è un difetto: mostra padronanza dell'argomento ed evita confusione.
+- Serve una domanda di ricerca, con il suo perché. Non serve il punto interrogativo: conta che il lettore capisca che cosa si studia e che cosa conterebbe come risposta. Possono farlo una domanda esplicita, un obiettivo chiaro, o delle ipotesi dichiarate.
+- Le ipotesi rendono il lavoro verificabile. Un'ipotesi smentita è un risultato, non un fallimento.
+- La stessa misura non può stare da tutti e due i lati della domanda: non si può spiegare qualcosa con sé stesso.
+- Più domande secondarie vanno bene, se un filo principale le tiene insieme.
+- L'obiettivo va scritto con cura e in modo esplicito: che cosa esattamente si misura e con quali mezzi, su quale popolazione o in quale contesto, ed eventuali obiettivi secondari. Può essere accompagnato dall'ipotesi di partenza.
+- L'obiettivo scritto nel testo è lo stesso del piano iniziale (il protocollo). Ogni progetto dovrebbe avere un piano scritto prima di cominciare.
+- Conviene scegliere un modo di dire l'obiettivo e usarlo identico nell'introduzione, nei risultati, nella discussione, nel riassunto e, in parte, nel titolo. Ripetersi non è un difetto: mostra che si padroneggia l'argomento ed evita confusione.
 - Esempi:
-    - un obiettivo senza domanda: studiare la polarizzazione online in nove paesi (Canada, Francia, Germania, Italia, Polonia, Spagna, Turchia, Regno Unito, USA), cioè la struttura delle reti di interazione politica, il linguaggio tossico verso gli out-group e la relazione con l'engagement (Falkenberg et al., 2024);
-    - una domanda esplicita: quanto è polarizzata la comunicazione nelle comunità di X durante il primo dibattito televisivo delle presidenziali USA 2024 (Harris–Trump), e se l'analisi del testo ne rivela l'orientamento politico;
-    - un obiettivo con un'ipotesi verificabile: in un forum con mance in Bitcoin (Staker News), quale comportamento rende di più, con l'ipotesi "più contenuti pubblicati, più guadagni";
-    - un obiettivo semplice: tono emotivo, temi e somiglianze tra le canzoni di un rapper;
-    - da evitare: chiedersi come like, visualizzazioni e sentiment dei commenti influenzino le prestazioni di un video misurate in visualizzazioni e tasso di interazione, perché le visualizzazioni stanno da entrambi i lati;
+    - un obiettivo senza domanda: studiare la polarizzazione online (la divisione in schieramenti contrapposti) in nove paesi (Canada, Francia, Germania, Italia, Polonia, Spagna, Turchia, Regno Unito, USA), cioè come sono fatte le reti di scambi politici, il linguaggio offensivo verso chi sta dall'altra parte e il legame con il coinvolgimento degli utenti (Falkenberg e altri, 2024);
+    - una domanda esplicita: quanto è polarizzata la comunicazione nelle comunità di X durante il primo dibattito televisivo delle presidenziali americane del 2024 (Harris–Trump), e se l'analisi del testo ne rivela l'orientamento politico;
+    - un obiettivo con un'ipotesi verificabile: in un forum in cui si ricevono mance in Bitcoin (Staker News), quale comportamento fa guadagnare di più, con l'ipotesi "più contenuti si pubblicano, più si guadagna";
+    - un obiettivo semplice: il tono emotivo, i temi e le somiglianze tra le canzoni di un rapper;
+    - da evitare: chiedersi come like, visualizzazioni e tono dei commenti influiscano sul successo di un video, misurato con visualizzazioni e quota di interazioni. Le visualizzazioni stanno da tutti e due i lati della domanda;
     - un contesto su musica, umore e disturbi mentali seguito da cinque domande diverse: regge solo se un filo comune le tiene insieme.
 
-### 1.4 Motivazione, letteratura e lacuna
+### 1.4 Perché lo studio serve: gli studi precedenti e la lacuna
 
-- L'introduzione porta dalla letteratura a una lacuna e dalla lacuna alla domanda. I riferimenti devono essere scientifici, citati nel testo e pertinenti a ciò che il lavoro fa.
-- La letteratura finisce dove comincia la domanda.
-- Una lacuna è qualcosa che non sappiamo, non un metodo che nessuno ha ancora applicato.
-- Partire da ciò che è noto e citato. Citare ciò che si usa, usare ciò che si cita.
-- Sequenza: cosa è già noto, con riferimenti; le aree ancora incerte, citando dati precedenti anche contrastanti; una lacuna esplicita che lo studio vuole colmare, essenziale per giustificarne l'utilità; ipotesi di lavoro, obiettivo o obiettivi e, molto in breve, la strategia per raggiungerli.
-- L'introduzione descrive anche il contesto del lavoro e la struttura del testo.
-- Se la rassegna della letteratura è una sezione a sé (vedi 1.2), l'introduzione ne dà una breve panoramica e dice perché il lavoro va fatto.
-- A volte serve criticare lavori precedenti: farlo con misura, perché nessuno vuole che altri siano duri con il proprio lavoro (vedi anche la diplomazia in 1.10).
-- L'introduzione deve catturare l'attenzione, in particolare quella del revisore, che deve voler continuare a leggere. Spiega perché si è fatto lo studio, cosa si voleva ottenere e perché è un'aggiunta utile alle conoscenze.
-- Le ragioni dello studio devono essere chiare e giustificate dallo stato delle conoscenze. Non serve citare tutta la letteratura: basta una selezione delle pubblicazioni più pertinenti.
-- Niente verità universali o ovvietà. Equilibrio tra contesto rilevante e dettaglio eccessivo, in base al pubblico: per specialisti il contesto può essere più tecnico.
-- Dichiarare il valore aggiunto: quali informazioni nuove porta lo studio, se cambierà la pratica, se aiuterà a chiudere una questione controversa con prove in una direzione. È la "presentazione commerciale" del lavoro, nei termini appropriati.
-- Gli obiettivi del lavoro vanno sempre dichiarati. Se esistono lavori simili, dire cosa c'è di nuovo, nel metodo o nei risultati. Un metodo nuovo è un contributo da dichiarare, ma non è di per sé una lacuna: la lacuna resta ciò che non sappiamo (vedi sopra).
-- Non divagare: ogni frase deve servire a qualcosa. Rispettare i limiti di lunghezza della destinazione; senza indicazioni, l'introduzione di un articolo sta in circa 1–1,5 pagine.
-- Formule tipiche per la lacuna: "non è ancora noto se…", "finora non è stato dimostrato…", "nessuno studio ha finora esaminato l'effetto di…", "ci sono pochi dati per quantificare…", "l'effetto di… su… resta incerto". Per ipotesi e obiettivo: "abbiamo ipotizzato che…", "lo scopo era identificare/valutare/indagare…". Per la strategia basta una frase sul tipo di studio.
+- L'introduzione porta dagli studi precedenti a una lacuna, e dalla lacuna alla domanda. I riferimenti devono essere scientifici, citati nel testo e collegati a quello che il lavoro fa.
+- La rassegna degli studi finisce dove comincia la domanda.
+- Una lacuna è qualcosa che non sappiamo, non un metodo che nessuno ha ancora usato.
+- Si parte da ciò che è noto e citato. Si cita ciò che si usa, e si usa ciò che si cita.
+- L'ordine: che cosa si sa già, con i riferimenti; che cosa è ancora incerto, citando anche i risultati precedenti in contrasto tra loro; una lacuna esplicita che lo studio vuole colmare, indispensabile per dire perché lo studio serve; l'ipotesi di partenza, l'obiettivo o gli obiettivi e, molto in breve, come si pensa di raggiungerli.
+- L'introduzione descrive anche il contesto del lavoro e come è organizzato il testo.
+- Se la rassegna degli studi è una parte a sé (sezione 1.2), l'introduzione ne dà un quadro breve e dice perché il lavoro va fatto.
+- A volte serve criticare lavori precedenti. Va fatto con misura, perché nessuno vuole che altri siano duri con il proprio lavoro (vedi anche la diplomazia nella sezione 1.10).
+- L'introduzione deve catturare l'attenzione, soprattutto di chi valuta il lavoro per la rivista (il revisore), che deve aver voglia di continuare a leggere. Spiega perché si è fatto lo studio, che cosa si voleva ottenere e perché aggiunge qualcosa di utile a ciò che si sa.
+- Le ragioni dello studio devono essere chiare e giustificate da ciò che si sa. Non serve citare tutti gli studi: basta una scelta dei più pertinenti.
+- Niente verità universali o ovvietà. Serve un equilibrio tra il contesto che serve e i dettagli di troppo, a seconda del lettore: per gli specialisti il contesto può essere più tecnico.
+- Va detto chiaramente che cosa aggiunge lo studio: quali informazioni nuove porta, se cambierà il modo di lavorare, se aiuterà a chiudere una questione discussa portando prove in una direzione. È la "presentazione commerciale" del lavoro, nei termini adatti.
+- Gli obiettivi del lavoro vanno sempre detti. Se esistono lavori simili, bisogna dire che cosa c'è di nuovo, nel metodo o nei risultati. Un metodo nuovo è un contributo da dichiarare, ma non è di per sé una lacuna: la lacuna resta ciò che non sappiamo.
+- Niente divagazioni: ogni frase deve servire a qualcosa. Vanno rispettati i limiti di lunghezza; senza indicazioni, l'introduzione di un articolo sta in circa una pagina, una pagina e mezza.
+- Frasi tipiche per la lacuna: "non è ancora noto se…", "finora non è stato dimostrato…", "nessuno studio ha finora esaminato l'effetto di…", "ci sono pochi dati per misurare…", "l'effetto di… su… resta incerto". Per l'ipotesi e l'obiettivo: "abbiamo ipotizzato che…", "lo scopo era identificare, valutare, indagare…". Per dire come si procede basta una frase sul tipo di studio.
 - Esempi:
-    - Falkenberg et al. (2024): quasi tutti gli studi, anche su riviste di alto impatto, considerano solo gli USA; gli studi tra paesi mancano anche perché è difficile ottenere dataset abbastanza grandi e non legati a parole chiave. Obiettivo: superare il limite con un dataset Twitter completo di tutte le interazioni pubbliche in 24 ore;
-    - polarizzazione su X: la letteratura su omofilia e camere dell'eco (Flaxman et al., 2016) e sulle reti di retweet e menzioni come misura dell'allineamento ideologico (Barberá, 2015) porta alla domanda;
-    - clickbait nei canali di news su YouTube (BBC News e CNN contro The Young Turks e The Jimmy Dore Show): contesto, poi la ricerca precedente sul framing emotivo dei media alternativi (Boberg et al., 2020), poi l'ipotesi: framing negativo più forte (paura, rabbia), con engagement più alto ma più volatile;
-    - da evitare: una lacuna presentata come assenza di analisi NLP sui testi di Eminem, cioè un metodo mai applicato invece di qualcosa che non sappiamo;
-    - da evitare: aprire con una domanda retorica al lettore invece che con la letteratura.
+    - Falkenberg e altri (2024): quasi tutti gli studi, anche su riviste importanti, guardano solo agli Stati Uniti; mancano studi che confrontino più paesi, anche perché è difficile avere insiemi di dati abbastanza grandi e non raccolti cercando parole chiave. L'obiettivo: superare questo limite con i dati completi di Twitter su tutti gli scambi pubblici in 24 ore;
+    - la polarizzazione su X: gli studi sulla tendenza a frequentare chi la pensa allo stesso modo (omofilia) e sulle "camere dell'eco" (Flaxman e altri, 2016), e quelli sulle reti di condivisioni e menzioni come misura della vicinanza politica (Barberá, 2015), portano alla domanda;
+    - i titoli acchiappa-clic (clickbait) nei canali di notizie su YouTube (BBC News e CNN contro The Young Turks e The Jimmy Dore Show): prima il contesto, poi gli studi precedenti sul modo in cui i media alternativi presentano le notizie puntando sulle emozioni (Boberg e altri, 2020), poi l'ipotesi: toni negativi più forti (paura, rabbia), con un coinvolgimento più alto ma più instabile;
+    - da evitare: presentare come lacuna il fatto che nessuno abbia analizzato con programmi di analisi del testo le canzoni di Eminem. È un metodo mai usato, non qualcosa che non sappiamo;
+    - da evitare: cominciare con una domanda retorica al lettore invece che con gli studi precedenti.
 
-### 1.5 Dati
+### 1.5 I dati
 
-- Chi legge deve poter ricostruire il dataset: fonte, metodo di raccolta, periodo, volumi, filtri ed eventuale campionamento fatto per una singola analisi, con numeri coerenti tra loro.
-- Citare i dati con precisione: nome del dataset, autore, link e data di raccolta.
-- Se un'analisi usa un sottocampione, dire come è stato estratto e perché.
-- Nella ricerca clinica, negli studi retrospettivi i metodi si aprono con la fonte dei dati, i criteri di inclusione e non inclusione e il numero finale di record o pazienti selezionati; negli studi prospettici il numero finale di inclusi è un risultato e va nella sezione risultati.
+- Chi legge deve poter ricostruire l'insieme dei dati: da dove vengono, come sono stati raccolti, in quale periodo, quanti sono, quali filtri sono stati usati ed eventualmente come è stato scelto un campione per una singola analisi. I numeri devono tornare tra loro.
+- I dati si citano con precisione: nome dell'insieme di dati, autore, indirizzo e data della raccolta.
+- Se un'analisi usa solo una parte dei dati, bisogna dire come è stata scelta e perché.
+- Nella ricerca medica, negli studi sul passato (retrospettivi) i metodi cominciano con la fonte dei dati, i criteri per includere o escludere i casi e il numero finale di casi o pazienti scelti; negli studi che seguono i pazienti nel tempo (prospettici) il numero finale di inclusi è un risultato, e va nella sezione dei risultati.
 - Esempi:
-    - circa 350.000 contenuti sui vaccini pubblicati su Facebook, Instagram, Twitter e YouTube da quasi tutte le testate italiane tra l'1/1/2016 e il 31/12/2021, con il numero di testate per tipo: 96 quotidiani, 462 testate solo online, 89 canali TV, 35 radio;
-    - YouTube Data API v3, quattro canali (BBC News e CNN come mainstream, The Young Turks e The Jimmy Dore Show come alternativi), ottobre 2025–gennaio 2026, 2.608 video e 451.047 commenti. Per i limiti dell'API l'analisi di rete usa solo gli ultimi 15 giorni (5–20 gennaio 2026), con le risposte ai 1.500 commenti con più like per canale (al massimo 20 ciascuno): 10.456 risposte. Il sottocampione è dichiarato, con modalità e motivo;
-    - da evitare: indicare come fonte solo l'indirizzo generico di Kaggle, che non permette di ricostruire nulla.
+    - circa 350.000 contenuti sui vaccini pubblicati su Facebook, Instagram, Twitter e YouTube da quasi tutte le testate italiane tra l'1/1/2016 e il 31/12/2021, con il numero di testate per tipo: 96 quotidiani, 462 testate solo online, 89 canali televisivi, 35 radio;
+    - i dati di YouTube scaricati con il suo servizio per i programmi (YouTube Data API v3), quattro canali (BBC News e CNN come media tradizionali, The Young Turks e The Jimmy Dore Show come alternativi), da ottobre 2025 a gennaio 2026: 2.608 video e 451.047 commenti. Per i limiti del servizio, l'analisi di rete usa solo gli ultimi 15 giorni (5–20 gennaio 2026), con le risposte ai 1.500 commenti con più like per canale (al massimo 20 ciascuno): 10.456 risposte. La parte di dati usata è dichiarata, con il modo e il motivo;
+    - da evitare: indicare come fonte solo l'indirizzo generico di Kaggle (un sito che raccoglie insiemi di dati), che non permette di ricostruire nulla.
 
-### 1.6 Costruzione della rete, per i progetti con analisi di rete
+### 1.6 Come si costruisce la rete, per i progetti con analisi di rete
 
-- Ogni rete richiede quattro scelte esplicite: cos'è un nodo, cos'è un arco, se gli archi sono diretti, cosa li pesa (se qualcosa li pesa). Ogni scelta deve avere senso per la domanda.
-- Scrivere nodo, arco, direzione e peso in una o due frasi prima di qualsiasi metrica.
-- Ragionare sul perché questa rete può rispondere alla domanda.
+- Ogni rete richiede quattro scelte esplicite: che cos'è un nodo (un punto della rete); che cos'è un arco (un collegamento tra due nodi); se gli archi hanno un verso; che cosa dà un peso agli archi, se qualcosa lo dà. Ogni scelta deve avere senso per la domanda.
+- Nodo, arco, verso e peso si scrivono in una o due frasi, prima di qualsiasi misura.
+- Bisogna chiedersi perché questa rete può rispondere alla domanda.
 - Se la struttura dei dati risponde già alla domanda, la rete non aggiunge nulla.
 - Esempi:
-    - in un forum, l'arco A–B indica che l'utente A ha commentato un contenuto (post o commento) dell'utente B; il peso è il numero di connessioni dirette tra i due;
-    - da evitare: una rete bipartita tra i 500 canali YouTube con più iscritti e le categorie tematiche, con un arco se il contenuto principale del canale rientra nella categoria, da cui si conclude che i canali formano comunità tematiche distinte. Ogni canale ha un solo contenuto principale ed è quindi legato a una sola categoria: le comunità coincidono con le categorie per costruzione, e nel grafico appaiono come gruppi a stella attorno ai nodi categoria.
+    - in un forum, l'arco A–B vuol dire che l'utente A ha commentato un contenuto (un post o un commento) dell'utente B; il peso è il numero di collegamenti diretti tra i due;
+    - da evitare: una rete a due tipi di nodi (bipartita) tra i 500 canali YouTube con più iscritti e le categorie di argomento, con un arco se l'argomento principale del canale rientra nella categoria, per concludere che i canali formano gruppi distinti per argomento. Ogni canale ha un solo argomento principale, quindi è legato a una sola categoria: i gruppi coincidono con le categorie per come è costruita la rete, e nel grafico si vedono come stelle intorno ai nodi delle categorie.
 
-### 1.7 Metodi: scelta, descrizione e analisi statistica
+### 1.7 I metodi: come sceglierli, come descriverli, i calcoli statistici
 
-Scelta dei metodi:
+**Come scegliere i metodi**
 
-- Ogni metodo risponde a un passo della domanda, con una riga che spiega perché è stato scelto al posto dell'alternativa ovvia. Parametri e metriche di qualità vanno letti onestamente.
-- Dire prima cosa si cerca, poi il metodo con cui lo si trova. Giustificare ogni scelta.
+- Ogni metodo risponde a un passo della domanda. Una riga spiega perché è stato scelto al posto dell'alternativa più ovvia. Le impostazioni scelte e le misure di qualità vanno lette con onestà.
+- Prima si dice che cosa si cerca, poi il metodo con cui lo si trova. Ogni scelta va giustificata.
 - Esempi:
-    - Falkenberg et al. (2024) dichiarano lo scopo del passo, verificare se le interazioni con l'out-group ricevono meno engagement di quelle con l'in-group, e poi motivano le scelte: media invece della mediana perché la distribuzione dei like ha code pesanti e tra il 66% (Polonia) e il 78% (USA) dei post ha 0 like nei primi 10 minuti; logaritmo dei like perché pochi post con engagement altissimo non dominino la media; +1 per evitare errori con i post a zero like;
-    - da evitare: 32 rapporti analizzati con vettorizzazione TF-IDF e clustering k-means con k = 4, senza motivare né k né il metodo.
+    - Falkenberg e altri (2024) dicono a che cosa serve il passo: controllare se gli scambi con chi sta dall'altra parte ricevono meno reazioni di quelli con chi sta dalla stessa parte. Poi spiegano le scelte: la media invece della mediana, perché pochi post hanno moltissimi like e tra il 66% (Polonia) e il 78% (USA) dei post ha 0 like nei primi 10 minuti; il logaritmo dei like, perché pochi post con moltissime reazioni non pesino troppo sulla media; +1 prima del logaritmo, per evitare errori con i post a zero like;
+    - da evitare: 32 rapporti trasformati in numeri secondo le parole che contengono (con il metodo TF-IDF) e divisi in 4 gruppi (con il metodo k-means e k = 4), senza spiegare perché 4 gruppi né perché quel metodo.
 
-Descrizione nel testo:
+**Come descriverli nel testo**
 
-- Scopo della sezione: descrivere esattamente cosa si è fatto e come, con dettaglio sufficiente perché un lettore medio con le stesse risorse possa riprodurre lo studio.
-- Ogni risultato presentato deve avere un metodo descritto: non si riportano esiti di test o analisi non dichiarati nei metodi. Per procedure già pubblicate basta un breve riassunto con riferimento.
-- Questa sezione è spesso quella che il revisore studia con più attenzione: decide se ci si può fidare dei risultati. Se giudica la tecnica non abbastanza solida, il lavoro viene respinto.
-- Regola pratica: metodo, strumento o tipo di dati nuovi vanno descritti in dettaglio, perché servono alla riproducibilità; metodo o strumento noti, già usati e descritti in altri lavori, spesso richiedono solo il riferimento. Non ripetere descrizioni.
-- Anche il "quando" può contare: date e orari delle osservazioni, soprattutto se il fenomeno studiato varia nel tempo.
-- Una figura spesso illustra e chiarisce il metodo; anche una tabella può servire qui, per esempio una tabella delle osservazioni.
-- Si parte dal disegno dello studio: per esempio prospettico o retrospettivo, randomizzato o no, in doppio cieco o in aperto, controllato, crossover, fattoriale. Le scelte di disegno insolite vanno giustificate con riferimenti, linee guida o il contesto specifico.
-- Poi chi o cosa si è studiato (animali, persone, cellule…). Nella ricerca clinica: criteri di inclusione e non inclusione, e procedure con cui si sono identificati i pazienti idonei (visite, ricoveri, giri in reparto, riunioni).
-- Poi i metodi di misura di tutti i parametri principali, con endpoint primario e secondari e il modo in cui sono misurati.
-- L'endpoint primario è decisivo: è l'unico criterio che permette conclusioni formali sull'esito dello studio, quindi va scelto con cura, già in fase di progettazione.
-- Dettagliare ogni esame, intervento, operazione, questionario o tecnica di imaging; per apparecchiature o test specifici, il produttore (nome, città, paese). Frasi brevi possono spiegare perché si è presa ogni misura; sottotitoli possono dividere la sezione.
-- Etica, nella ricerca clinica: breve nota sull'approvazione del comitato etico (o sul perché manca) e sul consenso informato scritto dei soggetti, o di familiari o rappresentanti. Per gli studi randomizzati, registrazione in un registro approvato (es. www.clinicaltrials.gov) con il numero. Molte riviste chiedono nome del comitato e data di approvazione, alcune il numero di pratica; dove metterli dipende dalle istruzioni della rivista.
-- L'ultimo paragrafo dei metodi è l'analisi statistica:
-    - prima le convenzioni di presentazione: dati quantitativi a distribuzione normale come media ± deviazione standard, non normali come mediana [intervallo interquartile], dati qualitativi come numero (percentuale);
-    - poi i test usati per ciascun tipo di variabile, il tipo di analisi multivariata con le variabili incluse, l'approccio per l'analisi di sopravvivenza;
-    - la giustificazione della dimensione campionaria: ipotesi sulla frequenza dell'esito e sulla sua varianza, differenza attesa, rischi alfa e beta usati nel calcolo;
-    - il livello di significatività e il software usato;
-    - le analisi per sottogruppi pianificate, per evitare critiche di analisi post hoc su sottogruppi non predefiniti. I sottogruppi pianificati incidono sul calcolo della dimensione campionaria; analisi multiple possono richiedere la correzione di Bonferroni per non gonfiare il rischio alfa.
-- Queste scelte si fanno in fase di progettazione e qui si riportano. Chi non è a suo agio con la statistica chiede il contributo del metodologo o dello statistico del progetto, per accuratezza e completezza.
-- Checklist dei metodi:
-    - per studi retrospettivi e prospettici: soggetti; criteri di inclusione e non inclusione; aspetti etici (approvazione, nome del comitato, eventualmente data e numero di pratica, consenso informato); endpoint primario; endpoint secondari; analisi statistica;
-    - solo retrospettivi: dati registrati; fonte o fonti dei dati; sottogruppi, se presenti; numero di soggetti o campioni;
-    - solo prospettici: registrazione dello studio, se randomizzato; calcolo della dimensione campionaria; procedura di randomizzazione; interventi.
-- Tempi verbali: vedi 2.4.
+- A che cosa serve la sezione: descrivere esattamente che cosa si è fatto e come, con abbastanza dettagli perché un lettore con le stesse risorse possa rifare lo studio.
+- Ogni risultato presentato deve avere un metodo descritto: non si riportano esiti di test o di analisi che non sono dichiarati nei metodi. Per i procedimenti già pubblicati basta un breve riassunto, con il riferimento.
+- Spesso è la sezione che il revisore studia con più attenzione, perché decide se ci si può fidare dei risultati. Se giudica il metodo non abbastanza solido, il lavoro viene respinto.
+- Una regola pratica: un metodo, uno strumento o un tipo di dati nuovi vanno descritti in dettaglio, perché servono a rifare lo studio; un metodo o uno strumento noti, già descritti in altri lavori, spesso richiedono solo il riferimento. Le descrizioni non si ripetono.
+- Anche il "quando" può contare: le date e gli orari delle osservazioni, soprattutto se il fenomeno cambia nel tempo.
+- Una figura spesso aiuta a capire il metodo; anche una tabella può servire, per esempio una tabella delle osservazioni.
+- Si comincia dal tipo di studio (il disegno). Per esempio: sul passato o sul futuro; con i gruppi assegnati a caso o no; con o senza che pazienti e medici sappiano chi riceve che cosa; con un gruppo di confronto; con ogni paziente che prova più trattamenti uno dopo l'altro; con più trattamenti combinati. Le scelte insolite vanno giustificate con riferimenti, linee guida o il contesto.
+- Poi chi o che cosa si è studiato (animali, persone, cellule…). Nella ricerca medica: i criteri per includere o escludere i pazienti, e come sono stati trovati quelli adatti (visite, ricoveri, giri in reparto, riunioni).
+- Poi come si misurano tutte le grandezze principali, con il risultato principale da misurare (l'endpoint primario), quelli secondari e il modo in cui sono misurati.
+- L'endpoint primario è decisivo: è l'unico criterio che permette di trarre conclusioni formali sullo studio. Per questo va scelto con cura, già quando si progetta lo studio.
+- Si descrive in dettaglio ogni esame, intervento, operazione, questionario o tecnica di immagine; per apparecchi o test particolari, chi li produce (nome, città, paese). Frasi brevi possono spiegare perché si è fatta ogni misura; dei sottotitoli possono dividere la sezione.
+- L'etica, nella ricerca medica: una breve nota sull'approvazione del comitato etico (o sul perché manca) e sul consenso scritto delle persone studiate, o dei loro familiari o rappresentanti. Gli studi con i gruppi assegnati a caso vanno registrati in un registro riconosciuto (per esempio www.clinicaltrials.gov), con il numero. Molte riviste chiedono il nome del comitato e la data di approvazione, alcune il numero della pratica; dove metterli dipende dalle istruzioni della rivista.
+- L'ultimo paragrafo dei metodi riguarda i calcoli statistici:
+    - prima come si presentano i dati: i numeri con una distribuzione a campana (normale) come media ± deviazione standard; gli altri come mediana [intervallo tra il primo e il terzo quartile]; i dati per categorie come numero (percentuale);
+    - poi i test usati per ciascun tipo di dato, il tipo di modello con più variabili e quali variabili include, il metodo per l'analisi della sopravvivenza (il tempo fino a un evento);
+    - perché il campione ha quella dimensione: le ipotesi su quanto spesso capita l'evento e su quanto varia, la differenza attesa, i rischi di errore scelti per il calcolo (alfa: vedere un effetto che non c'è; beta: non vedere un effetto che c'è);
+    - la soglia di significatività e il programma usato;
+    - le analisi per sottogruppi decise in anticipo, per evitare l'accusa di aver cercato dopo, tra molti sottogruppi, quello che dava il risultato voluto. I sottogruppi decisi in anticipo entrano nel calcolo della dimensione del campione; molte analisi insieme possono richiedere una correzione (per esempio quella di Bonferroni), per non far crescere il rischio di trovare per caso un effetto che non c'è.
+- Queste scelte si fanno quando si progetta lo studio, e qui si riportano. Chi non si sente sicuro con la statistica chiede l'aiuto dell'esperto di metodo o dello statistico del progetto, per essere preciso e completo.
+- La lista di controllo dei metodi:
+    - per tutti gli studi: chi è stato studiato; i criteri per includere ed escludere; l'etica (approvazione, nome del comitato, eventualmente data e numero della pratica, consenso); il risultato principale da misurare; i risultati secondari; i calcoli statistici;
+    - solo per gli studi sul passato: quali dati erano registrati; da quale fonte o fonti; i sottogruppi, se ci sono; il numero di persone o campioni;
+    - solo per gli studi che seguono i pazienti nel tempo: la registrazione dello studio, se i gruppi sono assegnati a caso; il calcolo della dimensione del campione; come sono stati assegnati i gruppi; i trattamenti.
+- I tempi dei verbi: sezione 2.4.
 
-### 1.8 Errori di metodo: risultati garantiti per costruzione
+### 1.8 Errori di metodo: i risultati che escono comunque
 
-- Gli errori più gravi non sono le figure brutte ma i risultati che il metodo produce qualunque cosa dicano i dati. Per ogni risultato chiedersi se comparirebbe comunque.
-- Prima di modellare un indice, verificare se è in gran parte funzione del predittore.
-- Mai usare come predittore una variabile che entra nella definizione dell'esito.
-- Se un modello funziona quasi alla perfezione, sospettare per primo il leakage.
-- Chiedersi se lo stesso risultato uscirebbe anche con dati casuali.
-- Esempio: la soglia di viralità di un video è definita combinando outlier nelle visualizzazioni e percentili di engagement; engagement rate = (like + commenti totali) / visualizzazioni; tra i predittori ci sono il logaritmo dei like, lo stesso engagement rate, il giorno di caricamento e il sentiment. La random forest ottiene ROC-AUC 0,993 (la regressione logistica 0,852): i predittori entrano nella definizione dell'esito.
+- Gli errori più gravi non sono le figure brutte, ma i risultati che il metodo produce qualunque cosa dicano i dati. Per ogni risultato bisogna chiedersi se uscirebbe comunque.
+- Prima di costruire un modello per spiegare un indice, bisogna controllare che l'indice non sia in gran parte calcolato a partire da ciò che lo dovrebbe spiegare.
+- Mai usare per spiegare un risultato una variabile che entra nella definizione del risultato stesso.
+- Se un modello indovina quasi sempre, il primo sospetto è che contenga, senza volerlo, l'informazione che dovrebbe prevedere (in inglese leakage, "perdita").
+- Bisogna chiedersi se lo stesso risultato uscirebbe anche con dati casuali.
+- Un esempio: un video è definito "virale" combinando i valori fuori scala delle visualizzazioni con le soglie del coinvolgimento; il coinvolgimento è (like + commenti) / visualizzazioni. Tra le variabili usate per prevedere se un video è virale ci sono il logaritmo dei like, lo stesso coinvolgimento, il giorno di caricamento e il tono dei commenti. Un modello a foresta casuale (random forest) indovina quasi sempre (ROC-AUC 0,993, dove 1 è il massimo; la regressione logistica arriva a 0,852): le variabili usate per prevedere entrano nella definizione di ciò che si prevede.
 
-### 1.9 Risultati e statistica
+### 1.9 I risultati e la statistica
 
-- Un risultato è un numero con la sua incertezza e un termine di confronto. Parole come "significativo", "forte" o "alto" richiedono dietro un test o una baseline.
-- Dare sempre una baseline: un valore casuale, un valore atteso o un gruppo di confronto.
-- Da evitare: un'omofilia globale di 0,113 letta come "l'11% dei legami di co-acquisto unisce libri dello stesso macro-tema", e poi come prova che gli acquisti non sono divisi per genere perché l'omofilia è "bassa", senza dire rispetto a quale valore.
-- È il cuore del lavoro. Essere concisi: individuare i risultati importanti e nuovi prima di scriverne. "Lo sciocco raccoglie i fatti, il saggio li seleziona" (John W. Powell); ma senza essere troppo saggi: prima raccogliere i fatti, poi selezionarli.
-- La sezione descrive cosa si è osservato, senza commento né discussione. Non si ridescrivono i metodi, già esposti nella loro sezione. Espressioni come "sorprendentemente" o "interessante" sono fuori posto.
+- Un risultato è un numero, con la sua incertezza e un termine di confronto. Parole come "significativo", "forte" o "alto" richiedono dietro un test o un valore di riferimento.
+- Bisogna dare sempre un valore di riferimento: un valore ottenuto per caso, un valore atteso o un gruppo di confronto.
+- Da evitare: un indice di omofilia di 0,113 letto come "l'11% dei legami tra libri comprati insieme unisce libri dello stesso tema", e poi come prova che gli acquisti non sono divisi per genere perché l'omofilia è "bassa", senza dire rispetto a quale valore.
+- È il cuore del lavoro. Bisogna essere sintetici: trovare i risultati importanti e nuovi prima di scriverne. "Lo sciocco raccoglie i fatti, il saggio li seleziona" (John W. Powell); ma senza esagerare con la saggezza: prima si raccolgono i fatti, poi si scelgono.
+- La sezione descrive che cosa si è osservato, senza commenti né discussione. Non si descrivono di nuovo i metodi, già spiegati nella loro sezione. Parole come "sorprendentemente" o "interessante" sono fuori posto.
 - Un risultato per ogni metodo dichiarato, nello stesso ordine dei metodi e con gli stessi sottotitoli.
-- Paragrafo tipo: richiamare il tipo di analisi, poi i risultati osservati, con rimando alle tabelle o figure pertinenti.
+- Un paragrafo tipico: si ricorda il tipo di analisi, poi si danno i risultati osservati, con il rimando alle tabelle o alle figure.
 - Testo, tabella o figura (non ci sono regole rigide):
     - i risultati che si dicono in una o due righe vanno nel testo;
-    - le tabelle servono quando si descrivono le stesse variabili per due o più gruppi (caratteristiche di partenza, esiti, trattamenti); contengono di solito i risultati principali e da sole devono dare un'idea chiara dei risultati;
-    - le figure servono quando i dati sono troppo complessi da presentare o poco interpretabili, e per relazioni e tendenze;
-    - le figure sono in genere più facili da leggere delle tabelle: se possibile, i risultati principali vanno in figura; la tabella serve quando ci sono molti numeri che non entrano in una figura, o quando contano i valori esatti;
-    - le due indicazioni precedenti divergono (tabelle con i risultati principali, figure dove possibile). Criterio: se il lettore deve cogliere un andamento o una relazione, figura; se gli servono i valori esatti o il confronto delle stesse variabili tra gruppi, tabella;
-    - rispettare l'eventuale limite di illustrazioni, non eccedere perché perdono interesse, e soprattutto non ripetere nel testo dati già presenti in tabella o figura.
-- Tempi verbali: vedi 2.4. Grafici: sezione 3; richiami, didascalie e titoli di figure e tabelle: 3.2.
+    - le tabelle servono quando si descrivono le stesse caratteristiche per due o più gruppi (caratteristiche di partenza, esiti, trattamenti). Di solito contengono i risultati principali, e da sole devono dare un'idea chiara dei risultati;
+    - le figure servono quando i dati sono troppo complessi da presentare o difficili da interpretare, e per mostrare legami e andamenti;
+    - le figure di solito si leggono meglio delle tabelle: se si può, i risultati principali vanno in una figura. La tabella serve quando ci sono molti numeri che non entrano in una figura, o quando contano i valori esatti;
+    - le due indicazioni precedenti non coincidono (tabelle con i risultati principali, figure dove si può). Il criterio: se il lettore deve cogliere un andamento o un legame, una figura; se gli servono i valori esatti o il confronto delle stesse caratteristiche tra gruppi, una tabella;
+    - bisogna rispettare l'eventuale limite di figure e tabelle e non esagerare, perché troppe stancano; soprattutto, non si ripetono nel testo i dati già presenti in una tabella o in una figura.
+- I tempi dei verbi: sezione 2.4. I grafici: sezione 3; i rimandi, le didascalie e i titoli di figure e tabelle: sezione 3.2.
 
-### 1.10 Discussione
+### 1.10 La discussione
 
-- Qui si interpretano i risultati, se ne spiega il significato e si collocano nel quadro di quanto già osservato sullo stesso tema.
-- Titolo alternativo: "Discussione e conclusioni"; a volte le due parti sono sezioni separate.
-- È spesso la sezione più difficile, perché trarre conclusioni dai dati o dai risultati teorici non è immediato: è un esercizio di logica, che richiede conoscenza della letteratura ed esperienza dell'oggetto studiato.
-- Si apre con un breve riepilogo dei risultati principali, preferibilmente con la stessa formulazione dell'obiettivo primario (introduzione) e dell'endpoint primario (metodi). Poi l'interpretazione.
-- Né ripetere semplicemente i risultati, né sovrainterpretarli: presentare i fatti. Esempio: se 20 pazienti su 25 hanno avuto un'emorragia intracranica dopo il farmaco X, scrivere nella discussione che l'80% dei pazienti trattati con X ha un'emorragia è uno slittamento che tradisce i dati. Più corretto: i risultati indicano che X può avere effetti avversi importanti.
-- Confronto con la letteratura: come si collocano i risultati rispetto ad altri studi; se sono diversi, quali spiegazioni plausibili (differenze di circostanze, popolazioni, approcci). Discutere i risultati sorprendenti o interessanti con possibili spiegazioni.
-- Dire se i risultati sono estendibili ad altri contesti o popolazioni e, se no, perché. Con più analisi o interventi, spiegare il significato complessivo, oltre ai singoli risultati.
-- Diplomazia: invece di indicare le debolezze del lavoro altrui, presentare i punti di forza del proprio; l'implicazione resta evidente. Per esempio, al posto di "lo studio di Smith era sottodimensionato", "lo studio di Smith potrebbe essere stato sottodimensionato" o, meglio, "il nostro studio aveva potenza statistica sufficiente per…".
-- Per chi non scrive nella propria lingua: attenzione a parafrasare il lavoro altrui senza cambiarne l'enfasi, anche solo con l'ordine in cui si citano risultati o elementi. Una rilettura da parte di coautori, mentori o ufficio pubblicazioni aiuta a evitarlo.
-- Novità: sottolineare quale evidenza o contributo nuovo porta il lavoro, per mostrarne il valore aggiunto e non sembrare "l'ennesimo articolo" su un tema logoro. Si può discutere se la lacuna dichiarata nell'introduzione è stata colmata.
-- Risultati negativi: non temere di riportarli. Uno studio ben condotto senza risultati positivi è un contributo utile: può mettere in discussione idee diffuse o risultati precedenti, o rafforzare dati contrastanti finora considerati aneddotici. Se disegno e conduzione sono corretti, i risultati restano validi anche se negativi.
-- Implicazioni pratiche: come i risultati possono influire sulla pratica o sullo stato delle conoscenze, se possono spostare l'opinione generale. Possibili linee di ricerca futura, in particolare nuove ipotesi nate dalle osservazioni sugli obiettivi secondari.
-- Chiude un breve paragrafo su punti di forza e limiti (vedi 1.11).
+- Qui si interpretano i risultati: si spiega che cosa vogliono dire e come si collocano rispetto a ciò che altri hanno già osservato sullo stesso tema.
+- Un titolo alternativo è "Discussione e conclusioni"; a volte le due parti sono separate.
+- Spesso è la parte più difficile, perché trarre conclusioni dai dati non è immediato: è un esercizio di logica, che richiede di conoscere gli studi precedenti e di avere esperienza dell'oggetto studiato.
+- Si apre con un breve riassunto dei risultati principali, possibilmente con le stesse parole dell'obiettivo principale (nell'introduzione) e del risultato principale da misurare (nei metodi). Poi viene l'interpretazione.
+- Non bisogna né ripetere i risultati e basta, né fargli dire più di quanto dicono: si presentano i fatti. Un esempio: se 20 pazienti su 25 hanno avuto un'emorragia nel cervello dopo il farmaco X, scrivere nella discussione che l'80% dei pazienti trattati con X ha un'emorragia è un salto che tradisce i dati. È più corretto scrivere che i risultati indicano che X può avere effetti dannosi importanti.
+- Il confronto con gli altri studi: come si collocano i risultati rispetto ad altri lavori; se sono diversi, quali spiegazioni sono plausibili (circostanze, popolazioni, approcci diversi). I risultati sorprendenti o interessanti si discutono con le possibili spiegazioni.
+- Bisogna dire se i risultati valgono anche in altri contesti o per altre popolazioni e, se no, perché. Se le analisi o gli interventi sono più d'uno, si spiega che cosa vogliono dire insieme, oltre ai singoli risultati.
+- La diplomazia: invece di indicare i punti deboli del lavoro altrui, si presentano i punti di forza del proprio; il confronto resta evidente. Per esempio, al posto di "lo studio di Smith aveva un campione troppo piccolo", meglio "lo studio di Smith potrebbe aver avuto un campione troppo piccolo" o, ancora meglio, "il nostro studio aveva un campione abbastanza grande per…".
+- Per chi non scrive nella propria lingua: attenzione a riassumere il lavoro altrui senza cambiare dove cade l'accento, anche solo con l'ordine in cui si citano risultati o elementi. Una rilettura da parte dei coautori, di chi segue il lavoro o di un ufficio dedicato aiuta a evitarlo.
+- La novità: bisogna sottolineare quale prova o contributo nuovo porta il lavoro, per mostrare che cosa aggiunge e non sembrare "l'ennesimo articolo" su un tema già consumato. Si può discutere se la lacuna dichiarata nell'introduzione è stata colmata.
+- I risultati negativi: non bisogna avere paura di riportarli. Uno studio fatto bene che non trova l'effetto cercato è un contributo utile: può mettere in dubbio idee diffuse o risultati precedenti, o rafforzare dati in contrasto finora considerati casi isolati. Se lo studio è progettato e condotto bene, i risultati restano validi anche se negativi.
+- Le conseguenze pratiche: come i risultati possono cambiare il modo di lavorare o ciò che si sa, e se possono spostare l'opinione generale. Le possibili ricerche future, soprattutto le nuove ipotesi nate dagli obiettivi secondari.
+- Si chiude con un breve paragrafo sui punti di forza e sui limiti (sezione 1.11).
 
-### 1.11 Limiti
+### 1.11 I limiti
 
-- I buoni limiti sono specifici dello studio e dicono quale risultato ciascuno potrebbe toccare. Frasi generiche sulla "dimensione del campione" non aggiungono nulla.
-- Nominare il limite, dire quale risultato minaccia e, se possibile, in quale direzione.
-- Esempio: Falkenberg et al. (2024) usano dati di una sola finestra di 24 ore e indicano quali osservazioni potrebbero dipenderne. In Germania la divisione principale risulta tra partiti dell'establishment e populisti, non tra sinistra e destra; nel Regno Unito, a destra, la tossicità verso l'in-group risulta più alta che verso l'out-group.
-- Elencare i limiti ha due vantaggi: mostra ai revisori che se ne è consapevoli, e permette di difendersi spiegando perché il limite può non essere così grave.
+- I limiti utili sono propri di quello studio e dicono quale risultato ciascuno potrebbe toccare. Frasi generiche sulla "dimensione del campione" non aggiungono nulla.
+- Si nomina il limite, si dice quale risultato mette a rischio e, se si può, in quale direzione lo sposterebbe.
+- Un esempio: Falkenberg e altri (2024) usano i dati di una sola finestra di 24 ore e indicano quali osservazioni potrebbero dipenderne. In Germania la divisione principale risulta tra i partiti tradizionali e i populisti, non tra sinistra e destra; nel Regno Unito, a destra, il linguaggio offensivo risulta più alto verso chi sta dalla stessa parte che verso chi sta dall'altra.
+- Elencare i limiti ha due vantaggi: mostra ai revisori che se ne è consapevoli, e permette di difendersi spiegando perché un limite può non essere così grave.
 
-### 1.12 Appendici
+### 1.12 Le appendici
 
-- Il materiale che può interessare alcuni lettori ma non la maggior parte (tabelle lunghe, derivazioni di equazioni) va in una o più appendici.
+- Il materiale che può interessare alcuni lettori ma non la maggior parte (tabelle lunghe, passaggi matematici) va in una o più appendici.
 - La maggior parte degli articoli non ha appendici.
 - Ogni appendice va richiamata nel testo principale.
 
-## 2. Abstract, titolo, bibliografia, autori, lingua e stile
+## 2. Riassunto, titolo, bibliografia, autori, lingua e stile
 
-Abstract e titolo sono ciò che il lettore vede per primo; la bibliografia è responsabilità di chi scrive e va verificata voce per voce. Autori, lettore di riferimento e stile riguardano tutto il testo.
+Il riassunto (l'abstract) e il titolo sono le prime cose che il lettore vede. La bibliografia è responsabilità di chi scrive e va controllata voce per voce. Gli autori, il lettore a cui ci si rivolge e lo stile riguardano tutto il testo.
 
-### 2.1 Abstract
+### 2.1 Il riassunto (abstract)
 
-- Breve riassunto del lavoro in poche sezioni, di solito contesto, metodi, risultati e conclusione.
-- Se la destinazione non chiede un abstract strutturato, è un solo paragrafo che condensa il lavoro: di solito una-due frasi su contesto e obiettivi, poi una descrizione molto breve di cosa si è fatto, infine i risultati principali e le conseguenze più importanti. Tra le due forme decidono le istruzioni della destinazione.
-- È indicizzato nelle banche dati bibliografiche (es. PubMed), quindi deve essere comprensibile da solo, senza il testo completo.
-- È di solito la prima cosa che vede un potenziale revisore: deve essere succinto ma informativo e attraente, dare un assaggio delle informazioni principali e far venire voglia di leggere il resto. È lo strumento di marketing del lavoro e merita tempo e cura.
-- Tenerlo breve. Se progetto e testo sono stati preparati con cura, scriverlo non richiede molto lavoro: si possono riusare una o due frasi dell'introduzione, accorciandole; i risultati vengono in gran parte dalla sezione risultati; la conclusione è il messaggio principale del lavoro. La parte più difficile è spesso accorciarlo entro il limite di parole.
-- Contenuto:
-    - contesto: breve richiamo del contesto e dell'obiettivo principale, in due-tre frasi; individuare la lacuna da colmare;
-    - metodi: criteri di inclusione principali che definiscono la popolazione, gruppi di studio se presenti, interventi o trattamenti principali (molto in breve), endpoint primario. Non c'è spazio per i dettagli: solo i criteri che definiscono lo studio;
-    - risultati: risultati principali con medie, odds ratio, valori p ecc. per ogni gruppo; prima l'endpoint primario, poi gli esiti secondari; un risultato per ogni metodo citato; dettaglio sufficiente a sostenere la conclusione;
-    - conclusione: una riga sul risultato principale, eventualmente una breve frase sulle implicazioni per la ricerca futura se c'è spazio; direttamente legata all'obiettivo e all'endpoint principali;
-    - niente riferimenti bibliografici; niente discussione né giudizi (tipo "sorprendentemente"); niente figure, tabelle o altre illustrazioni;
-    - niente note a piè di pagina; evitare abbreviazioni, equazioni e simboli; frasi brevi; forma attiva, in prima persona.
+- È un breve riassunto del lavoro diviso in poche parti, di solito: contesto, metodi, risultati e conclusione.
+- Se chi riceve il lavoro non chiede un riassunto diviso in parti, è un solo paragrafo che condensa il lavoro: di solito una o due frasi sul contesto e sugli obiettivi, poi una descrizione molto breve di che cosa si è fatto, infine i risultati principali e le conseguenze più importanti. Quale delle due forme usare lo decidono le istruzioni di chi riceve il lavoro.
+- Il riassunto finisce nelle banche dati degli articoli (per esempio PubMed), quindi deve capirsi da solo, senza il testo completo.
+- Di solito è la prima cosa che vede chi potrebbe valutare il lavoro: deve essere breve ma pieno di informazioni e invogliare, dare un assaggio delle informazioni principali e far venire voglia di leggere il resto. È la vetrina del lavoro, e merita tempo e cura.
+- Va tenuto breve. Se il progetto e il testo sono stati preparati con cura, scriverlo non costa molto: si possono riprendere, accorciate, una o due frasi dell'introduzione; i risultati vengono in gran parte dalla sezione dei risultati; la conclusione è il messaggio principale del lavoro. Spesso la parte più difficile è accorciarlo entro il limite di parole.
+- Che cosa contiene:
+    - il contesto: un breve richiamo del contesto e dell'obiettivo principale, in due o tre frasi, con la lacuna da colmare;
+    - i metodi: i criteri principali che definiscono chi è stato studiato, gli eventuali gruppi, i trattamenti principali (molto in breve), il risultato principale da misurare. Non c'è spazio per i dettagli: solo ciò che definisce lo studio;
+    - i risultati: quelli principali, con medie, odds ratio, valori p e simili per ogni gruppo; prima il risultato principale, poi quelli secondari; un risultato per ogni metodo citato; abbastanza dettagli da sostenere la conclusione;
+    - la conclusione: una riga sul risultato principale, ed eventualmente una breve frase su che cosa vuol dire per le ricerche future, se c'è spazio; legata direttamente all'obiettivo e al risultato principale;
+    - niente riferimenti bibliografici; niente discussione né giudizi (come "sorprendentemente"); niente figure, tabelle o altre illustrazioni;
+    - niente note a piè di pagina; il meno possibile abbreviazioni, equazioni e simboli; frasi brevi; forma attiva, in prima persona.
 
-### 2.2 Titolo
+### 2.2 Il titolo
 
-- Contiene le parole chiave dei temi principali e deve suscitare interesse e voglia di leggere.
-- Spesso il titolo decide se i colleghi guardano il lavoro: troppi articoli, poco tempo. Un percorso tipico di lettura: titolo (e autori); se interessa, l'abstract; se l'interesse resta, le figure; solo allora il testo.
-- Trovabilità: chi cerca usa banche dati come PubMed/Medline, quindi i termini principali devono essere nel titolo. Un titolo mal formulato non compare nelle ricerche, e il lavoro non viene letto né citato.
+- Contiene le parole chiave dei temi principali e deve incuriosire e invogliare a leggere.
+- Spesso è il titolo a decidere se i colleghi guardano il lavoro: gli articoli sono troppi e il tempo è poco. Un percorso tipico di lettura: il titolo (e gli autori); se interessa, il riassunto; se l'interesse resta, le figure; solo alla fine il testo.
+- Farsi trovare: chi cerca usa banche dati come PubMed/Medline, quindi le parole principali devono essere nel titolo. Un titolo scritto male non compare nelle ricerche, e il lavoro non viene letto né citato.
 - Tra decine o centinaia di articoli sullo stesso tema, il titolo deve distinguersi dicendo quale contributo dà o quale lacuna colma.
-- Ispirarsi ai titoli delle riviste più autorevoli, generaliste e di settore. Rispettare l'eventuale limite di parole o caratteri: tenerlo breve è più difficile che scrivere un titolo di quattro righe.
+- Conviene ispirarsi ai titoli delle riviste più autorevoli, generali e di settore. Va rispettato l'eventuale limite di parole o di caratteri: scrivere un titolo breve è più difficile che scriverne uno di quattro righe.
 - Indicazioni:
-    - citare i fattori principali studiati (es. il nome del farmaco o dell'intervento);
-    - citare la popolazione o il contesto;
-    - citare il disegno dello studio (es. trial randomizzato, registro, coorte, caso-controllo);
-    - citare il risultato principale (aumenta, riduce, previene…);
-    - mettere per primo l'aspetto più importante: se ciò che distingue il lavoro è l'intervento, il titolo comincia da quello;
+    - nominare i fattori principali studiati (per esempio il nome del farmaco o del trattamento);
+    - nominare la popolazione o il contesto;
+    - nominare il tipo di studio (per esempio uno studio con i gruppi assegnati a caso, un registro, uno studio che segue un gruppo nel tempo, uno studio che confronta malati e non malati);
+    - nominare il risultato principale (aumenta, riduce, previene…);
+    - mettere per primo l'aspetto più importante: se ciò che distingue il lavoro è il trattamento, il titolo comincia da quello;
     - evitare formule vaghe come "un resoconto di…" o "gli effetti di…": se ci sono effetti, dire quali;
-    - per i farmaci, usare le denominazioni internazionali comuni, non i nomi commerciali, che suggeriscono una preferenza per un'azienda e cambiano tra paesi;
-    - sottotitoli con parsimonia, riservati ai nomi dei gruppi di studio, secondo le regole della rivista;
-    - riflettere il campo generale del lavoro;
-    - essere il più preciso possibile, senza essere roboante né promettere troppo.
+    - per i farmaci, usare i nomi internazionali comuni, non i nomi commerciali, che fanno pensare a una preferenza per un'azienda e cambiano da paese a paese;
+    - usare i sottotitoli con parsimonia, solo per i nomi dei gruppi di studio, secondo le regole della rivista;
+    - far capire il campo generale del lavoro;
+    - essere il più precisi possibile, senza toni altisonanti e senza promettere troppo.
 
-### 2.3 Bibliografia e citazioni
+### 2.3 La bibliografia e le citazioni
 
-- La bibliografia elenca tutte le fonti su cui si basano ipotesi e lavoro. Documentarle è responsabilità etica e professionale, per piena trasparenza; citare le fonti delle ipotesi ne dimostra la fondatezza. I riferimenti sostengono il lavoro, lo collocano tra gli studi sul tema e guidano chi vuole approfondire.
-- I riferimenti devono essere scientifici, citati nel testo e pertinenti a ciò che il lavoro fa: citare ciò che si usa, usare ciò che si cita.
-- Cosa citare: ogni idea o fatto preso da un'altra fonte. Non servono riferimenti per verità universali o fatti ampiamente stabiliti. Servono sempre per idee, espressioni o nomi coniati da altri: per un segno o una classificazione che porta un nome si cita l'articolo che li ha descritti.
-- Cosa preferire: articoli in inglese su riviste con revisione paritaria, salvo gli articoli che danno il nome a un segno o a una classificazione. Capitoli di libro accettabili, ma con titolo del capitolo, pagine, autori o curatori e dati editoriali.
-- Evitare per quanto possibile siti web, comunicazioni personali e dati non pubblicati. Tra più riferimenti possibili, scegliere il più recente o quello della rivista più affidabile; preferire articoli di ricerca originale alle rassegne.
-- Sui lavori non pubblicati le indicazioni divergono: la regola sopra dice di evitarli per quanto possibile, mentre la guida alle ricerche bibliografiche tratta i working paper come un obiettivo legittimo della ricerca (vedi 4.1–4.3).
-- Citare l'originale: se un'idea arriva da un articolo che a sua volta la cita, tornare all'articolo originale, verificare l'esattezza di ciò che si cita e citare gli autori originali, non l'articolo intermedio.
-- L'esattezza di ogni riferimento è responsabilità di chi scrive: verificarli tutti di persona, anche quelli presi da altri articoli, e dare dettagli sufficienti per ritrovarli. Non è compito della rivista formattarli o verificarli.
-- La bibliografia è un punto in cui gli errori si propagano: controllare ogni riferimento direttamente sull'articolo.
-- Controllo incrociato: ogni lavoro citato nel testo compare in bibliografia e viceversa; autori e anni coincidono tra testo ed elenco, compresi i suffissi (un lavoro citato come 1995a compare come 1995a anche nell'elenco).
-- Formato secondo le istruzioni della destinazione, pena il rifiuto. Usare un software di gestione bibliografica, se disponibile.
-- Annotare man mano la frase o l'idea da tenere con il riferimento esatto accanto: dopo decine di articoli la memoria cede, e ritrovare una fonte costa molto tempo.
+- La bibliografia elenca tutte le fonti su cui si basano le ipotesi e il lavoro. Indicarle è una responsabilità etica e professionale, per essere del tutto trasparenti; citare da dove vengono le ipotesi mostra che sono fondate. I riferimenti sostengono il lavoro, lo collocano tra gli studi sul tema e guidano chi vuole approfondire.
+- I riferimenti devono essere scientifici, citati nel testo e collegati a quello che il lavoro fa: si cita ciò che si usa, e si usa ciò che si cita.
+- Che cosa citare: ogni idea o fatto preso da un'altra fonte. Non servono riferimenti per le verità universali o per i fatti noti a tutti. Servono sempre per idee, espressioni o nomi inventati da altri: per un segno o una classificazione che porta un nome si cita l'articolo che li ha descritti.
+- Che cosa preferire: articoli in inglese su riviste in cui altri esperti controllano i lavori prima di pubblicarli (revisione paritaria), tranne gli articoli che danno il nome a un segno o a una classificazione. I capitoli di libro vanno bene, ma con il titolo del capitolo, le pagine, gli autori o i curatori e i dati dell'editore.
+- Per quanto si può, vanno evitati i siti web, le comunicazioni personali e i dati non pubblicati. Tra più riferimenti possibili si sceglie il più recente o quello della rivista più affidabile; gli articoli di ricerca originale sono preferibili alle rassegne.
+- Sui lavori non pubblicati le indicazioni di questa guida non coincidono: la regola qui sopra dice di evitarli per quanto si può, mentre la sezione sulle ricerche bibliografiche tratta i lavori ancora in corso (working paper) come qualcosa che vale la pena cercare (sezioni 4.1–4.3).
+- Si cita l'originale: se un'idea arriva da un articolo che a sua volta la cita, si torna all'articolo originale, si controlla che ciò che si cita sia esatto e si citano gli autori originali, non l'articolo di mezzo.
+- L'esattezza di ogni riferimento è responsabilità di chi scrive: vanno controllati tutti di persona, anche quelli presi da altri articoli, e vanno dati abbastanza dettagli per ritrovarli. Non tocca alla rivista sistemarli o controllarli.
+- La bibliografia è un punto in cui gli errori si copiano da un lavoro all'altro: ogni riferimento va controllato direttamente sull'articolo.
+- Il controllo incrociato: ogni lavoro citato nel testo compare in bibliografia, e viceversa; autori e anni coincidono tra testo ed elenco, comprese le lettere aggiunte all'anno (un lavoro citato come 1995a compare come 1995a anche nell'elenco).
+- Il formato segue le istruzioni di chi riceve il lavoro, altrimenti il lavoro può essere respinto. Se c'è, conviene usare un programma per gestire la bibliografia.
+- Conviene annotare man mano la frase o l'idea da tenere, con il riferimento esatto accanto: dopo decine di articoli la memoria non basta più, e ritrovare una fonte costa molto tempo.
 
-### 2.4 Lingua e tempi verbali
+### 2.4 La lingua e i tempi dei verbi
 
-- Per chi scrive in inglese senza esserne madrelingua: usare le risorse disponibili (traduttori o redattori scientifici dell'istituzione); in mancanza, prendere a modello articoli importanti di buone riviste.
-- Tempi verbali nell'introduzione:
+- Per chi scrive in inglese senza essere di madrelingua: conviene usare le risorse a disposizione (traduttori o revisori di testi scientifici del proprio ente); se mancano, si prendono a modello articoli importanti di buone riviste.
+- I tempi dei verbi nell'introduzione, in inglese:
 
-| Scopo della frase | Tempo |
+| A che cosa serve la frase | Tempo |
 | --- | --- |
-| Descrivere lo stato attuale delle conoscenze | present |
-| Descrivere osservazioni già pubblicate da altri | past |
-| Descrivere un processo iniziato in passato e non concluso | present perfect |
-| Descrivere qualcosa che non è ancora avvenuto | present perfect |
-| Formulare l'ipotesi | past per il primo verbo, present per il secondo ("we hypothesized that A increases B") |
-| Formulare l'obiettivo | past ("we aimed to…") |
+| Descrivere ciò che si sa oggi | present (presente) |
+| Descrivere osservazioni già pubblicate da altri | past (passato) |
+| Descrivere qualcosa cominciato in passato e non ancora finito | present perfect (passato prossimo) |
+| Descrivere qualcosa che non è ancora successo | present perfect (passato prossimo) |
+| Dire l'ipotesi | past per il primo verbo, present per il secondo ("we hypothesized that A increases B") |
+| Dire l'obiettivo | past ("we aimed to…") |
 
-- Metodi e risultati soprattutto al past (we performed, recorded, measured, tested); past perfect per gli eventi precedenti allo studio.
+- I metodi e i risultati vanno soprattutto al passato (we performed, recorded, measured, tested); il past perfect (trapassato) si usa per ciò che è successo prima dello studio.
 
-### 2.5 Autori e affiliazioni
+### 2.5 Gli autori e i loro enti
 
-- Scegliere gli autori e il loro ordine può essere delicato. Chi fa ricerca la fa perché gli piace, ma di solito non disdegna un riconoscimento per il proprio lavoro o le proprie idee: la coautorialità è anche una ricompensa.
-- Firmare buoni articoli conta per la carriera di chi fa ricerca.
-- Decidere chi è coautore, chi va nei ringraziamenti e in che ordine compaiono gli autori può essere complicato.
-- Nome per esteso o solo iniziali: verificare le istruzioni della rivista. Il nome per esteso conviene se:
+- Scegliere gli autori e il loro ordine può essere delicato. Chi fa ricerca la fa perché gli piace, ma di solito apprezza un riconoscimento per il proprio lavoro o le proprie idee: firmare un articolo è anche una ricompensa.
+- Firmare buoni articoli conta per la carriera.
+- Decidere chi firma, chi va nei ringraziamenti e in che ordine compaiono gli autori può essere complicato.
+- Nome per esteso o solo l'iniziale: dipende dalle istruzioni della rivista. Il nome per esteso conviene se:
     - c'è un altro ricercatore con lo stesso cognome e la stessa iniziale;
-    - si è una donna in un campo a prevalenza maschile, soprattutto da unica autrice: con la sola iniziale il lavoro rischia di essere citato al maschile (l'esempio delle slide: "M. Curie (2004)… come lui ha mostrato").
+    - si è una donna in un campo con molti più uomini, soprattutto se si è l'unica autrice: con la sola iniziale il lavoro rischia di essere citato al maschile (un esempio dalle slide elencate nella sezione 5: "M. Curie (2004)… come lui ha mostrato").
 
 ### 2.6 Scrivere per il lettore
 
-- Lettore di riferimento, quando la destinazione non indica altro (vedi 1.1): un dottorando agli inizi che lavora nello stesso campo generale.
+- Il lettore a cui pensare, quando chi riceve il lavoro non dice altro (sezione 1.1): uno studente di dottorato agli inizi che lavora nello stesso campo generale.
 - Quattro principi:
     - chiarezza: rendere tutto chiaro al lettore, senza dare più informazioni del necessario;
-    - realtà: dare per scontato che il lettore sappia come va il mondo e non vada informato di tutto, ma dirgli tutto ciò che probabilmente non sa e gli serve sapere;
+    - realismo: dare per scontato che il lettore sappia come va il mondo e non vada informato di tutto, ma dirgli tutto ciò che probabilmente non sa e che gli serve sapere;
     - pertinenza: restare sul tema, senza perdere di vista lo scopo del lavoro;
     - onestà: affermare solo ciò per cui si hanno prove.
 
-### 2.7 Stile: cosa fare e cosa evitare
+### 2.7 Lo stile: che cosa fare e che cosa evitare
 
 Da fare:
 
-- Esplicitare le assunzioni, nell'introduzione o nei metodi.
+- Dichiarare le ipotesi date per buone (le assunzioni), nell'introduzione o nei metodi.
 - Essere il più precisi possibile: se ci sono numeri, usarli.
-- Non abusare delle abbreviazioni e definirle alla prima occorrenza. Esempio delle slide: "Un altro nome di Babbo Natale (BN) è Santa Claus (SC). BN fa gran parte del suo lavoro nei giorni prima di Natale, e così SC, naturalmente."
-- Definire ogni simbolo alla prima occorrenza.
-- Indicare le unità di misura; quelle del Sistema internazionale (SI) sono ormai lo standard condiviso.
+- Non esagerare con le abbreviazioni, e spiegarle la prima volta che compaiono. Un esempio dalle slide elencate nella sezione 5: "Un altro nome di Babbo Natale (BN) è Santa Claus (SC). BN fa gran parte del suo lavoro nei giorni prima di Natale, e così SC, naturalmente."
+- Spiegare ogni simbolo la prima volta che compare.
+- Indicare le unità di misura; quelle del Sistema internazionale (SI) sono ormai quelle usate da tutti.
 
 Da evitare:
 
-- Copiare sezioni o paragrafi interi da altri articoli, compresi i propri, anche quando sono già ben formulati e la tentazione è forte.
-- È anche un problema etico, soprattutto se si copia da lavori altrui: chi lo fa con ogni probabilità si chiude la carriera scientifica.
+- Copiare parti o paragrafi interi da altri articoli, compresi i propri, anche quando sono già scritti bene e la tentazione è forte.
+- È anche un problema etico, soprattutto se si copia da lavori altrui: chi lo fa, con ogni probabilità, si chiude la carriera scientifica.
 
-### 2.8 Checklist finale
+### 2.8 La lista di controllo finale
 
-- Titolo: intervento, contesto, disegno e risultato principale; sottotitoli con parsimonia, per i nomi dei gruppi; preciso, non troppo lungo, senza promettere troppo.
-- Autori e affiliazioni: chi firma, in che ordine e chi va nei ringraziamenti, deciso; forma del nome secondo la rivista.
-- Abstract: comprensibile da solo; contesto, metodi, risultati, conclusione; niente note, abbreviazioni, equazioni o simboli.
-- Introduzione: stato delle conoscenze con riferimenti; lacuna da colmare; obiettivi primari e secondari; novità rispetto a lavori simili.
-- Metodi: cosa si è fatto e come, in dettaglio; criteri di selezione della popolazione; tutti i test, interventi, analisi e tecniche; endpoint primari e secondari; aspetti etici; metodi statistici in un paragrafo dedicato.
-- Risultati: descriverli; niente commento né interpretazione; un risultato per ogni metodo; illustrazioni adeguate (tabelle e figure); ogni figura e tabella richiamata nel testo, figure con didascalia, tabelle con titolo.
-- Discussione: riepilogo del risultato principale; confronto con la letteratura; significato dei risultati e loro contributo alle conoscenze; punti di forza e limiti.
-- Appendici, se presenti: ciascuna richiamata nel testo.
-- Bibliografia: tutte le fonti usate; esattezza verificata per ogni riferimento, anche se copiato da altri articoli; corrispondenza completa tra citazioni nel testo ed elenco, con autori e anni coincidenti.
-- Stile: assunzioni esplicite; abbreviazioni e simboli definiti alla prima occorrenza; unità di misura indicate; nessun paragrafo copiato, nemmeno dai propri lavori.
-- Scrivere da zero sembra arduo, ma un buon lavoro preparatorio e un approccio sistematico lo rendono molto più gestibile. Ne vale la pena: vedere il lavoro pubblicato è gratificante, e condividere conoscenze e contribuire alle evidenze su un tema aiutano la carriera.
+- Titolo: trattamento, contesto, tipo di studio e risultato principale; sottotitoli con parsimonia, per i nomi dei gruppi; preciso, non troppo lungo, senza promettere troppo.
+- Autori e enti: deciso chi firma, in che ordine e chi va nei ringraziamenti; forma del nome secondo la rivista.
+- Riassunto: si capisce da solo; contesto, metodi, risultati, conclusione; niente note, abbreviazioni, equazioni o simboli.
+- Introduzione: che cosa si sa, con i riferimenti; la lacuna da colmare; gli obiettivi principali e secondari; che cosa c'è di nuovo rispetto a lavori simili.
+- Metodi: che cosa si è fatto e come, in dettaglio; come è stata scelta la popolazione; tutti i test, trattamenti, analisi e tecniche; i risultati da misurare, principali e secondari; l'etica; i metodi statistici in un paragrafo a sé.
+- Risultati: descritti; senza commenti né interpretazioni; un risultato per ogni metodo; tabelle e figure adatte; ogni figura e tabella richiamata nel testo, le figure con la didascalia, le tabelle con il titolo.
+- Discussione: riassunto del risultato principale; confronto con gli altri studi; che cosa vogliono dire i risultati e che cosa aggiungono; punti di forza e limiti.
+- Appendici, se ci sono: ciascuna richiamata nel testo.
+- Bibliografia: tutte le fonti usate; ogni riferimento controllato, anche se copiato da altri articoli; corrispondenza completa tra le citazioni nel testo e l'elenco, con autori e anni uguali.
+- Stile: ipotesi date per buone dichiarate; abbreviazioni e simboli spiegati la prima volta; unità di misura indicate; nessun paragrafo copiato, nemmeno dai propri lavori.
+- Scrivere da zero sembra difficile, ma una buona preparazione e un metodo ordinato lo rendono molto più facile. Ne vale la pena: vedere il proprio lavoro pubblicato dà soddisfazione, e condividere ciò che si sa e aggiungere prove su un tema aiuta la carriera.
 
 ## 3. Grafici e tabelle
 
-Ogni grafico porta un solo messaggio e non deve distorcere i dati: tipo di grafico, scale e colore si scelgono per questo. Quando usare testo, tabella o figura: vedi 1.9.
+Ogni grafico porta un solo messaggio e non deve deformare i dati: il tipo di grafico, le scale e i colori si scelgono per questo. Quando usare il testo, una tabella o una figura: sezione 1.9.
 
-### 3.1 Regole di disegno
+### 3.1 Le regole per disegnare
 
-1. **Torte: meglio evitarle.** Se si usano, le percentuali devono sommare a 100. Alternative migliori: grafici a barre e waffle plot.
-    - Esempio: tre torte con cinque categorie sembrano quasi uguali; gli stessi dati a barre mostrano una serie crescente, una quasi piatta e una decrescente.
-2. **I boxplot possono nascondere informazioni.** Mostrare anche i punti (jitter) o usare un violin plot con la numerosità di ogni gruppo.
-    - Esempio: quattro gruppi con n = 500, 1000, 20 e 100. Il violin plot rivela una distribuzione bimodale e il gruppo con pochi dati, che il solo box non mostra.
-3. **Sapere cosa rappresentano le barre d'errore.** Deviazione standard, errore standard e intervallo di confidenza danno ampiezze molto diverse sugli stessi dati (per esempio la lunghezza del sepalo nelle tre specie di iris). Inoltre dati e distribuzioni molto diversi possono avere la stessa barra d'errore.
-4. **Evitare l'overplotting.** Regolare trasparenza (alpha), dimensione e colori dei punti; usare heatmap o hexbin.
-    - Esempio: una nuvola compatta di punti nasconde tre gruppi, che compaiono con punti piccoli e trasparenti o in una mappa di densità.
-5. **Non troncare né espandere un asse senza valutarne le conseguenze.** Si può esagerare o minimizzare una differenza e cambiare del tutto la lettura del grafico. Vale in particolare per l'asse X, che nelle barre orizzontali è quello dei valori. Con grafici a colonne e a barre l'asse dei valori parte sempre da zero.
-    - Esempio: ore settimanali effettive nel lavoro principale, dipendenti a tempo pieno, 2013 (Eurofound 2014). Con l'asse da 36 a 42 le differenze tra paesi (da 41,2 della Romania a 37,4 della Francia) sembrano enormi; con l'asse da 0 sono minime.
-    - Esempio: decessi ospedalieri 2010–2013. Con l'asse da 400 a 440 sembrano un'impennata, con l'asse da 0 una linea quasi piatta.
-    - Lo zero non è sempre significativo. In una linea della temperatura media globale in gradi Fahrenheit (1880–2015), un asse da −10 a 110 appiattisce la serie, perché lo zero Fahrenheit non significa nulla; con l'asse da 55 a 60 (dati NASA/GISS) si vede il riscaldamento.
-6. **Non tagliare l'asse del tempo.** Stesso effetto: si esagera o si minimizza una differenza e cambia la lettura del grafico.
-    - Esempio: un'infografica sul GDPR della Commissione europea, con i mesi da maggio a novembre compressi e novembre, dicembre e gennaio molto più distanziati.
-7. **Usare il colore deliberatamente.** Non aggiungere colori solo per aggiungerli: il colore è informazione in più da elaborare. Va incluso quando sostiene un punto, tolto altrimenti.
-    - Esempio: cartellini rossi per squadra in un campionato belga, con un colore per squadra e una legenda lunga, contro le stesse barre in grigio, ordinate, con una sola squadra evidenziata.
-    - Esempio: armi vendute per paese nel 2017 (valori SIPRI), con un colore diverso per ogni paese, contro un colore unico. Anche un colore legato al valore ripete solo l'informazione già data dalla lunghezza delle barre.
-8. **Colori coerenti e palette adatta.** La stessa categoria mantiene lo stesso colore in tutti i grafici. Categorie diverse hanno tonalità diverse, non sfumature dello stesso colore, che sono difficili da distinguere e suggeriscono un ordine.
-    - Esempio: la Cina blu scuro nel grafico a linee e rossa nella torta accanto, dove il rosso indicava prima il Regno Unito.
-9. **No al chart junk.** Niente decorazioni, effetti 3D, illustrazioni, texture o sfondi che non aggiungono informazione.
-10. **Scalare i cerchi per area, non per raggio.** Con il raggio proporzionale al valore l'area cresce col quadrato: per 37,7% e 69,2% il cerchio grande risulta circa 3,4 volte il piccolo invece di 1,8.
-11. **Evitare il doppio asse.** Dividere in due grafici o usare facet.
-    - Esempio: persone annegate cadendo in piscina e film con Nicolas Cage, 1999–2009, su due assi y: le curve sembrano muoversi insieme (r = 0,67).
-12. **Correlazione non è causalità.**
-    - Esempio: dottorati in matematica assegnati e uranio stoccato nelle centrali nucleari USA, 1996–2008, con r = 0,95. Anche questo usa un doppio asse; entrambi gli esempi vengono da tylervigen.com.
-13. **Ordinare i dati, quando ha senso.**
-    - Esempio: le armi vendute per paese in ordine alfabetico inverso sono difficili da leggere; ordinate per valore mostrano subito la classifica.
-14. **Usare, idealmente, scale comuni nei small multiples (facet).**
-    - Esempio: pannelli con assi y diversi non si confrontano. Il grafico del Pew Research Center sul debito pubblico lordo in % del PIL nei paesi del G-7 dopo la Grande Recessione (2006–2016) usa la stessa scala per tutti, e il confronto è immediato (Giappone da 184% a 239%, Germania da 67% a 68%).
-15. **No al 3D.**
-    - Esempio: in una ciambella 3D esplosa (32, 8, 6, 4, 2) e in un grafico a punti XYZ in prospettiva, proporzioni e posizioni sono difficili da leggere.
+1. **Le torte: meglio evitarle.** Se si usano, le percentuali devono fare 100. Ci sono alternative migliori: i grafici a barre e i grafici a quadretti (waffle plot).
+    - Esempio: tre torte con cinque categorie sembrano quasi uguali; gli stessi dati a barre mostrano una serie che cresce, una quasi piatta e una che scende.
+2. **I grafici a scatola (boxplot) possono nascondere informazioni.** Conviene mostrare anche i singoli punti, leggermente sparpagliati (jitter), o usare un grafico a violino (violin plot), con il numero di casi di ogni gruppo.
+    - Esempio: quattro gruppi con 500, 1000, 20 e 100 casi. Il grafico a violino rivela una distribuzione con due picchi e il gruppo con pochi dati, che la sola scatola non mostra.
+3. **Bisogna sapere che cosa rappresentano le barre d'errore.** La deviazione standard, l'errore standard e l'intervallo di confidenza danno ampiezze molto diverse sugli stessi dati (per esempio la lunghezza del sepalo nelle tre specie di iris). Inoltre dati e distribuzioni molto diversi possono avere la stessa barra d'errore.
+4. **Evitare i punti sovrapposti (overplotting).** Si regolano la trasparenza, la dimensione e i colori dei punti, oppure si usano mappe di densità (heatmap, hexbin).
+    - Esempio: una nuvola fitta di punti nasconde tre gruppi, che compaiono con punti piccoli e trasparenti o in una mappa di densità.
+5. **Non tagliare né allargare un asse senza pensare alle conseguenze.** Si può esagerare o ridurre una differenza, e cambiare del tutto la lettura del grafico. Vale soprattutto per l'asse dei valori (che nelle barre orizzontali è l'asse X). Nei grafici a colonne e a barre l'asse dei valori parte sempre da zero.
+    - Esempio: le ore settimanali di lavoro effettive nel lavoro principale, per i dipendenti a tempo pieno, nel 2013 (Eurofound 2014). Con l'asse da 36 a 42 le differenze tra paesi (da 41,2 della Romania a 37,4 della Francia) sembrano enormi; con l'asse da 0 sono minime.
+    - Esempio: i decessi in ospedale dal 2010 al 2013. Con l'asse da 400 a 440 sembrano un'impennata, con l'asse da 0 una linea quasi piatta.
+    - Lo zero non ha sempre un significato. In una linea della temperatura media della Terra in gradi Fahrenheit (1880–2015), un asse da −10 a 110 schiaccia la serie, perché lo zero Fahrenheit non vuol dire nulla; con l'asse da 55 a 60 (dati NASA/GISS) si vede il riscaldamento.
+6. **Non tagliare l'asse del tempo.** L'effetto è lo stesso: si esagera o si riduce una differenza e cambia la lettura del grafico.
+    - Esempio: un'infografica della Commissione europea sul regolamento per la protezione dei dati (GDPR), con i mesi da maggio a novembre schiacciati e novembre, dicembre e gennaio molto più distanziati.
+7. **Usare il colore apposta.** Non si aggiungono colori solo per abbellire: il colore è un'informazione in più da capire. Si mette quando sostiene un punto, si toglie altrimenti.
+    - Esempio: i cartellini rossi per squadra in un campionato belga, con un colore per squadra e una legenda lunga, contro le stesse barre in grigio, in ordine, con una sola squadra evidenziata.
+    - Esempio: le armi vendute per paese nel 2017 (dati SIPRI), con un colore diverso per ogni paese, contro un colore unico. Anche un colore legato al valore ripete solo l'informazione già data dalla lunghezza delle barre.
+8. **Colori coerenti e scelti bene.** La stessa categoria ha lo stesso colore in tutti i grafici. Categorie diverse hanno colori diversi, non sfumature dello stesso colore, che si distinguono male e fanno pensare a un ordine.
+    - Esempio: la Cina blu scuro nel grafico a linee e rossa nella torta accanto, dove prima il rosso indicava il Regno Unito.
+9. **Niente decorazioni inutili (chart junk).** Niente ornamenti, effetti 3D, illustrazioni, trame o sfondi che non aggiungono informazione.
+10. **I cerchi si scalano per area, non per raggio.** Se il raggio è proporzionale al valore, l'area cresce con il quadrato: per 37,7% e 69,2% il cerchio grande risulta circa 3,4 volte il piccolo invece di 1,8.
+11. **Evitare i due assi verticali nello stesso grafico.** Meglio due grafici separati, o più pannelli (facet).
+    - Esempio: le persone annegate cadendo in piscina e i film con Nicolas Cage, dal 1999 al 2009, su due assi verticali: le curve sembrano andare insieme (correlazione r = 0,67).
+12. **Una correlazione non è un rapporto di causa ed effetto.**
+    - Esempio: i dottorati in matematica assegnati e l'uranio immagazzinato nelle centrali nucleari americane, dal 1996 al 2008, con una correlazione r = 0,95. Anche questo usa due assi; entrambi gli esempi vengono da tylervigen.com.
+13. **Mettere i dati in ordine, quando ha senso.**
+    - Esempio: le armi vendute per paese in ordine alfabetico al contrario si leggono male; in ordine di valore mostrano subito la classifica.
+14. **Nei grafici a più pannelli (small multiples, facet) usare, se si può, la stessa scala.**
+    - Esempio: pannelli con assi verticali diversi non si confrontano. Il grafico del Pew Research Center sul debito pubblico lordo in percentuale del PIL nei paesi del G-7 dopo la Grande Recessione (2006–2016) usa la stessa scala per tutti, e il confronto è immediato (Giappone da 184% a 239%, Germania da 67% a 68%).
+15. **Niente 3D.**
+    - Esempio: in una ciambella 3D con le fette staccate (32, 8, 6, 4, 2) e in un grafico a punti su tre assi in prospettiva, proporzioni e posizioni si leggono male.
 16. **Un grafico, un messaggio.**
-    - Esempio: la quota di donne tra gli iscritti per corso di laurea (medicina, legge, scienze fisiche, informatica) dagli anni '70 agli anni 2010 passa da quattro colori con legenda a linee grigie con etichette dirette e la sola informatica in rosso, l'unica serie che cala dagli anni '80.
-    - Esempio: in un grafico "a spaghetti" sulla popolarità dei nomi di bambini, una sola serie evidenziata su linee grigie, con un'annotazione.
-    - Da evitare: barre e linea su due assi con decine di etichette, parentesi e riquadri.
+    - Esempio: la quota di donne tra gli iscritti per corso di laurea (medicina, legge, scienze fisiche, informatica) dagli anni '70 agli anni 2010 passa da quattro colori con la legenda a linee grigie con le etichette accanto e la sola informatica in rosso, l'unica serie che cala dagli anni '80.
+    - Esempio: in un grafico "a spaghetti" sulla popolarità dei nomi dei bambini, una sola serie evidenziata tra linee grigie, con una nota.
+    - Da evitare: barre e linea su due assi, con decine di etichette, parentesi e riquadri.
 
-### 3.2 Figure e tabelle nel testo: richiami, didascalie, titoli
+### 3.2 Figure e tabelle nel testo: rimandi, didascalie, titoli
 
-- Usare le figure per mostrare i risultati principali, se possibile (per la scelta tra testo, tabella e figura vedi 1.9).
+- Se si può, i risultati principali si mostrano con le figure (per la scelta tra testo, tabella e figura: sezione 1.9).
 - Ogni figura va richiamata nel testo e ha una didascalia.
-- Didascalie brevi ma autoesplicative, perché spesso le figure si guardano prima di leggere il testo. Simboli e abbreviazioni usati in una figura devono essere stati definiti in una didascalia precedente.
-- La didascalia chiarisce solo cosa è rappresentato, senza interpretare la figura: l'interpretazione va nel testo.
-- Fare una tabella quando ci sono molti numeri da mostrare e non entrano in una figura, oppure quando contano i valori esatti. Le figure sono in genere più facili da leggere delle tabelle.
+- Le didascalie sono brevi ma si capiscono da sole, perché spesso le figure si guardano prima di leggere il testo. I simboli e le abbreviazioni usati in una figura devono essere già stati spiegati in una didascalia precedente.
+- La didascalia dice solo che cosa è rappresentato, senza interpretare la figura: l'interpretazione va nel testo.
+- Si fa una tabella quando ci sono molti numeri da mostrare che non entrano in una figura, oppure quando contano i valori esatti. Le figure di solito si leggono meglio delle tabelle.
 - Una tabella può servire anche nei metodi, per esempio una tabella delle osservazioni.
-- Ogni tabella ha un titolo, breve, ed è richiamata nel testo; le sue colonne vanno descritte.
+- Ogni tabella ha un titolo breve ed è richiamata nel testo; le sue colonne vanno spiegate.
 
-## 4. Ricerca bibliografica e riviste
+## 4. Cercare gli studi precedenti e scegliere le riviste
 
-Dove cercare la letteratura, come distinguere lavori pubblicati e non pubblicati, come valutare le riviste. Esempi e servizi sono quelli dell'economia. Cifre e dettagli delle interfacce vengono da slide non datate: verificarli prima di riportarli.
+Dove cercare gli studi, come distinguere quelli pubblicati da quelli non pubblicati, come valutare le riviste. Gli esempi e i servizi sono quelli dell'economia. Le cifre e i dettagli dei siti vengono da slide senza data: vanno controllati prima di riportarli.
 
-### 4.1 Cosa cercare: lavori non pubblicati e pubblicati
+### 4.1 Che cosa cercare: lavori non pubblicati e pubblicati
 
-- Si cercano articoli scientifici: lavori scritti da studiosi, di economia o di altri campi, per diffondere i risultati delle proprie ricerche nella comunità scientifica. Prima distinzione: lavori non pubblicati e lavori pubblicati.
-- Lavori non pubblicati: articoli non ancora usciti su riviste scientifiche con revisione paritaria. Sono bozze provvisorie che gli autori sottopongono alla comunità scientifica per avere riscontri su punti di forza e debolezze. Un articolo può restare in fase di bozza anche per diversi anni prima di essere inviato, ed eventualmente pubblicato, su una rivista.
-- Per avere riscontri dai colleghi, di solito gli autori:
-    1. presentano le bozze a seminari di ricerca, workshop e convegni;
-    2. le inseriscono in almeno una collana di working paper;
-    3. spesso (non sempre) le caricano in archivi personali o aperti (per esempio MPRA, arXiv, Academia.edu, ResearchGate) e sulle proprie pagine web, perché chiunque sia interessato, per esempio chi li segue, possa leggerle.
-- Dopo aver ricevuto riscontri e rivisto la bozza, gli autori di solito inviano il lavoro a una rivista internazionale.
-- Lavori pubblicati: in genere lavori rifiniti, la cui elaborazione ha richiesto diversi anni (vedi 4.2), ma non per forza lavori nuovi.
+- Si cercano articoli scientifici: lavori scritti da studiosi, di economia o di altri campi, per far conoscere i risultati delle loro ricerche agli altri studiosi. La prima distinzione è tra lavori non pubblicati e lavori pubblicati.
+- I lavori non pubblicati sono articoli non ancora usciti su riviste in cui altri esperti controllano i lavori prima di pubblicarli. Sono bozze provvisorie, che gli autori fanno circolare tra gli studiosi per avere pareri sui punti di forza e di debolezza. Un articolo può restare una bozza anche per diversi anni prima di essere mandato a una rivista, ed eventualmente pubblicato.
+- Per avere pareri dai colleghi, di solito gli autori:
+    1. presentano le bozze a seminari di ricerca, incontri di lavoro e convegni;
+    2. le inseriscono in almeno una collana di lavori in corso (working paper);
+    3. spesso, non sempre, le caricano in archivi personali o aperti (per esempio MPRA, arXiv, Academia.edu, ResearchGate) e sulle proprie pagine web, perché chiunque sia interessato, per esempio chi segue il loro lavoro, possa leggerle.
+- Dopo aver ricevuto i pareri e corretto la bozza, di solito gli autori mandano il lavoro a una rivista internazionale.
+- I lavori pubblicati sono in genere lavori rifiniti, che hanno richiesto diversi anni (sezione 4.2), ma non per forza lavori nuovi.
 
-### 4.2 Dall'invio alla pubblicazione: la revisione paritaria
+### 4.2 Dall'invio alla pubblicazione: il controllo degli esperti (revisione paritaria)
 
-Con l'invio a una rivista comincia un processo lungo e lento. Tempi indicativi secondo le slide:
+Con l'invio a una rivista comincia un percorso lungo e lento. I tempi indicativi, secondo le slide:
 
-1. Un editor, o un comitato di editor, esamina rapidamente il lavoro per valutare se può meritare la pubblicazione nella rivista.
-2. Se ritiene di no, lo respinge senza mandarlo in revisione (desk rejection). Può richiedere da un giorno a tre mesi, a seconda di quanto l'editor è occupato (e corretto).
-3. Dopo un desk rejection, gli autori inviano il lavoro a un'altra rivista e il processo riparte dal punto 1.
-4. Se l'editor ritiene che il lavoro abbia potenziale, lo manda ai revisori. Trovare revisori adatti, disponibili e disposti a valutarlo può richiedere da pochi giorni fino a due mesi.
-5. I revisori sono studiosi esperti del campo: valutano rigore metodologico, originalità, contributo alla letteratura, punti di forza e debolezze complessivi, e riferiscono all'editor con un referee report, in genere anonimo. Possono impiegare da due mesi a più di un anno, a seconda di quanto si sentono impegnati nel servizio e della capacità dell'editor di sollecitarli.
-6. Nel report i revisori danno all'editor una raccomandazione: rifiuto, oppure riconsiderazione dopo le revisioni suggerite, minori o, nella maggior parte dei casi, maggiori.
-7. L'editor decide. Se anche un solo revisore suggerisce il rifiuto, di solito il lavoro viene respinto: gli autori devono comunque rivederlo secondo i commenti anonimi dei revisori e poi inviarlo a un'altra rivista, e il processo riparte dal punto 1. Se invece, sulla base dei commenti, l'editor ritiene ancora che il lavoro abbia potenziale, lo rimanda agli autori per la revisione.
-8. Gli autori rivedono il lavoro secondo i commenti di revisori ed editor. La revisione richiede di solito da uno a diversi mesi, a seconda di estensione e difficoltà.
-9. Dopo la revisione, gli autori reinviano il lavoro alla rivista (resubmission).
-10. L'editor lo rimanda ai revisori, possibilmente gli stessi del primo giro, e il processo riparte dal punto 6.
-11. A ogni giro i revisori possono dare un parere negativo sull'ennesima revisione e sollecitare così il rifiuto.
+1. Un direttore della rivista (l'editor), o un gruppo di direttori, guarda rapidamente il lavoro per capire se potrebbe meritare di essere pubblicato lì.
+2. Se pensa di no, lo respinge senza mandarlo agli esperti (desk rejection, "rifiuto alla scrivania"). Può volerci da un giorno a tre mesi, a seconda di quanto l'editor è occupato (e corretto).
+3. Dopo un rifiuto di questo tipo, gli autori mandano il lavoro a un'altra rivista e il percorso riparte dal punto 1.
+4. Se l'editor pensa che il lavoro possa valere, lo manda agli esperti che lo valutano (i revisori). Trovare revisori adatti, disponibili e disposti a valutarlo può richiedere da pochi giorni fino a due mesi.
+5. I revisori sono studiosi esperti del campo. Valutano quanto è rigoroso il metodo, quanto è originale il lavoro, che cosa aggiunge agli studi esistenti, i punti di forza e di debolezza; poi scrivono all'editor una relazione (referee report), di solito anonima. Possono metterci da due mesi a più di un anno, a seconda di quanto prendono sul serio il compito e di quanto l'editor riesce a sollecitarli.
+6. Nella relazione i revisori consigliano all'editor una di queste strade: il rifiuto, oppure una nuova valutazione dopo le correzioni suggerite, piccole o, nella maggior parte dei casi, grandi.
+7. L'editor decide. Se anche un solo revisore consiglia il rifiuto, di solito il lavoro viene respinto: gli autori devono comunque correggerlo secondo i commenti anonimi dei revisori e poi mandarlo a un'altra rivista, e il percorso riparte dal punto 1. Se invece, letti i commenti, l'editor pensa ancora che il lavoro possa valere, lo rimanda agli autori perché lo correggano.
+8. Gli autori correggono il lavoro secondo i commenti dei revisori e dell'editor. Di solito ci vuole da un mese a diversi mesi, a seconda di quanto c'è da fare e di quanto è difficile.
+9. Finite le correzioni, gli autori rimandano il lavoro alla rivista (resubmission).
+10. L'editor lo rimanda ai revisori, possibilmente gli stessi del primo giro, e il percorso riparte dal punto 6.
+11. A ogni giro i revisori possono dare un parere negativo sull'ennesima correzione, e chiedere così il rifiuto.
 12. Giro dopo giro, però, il rifiuto diventa sempre meno probabile.
-13. Dopo alcuni giri (di solito 3 o 4) l'editor prende la decisione finale: accettazione o rifiuto. Per arrivarci il processo di revisione può durare fino a due anni, in casi sfortunati anche 3–5.
-14. Contando anche i tempi degli invii (e dei rifiuti) precedenti, pubblicare un articolo richiede molto tempo, impegno e pazienza.
+13. Dopo alcuni giri (di solito 3 o 4) l'editor prende la decisione finale: accettato o respinto. Per arrivarci possono servire fino a due anni, nei casi sfortunati anche da 3 a 5.
+14. Contando anche i tempi degli invii, e dei rifiuti, precedenti, pubblicare un articolo richiede molto tempo, impegno e pazienza.
 
 ### 4.3 Dove cercare
 
-- Web of Science (ISI WoS): la banca dati più completa di articoli pubblicati in economia; si raggiunge dall'elenco delle banche dati della biblioteca di ateneo (nelle slide, quella della Sapienza). Dettagli d'interfaccia riportati nelle slide: fino a tre campi di ricerca predefiniti; query fino a 6.000 termini; aggiungendo un campo, il collegamento è AND e si può cambiare in OR o NOT; selezione dell'intervallo temporale dei risultati.
-- Google Scholar: sempre uno dei modi più efficaci per cercare lavori sia pubblicati sia non pubblicati. Dalla rete dell'ateneo si dovrebbero poter scaricare direttamente le versioni html e pdf degli articoli pubblicati. Funzioni utili:
-    - ricerca avanzata;
-    - virgolette per cercare la frase esatta;
-    - selezione dell'intervallo temporale;
-    - per ogni lavoro, il numero di citazioni ricevute finora e il nome della rivista in cui è uscito;
-    - link al pdf, quando è reperibile in rete.
-- IDEAS (https://ideas.repec.org/): fonte fondamentale per lavori sia pubblicati sia non pubblicati, la più grande banca dati bibliografica dedicata all'economia e gratuita in rete. Si basa su RePEc (Research Papers in Economics), un grande progetto volontario per la libera diffusione della ricerca economica, che raccoglie i metadati bibliografici di oltre 1.900 archivi aderenti, compresi tutti i principali editori e centri di ricerca. Indicizza oltre 2.200.000 lavori, di cui oltre 2.000.000 scaricabili per intero (cifre delle slide). Ha una ricerca avanzata ("More advanced search"). IDEAS è solo uno dei servizi che usano i dati RePEc.
-- Servizi che usano i dati RePEc, in pratica specchi con grafica diversa: IDEAS (https://ideas.repec.org/), EconPapers (http://econpapers.repec.org/), Соционет / Socionet (https://socionet.ru/, in russo).
-- New Economics Papers (NEP, http://nep.repec.org/): servizio di annunci basato sui dati RePEc, che filtra le nuove aggiunte a RePEc in report tematici curati da editor di settore. Serve a tenere gli iscritti aggiornati sulla letteratura di ricerca. Le slide consigliano di iscriversi a NEP-SOC (Social Norms and Social Capital, curato dallo stesso Sabatini) e di sfogliarne i numeri passati.
-- Collane di working paper:
-    - NBER (National Bureau of Economic Research): organizzazione di ricerca privata non profit statunitense, che si propone di svolgere e diffondere ricerca economica imparziale tra decisori pubblici, professionisti e comunità accademica; molti dei vincitori americani del premio Nobel per l'economia erano NBER Research Associates;
-    - IZA (Institute of Labor Economics, fino al 2016 Institute for the Study of Labor): istituto di ricerca economica privato e indipendente e rete accademica, dedicato all'analisi dei mercati del lavoro, con sede a Bonn;
-    - CEPR (Centre for Economic Policy Research): rete di oltre 1.100 ricercatori, soprattutto di università europee, che collaborano nella ricerca e nella sua diffusione; sede a Londra (cifra delle slide).
-- Pagine personali degli autori: la maggior parte degli autori mette i propri lavori sul proprio sito. Se un lavoro è solo elencato, si può chiedere il pdf all'autore per email. Rendere disponibili gli articoli pubblicati a studenti e colleghi per scopi non commerciali è una prassi diffusa e comunemente accettata, anche dagli editori.
-- Social: seguire gli account di autori, istituzioni e riviste. Le riviste più importanti hanno account attivi (le slide citano Twitter e Facebook, con gli esempi di Nature, Science e delle riviste AEA), e gli autori di rilievo di solito vi pubblicano i propri lavori.
+- Web of Science (ISI WoS): la banca dati più completa degli articoli pubblicati in economia; si raggiunge dall'elenco delle banche dati della biblioteca dell'università (nelle slide, quella della Sapienza). I dettagli del sito riportati nelle slide: fino a tre campi di ricerca già pronti; ricerche fino a 6.000 parole; aggiungendo un campo, i due si collegano con AND (tutti e due), che si può cambiare in OR (almeno uno) o NOT (non); si può scegliere il periodo dei risultati.
+- Google Scholar: sempre uno dei modi migliori per cercare lavori pubblicati e non pubblicati. Dalla rete dell'università si dovrebbero poter scaricare direttamente le versioni html e pdf degli articoli pubblicati. Funzioni utili:
+    - la ricerca avanzata;
+    - le virgolette, per cercare la frase esatta;
+    - la scelta del periodo;
+    - per ogni lavoro, quante citazioni ha ricevuto finora e su quale rivista è uscito;
+    - il collegamento al pdf, quando si trova in rete.
+- IDEAS (https://ideas.repec.org/): una fonte fondamentale per lavori pubblicati e non pubblicati, la più grande banca dati di riferimenti bibliografici dedicata all'economia, gratuita in rete. Si basa su RePEc (Research Papers in Economics), un grande progetto di volontari per far circolare liberamente la ricerca economica, che raccoglie le schede bibliografiche di oltre 1.900 archivi aderenti, compresi tutti i principali editori e centri di ricerca. Contiene oltre 2.200.000 lavori, di cui oltre 2.000.000 scaricabili per intero (cifre delle slide). Ha una ricerca avanzata ("More advanced search"). IDEAS è solo uno dei servizi che usano i dati di RePEc.
+- I servizi che usano i dati di RePEc sono in pratica copie con una grafica diversa: IDEAS (https://ideas.repec.org/), EconPapers (http://econpapers.repec.org/), Соционет / Socionet (https://socionet.ru/, in russo).
+- New Economics Papers (NEP, http://nep.repec.org/): un servizio di avvisi basato sui dati di RePEc, che divide i nuovi lavori arrivati su RePEc in bollettini per argomento, curati da esperti del settore. Serve a tenere aggiornati gli iscritti sulle nuove ricerche. Le slide consigliano di iscriversi a NEP-SOC (Social Norms and Social Capital, curato dallo stesso Sabatini, l'autore delle slide) e di sfogliarne i numeri passati.
+- Le collane di lavori in corso (working paper):
+    - NBER (National Bureau of Economic Research): un ente di ricerca privato e senza scopo di lucro degli Stati Uniti, che vuole fare e far conoscere ricerca economica imparziale tra chi prende decisioni pubbliche, i professionisti e le università; molti dei premi Nobel americani per l'economia ne facevano parte (NBER Research Associates);
+    - IZA (Institute of Labor Economics, fino al 2016 Institute for the Study of Labor): un istituto di ricerca economica privato e indipendente, e una rete di studiosi, dedicato allo studio del mercato del lavoro, con sede a Bonn;
+    - CEPR (Centre for Economic Policy Research): una rete di oltre 1.100 ricercatori, soprattutto di università europee, che collaborano a fare ricerca e a farla conoscere; ha sede a Londra (cifra delle slide).
+- Le pagine personali degli autori: la maggior parte degli autori mette i propri lavori sul proprio sito. Se un lavoro è solo elencato, si può chiedere il pdf all'autore per email. Dare gli articoli pubblicati a studenti e colleghi, per scopi non commerciali, è un'abitudine diffusa e accettata, anche dagli editori.
+- I social: conviene seguire gli account di autori, istituzioni e riviste. Le riviste più importanti hanno account attivi (le slide citano Twitter e Facebook, con gli esempi di Nature, Science e delle riviste dell'associazione degli economisti americani, AEA), e gli autori importanti di solito vi pubblicano i loro lavori.
 
 ### 4.4 Le riviste non sono tutte uguali
 
-- Gli standard con cui una rivista decide cosa pubblicare variano molto. Alcune riviste, come Nature, Science, PNAS e Physical Review Letters, hanno la reputazione di pubblicare articoli che segnano una svolta fondamentale nel loro campo.
-- In economia questa reputazione va in genere alle cosiddette "top 5": American Economic Review, Econometrica, Journal of Political Economy, Quarterly Journal of Economics, Review of Economic Studies (in ordine alfabetico).
-- Gli articoli sulle riviste scientifiche sono molto tecnici: rappresentano la ricerca teorica e i risultati sperimentali più recenti del campo e sono in genere incomprensibili a chi non è ricercatore del campo o studente avanzato.
-- Tipi di rivista:
-    - generaliste: puntano a coprire l'intera disciplina (in economia AER, QJE, Review of Economic Studies, JPE, Econometrica e, al secondo livello, Economic Journal, JEEA, International Economic Review);
-    - di settore: limitano il proprio ambito a un campo o sottocampo (economia del lavoro, economia sanitaria, economia comportamentale, teoria economica, dinamica macroeconomica, economia sperimentale…);
-    - anche le riviste generaliste in linea di principio sono note per accogliere alcuni approcci e temi più di altri;
-    - interdisciplinari: coprono temi specifici da prospettive disciplinari diverse, per esempio Social Networks (sociologia ed economia), Evolution and Human Behavior (biologia, scienze comportamentali), Computers in Human Behavior (psicologia, scienze della comunicazione);
-    - regionali: specializzate in lavori su un paese o un'area geografica, per esempio Journal of African Economies, Journal of Asian Economics.
-- Esempio di settore: in economia comportamentale le riviste più reputate sono Games and Economic Behavior, Journal of Economic Behavior and Organization, Journal of Economic Psychology, Kyklos, Journal of Behavioral and Experimental Economics. Anche le riviste generaliste, però, pubblicano molti contributi comportamentali.
-- Impact factor (IF): in molti campi esiste una gerarchia informale delle riviste; le più prestigiose tendono a essere le più selettive e ad avere l'impact factor più alto.
-    - L'IF misura l'influenza di una rivista nel dibattito scientifico: è la media annua delle citazioni ricevute dagli articoli recenti della rivista.
-    - Si usa spesso come indicatore dell'importanza relativa di una rivista nel suo campo, e le riviste con IF più alto sono spesso ritenute più importanti.
-    - Ha un'influenza grande, ma controversa, su come la ricerca pubblicata viene percepita e valutata.
-- Ranking delle riviste: basati sull'impatto, sulla reputazione o su una combinazione dei due; i dipartimenti li usano spesso per valutare i candidati a posizioni accademiche. Esempi accessibili pubblicamente: ranking delle riviste di Scimago, ranking di IDEAS, ranking di Google Scholar per le scienze sociali, ranking delle riviste di Scopus.
-- Non affidarsi troppo a metriche d'impatto e ranking: ciò che conta davvero è la reputazione.
+- I criteri con cui una rivista decide che cosa pubblicare cambiano molto. Alcune riviste, come Nature, Science, PNAS e Physical Review Letters, hanno la fama di pubblicare articoli che segnano una svolta nel loro campo.
+- In economia questa fama va di solito alle cosiddette "top 5": American Economic Review, Econometrica, Journal of Political Economy, Quarterly Journal of Economics, Review of Economic Studies (in ordine alfabetico).
+- Gli articoli delle riviste scientifiche sono molto tecnici: presentano le ricerche teoriche e i risultati più recenti del campo, e di solito sono incomprensibili per chi non fa ricerca in quel campo o non è uno studente avanzato.
+- I tipi di rivista:
+    - generali: vogliono coprire tutta la disciplina (in economia AER, QJE, Review of Economic Studies, JPE, Econometrica e, un gradino sotto, Economic Journal, JEEA, International Economic Review);
+    - di settore: si limitano a un campo o a una sua parte (economia del lavoro, economia sanitaria, economia comportamentale, teoria economica, dinamica macroeconomica, economia sperimentale…);
+    - anche le riviste generali, in pratica, sono note per accogliere alcuni approcci e temi più di altri;
+    - tra più discipline: trattano temi precisi da punti di vista diversi, per esempio Social Networks (sociologia ed economia), Evolution and Human Behavior (biologia, scienze del comportamento), Computers in Human Behavior (psicologia, scienze della comunicazione);
+    - regionali: dedicate a lavori su un paese o un'area del mondo, per esempio Journal of African Economies, Journal of Asian Economics.
+- Un esempio di settore: in economia comportamentale le riviste più stimate sono Games and Economic Behavior, Journal of Economic Behavior and Organization, Journal of Economic Psychology, Kyklos, Journal of Behavioral and Experimental Economics. Anche le riviste generali, però, pubblicano molti lavori di economia comportamentale.
+- L'impact factor (IF): in molti campi c'è una classifica non ufficiale delle riviste; le più prestigiose tendono a essere le più selettive e ad avere l'impact factor più alto.
+    - L'IF misura quanto una rivista pesa nel dibattito scientifico: è la media, in un anno, delle citazioni ricevute dagli articoli recenti della rivista.
+    - Si usa spesso per dire quanto è importante una rivista nel suo campo, e le riviste con l'IF più alto sono spesso considerate più importanti.
+    - Ha un peso grande, ma discusso, su come la ricerca pubblicata viene vista e valutata.
+- Le classifiche delle riviste (ranking): basate sulle citazioni, sulla reputazione o su tutte e due; i dipartimenti le usano spesso per valutare chi si candida a un posto all'università. Esempi consultabili da tutti: le classifiche delle riviste di Scimago, di IDEAS, di Google Scholar per le scienze sociali, di Scopus.
+- Non bisogna fidarsi troppo delle misure di impatto e delle classifiche: ciò che conta davvero è la reputazione.
 
-### 4.5 Riviste consigliate per economia e reti
+### 4.5 Riviste consigliate per l'economia e le reti
 
-- Per gli elaborati del corso di Economics of networks (Sapienza), le slide consigliano di guardare i numeri degli ultimi due-tre anni di queste riviste, tutte accessibili gratuitamente dalla rete Sapienza. Sono elencate in tre gruppi, senza spiegare il criterio:
+- Per i lavori del corso di Economics of networks (Sapienza), le slide consigliano di guardare i numeri degli ultimi due o tre anni di queste riviste, tutte consultabili gratis dalla rete della Sapienza. Sono elencate in tre gruppi, senza spiegare il criterio:
     - American Economic Review, Econometrica, Journal of Political Economy, Proceedings of the National Academy of Sciences, Quarterly Journal of Economics, Review of Economic Studies;
     - American Journal of Political Science, American Political Science Review, Economic Journal, International Economic Review, Journal of the European Economic Association;
     - European Journal of Political Economy, Journal of Economic Behavior & Organization, Journal of International Economics, Journal of Public Economics, Social Networks.
 
-## 5. Fonti e letture
+## 5. Le fonti di questa guida e le letture consigliate
 
-Fonti:
+Le fonti:
 
 - Ecarnot F, Seronde M-F, Chopard R, Schiele F, Meneveau N. Writing a scientific article: A step-by-step guide for beginners. European Geriatric Medicine 2015;6:573–579. [doi:10.1016/j.eurger.2015.08.005](https://doi.org/10.1016/j.eurger.2015.08.005)
-- Schmidt AL. Slide di data visualization.
-- Writing your project: slide sulla stesura di un report di analisi dati, con esempi tratti da report di progetto e da Falkenberg et al., Patterns of partisan toxicity and engagement reveal the common structure of online political communication across countries, Nature Communications, 2024.
-- Solanki SK. How to write a research paper. Slide, Max Planck Institute for Solar System Research, Göttingen. Non datate.
-- Sabatini F. Brief guide to bibliographic searches for the students of Economics of networks. Slide del corso di Economics of networks, Sapienza Università di Roma. Non datate.
+- Schmidt AL. Slide sulla visualizzazione dei dati.
+- Writing your project: slide su come scrivere il resoconto di un'analisi di dati, con esempi presi da resoconti di progetto e da Falkenberg e altri, Patterns of partisan toxicity and engagement reveal the common structure of online political communication across countries, Nature Communications, 2024.
+- Solanki SK. How to write a research paper. Slide, Max Planck Institute for Solar System Research, Göttingen. Senza data.
+- Sabatini F. Brief guide to bibliographic searches for the students of Economics of networks. Slide del corso di Economics of networks, Sapienza Università di Roma. Senza data.
 
-Per approfondire la scrittura:
+Per saperne di più su come scrivere:
 
 1. Pierson DJ. The top 10 reasons why manuscripts are not accepted for publication. Respir Care 2004;49:1246–52.
 2. Guyatt GH, Haynes RB. Preparing reports for publication and responding to reviewers' comments. J Clin Epidemiol 2006;59:900–6.
@@ -452,9 +452,9 @@ Per approfondire la scrittura:
 7. Whitehouse S. How to write for publication in medical journals. Transl Res 2013;162:270–3.
 8. Elsevier Publishing Campus. Writing for books and journals. www.publishingcampus.elsevier.com/pages/14/Colleges/College-of-Skill-training/Writing-for-books-and-journals.html
 
-Per approfondire i grafici:
+Per saperne di più sui grafici:
 
 - [From Data to Viz](https://www.data-to-viz.com/): indica il grafico più adatto ai dati, rimanda al codice per costruirlo ed elenca gli errori comuni da evitare.
-- [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/)
-- [Visualizations that make no sense](https://viz.wtf/)
-- How the Rainbow Color Map Misleads
+- [What to consider when choosing colors for data visualization](https://blog.datawrapper.de/colors/) (come scegliere i colori)
+- [Visualizations that make no sense](https://viz.wtf/) (grafici senza senso)
+- How the Rainbow Color Map Misleads (perché la scala di colori ad arcobaleno inganna)
