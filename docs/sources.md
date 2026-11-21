@@ -1,67 +1,69 @@
-# Fonti del progetto
+# Le fonti del progetto
 
-Raccolte e controllate il 10/11/2026 da Claude nel browser; riviste lo stesso giorno da Claude Code, che ha confrontato le deduzioni con i dati (sezione 0). Per ogni voce: riferimento, link, cosa contiene (solo quello che è stato controllato), uso nel progetto, stato della verifica.
+Questo documento elenca tutte le fonti raccolte: leggi, regole della Corte, studi, libri, banche dati. Per ognuna dice il riferimento completo, il link, che cosa contiene (solo ciò che è stato davvero controllato), a che cosa serve nel progetto e quanto è stata letta. Le fonti sono state raccolte e controllate il 10/11/2026 dall'assistente (Claude) nel browser, e riviste lo stesso giorno confrontando quello che dicevano con i dati (sezione 0); poi aggiornate man mano, con la data di ogni lettura.
 
-**Stati.** *Letto*: testo o pagine indicate letti. *Abstract*: riferimento e abstract controllati, non il testo. *Scheda*: controllato solo che il riferimento esista; il contenuto viene da titolo o scheda. *[da verificare]*: non controllato.
+**Quanto è stata letta ogni fonte.** *Letto*: sono stati letti il testo o le pagine indicate. *Abstract*: sono stati controllati il riferimento e il riassunto, non il testo. *Scheda*: è stato controllato solo che la fonte esista; il contenuto viene dal titolo o dalla scheda dell'editore. *[da verificare]*: non controllato.
 
-**Sigle.** C = contesto istituzionale, B = base dati, L = letteratura e metodo.
+**Le sigle.** C = contesto istituzionale (come funziona la Corte), B = basi di dati, L = letteratura e metodo.
 
-**Regola.** Nella relazione si cita solo ciò che è stato letto, con le pagine. Le voci "abstract" o "scheda" si leggono prima di citarle. Non si citano tutte: il riferimento è il nucleo minimo qui sotto.
+**La regola.** Nella relazione si cita solo ciò che è stato letto, con le pagine. Le fonti lette solo nel riassunto o nella scheda si leggono prima di citarle. Non si citano tutte: la relazione si appoggia sul nucleo qui sotto.
 
-## Nucleo minimo per la relazione
+Le note delle sezioni 1–3 riassumono ciò che dice ciascuna fonte, con le pagine; sono scritte per chi deve ritrovare il punto nel testo originale, quindi usano i termini degli autori. Le parole tecniche sono spiegate nella relazione ("Le parole tecniche, spiegate").
 
-| Ruolo | Fonte | Stato | Da fare |
+## Il nucleo di fonti usato nella relazione
+
+| A che cosa serve | Fonte | Quanto è stata letta | Che cosa resta da fare |
 | --- | --- | --- | --- |
-| Contesto | Legge 87/1953, artt. 16–19, 23 e 27 | Letto (artt. 23 e 27 il 18/11/2026) | — |
-| Contesto | Norme integrative 2008 (artt. 7, 17) e 2026 (artt. 9, 20) | Letto | — |
-| Contesto | Costituzione, art. 127 (giudizio in via principale) | Letto il 21/11/2026 ([testo su Wikisource](https://it.wikisource.org/wiki/Italia,_Repubblica_-_Costituzione)) | — |
-| Contesto | [B4] Pagina ufficiale "I Giudici costituzionali" | Letto | — |
-| Contesto | [C4] Caravita 2021, estratto gratuito | Letto (pp. 2–8) | — |
-| Contesto | [C5] Forum del Gruppo di Pisa 2021 | Letto (pagine indicate) | — |
+| Come funziona la Corte | Legge 87/1953, articoli 16–19, 23 e 27 | Letta (articoli 23 e 27 il 18/11/2026) | — |
+| Come funziona la Corte | Norme integrative 2008 (articoli 7, 17) e 2026 (articoli 9, 20) | Lette | — |
+| Come funziona la Corte | Costituzione, articolo 127 (giudizio in via principale) | Letto il 21/11/2026 ([testo su Wikisource](https://it.wikisource.org/wiki/Italia,_Repubblica_-_Costituzione)) | — |
+| Come funziona la Corte | [B4] Pagina ufficiale "I Giudici costituzionali" | Letta | — |
+| Come funziona la Corte | [C4] Caravita 2021, estratto gratuito | Letto (pp. 2–8) | — |
+| Come funziona la Corte | [C5] Forum del Gruppo di Pisa 2021 | Letto (pagine indicate) | — |
 | Dati | [B1] Portale open data della Corte | Letto | — |
 | Dati | [B5] Dati quantitativi 2025 del Servizio studi | Letto | Confrontare i conteggi per tipo di giudizio |
-| Lavori sulla Corte italiana | [L3] Agnoloni e Pagallo 2016 | Letto (pp. 139–151) | — |
-| Lavori sulla Corte italiana | [L1–L2] Agnoloni e Pagallo 2015 | Abstract | Testo a pagamento (ACM, IOS Press): serve l'accesso della biblioteca |
-| D1 | [L4] Lupu e Voeten 2012 | Letto (pp. 413–437) | — |
-| D1 | [L11] Fowler et al. 2007 | Letto, manoscritto degli autori (pp. 1–18 del manoscritto) | Per citare le pagine della rivista serve la versione pubblicata |
+| Studi sulla Corte italiana | [L3] Agnoloni e Pagallo 2016 | Letto (pp. 139–151) | — |
+| Studi sulla Corte italiana | [L1–L2] Agnoloni e Pagallo 2015 | Solo il riassunto | Testo a pagamento (ACM, IOS Press): serve l'accesso della biblioteca |
+| D1 (concentrazione delle citazioni) | [L4] Lupu e Voeten 2012 | Letto (pp. 413–437) | — |
+| D1 | [L11] Fowler e altri 2007 | Letto, nella versione degli autori (pp. 1–18 del manoscritto) | Per citare le pagine della rivista serve la versione pubblicata |
 | D1 | [L7] Frankenreiter 2017, risposta a Derlén e Lindholm | Letto per intero (pp. 687–694) | — |
-| D2–D4 | [L16] Landes, Lessig e Solimine 1998 | Letto (pp. 271–293, 321–327) | — |
-| D2–D4 | [L19] Frankenreiter 2017, Corte di giustizia UE | Letto, versione accettata (pp. 1–26 del manoscritto) | Per citare le pagine della rivista serve la versione pubblicata |
-| Metodo | [L21] Uzzi et al. 2013, nullo che rispetta il tempo | Letto (materiali supplementari, pp. 3, 5) | — |
-| Metodo | [L24] King e Zeng 2001, campionamento in D3 | Letto (pp. 140–144, 160) | — |
-| Metodo | [L15] Black e Spriggs 2013, D1b | Abstract | Nessuna versione libera: cercare "10.1111/jels.12012" nel catalogo della biblioteca (Wiley Online Library) |
-| Corso | [L27] Easley e Kleinberg, cap. 5, 14, 20 | Letti §14.5 (18/11/2026), cap. 5 e cap. 20 (20/11/2026); indice completo letto il 18/11/2026 | Per citare altri capitoli vanno letti |
-| Corso | [L28] Barabási, *Network Science* | Indice dei capitoli 1–10 (titoli delle sezioni) letto il 18/11/2026; cap. 3, §3.8–3.10, letto il 20/11/2026 | Altre parti non lette: vanno lette prima di citarle |
+| D2–D4 (giudici) | [L16] Landes, Lessig e Solimine 1998 | Letto (pp. 271–293, 321–327) | — |
+| D2–D4 | [L19] Frankenreiter 2017, Corte di giustizia UE | Letto, nella versione accettata (pp. 1–26 del manoscritto) | Per citare le pagine della rivista serve la versione pubblicata |
+| Metodo | [L21] Uzzi e altri 2013, confronto con il caso che rispetta il tempo | Letto (materiali aggiuntivi, pp. 3, 5) | — |
+| Metodo | [L24] King e Zeng 2001, come scegliere i precedenti non citati in D3 | Letto (pp. 140–144, 160) | — |
+| Metodo | [L15] Black e Spriggs 2013, durata del precedente | Solo il riassunto | Nessuna versione gratuita: cercare "10.1111/jels.12012" nel catalogo della biblioteca (Wiley Online Library) |
+| Corso | [L27] Easley e Kleinberg, capitoli 5, 14, 20 | Letti §14.5 (18/11/2026), capitoli 5 e 20 (20/11/2026); indice completo letto il 18/11/2026 | Per citare altri capitoli vanno letti |
+| Corso | [L28] Barabási, *Network Science* | Indice dei capitoli 1–10 letto il 18/11/2026; capitolo 3, §3.8–3.10, letto il 20/11/2026 | Altre parti: vanno lette prima di citarle |
 
-Da leggere: L1–L2 (ACM, IOS Press) e L15 (Wiley), non ancora caricati. I PDF letti sono in `literature/`, esclusa da git. Il file caricato come Fowler et al. 2007 era un altro articolo (H. J. Fowler e altri, *International Journal of Climatology*, 2007): rinominato `WRONG_…`; al suo posto c'è il manoscritto degli autori dell'articolo giusto.
+Ancora da leggere: L1–L2 (ACM, IOS Press) e L15 (Wiley). I PDF letti sono nella cartella `literature/`, che non entra nel repository (diritti d'autore). Il file caricato come Fowler e altri 2007 era un altro articolo (H. J. Fowler e altri, *International Journal of Climatology*, 2007): è stato rinominato `WRONG_…`, e al suo posto c'è la versione degli autori dell'articolo giusto.
 
-## 0. Cosa cambia nel progetto, con le verifiche sui dati
+## 0. Che cosa cambia nel progetto, controllato sui dati
 
-1. **Chi scrive le massime.** L'Annuario 2024 [C2] attribuisce la compilazione delle massime all'Ufficio del massimario; il Servizio studi fa analisi e documentazione. La pagina "Il progetto" del portale open data scrive invece "massime redatte dal Servizio studi". Si cita l'Annuario, più recente, segnalando la differenza.
-2. **Fonte per completare l'anagrafica.** La pagina ufficiale "I Giudici costituzionali" [B4] riporta per ogni giudice dal 1956 provenienza, nomina o elezione, giuramento e cessazione. Conferma la cessazione di Spagnoli il 25/02/1995, non il 2005. Omonimi, con i periodi:
+1. **Chi scrive le massime.** L'Annuario 2024 [C2] dice che le massime le scrive l'Ufficio del massimario, mentre il Servizio studi fa analisi e documentazione. La pagina "Il progetto" del portale open data scrive invece "massime redatte dal Servizio studi". Si cita l'Annuario, più recente, segnalando la differenza.
+2. **Una fonte per correggere l'elenco dei giudici.** La pagina ufficiale "I Giudici costituzionali" [B4] riporta per ogni giudice dal 1956 la provenienza, chi l'ha nominato, il giuramento e la fine del mandato. Conferma che Spagnoli ha finito il 25/02/1995, non nel 2005. I giudici con lo stesso cognome, con i loro periodi:
    - Aldo Sandulli (1957–1969) e Maria Alessandra Sandulli;
    - Nicola Reale (1968–1977) e Oronzo Reale (1977–1986);
    - Ettore Gallo (1982–1991) e Franco Gallo (2004–2013);
    - Annibale Marini (1997–2006) e Francesco Saverio Marini.
 
-   M. A. Sandulli e F. S. Marini hanno giurato il 19/02/2025 [B5]; l'anagrafica scaricata indica il 18/02/2025 [da verificare].
-3. **Firma del solo Presidente e redattore.** Caravita [C4, p. 3]: le Norme integrative del 1956 prevedevano la firma di tutti i giudici; la modifica del 7 luglio 1987 all'art. 18 introduce la firma del Presidente e del redattore, decisa durante lo smaltimento dell'arretrato (p. 4). Nei dati il passaggio cade il 23/12/1986 (pronuncia 287/1986): la prassi ha preceduto la norma. Il testo della deliberazione non è stato letto [da verificare].
-4. **Relatore sostituito.**
-   - **Il confronto tra i campi regge.** Dal 2003 al 2020 i nostri dati danno 44 pronunce con relatore diverso dal redattore su 6.340; Panizza [C5, pp. 397–398] conta 41 casi su circa 6.350 nello stesso periodo.
-   - **Il report ipotizzava che le 17 pronunce con più redattori fossero contate tra le "diverse": è falso.** Nei dati il campo relatore contiene gli stessi nomi del campo redattore, quindi nessuna delle 17 è tra i 93 casi.
-   - **Formula di sostituzione nel testo** ("sostituito per la redazione", "che viene sostituito"): nei dati compare dal 2006, come scrive Caravita [C4, p. 2], in 41 pronunce dal 2006 al 2023. Sono meno dei casi con i campi diversi: la formula non è sempre usata. Va letta come conferma, non come conteggio.
-   - **1987–2001.** Un confronto grezzo tra il campo relatore e il redattore nelle firme dà 475 differenze, di cui 124 nel 1988 e 56 nel 1989. Molte sono errori di grafia nel campo relatore ("Caianello" per Caianiello); il resto è compatibile con l'arretrato, quando ogni processo era affidato a due giudici [C1, p. 5]. Caravita conta 32 sostituzioni ufficiali nel 1988–1999. Il numero vero si saprà solo con l'abbinamento dei nomi all'anagrafica.
-   - Una sostituzione è un indizio di dissenso, non una prova [C5, Ruotolo]; il relatore in minoranza spesso redige comunque [C7, pp. 14–15].
-5. **Gli anni dell'arretrato** (1987–1989 circa). Nel 1987 ogni processo fu affidato a due giudici, i pendenti divisi in sei gruppi per materia, e le decisioni più che raddoppiarono [C1, p. 5]: nei dati 641 pronunce nel 1987 e 1.165 nel 1988, contro 300–400 negli anni prima. Caravita esclude questi anni dal calcolo delle sostituzioni [C5]. Da decidere: una variante di robustezza senza gli anni dell'arretrato, con gli anni fissati sulle fonti.
-6. **Collegio integrato del giudizio Lockheed.** Sentenza senza numero, depositata il 2/8/1979, con giudici aggregati [B7]. **Non è nell'archivio scaricato**: il 1979 va dalla 1 alla 155 e nessun collegio menziona giudici aggregati. Va solo dichiarata come assente.
-7. **Ammissibilità e forma.** Il programma 2026/27 [L29] chiede un'analisi originale con metodi del corso, individuale o in coppia, 70% del voto; non pone vincoli su tema o dati. Il corso è in inglese, quindi probabilmente anche la relazione [da chiedere]. Argomento per il docente: Easley e Kleinberg, §14.5 "Applications beyond the Web", pp. 415–417 [L27], presenta l'analisi hub/authority di Fowler e Jeon sulle sentenze della Corte Suprema USA.
-8. **La lacuna va ristretta.** L'influenza dei singoli giudici misurata con le citazioni è studiata da tempo [L16–L18], anche in una corte con giudice relatore e senza dissenso pubblicato, la Corte di giustizia UE [L19]. La novità difendibile è più stretta: gli strati di redazione e collegio applicati alla Corte costituzionale italiana, e la memoria collegiale stimata sulle assenze dal collegio (D3).
-9. **D1: una legge di potenza non prova una gerarchia.** Agnoloni e Pagallo riportano leggi di potenza [L2]; Frankenreiter [L7] osserva che le producono anche pratiche di citazione ripetitive, e che servono test formali. Sostiene la regola "un modello nullo per ogni statistica". Per stimare le distribuzioni: [L22]; per confrontare precedenti di età diverse: [L13].
-10. **D3: campionare i non citati.** King e Zeng [L24]: campionare tutti gli eventi e una frazione dei non eventi è efficiente; le correzioni sono nel testo, da leggere prima di scegliere tra 50 e 100.
-11. **D1b: durata del precedente.** Black e Spriggs [L15] definiscono il deprezzamento come variazione della frequenza di citazione con l'età, e trovano che l'effetto delle altre variabili dipende dall'età: l'età va nel modello, anche in interazione.
-12. **Conteggi ufficiali per validare.** Il Servizio studi pubblica i "Dati quantitativi e di analisi" [B5, B6]. Per il 2025: 219 decisioni (190 sentenze, 29 ordinanze); i nostri dati danno 219 pronunce nel 2025 [conteggio di tipo e giudizio da confrontare].
+   M. A. Sandulli e F. S. Marini hanno giurato il 19/02/2025 [B5]; l'elenco scaricato dice il 18/02/2025 [da verificare].
+3. **Quando hanno cominciato a firmare solo il Presidente e chi ha scritto.** Caravita [C4, p. 3]: le Norme integrative del 1956 prevedevano la firma di tutti i giudici; la modifica del 7 luglio 1987 all'articolo 18 introduce la firma del Presidente e di chi ha scritto, decisa mentre la Corte smaltiva l'arretrato (p. 4). Nei dati il passaggio cade il 23/12/1986 (pronuncia 287/1986): la pratica è venuta prima della regola. Il testo della modifica non è stato letto [da verificare].
+4. **Il relatore sostituito da un altro giudice nella scrittura.**
+   - **Il confronto con gli studi torna.** Dal 2003 al 2020 i dati del progetto danno 44 pronunce con relatore diverso da chi ha scritto, su 6.340; Panizza [C5, pp. 397–398] conta 41 casi su circa 6.350 nello stesso periodo.
+   - **Un'ipotesi sbagliata, corretta.** Si pensava che le 17 pronunce scritte da più giudici fossero contate tra i casi "diversi": non è così. Nei dati il campo del relatore contiene gli stessi nomi del campo di chi ha scritto, quindi nessuna delle 17 è tra i 93 casi.
+   - **La formula nel testo** ("sostituito per la redazione", "che viene sostituito") compare nei dati dal 2006, come scrive Caravita [C4, p. 2], in 41 pronunce dal 2006 al 2023. Sono meno dei casi con i due nomi diversi: la formula non è sempre usata. Va letta come conferma, non come conteggio.
+   - **1987–2001.** Un primo confronto tra il campo del relatore e il nome nelle firme dà 475 differenze, di cui 124 nel 1988 e 56 nel 1989. Molte sono errori di grafia nel campo del relatore ("Caianello" per Caianiello); il resto è compatibile con gli anni dell'arretrato, quando ogni causa era affidata a due giudici [C1, p. 5]. Caravita conta 32 sostituzioni ufficiali nel 1988–1999. Il numero vero si saprà solo collegando i nomi all'elenco dei giudici.
+   - Una sostituzione fa pensare a un dissenso del relatore, ma non lo prova [C5, Ruotolo]; il relatore in minoranza spesso scrive comunque [C7, pp. 14–15].
+5. **Gli anni dell'arretrato** (circa 1987–1989). Nel 1987 ogni causa fu affidata a due giudici, le cause pendenti furono divise in sei gruppi per materia, e le decisioni più che raddoppiarono [C1, p. 5]: nei dati 641 pronunce nel 1987 e 1.165 nel 1988, contro 300–400 negli anni prima. Caravita esclude questi anni dal calcolo delle sostituzioni [C5]. Per questo D3 è rifatto anche senza gli anni dell'arretrato (relazione, sezione 3.4).
+6. **Il giudizio Lockheed.** Una sentenza senza numero, depositata il 2/8/1979, decisa con giudici aggiunti [B7]. **Non è nell'archivio scaricato**: le pronunce del 1979 vanno dalla 1 alla 155, e nessun collegio nomina giudici aggiunti. Basta dichiararlo.
+7. **Che cosa chiede il corso.** Il programma 2026/27 [L29] chiede un'analisi originale con i metodi del corso, da soli o in coppia, che vale il 70% del voto; non pone limiti sul tema o sui dati. Il corso è in inglese, quindi forse anche la relazione [da chiedere]. Un argomento per il docente: Easley e Kleinberg, §14.5 "Applications beyond the Web", pp. 415–417 [L27], presenta l'analisi di Fowler e Jeon sulle citazioni tra le sentenze della Corte Suprema degli Stati Uniti come esempio dei metodi del corso.
+8. **Che cosa c'è di nuovo, detto con precisione.** Che un giudice abbia peso misurato con le citazioni è studiato da tempo [L16–L18], anche in una corte in cui scrive il relatore e non si pubblica il dissenso, la Corte di giustizia dell'Unione europea [L19]. La novità difendibile è più stretta: chi scrive e chi siede nel collegio, applicati alla Corte costituzionale italiana, e l'effetto di aver partecipato a una decisione stimato sfruttando le assenze dal collegio (D3).
+9. **D1: una legge di potenza non prova una gerarchia.** Agnoloni e Pagallo trovano leggi di potenza [L2]; Frankenreiter [L7] osserva che le producono anche abitudini di citazione ripetitive, e che servono test veri. Da qui la regola del progetto: ogni risultato si confronta con il caso. Per stimare le distribuzioni: [L22]; per confrontare precedenti di età diverse: [L13].
+10. **D3: scegliere a caso i precedenti non citati.** King e Zeng [L24]: prendere tutti i precedenti citati e solo una parte, a caso, dei non citati è un modo efficiente di stimare; le correzioni necessarie sono nel testo, letto prima di scegliere 50 non citati per pronuncia.
+11. **La durata del precedente.** Black e Spriggs [L15] misurano quanto un precedente "si consuma" con la frequenza di citazione per età, e trovano che l'effetto delle altre caratteristiche dipende dall'età: l'età deve stare nel modello.
+12. **Conteggi ufficiali per controllare i dati.** Il Servizio studi pubblica i "Dati quantitativi e di analisi" [B5, B6]. Per il 2025: 219 decisioni (190 sentenze, 29 ordinanze); i dati del progetto danno 219 pronunce nel 2025 [il conteggio per tipo e per giudizio è da confrontare].
 
-## 1. Contesto istituzionale
+## 1. Come funziona la Corte
 
 **Fonti della Corte**
 - [C1] Saja, F. (1988). *La giustizia costituzionale nel 1987*. Relazione alla conferenza stampa, 8/2/1988. [PDF](https://giurcost.org/contents/giurcost//cronache/19880208_Saja.pdf). Modifiche alle Norme integrative del 1° ottobre 1987; ogni processo affidato a due giudici; sei gruppi di lavoro per materia (p. 5); decisi quasi tutti i ricorsi in via principale e i conflitti pendenti fino al 1986 (p. 24). Uso: anni dell'arretrato. *Letto (pp. 5, 6, 24).*
@@ -99,7 +101,7 @@ Da leggere: L1–L2 (ACM, IOS Press) e L15 (Wiley), non ancora caricati. I PDF l
 - [B8] Agnoloni, T., et al. (2017). "Linking European Case Law: BO-ECLI Parser". In *Legal Knowledge and Information Systems*, IOS Press, 113–118. DOI 10.3233/978-1-61499-838-9-113. [PDF](https://iris.unito.it/retrieve/e27ce42d-9a04-2581-e053-d805fe0acbaa/FAIA302-0113.pdf). Estrattore open source di riferimenti giurisprudenziali, con estensione italiana; non riporta precisione né richiamo. Uso: secondo estrattore da confrontare, non sostituisce le coppie annotate. *Letto; funzionamento sul testo italiano [da verificare provandolo].*
 - [B9] Bacci, L., et al. (2019). "Linkoln project at the Italian Senate". IOS Press, 149–158. [scheda](https://iris.cnr.it/handle/20.500.14243/426219). Estrattore di riferimenti normativi. *Abstract.*
 
-## 3. Lavori precedenti e metodo
+## 3. Studi precedenti e metodo
 
 **La rete della Corte costituzionale italiana**
 - [L1] Agnoloni, T., Pagallo, U. (2015). "The case law of the Italian constitutional court, its power laws, and the web of scholarly opinions". *ICAIL 2015*, 151–155. DOI 10.1145/2746090.2746108. [scheda](https://iris.unito.it/handle/2318/1728348). *Abstract.*
