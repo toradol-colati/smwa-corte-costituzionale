@@ -8,18 +8,18 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[2]
 VALID = "Il quadro di tutti i controlli, spiegato, è in `reports/validation.md`."
 INTROS = {
-    "data_inspection.md": "Questo file è il primo controllo fatto sui file scaricati dal portale, prima di qualsiasi analisi: com'è fatto ogni file, "
-        "quanto è completo anno per anno, se i dati sono coerenti tra loro. Le cose più importanti che ne sono uscite: la numerazione delle "
-        "pronunce non ha buchi né doppioni; il nome di chi ha scritto la pronuncia c'è solo dal dicembre 1986; l'elenco ufficiale dei giudici "
-        "ha date mancanti o sbagliate. Le tabelle sono prodotte da un programma e usano i nomi tecnici dei campi, spiegati in "
-        "`docs/data_schema.md` e `docs/context.md`.",
+    "data_inspection.md": "Questo file è il primo controllo fatto sui file scaricati dal portale, prima di qualsiasi analisi. Le cose più "
+        "importanti che ne sono uscite: la numerazione delle pronunce non ha buchi né doppioni, quindi anno e numero identificano ogni "
+        "pronuncia; il nome di chi ha scritto la pronuncia c'è solo dal dicembre 1986; nelle ordinanze il ragionamento della Corte sta in "
+        "un posto diverso che nelle sentenze; l'elenco ufficiale dei giudici ha date mancanti o sbagliate, da completare a mano.",
     "judges_quality.md": "Questo file dice quanto bene il programma ha riconosciuto i giudici: chi ha scritto ciascuna pronuncia e chi "
         "sedeva nel collegio, collegando i nomi all'elenco ufficiale dei giudici. Le due soglie decise prima (98% per entrambe le cose) "
         "sono superate. Per le pronunce fino alla 286/1986 il nome di chi ha scritto non c'è: al suo posto si usa il relatore.",
     "sparql_reconciliation.md": "Questo file confronta i file scaricati con una seconda fonte ufficiale della Corte, la sua banca dati "
         "interrogabile con il linguaggio SPARQL, per scoprire errori nei file. Il risultato principale: il relatore coincide quasi sempre, e "
         "quasi tutte le differenze sono due errori di grafia nei file (\"Caianello\" per Caianiello, \"Capolozza\" per Capalozza), poi "
-        "corretti. Le tabelle usano i nomi tecnici della banca dati.",
+        "corretti nel programma che riconosce i giudici. Il confronto non è stato rifatto dopo il 12/11/2026, perché la banca dati cambia "
+        "ogni giorno.",
     "topics.md": "Questo file descrive come è stata ricavata la materia di ogni pronuncia, con le prove fatte per scegliere il numero di "
         "temi e per controllarli. I temi vanno d'accordo con i titoli delle massime e con gli articoli della Costituzione invocati, molto "
         "più che per caso; però cambiano parecchio ripetendo il calcolo, e alcuni raccolgono formule ricorrenti di scrittura più che una "

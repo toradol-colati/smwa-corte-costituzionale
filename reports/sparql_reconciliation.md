@@ -1,82 +1,84 @@
-# Endpoint SPARQL e file scaricati: verifica e riconciliazione
+# Il confronto con la banca dati SPARQL della Corte
 
-Generato da `src/ingest/sparql_check.py` il 2026-11-12 00:20 UTC, interrogando `https://dati.cortecostituzionale.it/sparql/endpoint` e confrontando con i file di `data/raw/MANIFEST.csv`. L'endpoint è aggiornato in continuo; i file sono quelli del download registrato nel manifest.
+Prodotto da `src/ingest/sparql_check.py` il 12/11/2026 alle 00:20 (ora UTC). Oltre ai file da scaricare, la Corte ha una banca dati che un programma può interrogare con il linguaggio SPARQL, all'indirizzo `https://dati.cortecostituzionale.it/sparql/endpoint`. È una seconda fonte ufficiale: confrontandola con i file scaricati, elencati in `data/raw/MANIFEST.csv`, si possono scoprire errori nei file. La banca dati si aggiorna di continuo, mentre i file sono quelli di un giorno preciso: negli anni più recenti qualche differenza è normale.
 
 ## In breve
 
-Questo file confronta i file scaricati con una seconda fonte ufficiale della Corte, la sua banca dati interrogabile con il linguaggio SPARQL, per scoprire errori nei file. Il risultato principale: il relatore coincide quasi sempre, e quasi tutte le differenze sono due errori di grafia nei file ("Caianello" per Caianiello, "Capolozza" per Capalozza), poi corretti. Le tabelle usano i nomi tecnici della banca dati.
+Questo file confronta i file scaricati con una seconda fonte ufficiale della Corte, la sua banca dati interrogabile con il linguaggio SPARQL, per scoprire errori nei file. Il risultato principale: il relatore coincide quasi sempre, e quasi tutte le differenze sono due errori di grafia nei file ("Caianello" per Caianiello, "Capolozza" per Capalozza), poi corretti nel programma che riconosce i giudici. Il confronto non è stato rifatto dopo il 12/11/2026, perché la banca dati cambia ogni giorno.
 
-## Metadati esposti
+## Che cosa contiene la banca dati
 
-**Pronuncia**
+La banca dati descrive quattro tipi di oggetti: pronunce, massime, giudici e sedute della Corte. Ogni informazione è registrata come una "tripla": oggetto, proprietà, valore (per esempio: una pronuncia, "relatore", un giudice). Per ogni proprietà le tabelle dicono quante triple ci sono: è un modo per vedere quanto è completa ogni informazione. "onto:" abbrevia `https://dati.cortecostituzionale.it/ontology/`, cioè le proprietà definite dalla Corte; le altre vengono da vocabolari usati da molte banche dati.
 
-| proprietà | triple |
-| --- | --- |
-| onto:massima | 46683 |
-| onto:relatorePronuncia | 22460 |
-| http://dbpedia.org/ontology/number | 22429 |
-| http://purl.org/dc/elements/1.1/identifier | 22429 |
-| http://purl.org/dc/elements/1.1/type | 22429 |
-| http://rdfs.org/sioc/ns#content | 22429 |
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | 22429 |
-| http://www.w3.org/2000/01/rdf-schema#label | 22429 |
-| http://www.w3.org/2006/time#year | 22429 |
-| onto:tipoProcedimento | 22429 |
-| onto:presidentePronuncia | 21523 |
-| onto:seduta | 19417 |
-| onto:tipoDispositivo | 8990 |
+**Pronunce**
 
-**Massima**
+| Proprietà (nome tecnico) | Che cosa è | Triple |
+| --- | --- | --- |
+| onto:massima | massime della pronuncia | 46683 |
+| onto:relatorePronuncia | relatore | 22460 |
+| http://dbpedia.org/ontology/number | numero | 22429 |
+| http://purl.org/dc/elements/1.1/identifier | codice identificativo | 22429 |
+| http://purl.org/dc/elements/1.1/type | tipo | 22429 |
+| http://rdfs.org/sioc/ns#content | testo | 22429 |
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | tipo di oggetto (pronuncia, massima…) | 22429 |
+| http://www.w3.org/2000/01/rdf-schema#label | nome leggibile | 22429 |
+| http://www.w3.org/2006/time#year | anno | 22429 |
+| onto:tipoProcedimento | tipo di procedimento | 22429 |
+| onto:presidentePronuncia | presidente | 21523 |
+| onto:seduta | seduta | 19417 |
+| onto:tipoDispositivo | esito | 8990 |
 
-| proprietà | triple |
-| --- | --- |
-| http://dbpedia.org/ontology/number | 46683 |
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | 46683 |
-| http://www.w3.org/2000/01/rdf-schema#label | 46683 |
-| onto:testoMassima | 46643 |
-| onto:riferimentoCostMassima | 14773 |
-| onto:riferimentoNormMassima | 13922 |
+**Massime**
 
-**Giudice**
+| Proprietà (nome tecnico) | Che cosa è | Triple |
+| --- | --- | --- |
+| http://dbpedia.org/ontology/number | numero | 46683 |
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | tipo di oggetto (pronuncia, massima…) | 46683 |
+| http://www.w3.org/2000/01/rdf-schema#label | nome leggibile | 46683 |
+| onto:testoMassima | testo della massima | 46643 |
+| onto:riferimentoCostMassima | riferimenti alla Costituzione | 14773 |
+| onto:riferimentoNormMassima | riferimenti ad altre norme | 13922 |
 
-| proprietà | triple |
-| --- | --- |
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | 136 |
-| http://www.w3.org/2002/07/owl#sameAs | 136 |
-| http://xmlns.com/foaf/0.1/name | 136 |
-| http://xmlns.com/foaf/0.1/surname | 136 |
-| http://xmlns.com/foaf/0.1/title | 136 |
-| http://www.w3.org/2000/01/rdf-schema#comment | 121 |
-| http://xmlns.com/foaf/0.1/depiction | 84 |
+**Giudici**
 
-**Seduta**
+| Proprietà (nome tecnico) | Che cosa è | Triple |
+| --- | --- | --- |
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | tipo di oggetto (pronuncia, massima…) | 136 |
+| http://www.w3.org/2002/07/owl#sameAs | lo stesso oggetto in un'altra banca dati | 136 |
+| http://xmlns.com/foaf/0.1/name | nome | 136 |
+| http://xmlns.com/foaf/0.1/surname | cognome | 136 |
+| http://xmlns.com/foaf/0.1/title | titolo (prof., dott.…) | 136 |
+| http://www.w3.org/2000/01/rdf-schema#comment | nota | 121 |
+| http://xmlns.com/foaf/0.1/depiction | immagine | 84 |
 
-| proprietà | triple |
-| --- | --- |
-| onto:haMembro | 12546 |
-| onto:verbale | 7678 |
-| http://purl.org/dc/elements/1.1/date | 943 |
-| http://purl.org/dc/elements/1.1/type | 943 |
-| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | 943 |
-| http://www.w3.org/2000/01/rdf-schema#label | 943 |
+**Sedute**
 
-## Pronunce
+| Proprietà (nome tecnico) | Che cosa è | Triple |
+| --- | --- | --- |
+| onto:haMembro | membri (giudici) | 12546 |
+| onto:verbale | verbale | 7678 |
+| http://purl.org/dc/elements/1.1/date | data | 943 |
+| http://purl.org/dc/elements/1.1/type | tipo | 943 |
+| http://www.w3.org/1999/02/22-rdf-syntax-ns#type | tipo di oggetto (pronuncia, massima…) | 943 |
+| http://www.w3.org/2000/01/rdf-schema#label | nome leggibile | 943 |
 
-- Pronunce distinte: endpoint 22,429, file 22,427.
-- Anni con conteggi diversi:
+## Le pronunce
 
-| index | file | endpoint |
+- Pronunce diverse: nella banca dati 22.429, nei file 22.427.
+- Anni in cui i due conteggi non coincidono:
+
+| Anno | Nei file | Nella banca dati |
 | --- | --- | --- |
 | 2026 | 191 | 193 |
 
-- Triple di tipo `Pronuncia`: 22,461, contro 22,429 pronunce distinte. Triple `relatorePronuncia`: 22,461. Nell'endpoint una pronuncia con più relatori riceve una tripla di tipo per ciascun relatore (verificato su 194/2019, 102/2016, 119/2024): il conteggio delle triple di tipo non è il numero delle pronunce.
+- Triple che dicono "questo oggetto è una pronuncia": 22.461, più delle 22.429 pronunce. Il motivo: nella banca dati una pronuncia con più relatori è registrata una volta per ogni relatore (controllato sulle pronunce 194/2019, 102/2016 e 119/2024). Quindi contare queste triple non dà il numero delle pronunce. Triple con il relatore: 22.461.
 
-## Relatore: endpoint e file a confronto
+## Il relatore: banca dati e file a confronto
 
-- Pronunce confrontate: 22,426. Concordanza (ogni cognome dell'endpoint compare nel relatore dei file): **97.12%** (645 discordanze).
-- Discordanze raggruppate per coppia di nomi (11 coppie distinte; le prime 30):
+- Pronunce confrontate: 22.426. Il relatore coincide, cioè ogni cognome della banca dati compare nel relatore dei file, nel **97,12%** dei casi; le differenze sono 645.
+- Le differenze, raggruppate per coppia di nomi (11 coppie). Un nome scritto in due modi simili è di solito un errore di grafia; una casella vuota vuol dire che nei file il relatore manca.
 
-| file | endpoint | pronunce |
+| Nei file | Nella banca dati | Pronunce |
 | --- | --- | --- |
 | Vincenzo Caianello | CAIANIELLO | 471 |
 | Enzo Capolozza | CAPALOZZA | 164 |
@@ -90,12 +92,12 @@ Questo file confronta i file scaricati con una seconda fonte ufficiale della Cor
 |  | SANTOSUOSSO / CHIEPPA | 1 |
 |  | TESAURO / VACCARELLA | 1 |
 
-## Massime
+## Le massime
 
-- Massime distinte: endpoint 46,683, file 46,658.
-- Anni con conteggi diversi:
+- Massime diverse: nella banca dati 46.683, nei file 46.658.
+- Anni in cui i due conteggi non coincidono:
 
-| index | file | endpoint |
+| Anno | Nei file | Nella banca dati |
 | --- | --- | --- |
 | 2016 | 663 | 665 |
 | 2020 | 934 | 935 |
@@ -103,17 +105,19 @@ Questo file confronta i file scaricati con una seconda fonte ufficiale della Cor
 | 2022 | 806 | 808 |
 | 2026 | 439 | 458 |
 
-## Giudici
+## I giudici
 
-- Giudici: endpoint 136, righe dell'anagrafica nei file 136 (di cui 11 righe composte da più nomi).
+- Giudici: nella banca dati 136; righe dell'elenco dei giudici nei file 136, di cui 11 con più nomi insieme (corrispondono alle pronunce scritte da più giudici, non a persone).
 
-## Esito (`tipoDispositivo`)
+## L'esito delle pronunce (`tipoDispositivo`)
 
-| index | pronunce nei file | con esito nell'endpoint | quota |
+La banca dati dice anche l'esito di ogni pronuncia, per esempio "non fondatezza" o "illegittimità costituzionale". La tabella dà, per ogni anno in cui c'è almeno un esito, quante pronunce lo hanno e la quota sul totale delle pronunce nei file (1 = tutte; sopra 1 se la banca dati ha più pronunce dei file).
+
+| Anno | Pronunce nei file | Con l'esito nella banca dati | Quota |
 | --- | --- | --- | --- |
-| 1989 | 596 | 1 | 0.002 |
-| 2005 | 482 | 310 | 0.643 |
-| 2006 | 463 | 459 | 0.991 |
+| 1989 | 596 | 1 | 0,002 |
+| 2005 | 482 | 310 | 0,643 |
+| 2006 | 463 | 459 | 0,991 |
 | 2007 | 464 | 464 | 1 |
 | 2008 | 449 | 449 | 1 |
 | 2009 | 342 | 342 | 1 |
@@ -133,11 +137,11 @@ Questo file confronta i file scaricati con una seconda fonte ufficiale della Cor
 | 2023 | 229 | 229 | 1 |
 | 2024 | 212 | 212 | 1 |
 | 2025 | 219 | 219 | 1 |
-| 2026 | 191 | 193 | 1.01 |
+| 2026 | 191 | 193 | 1,01 |
 
-- Tipi di esito distinti: 33.
+- Tipi di esito diversi: 33.
 
-| codice | etichetta | triple |
+| Codice | Esito | Triple |
 | --- | --- | --- |
 | 3 | non fondatezza | 1778 |
 | 4 | inammissibilità | 1283 |
