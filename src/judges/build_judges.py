@@ -5,6 +5,7 @@ Outputs
   data/processed/pronunce_judges.csv   relatore, redattore(s), source of the redattore, collegio size
   data/processed/collegio.csv          one row per (pronuncia, sitting judge)
   reports/judges_quality.md            matching rates against the fixed thresholds
+  data/interim/collegio_errors.csv     pronunce whose collegio was not fully recognised, for hand checking
 
 Redattore source (docs/context.md, section 5):
   field           the XML field (from 2002)
@@ -138,6 +139,13 @@ def main() -> None:
     pj["decade"] = pj.anno // 10 * 10
     red_ok = pj.redattore_ids.map(lambda s: s != "" and "0" not in s.split("|"))
     coll_ok = pj.n_collegio.between(11, 15) & (pj.n_collegio >= pj.n_listed)
+    # pronunce whose collegio was not fully recognised go to a separate file, with the reason and the
+    # collegio text, so they can be checked by hand (.claude/rules/data.md)
+    bad = pj.loc[~coll_ok, ["pid", "anno", "tipo", "n_collegio", "n_listed"]].copy()
+    bad["reason"] = ["fewer_than_11" if n < 11 else "more_than_15" if n > 15 else "fewer_than_listed"
+                     for n in bad.n_collegio]
+    bad = bad.merge(df[["pid", "collegio"]], on="pid")
+    bad.to_csv(REPO / "data/interim/collegio_errors.csv", index=False)
     pct = lambda x: f"{100 * x:.2f}%".replace(".", ",")  # Italian format
     pct1 = lambda x: f"{100 * x:.1f}%".replace(".", ",")
     num = lambda x: f"{x:,}".replace(",", ".")
@@ -154,6 +162,9 @@ def main() -> None:
            f"- Pronunce con il collegio riconosciuto per intero, cioè con un numero di giudici tra 11 e 15, tutti collegati all'elenco e "
            f"non meno dei nomi scritti nel testo: **{pct(coll_ok.mean())}** (soglia decisa prima: 98%). Senza il confronto con i nomi "
            f"scritti nel testo: {pct(pj.n_collegio.between(11, 15).mean())}.",
+           f"  Le {num(len(bad))} pronunce con il collegio non riconosciuto per intero sono elencate in `data/interim/collegio_errors.csv`, "
+           "con il motivo (meno di 11 giudici, più di 15, oppure meno giudici dei nomi scritti nel testo) e il testo del collegio, "
+           "per il controllo a mano.",
            f"- Pronunce scritte da più giudici insieme: {(pj.n_redattori > 1).sum()}.",
            f"- Pronunce in cui il nome del relatore è stato collegato all'elenco: "
            f"{pct((pj.relatore_ids.map(lambda s: s != '' and '0' not in s.split('|'))).mean())}.\n",

@@ -75,7 +75,7 @@ Queste regole valgono quando si lavora sui programmi che leggono i dati, estragg
 - Nei collegi dei giudizi d'accusa possono comparire i giudici aggregati (i cittadini estratti a sorte che si aggiungono ai giudici della Corte, Costituzione art. 135), che non sono giudici costituzionali: non si collegano all'elenco dei giudici.
 - Una pronuncia può avere più redattori: nel campo `redattore_pronuncia` succede in 17 pronunce, dal 2016. Come contarle nello strato 2 (giudice → pronuncia scritta) e nella rete tra giudici si decide e si scrive in `docs/decisions.md`.
 - Il collegio non è un campo ordinato: l'elenco dei giudici presenti si ricava dal testo ("composta dai signori" o formule simili).
-- La soglia per il collegio: almeno il 98% delle pronunce con il collegio riconosciuto per intero, cioè tra 11 (il numero legale) e 15 giudici, tutti collegati all'elenco. Le pronunce sotto la soglia vanno in `data/interim/collegio_errors.csv`.
+- La soglia per il collegio: almeno il 98% delle pronunce con il collegio riconosciuto per intero, cioè tra 11 (il numero legale) e 15 giudici, tutti collegati all'elenco. Le pronunce con il collegio non riconosciuto per intero vanno in `data/interim/collegio_errors.csv`, con il motivo e il testo del collegio, per il controllo a mano.
 
 ## I controlli con la banca dati SPARQL della Corte
 

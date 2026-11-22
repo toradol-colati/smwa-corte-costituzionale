@@ -11,6 +11,7 @@ Questo file dice quanto bene il programma ha riconosciuto i giudici: chi ha scri
 - Pronunce in cui il nome di chi ha scritto è stato collegato all'elenco dei giudici: **99,84%** (soglia decisa prima: 98%).
 - Da dove viene il nome di chi ha scritto: dal campo dei dati in 8.384 pronunce; dalla firma in fondo al testo in 8.349; dal relatore, usato al suo posto fino alla 286/1986, in 5.678; in 16 non c'è.
 - Pronunce con il collegio riconosciuto per intero, cioè con un numero di giudici tra 11 e 15, tutti collegati all'elenco e non meno dei nomi scritti nel testo: **98,85%** (soglia decisa prima: 98%). Senza il confronto con i nomi scritti nel testo: 99,79%.
+  Le 257 pronunce con il collegio non riconosciuto per intero sono elencate in `data/interim/collegio_errors.csv`, con il motivo (meno di 11 giudici, più di 15, oppure meno giudici dei nomi scritti nel testo) e il testo del collegio, per il controllo a mano.
 - Pronunce scritte da più giudici insieme: 19.
 - Pronunce in cui il nome del relatore è stato collegato all'elenco: 99,95%.
 
