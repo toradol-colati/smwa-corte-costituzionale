@@ -1,0 +1,124 @@
+judge_id,Nome_Cognome,eletto_da,first_presence,last_presence,n_pronunce,n_colleagues,strength
+1,Antonino Papaldo,Consiglio di Stato,1956-04-15,1967-12-12,1176,23,15200
+2,Ernesto Battaglini,Corte di Cassazione,1956-04-15,1960-06-10,310,16,4011
+4,Mario Cosatti,Corte dei conti,1956-04-15,1962-12-13,573,20,7396
+5,Giuseppe Cappi,Parlamento,1956-04-15,1963-02-07,460,20,6007
+6,Francesco Gabrieli Pantaleo,Corte di Cassazione,1956-04-15,1962-07-03,543,19,7007
+7,Gaspare Ambrosini,Parlamento,1956-04-15,1967-12-12,1261,23,16196
+8,Mario Bracci,Parlamento,1956-04-15,1959-04-18,228,15,2963
+9,Giovanni Cassandro,Parlamento,1956-04-15,1967-12-12,1256,23,16141
+10,Tomaso Perassi,Presidente della Repubblica,1956-04-15,1960-07-06,371,16,4740
+11,Giuseppe Castelli Avolio,Presidente della Repubblica,1956-04-15,1966-06-22,1004,22,12879
+12,Gaetano Azzariti,Presidente della Repubblica,1956-04-15,1960-12-22,368,17,4687
+14,Enrico De Nicola,Presidente della Repubblica,1956-04-15,1957-03-08,81,14,1037
+15,Biagio Petrocelli,Presidente della Repubblica,1956-06-15,1968-05-09,1127,27,14664
+16,Antonio Manca,Corte di Cassazione,1956-07-05,1968-07-02,1320,28,17056
+17,Aldo Sandulli,Presidente della Repubblica,1957-06-07,1969-04-02,1348,28,17561
+18,Giuseppe Branca,Parlamento,1959-07-28,1971-07-05,1668,28,21817
+19,Michele Fragali,Corte di Cassazione,1960-11-08,1972-07-14,1779,27,23229
+20,Costantino Mortati,Presidente della Repubblica,1961-02-28,1972-12-18,1726,27,22665
+21,Giuseppe Chiarelli,Presidente della Repubblica,1961-02-28,1973-02-14,1771,28,23200
+22,Giuseppe Verzì,Corte di Cassazione,1962-11-12,1974-11-07,1976,28,25984
+23,Giovanni Battista Benedetti,Corte dei conti,1963-11-05,1975-07-08,1929,27,25718
+24,Francesco Paolo Bonifacio,Parlamento,1963-11-19,1975-10-22,2171,28,28760
+25,Luigi Oggioni,Presidente della Repubblica,1966-11-08,1978-05-23,2335,34,30750
+26,Angelo de Marco,Consiglio di Stato,1968-03-11,1977-01-04,1949,24,25784
+27,Enzo Capolozza,Parlamento,1968-03-11,1977-01-04,2009,24,26528
+28,Vincenzo Trimarchi,Parlamento,1968-03-11,1977-01-04,1852,24,24557
+29,Ercole Rocchetti,Parlamento,1968-03-11,1977-01-04,1992,24,26307
+30,Michele Rossano,Corte dei conti,1974-12-05,1983-09-30,1669,28,21381
+31,Vezio Crisafulli,Presidente della Repubblica,1968-06-20,1977-05-24,1861,27,24648
+32,Nicola Reale,Corte dei conti,1968-11-21,1977-07-04,1938,26,25573
+33,Paolo Rossi,Presidente della Repubblica,1969-06-19,1978-04-27,1942,27,25464
+34,Leonetto Amadei,Parlamento,1972-07-14,1981-06-26,1812,29,23667
+35,Giulio Gionfrida,Corte di Cassazione,1972-11-09,1981-10-06,1518,28,19995
+36,Edoardo Volterra,Presidente della Repubblica,1973-02-14,1982-01-22,1814,28,23573
+37,Guido Astuti,Presidente della Repubblica,1973-04-04,1980-07-18,1484,25,19411
+38,Antonino de Stefano,Corte dei conti,1975-10-10,1984-07-13,1627,28,20845
+39,Leopoldo Elia,Parlamento,1976-06-15,1985-05-06,1918,29,24054
+40,Guglielmo Roehrssen,Consiglio di Stato,1977-05-24,1986-01-08,1763,26,22044
+41,Oronzo Reale,Parlamento,1977-02-25,1986-01-23,2059,26,25625
+42,Alberto Malagugini,Parlamento,1977-02-25,1986-01-23,1919,26,23909
+43,Brunetto Bucciarelli Ducci,Parlamento,1977-02-25,1986-01-23,1955,26,24355
+44,Livio Paladin,Presidente della Repubblica,1977-11-30,1986-07-01,2207,27,27231
+45,Arnaldo Maccarone,Corte di Cassazione,1977-11-30,1984-07-13,1374,21,17226
+46,Antonio La Pergola,Presidente della Repubblica,1978-07-13,1987-06-05,2176,27,27060
+47,Virgilio Andrioli,Presidente della Repubblica,1978-12-07,1987-11-26,2484,27,30714
+48,Giuseppe Ferrari,Presidente della Repubblica,1980-11-21,1987-07-02,1963,26,24288
+49,Francesco Saja,Corte di Cassazione,1981-11-26,1990-10-15,4213,27,54161
+50,Giovanni Conso,Presidente della Repubblica,1982-03-12,1991-01-28,4669,27,59548
+51,Ettore Gallo,Parlamento,1982-07-20,1991-07-11,4326,28,55777
+52,Aldo Corasaniti,Corte di Cassazione,1983-12-14,1992-11-10,4702,29,60156
+53,Giuseppe Borzellino,Corte dei conti,1984-10-30,1993-07-07,4533,28,58251
+54,Francesco Greco,Corte di Cassazione,1984-12-06,1993-11-05,4872,29,62396
+55,Nicola Jaeger,Parlamento,1956-04-15,1967-12-12,1159,23,15022
+56,Renato Dell'Andro,Parlamento,1985-10-11,1991-01-28,3212,23,41825
+57,Gabriele Pescatore,Consiglio di Stato,1986-01-23,1995-01-12,5104,25,65258
+58,Ugo Spagnoli,Parlamento,1986-03-18,1995-02-23,5204,26,66530
+59,Francesco Paolo Casavola,Parlamento,1986-03-18,1995-02-23,5124,26,65583
+60,Antonio Baldassarre,Presidente della Repubblica,1986-10-14,1995-09-06,5116,25,65551
+61,Vincenzo Caianello,Parlamento,1986-11-13,1995-10-23,5249,26,67107
+62,Enzo Cheli,Presidente della Repubblica,1987-11-25,1996-10-17,5228,25,66788
+63,Mauro Ferri,Presidente della Repubblica,1987-11-25,1996-10-17,5103,25,65399
+64,Luigi Mengoni,Presidente della Repubblica,1987-11-25,1996-10-17,5225,25,66719
+65,Renato Granata,Corte di Cassazione,1990-11-14,1999-10-27,4165,28,51637
+66,Giuliano Vassalli,Presidente della Repubblica,1991-02-27,2000-02-10,3973,27,49593
+67,Francesco Guizzi,Parlamento,1991-12-04,2000-11-15,3874,27,48996
+68,Cesare Mirabelli,Parlamento,1991-12-04,2000-11-15,4409,27,55229
+69,Fernando Santosuosso,Corte di Cassazione,1993-01-12,2001-12-03,3824,26,47366
+70,Massimo Vari,Corte dei conti,1993-10-18,2002-07-11,4319,28,52810
+71,Cesare Ruperto,Corte di Cassazione,1993-12-16,2002-12-02,4130,28,50981
+72,Riccardo Chieppa,Consiglio di Stato,1995-02-06,2004-01-20,4198,28,51536
+73,Gustavo Zagrebelsky,Presidente della Repubblica,1995-10-18,2004-07-13,3893,26,47921
+74,Valerio Onida,Parlamento,1996-02-19,2005-01-13,4138,26,51273
+75,Carlo Mezzanotte,Parlamento,1996-02-19,2005-01-13,3974,26,49506
+76,Fernanda Contri,Presidente della Repubblica,1996-12-09,2005-10-24,3522,25,44165
+77,Piero Alberto Capotosti,Presidente della Repubblica,1996-12-09,2005-10-24,4100,25,50676
+78,Guido Neppi Modona,Presidente della Repubblica,1996-12-09,2005-10-24,4130,25,51016
+79,Annibale Marini,Parlamento,1997-10-15,2006-07-03,3918,28,48968
+80,Franco Bile,Corte di Cassazione,1999-11-22,2008-10-20,3940,28,48965
+81,Giovanni Maria Flick,Presidente della Repubblica,2000-03-06,2009-02-11,4079,29,50557
+82,Francesco Amirante,Corte di Cassazione,2002-01-28,2010-11-29,3529,27,44971
+83,Ugo De Siervo,Parlamento,2002-06-05,2011-04-20,3728,28,47802
+84,Romano Vaccarella,Parlamento,2002-06-05,2007-12-10,2135,24,27297
+85,Paolo Maddalena,Corte dei conti,2002-10-07,2011-07-20,3446,27,44359
+86,Alfio Finocchiaro,Corte di Cassazione,2002-12-06,2011-12-12,3443,28,44091
+87,Alfonso Quaranta,Consiglio di Stato,2004-02-26,2013-01-16,3426,29,44184
+88,Franco Gallo,Presidente della Repubblica,2004-10-13,2013-07-17,3489,29,45105
+89,Luigi Mazzella,Parlamento,2005-07-07,2014-06-11,3173,28,41604
+90,Gaetano Silvestri,Parlamento,2005-07-07,2014-06-23,3310,28,43265
+91,Sabino Cassese,Presidente della Repubblica,2005-11-30,2014-10-22,3174,25,41564
+92,Maria Rita Saulle,Presidente della Repubblica,2005-11-30,2011-03-21,2076,19,27138
+93,Giuseppe Tesauro,Presidente della Repubblica,2005-11-30,2014-11-03,3240,25,42370
+94,Paolo Maria Napolitano,Parlamento,2006-10-09,2015-06-24,3131,27,40449
+95,Alessandro Criscuolo,Corte di Cassazione,2008-12-01,2017-06-07,2506,28,32156
+96,Giuseppe Frigo,Parlamento,2008-11-17,2016-06-22,2342,28,30082
+97,Paolo Grossi,Presidente della Repubblica,2009-03-11,2018-01-10,2713,28,34274
+98,Giorgio Lattanzi,Corte di Cassazione,2010-12-15,2019-11-04,2542,29,31894
+99,Aldo Carosi,Corte dei conti,2011-10-03,2020-08-12,2560,27,32280
+100,Marta Cartabia,Presidente della Repubblica,2011-10-03,2020-08-12,2505,27,31674
+101,Sergio Mattarella,Parlamento,2011-11-07,2015-02-11,975,19,12771
+102,Mario Rosario Morelli,Corte di Cassazione,2012-01-09,2020-11-05,2513,28,31867
+103,Giancarlo Coraggio,Consiglio di Stato,2013-02-13,2022-01-19,2512,28,31733
+104,Giuliano Amato,Presidente della Repubblica,2013-10-07,2022-07-07,2370,28,29996
+105,Daria de Pretis,Presidente della Repubblica,2014-11-18,2023-10-10,2364,25,30043
+106,Nicolò Zanon,Presidente della Repubblica,2014-11-18,2023-09-27,2326,25,29593
+107,Silvana Sciarra,Parlamento,2014-11-18,2023-10-10,2368,25,30059
+108,Franco Modugno,Parlamento,2016-01-12,2024-10-16,1924,25,25194
+109,Augusto Antonio Barbera,Parlamento,2016-01-12,2024-11-14,2211,25,28490
+110,Giulio Prosperetti,Parlamento,2016-01-12,2024-11-14,2264,25,29140
+111,Giovanni Amoroso,Corte di Cassazione,2017-11-21,2026-10-21,2173,27,28423
+112,Francesco Viganò,Presidente della Repubblica,2018-03-20,2026-11-02,2040,26,26890
+113,Luca Antonini,Parlamento,2018-09-25,2026-11-02,1997,26,26378
+114,Stefano Petitti,Corte di Cassazione,2020-01-14,2026-11-02,1632,25,21525
+115,Angelo Buscema,Corte dei conti,2020-09-22,2026-11-02,1419,23,18665
+116,Emanuela Navarretta,Presidente della Repubblica,2020-09-22,2026-11-02,1425,23,18739
+117,Maria Rosaria San Giorgio,Corte di Cassazione,2021-01-11,2026-11-02,1329,22,17482
+118,Filippo Patroni Griffi,Consiglio di Stato,2022-02-08,2026-11-02,1009,21,13153
+119,Marco D'Alberti,Presidente della Repubblica,2022-10-04,2026-10-21,876,20,11364
+120,Giovanni Pitruzzella,Presidente della Repubblica,2023-11-22,2026-11-02,602,17,7726
+121,Antonella Sciarrone Alibrandi,Presidente della Repubblica,2023-11-22,2026-11-02,610,17,7840
+122,Massimo Luciani,Parlamento,2025-02-24,2026-11-02,341,14,4601
+123,Maria Alessandra Sandulli,Parlamento,2025-02-24,2026-11-02,361,14,4857
+124,Roberto Nicola Cassinelli,Parlamento,2025-02-24,2026-11-02,360,14,4835
+125,Francesco Saverio Marini,Parlamento,2025-02-24,2026-11-02,360,14,4846
