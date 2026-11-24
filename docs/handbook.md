@@ -864,7 +864,7 @@ Ogni riga dice qual è il problema, quale risultato tocca e in che direzione pu�
 
 1. **Il controllo a mano delle citazioni**: leggere le 36 pronunce di `data/validation/human_check.md` e scrivere le citazioni in `data/validation/gold_human.txt`. È la priorità, prima di qualsiasi estensione.
 2. **Il controllo a mano della polarità**: i 67 passi di `data/validation/polarity_human_check.md`, da scrivere in `data/validation/gold_polarity_human.txt`. Serve solo come verifica.
-3. **La mail al docente**: la bozza è fuori dal repository (`../mail_docente_bozza.md`), va letta e inviata da Umberto. Chiede: se il tema rientra nel corso; il perimetro (le tre reti, con o senza D4); progetto individuale o in coppia; forma, scadenze, lingua e lunghezza della consegna; le regole sull'uso dell'intelligenza artificiale.
+3. **La mail al docente**: la bozza è tenuta fuori dal repository; va letta e inviata da Umberto. Chiede: se il tema rientra nel corso; il perimetro (le tre reti, con o senza D4); progetto individuale o in coppia; forma, scadenze, lingua e lunghezza della consegna; le regole sull'uso dell'intelligenza artificiale.
 4. **Confermare il piano di controllo della rete tra corti** (registro, 20/11/2026: "da confermare da Umberto prima di leggere").
 5. **Le scelte ancora aperte** (`docs/decisions.md`, "Ancora da decidere"): la licenza del codice; la seconda versione delle regole di polarità; come costruire la rete tra corti (riferimenti alla corte o singole decisioni).
 6. **Confrontare la mappa del programma d'esame** (`docs/course_mapping.md`) con l'elenco delle lezioni su Moodle.
