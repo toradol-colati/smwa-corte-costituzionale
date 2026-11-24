@@ -416,7 +416,7 @@ L'ordine è quello del README e della relazione (sezione 6). Ogni programma usa 
   - dalla banca dati SPARQL della Corte: l'esito di ogni pronuncia dal 2005 (`data/processed/esiti.csv`) e i giudici presenti alle sedute collegate a ogni pronuncia dal 2004 (`data/interim/sedute_membri.csv`);
   - dall'interfaccia di Wikipedia in italiano (MediaWiki): le voci che rimandano a una pronuncia sul sito della Corte o su Consulta Online (`data/processed/wikipedia_links.csv`);
   - la data delle interrogazioni è annotata in `reports/api_fetch.json`.
-- **L'esito.** Una pronuncia può decidere più questioni e quindi avere più esiti (6.728 pronunce con esito hanno 8.990 esiti). Si conservano tutte le etichette; nelle analisi conta solo se c'è almeno una dichiarazione di incostituzionalità, sì o no.
+- **L'esito.** Una pronuncia può decidere più questioni e quindi avere più esiti: le 6.741 pronunce con esito hanno 9.008 esiti (`reports/api_fetch.json`, interrogazione del 16/11/2026; il registro, il 12/11/2026, ne aveva contati 6.728 e 8.990, con una banca dati che nel frattempo era cambiata). Si conservano tutte le etichette; nelle analisi conta solo se c'è almeno una dichiarazione di incostituzionalità, sì o no.
 
 ### 5.14 D1: le pronunce
 
@@ -821,6 +821,8 @@ La pagina `reports/rete_interattiva.html` (scritta da `src/analysis/interactive.
 - La rete dei collegi tra giudici (`reports/cositting_network.json`) ha mostrato che 13 giudici siedono in un collegio dopo la fine del mandato scritta nell'elenco ufficiale. I casi più grandi: Carlo Mezzanotte (3.271 giorni dopo la fine scritta nell'elenco, che per lui riporta un mandato iniziato e finito nel 1996), Renato Granata (1.084 giorni), Giuseppe Chiarelli (729), Romano Vaccarella (220). Gli altri nove casi vanno da 6 a 120 giorni.
 - Le cause possibili: una data sbagliata nell'elenco ufficiale, oppure una pronuncia con la data di decisione sbagliata. Va verificato con una fonte, caso per caso.
 - Conseguenze: le date sbagliate restano in `data/processed/judges.csv`. Nessuna analisi usa la fine del mandato scritta nell'elenco: per le analisi un giudice è "in attività" dalla prima all'ultima pronuncia in cui siede nel collegio. Il controllo in `reports/judges_quality.md` non trovava questi casi, perché cerca solo i giudici che smettono di comparire molto prima della fine del mandato, non quelli che compaiono dopo.
+- **Due presenze isolate allungano il periodo "in attività".** Per ogni giudice si è misurato il tempo tra la prima e la seconda presenza in un collegio, e tra la penultima e l'ultima. Nessuna prima presenza è isolata da più di 105 giorni. Due ultime presenze lo sono: Romano Vaccarella compare nel collegio della 429/2007 (decisa il 10/12/2007) 236 giorni dopo la presenza precedente; Renato Dell'Andro nella 71/1991 (decisa il 28/01/1991) 124 giorni dopo. Il testo del collegio di quelle pronunce scrive davvero il loro nome: il programma lo legge bene, ma il testo può riportare il collegio di un'udienza precedente, oppure essere sbagliato. Va verificato con una fonte.
+- **Che cosa cambia.** Per questi due giudici il periodo "in attività" finisce più tardi del vero, quindi nelle pronunce decise in quei mesi risultano "assenti". Questo tocca la descrizione delle assenze (`reports/d3_absences.json`) e la quota della rete dei collegi tra giudici, per poche centinaia di coppie giudice–pronuncia su 327.252. Per come è costruito D3 non dovrebbe toccare il risultato principale: i precedenti decisi in quei mesi sono successivi alle pronunce scritte da quei due giudici, quindi non entrano tra i precedenti che potevano citare. Il calcolo non è stato rifatto per verificarlo.
 
 ### 11.6 Due nomi scritti male nell'elenco dei giudici
 
@@ -1063,13 +1065,13 @@ Ogni file del repository, con che cos'è e come nasce. "A mano" vuol dire scritt
 | `data/processed/judges_attributes.csv` | Provenienza e organo di nomina di ogni giudice | Da `src/analysis/d2_d4_giudici.py` |
 | `data/processed/communities.csv` | Il filone (gruppo di Leiden) di ogni pronuncia | Da `src/analysis/extras.py` |
 | `data/validation/gold_test.txt`, `gold_test2.txt` | Le letture di riferimento delle citazioni, primo e secondo campione | A mano, dall'assistente |
-| `data/validation/gold_human.txt` | Il file in cui una persona scrive le citazioni lette (oggi vuoto) | Modello da `src/validation/human_sheet.py`; da compilare a mano |
+| `data/validation/gold_human.txt` | Il file in cui una persona scrive le citazioni lette; oggi c'è solo il modello: una riga per pronuncia, senza citazioni | Modello da `src/validation/human_sheet.py`; da compilare a mano |
 | `data/validation/human_check.md` | Il foglio con le 36 pronunce da leggere | Da `src/validation/human_sheet.py` |
 | `data/validation/polarity_test_sample.csv` | I passi del campione di prova della polarità, senza le decisioni delle regole | Da `src/polarity/draw_sample.py` |
 | `data/validation/polarity_test_labels.csv` | Le decisioni delle regole sugli stessi passi | Da `src/polarity/draw_sample.py` |
 | `data/validation/gold_polarity_claude.txt` | La lettura di riferimento della polarità | A mano, dall'assistente |
 | `data/validation/polarity_human_check.md` | Il foglio con i 67 passi per una persona | Da `src/polarity/draw_sample.py` |
-| `data/validation/gold_polarity_human.txt` | Il file in cui una persona scrive la sua lettura (oggi vuoto) | Modello da `src/polarity/draw_sample.py`; da compilare a mano |
+| `data/validation/gold_polarity_human.txt` | Il file in cui una persona scrive la sua lettura; oggi c'è solo il modello: una riga per passo, senza risposte | Modello da `src/polarity/draw_sample.py`; da compilare a mano |
 | `data/manual/` | Cartella per le correzioni fatte a mano: vuota, perché le correzioni sono nel codice | — |
 
 **Fuori dal repository, in `data/interim/`** (si rigenerano rifacendo i programmi): `pronunce.pkl` (le pronunce con i testi, da `build_pronunce.py`); `citation_errors.csv`, `citation_excluded.csv`, `citation_same_date.csv`, `citation_type_mismatch.csv` (da `citations.py`); `collegio_errors.csv` (da `build_judges.py`); `sedute_membri.csv` (da `fetch_api.py`); `d1_yearly.pkl` e `d1_panel_<anno>.pkl` (da `d1_pronunce.py`); `d3_mandate.pkl` (da `d3_memoria_collegiale.py`); `d3_full.pkl` (da `d3_full_check.py`); `polarity_contexts.pkl` (da `polarity/contexts.py`); `courts_split.csv` (da `courts/sizing.py`); `courts_mentions_dev.csv` e `courts_dev_sheet.md` (da `courts/mentions.py`); `logs/` (i messaggi scritti dai programmi lunghi mentre giravano).
@@ -1080,7 +1082,7 @@ Ogni file del repository, con che cos'è e come nasce. "A mano" vuol dire scritt
 | --- | --- | --- |
 | `reports/relazione_for_dummies.md` | La relazione, in due parti | A mano; numeri confrontati con i file dei risultati da `tests/test_report_numbers.py` |
 | `reports/validation.md` | Il quadro dei controlli di qualità | A mano |
-| `reports/validation_round1.md` | La prima misura della qualità dell'estrazione, prima della correzione | Da `src/validation/evaluate.py` (versione del 17/11/2026, non più rifacibile); testo convertito a mano il 21/11/2026 con gli stessi numeri |
+| `reports/validation_round1.md` | La prima misura della qualità dell'estrazione, prima della correzione | Da `src/validation/evaluate.py` (la prima misura, del 16/11/2026, non più rifacibile con il codice attuale); testo convertito a mano il 21/11/2026 con gli stessi numeri |
 | `reports/validation_test.md`, `validation_test2.md` | Qualità dell'estrazione sul primo campione (dopo la correzione) e sul secondo | Da `src/validation/evaluate.py` |
 | `reports/data_inspection.md` | Il primo controllo dei file | Da `src/ingest/inspect_raw.py` |
 | `reports/sparql_reconciliation.md` | Il confronto con la banca dati SPARQL (12/11/2026) | Da `src/ingest/sparql_check.py`; testo convertito a mano il 21/11/2026 con gli stessi numeri |
@@ -1113,7 +1115,77 @@ Il paragrafo "In breve" in testa a 9 di questi report (`data_inspection.md`, `sp
 
 Tutti i programmi sono scritti a mano e descritti nella sezione 5: `src/ingest/` (download.py, inspect_raw.py, sparql_check.py, build_pronunce.py, fetch_api.py), `src/extract/` (citations.py, citations_massime.py), `src/validation/` (sample_passages.py, evaluate.py, human_sheet.py), `src/judges/build_judges.py`, `src/networks/` (build.py, cositting.py), `src/analysis/` (topics.py, parametri.py, d1_pronunce.py, d2_d4_giudici.py, d2_strata_check.py, d3_memoria_collegiale.py, d3_absences.py, d3_full_check.py, precedent_succession.py, extras.py, course_measures.py, figures.py, interactive.py, e il modello di pagina `interactive_template.html` usato da interactive.py), `src/polarity/` (contexts.py, lexicon.py, draw_sample.py, evaluate.py), `src/courts/` (sizing.py, mentions.py), `src/report/` (report_numbers.py, plain_intros.py). I controlli automatici sono in `tests/` (test_citations.py, test_report_numbers.py).
 
-## 18. Mappa delle fonti di questa guida
+## 18. Gli studi precedenti e che cosa aggiunge il lavoro
+
+L'elenco completo delle fonti, con che cosa è stato letto di ciascuna e le pagine, è in `docs/sources.md`. La regola: nella relazione si cita solo ciò che è stato letto, con le pagine; le fonti lette solo nel riassunto si leggono prima di citarle.
+
+### 18.1 Gli studi su cui il lavoro si appoggia
+
+| Studio | Che cosa dice, per questo lavoro | Quanto è stato letto |
+| --- | --- | --- |
+| Agnoloni e Pagallo 2016 | L'unico studio di rete sulle citazioni della Corte italiana: le sole pronunce in via incidentale (16.320 pronunce, 41.858 citazioni), estratte con un programma controllato su 60 pronunce (precisione 98,4%, richiamo 91,7%). Sostengono che le citazioni seguono una legge di potenza (guardando un grafico, senza test) e che le prime 30 pronunce per autorevolezza (HITS) sono le prime 30 per citazioni. Non considerano i giudici e non confrontano con il caso. Il lavoro mette alla prova le due affermazioni (sezione 9.1) | Letto, pp. 139–151 |
+| Agnoloni e Pagallo 2015 (due lavori, ICAIL e JURIX) | — | Solo il riassunto: non si citano |
+| Fowler e altri 2007 | Corte suprema degli Stati Uniti: l'autorevolezza spiega solo in parte il numero di citazioni (R² = 0,23) e prevede meglio le citazioni future. Da qui la prova di previsione di D1 | Letto, versione degli autori (pp. 1–18 del manoscritto) |
+| Lupu e Voeten 2012 | La rete delle citazioni della Corte europea dei diritti dell'uomo | Letto, pp. 413–437 |
+| Frankenreiter 2017, risposta a Derlén e Lindholm | Una legge di potenza la producono anche abitudini di citazione ripetitive: non prova che una corte costruisca una gerarchia. Da qui la regola: ogni risultato si confronta con il caso | Letto per intero, pp. 687–694 |
+| Landes, Lessig e Solimine 1998 | Il peso dei singoli giudici, misurato con le citazioni, nelle corti degli Stati Uniti; i problemi già incontrati: le citazioni crescono con la durata del mandato, e gli assistenti scrivono parte dei testi (pp. 272–281) | Letto, pp. 271–293 e 321–327 |
+| Frankenreiter 2017, Corte di giustizia dell'Unione europea | Il peso dei giudici in una corte in cui scrive il relatore e non si pubblicano opinioni dissenzienti, come la Corte italiana; il presidente assegna le cause, quindi giudici simili ricevono cause simili e possono citarsi solo per ragioni giuridiche (pp. 19–21 del manoscritto) | Letto, versione accettata (pp. 1–26 del manoscritto) |
+| Uzzi e altri 2013 | Il confronto con il caso che rispetta il tempo: citazioni scambiate tra coppie con gli stessi anni | Letto, materiali aggiuntivi pp. 3, 5 |
+| King e Zeng 2001 | Perché in D3 basta un campione a caso di precedenti non citati | Letto, pp. 140–144, 160 |
+| Black e Spriggs 2013 | La durata del precedente | Solo il riassunto: non si cita |
+| Easley e Kleinberg, *Networks, Crowds, and Markets* (libro di testo) | Capitolo 4 (reti di affiliazione), capitolo 5 (equilibrio strutturale), capitolo 14 (HITS e PageRank, §14.5 sulle citazioni tra sentenze), capitolo 20 (piccolo mondo) | Letti §14.5, capitoli 5 e 20; indice completo |
+| Barabási, *Network Science* (libro di testo) | Distribuzioni dei legami, attaccamento preferenziale, piccolo mondo (§3.8–3.10) | Letti §3.8–3.10; indice dei capitoli 1–10 |
+
+Sul funzionamento della Corte le fonti principali sono la legge 87/1953 (artt. 16–19, 23, 27), le Norme integrative per i giudizi davanti alla Corte (2008 e 2026), la Costituzione (art. 127), la pagina ufficiale dei giudici, Caravita 2021 (pp. 2–8) e il forum del Gruppo di Pisa 2021 sulla sostituzione del relatore (`docs/context.md`, "Le fonti").
+
+### 18.2 Che cosa non si sapeva
+
+Il peso dei singoli giudici, misurato con le citazioni, è studiato da tempo in altre corti. Non si sapeva se nella Corte costituzionale italiana l'autorità di un precedente dipenda dalle persone che lo hanno scritto e deciso, o appartenga solo alla Corte come istituzione; in particolare, se un giudice citi di più i precedenti decisi dai collegi di cui faceva parte.
+
+### 18.3 Che cosa aggiunge il lavoro
+
+La relazione (Parte I, "Che cosa aggiunge il lavoro") ne indica tre:
+
+1. **Un risultato nullo fissato prima e misurato con precisione** (principale): aver partecipato a una decisione non la rende più citata da chi c'era (odds ratio 1,00; 0,92–1,09). Accanto, un effetto forte dei precedenti scritti dallo stesso redattore, in buona parte spiegato dalle questioni ripetute (esplorativo).
+2. **Una data dei dati diversa da quella della dottrina** (descrittivo): il 23/12/1986, tra la pronuncia 286 e la 287, la Corte smette di far firmare tutti i giudici e comincia a indicare il redattore; la dottrina data il cambio a una regola del luglio 1987. Senza questo controllo, metà dell'analisi sui giudici avrebbe usato un dato che per quelle pronunce non esiste.
+3. **Due risultati pubblicati messi alla prova** (esplorativo): la legge di potenza e l'identità tra autorevolezza e citazioni di Agnoloni e Pagallo (2016) non reggono, con le cautele dette nella sezione 9.1.
+
+Rispetto ad Agnoloni e Pagallo il lavoro usa tutte le pronunce (non solo quelle in via incidentale), confronta ogni risultato con il caso rispettando il tempo, e aggiunge chi scrive e chi siede nel collegio.
+
+## 19. Il programma d'esame, punto per punto
+
+La mappa completa, concetto per concetto, è in `docs/course_mapping.md`. Il programma ufficiale del corso per il 2026/27 elenca sei voci, senza dettagli; gli argomenti più precisi vengono dagli indici dei due libri di testo. La mappa non è ancora stata confrontata con l'elenco delle lezioni su Moodle.
+
+### 19.1 Le sei voci
+
+| Voce del programma | Usata? | Dove |
+| --- | --- | --- |
+| Introduzione alla data science e alla social media analysis | La data science sì; i dati dei social network no | Download con il registro delle versioni, estrazione delle citazioni, controllo della qualità (sezioni 3, 5, 6). L'unica misura dell'attenzione sul web è Wikipedia. Il tema va concordato con il docente |
+| Social network analysis | Sì | Le reti (sezione 7), i confronti con il caso (sezione 8), i risultati (sezione 9), le misure dei libri di testo (sezione 9.7) |
+| Lavorare con API | Sì | La banca dati SPARQL della Corte e l'interfaccia di Wikipedia (sezioni 5.3 e 5.13) |
+| Data and information visualisation | Sì | Le 10 figure e la rete interattiva (sezione 5.18) |
+| Topic extraction | Sì | Il modello di temi sulle massime (sezione 5.9) |
+| Sentiment analysis | Usata come metodo, con esito negativo | La polarità delle citazioni: precisione 0,76, sotto la soglia di 0,80, quindi nessuna analisi (sezione 9.8) |
+
+### 19.2 I concetti dei libri di testo usati
+
+Reti con verso e senza cicli; reti pesate; reti con due tipi di nodi e loro proiezioni (le reti di affiliazione, compresa la rete dei collegi tra giudici); legami in entrata e in uscita; densità; distribuzione dei legami (legge di potenza contro lognormale); componenti (il blocco principale); HITS e PageRank; comunità e modularità (Leiden, Infomap); attaccamento preferenziale; chiusura dei triangoli; correlazioni di grado; piccolo mondo; betweenness (le pronunce ponte); robustezza. I dettagli, con il programma e la sezione della relazione, sono nella parte 3 di `docs/course_mapping.md`.
+
+### 19.3 I concetti non usati, e perché (esempi)
+
+- **Distanze "ultra-piccole", condensazione di Bose–Einstein, limiti strutturali:** valgono per reti con nodi enormi ("senza scala"), che i dati non sostengono: la pronuncia più citata ha 113 citazioni su 93.467.
+- **Modello di Barabási–Albert:** non prevede che le citazioni invecchino, e qui invecchiano (sezione 9.2).
+- **Fitness (l'attrattiva propria di un nodo):** con questi dati non si separa dall'effetto "ricco diventa più ricco".
+- **Equilibrio strutturale (legami positivi e negativi):** il segno dei legami doveva venire dalla polarità, che non ha superato la soglia; in più la teoria riguarda legami senza verso.
+- **Struttura "a farfallino" del web:** richiede gruppi di nodi che si raggiungono a vicenda seguendo il verso, impossibili in una rete senza cicli.
+- **Diffusione, epidemie, cascate:** una citazione non è un contagio né una scelta in sequenza con informazioni osservabili.
+- **La forza dei legami deboli:** tra pronunce un legame non ha forza; l'idea di Granovetter riguarda come circolano le informazioni tra persone.
+
+### 19.4 I metodi statistici usati
+
+Statistica descrittiva (indice di Gini, quantili); intervalli di confidenza (di Wilson per le proporzioni, ricampionando i dati, con incertezza raggruppata); confronti con il caso (da 100 a 10.000 ripetizioni, con seme fisso); correzione di Holm; regressione logistica condizionata con calcolo esatto (D3); regressione binomiale negativa, un modello per contare eventi (previsione in D1, attaccamento preferenziale); curve di sopravvivenza di Kaplan–Meier (durata dei precedenti); test di Mann–Whitney, che confronta due gruppi senza assumere una forma (esito); informazione mutua normalizzata, l'accordo tra due classificazioni (temi, gruppi); potenza calcolata simulando (D4). Tutto in Python; il corso potrebbe chiedere R, e la migrazione è prevista dopo la fine del lavoro.
+
+## 20. Mappa delle fonti di questa guida
 
 Per ogni sezione, i file da cui è presa. Servono per approfondire, per controllare un punto, e per aggiornare questo documento quando il lavoro cambia: se cambia uno dei file elencati, va riletta la sezione corrispondente.
 
@@ -1137,3 +1209,5 @@ Per ogni sezione, i file da cui è presa. Servono per approfondire, per controll
 | 15. L'uso dell'assistente | `reports/relazione_for_dummies.md` (8); `docs/decisions.md` (intestazione) |
 | 16. Glossario | `reports/relazione_for_dummies.md` ("Le parole tecniche, spiegate"); `docs/context.md` |
 | 17. Inventario dei file | `git ls-files`; il contenuto di `data/interim/`; la ricerca nel codice di chi scrive e chi legge ogni file |
+| 18. Gli studi precedenti | `docs/sources.md` ("Il nucleo di fonti usato nella relazione", sezione 3); `docs/spec.md` ("La domanda"); `reports/relazione_for_dummies.md` (Parte I, "Che cosa aggiunge il lavoro"; 3.2) |
+| 19. Il programma d'esame | `docs/course_mapping.md` (tutte le parti); `reports/relazione_for_dummies.md` (7) |
