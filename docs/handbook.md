@@ -837,4 +837,303 @@ Nel campo del nome dell'elenco ufficiale restano due grafie sbagliate: "Vincenzo
 
 Il README spiega come installare l'ambiente e rifare tutto da zero. Questa procedura non è mai stata provata su un computer nuovo.
 
-<!-- SEZIONI 12-18: in scrittura -->
+## 12. I limiti
+
+Ogni riga dice qual è il problema, quale risultato tocca e in che direzione può spostarlo. La tabella riprende la sezione 4 della relazione.
+
+| Limite | Che cosa tocca | Che effetto può avere |
+| --- | --- | --- |
+| La lettura di riferimento per giudicare l'estrattore l'ha fatta l'assistente, non una persona, e solo sui passi con parole chiave; le citazioni controllate sono 342 invece di 460 | Tutta la rete delle citazioni | Se assistente ed estrattore sbagliano allo stesso modo, precisione e richiamo risultano più alti del vero |
+| L'estrattore trova meno citazioni nei testi fino al 1986 (richiamo 0,917, limite inferiore 0,830) | La durata dei precedenti; D2 per i giudici più antichi | Citazioni ai precedenti antichi contate un po' meno del vero |
+| Prima del 23/12/1986 il nome del redattore non c'è e si usa il relatore | D2, D3 | Attenua le differenze tra giudici; la prova dal 1987 dà lo stesso risultato per D3 |
+| I relatori non sono assegnati a caso | Il 5,47 di D3 (3,27 a parità di legge impugnata); le classifiche di D2 | Gonfia l'effetto di chi scrive |
+| Le assenze dal collegio possono non essere casuali, e il loro motivo non è nei dati | Il risultato principale di D3 | Direzione incerta; le assenze variano poco per tipo di giudizio, articolo e materia, e i precedenti con e senza il giudice sono simili |
+| I temi sono 20, alcuni sono formule di scrittura, e cambiano ripetendo il calcolo | Il controllo per materia in D2 e D3 | Controllo imperfetto; con gli articoli della Costituzione il risultato principale non cambia |
+| Citare non vuol dire approvare | Tutto | Un precedente può essere citato per prenderne le distanze; lo strumento per misurarlo non ha superato la soglia |
+| Le pronunce recenti hanno avuto meno tempo per essere citate | D1, D2 | Gestito confrontando pronunce dello stesso anno e con finestre di tempo fisse; le pronunce dal 2020 dicono ancora poco |
+| HITS dà autorevolezza zero a un terzo delle pronunce e concentra il resto in un gruppo | Autorevolezza contro citazioni | La differenza dal caso misura soprattutto l'esistenza dei gruppi |
+| In D2 il confronto con il caso è cambiato dopo aver visto i risultati | D2 | Esplorativo: nessuna conclusione certa |
+| Provenienza dei giudici ricavata in automatico dalle biografie | D4 | Eventuali errori nascondono un effetto, non lo creano |
+| La verifica della sostituzione non distingue tra passaggio di testimone e importanza propria di chi cita | Sezione 9.3 | Il 43% in più può venire in parte dall'una e in parte dall'altra |
+| 257 collegi non riconosciuti per intero; date sbagliate nell'elenco dei giudici | D3, la rete dei collegi tra giudici | Pochi casi (1,15% delle pronunce); da controllare a mano (sezione 11) |
+| Il tema non è di social media | L'esame | Da concordare con il docente; il progetto è allargato a temi, API e Wikipedia |
+
+## 13. Che cosa resta da fare
+
+### 13.1 Da fare da Umberto (nessun altro può farlo)
+
+1. **Il controllo a mano delle citazioni**: leggere le 36 pronunce di `data/validation/human_check.md` e scrivere le citazioni in `data/validation/gold_human.txt`. È la priorità, prima di qualsiasi estensione.
+2. **Il controllo a mano della polarità**: i 67 passi di `data/validation/polarity_human_check.md`, da scrivere in `data/validation/gold_polarity_human.txt`. Serve solo come verifica.
+3. **La mail al docente**: la bozza è fuori dal repository (`../mail_docente_bozza.md`), va letta e inviata da Umberto. Chiede: se il tema rientra nel corso; il perimetro (le tre reti, con o senza D4); progetto individuale o in coppia; forma, scadenze, lingua e lunghezza della consegna; le regole sull'uso dell'intelligenza artificiale.
+4. **Confermare il piano di controllo della rete tra corti** (registro, 20/11/2026: "da confermare da Umberto prima di leggere").
+5. **Le scelte ancora aperte** (`docs/decisions.md`, "Ancora da decidere"): la licenza del codice; la seconda versione delle regole di polarità; come costruire la rete tra corti (riferimenti alla corte o singole decisioni).
+6. **Confrontare la mappa del programma d'esame** (`docs/course_mapping.md`) con l'elenco delle lezioni su Moodle.
+7. **Leggere gli articoli a pagamento** non ancora letti (Black e Spriggs 2013; Agnoloni e Pagallo 2015): finché non sono letti non si citano.
+8. **Una copia di sicurezza della storia del repository fuori da iCloud** (per esempio un file `git bundle`): la cartella del progetto è sincronizzata con iCloud e alcuni file vengono tolti dal disco.
+
+### 13.2 Prima di rendere pubblico il repository
+
+Dalla lista in `docs/decisions.md`:
+
+- togliere da `docs/spec.md` le note personali di pianificazione (il punto 1 dei "Prossimi passi", con il nome di un collega; il link alla scheda privata su Claude Docs; la sezione "Prossimi passi" e i punti "Da concordare con il docente");
+- rileggere `docs/decisions.md` e togliere le note personali;
+- decidere se `docs/project_guide.md`, un documento personale di metodo, resta nel repository pubblico; la stessa domanda vale per questo documento;
+- aggiungere la licenza del codice al README e un file `LICENSE` (CC BY-SA 3.0 per i dati derivati);
+- ripulire la storia del repository dall'indirizzo email e dai file personali, **senza fondere le modifiche tra loro**: le date e l'ordine delle modifiche sono la prova che le regole dal 18/11/2026 in poi sono venute prima dei risultati.
+
+### 13.3 Difetti tecnici da sistemare
+
+Tutti descritti nella sezione 11:
+
+- scrivere il programma che produce `reports/collegio_vs_sedute.json` (11.1);
+- far girare `src/analysis/topics.py` e `src/ingest/sparql_check.py` dopo le modifiche al testo (11.2);
+- controllare la legenda della rete interattiva (11.3);
+- verificare con una fonte le date dei 13 giudici che compaiono in un collegio dopo la fine del mandato scritta nell'elenco (11.5);
+- decidere se correggere nel codice anche il nome mostrato di Caianiello e Capalozza (11.6);
+- guardare a mano le 257 pronunce di `data/interim/collegio_errors.csv` e le coppie con la quota più bassa nella rete dei collegi tra giudici (11.7);
+- capire perché il programma conta 19 pronunce con più redattori e il campo dei dati 17 (sezione 5.8);
+- provare l'installazione da zero (11.8).
+
+### 13.4 Più avanti
+
+- **La migrazione a R.** L'analisi andava fatta in R. Si rifà in R solo dopo aver finito tutto in Python; per ora non si cambia nulla.
+- **Estensioni possibili** (relazione, sezione 5): una seconda versione delle regole di polarità, decisa prima e provata su dati mai visti con la lettura di una persona; lo studio dei 93 casi in cui il relatore è stato sostituito nella scrittura; la rete tra la Corte costituzionale e le altre quattro corti; l'effetto del Presidente, che sceglie i relatori; un confronto con il Tribunale costituzionale tedesco.
+- **Previsti e non fatti** (relazione, sezione 5): il confronto con il modello di Karrer e Newman, che su una rete che cita solo il passato andrebbe ricostruito rispettando le date; l'autorevolezza su finestre di più anni; gli scambi di citazioni anno per anno (circa 60 volte il tempo di calcolo attuale).
+
+## 14. Come si corregge il lavoro
+
+### 14.1 Prima di tutto: che tipo di file è
+
+Ogni file è di uno di due tipi (inventario, sezione 17):
+
+- **scritto a mano** (documenti, relazione, regole, programmi, letture di riferimento): si corregge aprendolo;
+- **scritto da un programma** (tabelle in `data/processed/` e `data/interim/`, file in `reports/` tranne la relazione e `validation.md`, le figure): si corregge il programma che lo scrive, poi lo si rifà girare. Una correzione fatta a mano su questi file sparisce la volta successiva che il programma gira.
+
+### 14.2 Correggere un programma
+
+1. Correggere il programma.
+2. Rifare girare quel programma e tutti quelli che vengono dopo nell'ordine della sezione 5.0, perché ognuno usa i file di quelli prima.
+3. Lanciare i controlli automatici: `.venv/bin/python -m pytest`. Se un numero della relazione non coincide più con i file dei risultati, il controllo indica la frase.
+4. Aggiornare a mano il testo della relazione finché il controllo passa.
+5. Scrivere una riga nel registro `docs/decisions.md`: la data, la decisione, il motivo, chi l'ha presa.
+6. Salvare la modifica con un commit a sé. Non fondere mai i commit tra loro: il loro ordine è la prova che le regole sono venute prima dei risultati.
+
+### 14.3 Casi particolari
+
+- **Un errore nei dati del portale** (un nome scritto male, una data sbagliata): non si tocca mai `data/raw/`. La correzione si scrive nel codice, con la fonte: per i giudici in `src/judges/build_judges.py` (per esempio `NAME_FIX` per i nomi, la riga di Spagnoli per le date); per le pronunce in `src/ingest/build_pronunce.py`.
+- **Un errore dell'estrattore delle citazioni:** si corregge `src/extract/citations.py` e si aggiunge la frase che lo mostra a `tests/test_citations.py`. La lettura di riferimento non si ricava mai con il programma che si sta controllando; dopo una correzione, la qualità si misura su un campione nuovo, mai usato per scrivere la correzione.
+- **Il testo di un report scritto da un programma:** si corregge la funzione che scrive il testo dentro il programma (per esempio `render_md` in `src/analysis/d3_memoria_collegiale.py` e in `src/analysis/topics.py`). Il paragrafo "In breve" si corregge in `src/report/plain_intros.py`. Per non rifare calcoli lunghi: `src/analysis/d3_memoria_collegiale.py --md-only` riscrive il report di D3 dai numeri salvati; `src/analysis/topics.py --labels-only` ricalcola solo i nomi dei temi.
+- **Una regola di metodo:** si cambia in `.claude/rules/` o in `CLAUDE.md`, e il cambiamento si registra in `docs/decisions.md`. Un risultato già visto non si cambia cambiando la regola: un cambiamento fatto dopo aver visto i dati rende il risultato esplorativo.
+- **Un file che non si apre o un programma che si blocca leggendo `data/`:** la cartella è sincronizzata con iCloud e alcuni file restano sul cloud; il comando `brctl download <file>` li riporta sul computer.
+
+### 14.4 Come verificare che una correzione non abbia cambiato altro
+
+- Prima di rifare girare un programma, salvare l'impronta dei suoi file: `shasum <file>`. Dopo, confrontarla: se l'impronta è uguale, il file non è cambiato.
+- Lanciare `.venv/bin/python -m pytest`.
+- Guardare le differenze con `git diff` prima di salvare.
+
+## 15. Chi ha fatto che cosa: l'uso dell'assistente
+
+- Il lavoro è stato svolto con Claude Code, un assistente di programmazione basato su un modello linguistico. L'assistente ha scritto il codice, eseguito le analisi e redatto i testi, compresi la relazione e questo documento, su richiesta e sotto la direzione di Umberto Toraldo.
+- Umberto ha scelto il tema, la domanda e le estensioni, e ha preso o delegato le scelte di metodo.
+- Il registro `docs/decisions.md` dice per ogni scelta chi l'ha presa, nella colonna "Chi o fonte":
+  - "Umberto": la scelta è sua;
+  - "Claude, su delega di Umberto": l'ha presa l'assistente, a cui Umberto l'aveva affidata;
+  - "Claude": l'assistente l'ha presa mentre faceva il lavoro;
+  - "dal check" o "revisione": viene da un controllo del lavoro.
+- **Tre conseguenze per chi legge i risultati:**
+  1. le letture di riferimento per la qualità dell'estrazione e della polarità sono dell'assistente, non di una persona;
+  2. le regole decise prima dei risultati sono state scritte dallo stesso assistente che poi ha fatto le analisi;
+  3. le regole del corso sull'uso dell'intelligenza artificiale non sono ancora note.
+- **Le istruzioni che l'assistente segue** sono in `CLAUDE.md` e in `.claude/rules/` (`data.md` per i dati e l'estrazione, `network-analysis.md` per le reti e le analisi). Cambiarle cambia il modo di lavorare d'ora in poi, non i risultati già prodotti.
+
+## 16. Glossario
+
+Una parola per ogni concetto. Le parole sono in ordine alfabetico.
+
+- **API.** Un servizio che risponde a domande fatte da un programma invece che da una persona. Qui: la banca dati SPARQL della Corte e l'interfaccia di Wikipedia.
+- **Assente.** Un giudice in attività che non siede nel collegio di una pronuncia.
+- **Attività, in.** Il periodo dalla prima all'ultima pronuncia in cui un giudice siede nel collegio. Lo usano tutte le analisi. Da non confondere con "in carica".
+- **Autorevolezza (authority) e HITS.** HITS è un algoritmo che dà a ogni pronuncia un punteggio di autorevolezza: alto se la pronuncia è citata da pronunce che citano molti precedenti autorevoli.
+- **Betweenness.** Quante volte un nodo sta sul cammino più breve tra altri due nodi: misura chi fa da ponte.
+- **Blocco principale (componente).** Il gruppo più grande di pronunce collegate tra loro, seguendo le citazioni in un senso o nell'altro.
+- **Carica, in.** Il periodo scritto nell'elenco ufficiale dei giudici, dal giuramento alla fine del mandato. Le analisi non lo usano, perché le date di fine hanno errori.
+- **Ciclo.** Una sequenza di citazioni che torna al punto di partenza. Nella rete delle citazioni non ce ne sono: si cita solo il passato.
+- **Citazione (o legame, nella rete).** La coppia "la pronuncia A cita la pronuncia B", contata una sola volta anche se A nomina B più volte.
+- **Collegio.** Il gruppo di giudici (da 11 a 15) che decide una pronuncia.
+- **Commit.** Una modifica salvata nella storia del repository, con data e descrizione.
+- **Confronto con il caso (modello nullo).** I dati rimescolati a caso, conservando ciò che è ovvio: dicono che cosa ci si aspetterebbe se non ci fosse nulla oltre il caso.
+- **«Considerato in diritto» e «Ritenuto in fatto».** Nelle sentenze, il ragionamento della Corte e il riassunto degli argomenti delle parti. Nelle ordinanze: «Considerato che» e «Ritenuto che».
+- **Correzione di Holm.** Quando si fanno molti confronti insieme, alza l'asticella in modo che la probabilità anche di un solo falso allarme resti sotto il 5%.
+- **Densità.** Legami presenti diviso legami possibili. Nella rete delle citazioni si contano solo i legami possibili verso il passato.
+- **Descrittivo, esplorativo, principale.** Le etichette dei risultati: una descrizione dei dati; un risultato trovato, aggiunto o cambiato dopo aver visto i dati; il risultato fissato prima, l'unico da cui si traggono conclusioni formali.
+- **Dispositivo.** La parte finale della pronuncia, con la decisione vera e propria e le firme.
+- **Distinzione o distacco.** Una citazione in cui la Corte dice che il precedente non è pertinente, riguarda un caso diverso, non è un vero precedente, oppure è superato.
+- **Epigrafe.** La parte della pronuncia che dice chi ha portato la questione davanti alla Corte e su quale legge; nelle ordinanze contiene anche il ragionamento.
+- **Esito.** Che cosa decide la pronuncia (per esempio una dichiarazione di incostituzionalità). Preso dalla banca dati SPARQL, solo dal 2005.
+- **Forza.** La somma dei pesi dei legami di un nodo. Nella rete dei collegi tra giudici: quante coppie giudice–collega ha formato un giudice, sommate su tutte le pronunce.
+- **Impronta (SHA-256).** Un codice calcolato dal contenuto di un file, che cambia se cambia anche un solo carattere.
+- **Indice di Gini.** Misura quanto è disuguale una distribuzione: 0 se tutte le pronunce ricevono lo stesso numero di citazioni, 1 se una sola le riceve tutte.
+- **Intervallo di confidenza al 95%.** L'insieme dei valori compatibili con i dati. Se l'intervallo di un rapporto non comprende 1, la differenza si considera reale.
+- **Legge di potenza e lognormale.** Due forme matematiche per distribuzioni in cui pochi casi sono enormi e molti piccoli. Si confrontano con un test, non a occhio.
+- **Legge impugnata (norma oggetto) e parametro.** La legge di cui si discute se è costituzionale, e la norma della Costituzione che si dice violata.
+- **Manifest.** Il file `data/raw/MANIFEST.csv`, che annota quale versione dei dati è stata scaricata e quando.
+- **Massima.** Il riassunto, scritto dall'Ufficio del massimario della Corte, del principio stabilito da una pronuncia.
+- **Menzione.** Ogni volta che un numero di pronuncia compare nel testo. Più menzioni della stessa pronuncia nello stesso testo fanno una sola citazione.
+- **Modularità, Leiden, Infomap.** Leiden e Infomap sono due metodi per dividere una rete in gruppi di nodi collegati più tra loro che con il resto (i filoni); la modularità misura quanto la divisione è netta.
+- **Odds e odds ratio.** Gli odds sono la probabilità di un evento divisa per la probabilità che non accada. L'odds ratio è il rapporto tra gli odds di due gruppi: 1 nessuna differenza, 2 il doppio, 0,5 la metà.
+- **PageRank.** Un algoritmo simile a HITS: conta essere citati da pronunce a loro volta citate.
+- **Peso.** Il numero associato a un legame. Nella rete dei collegi tra giudici: quante pronunce due giudici hanno deciso insieme.
+- **Potenza.** La probabilità di accorgersi di un effetto della grandezza cercata, se l'effetto esiste.
+- **Precedente.** Una pronuncia citata, o che poteva essere citata, da una pronuncia successiva.
+- **Precisione e richiamo.** La precisione è la quota delle citazioni trovate che sono vere; il richiamo è la quota delle citazioni vere che vengono trovate.
+- **Proiezione.** Da una rete con due tipi di nodi (giudici e pronunce) si ottiene una rete con un solo tipo (giudici), collegando i giudici che hanno una pronuncia in comune.
+- **Pronuncia, sentenza, ordinanza.** Pronuncia è ogni decisione della Corte. La sentenza decide in via definitiva; l'ordinanza ha una motivazione breve.
+- **Pronuncia che cita.** La pronuncia nel cui testo compare la citazione.
+- **Quota (nella rete dei collegi tra giudici).** Pronunce decise insieme da due giudici, diviso pronunce decise mentre erano tutti e due in attività.
+- **Redattore e relatore.** Il relatore studia la causa e la presenta al collegio; il redattore scrive il testo dopo la decisione. Di solito sono la stessa persona.
+- **Regressione logistica condizionata.** Il modello di D3: confronta, dentro ogni pronuncia che cita, i precedenti citati con quelli non citati.
+- **Repository.** L'archivio del progetto, con la storia di ogni modifica (git).
+- **Rete, nodo, legame, verso.** Una rete è un insieme di cose (nodi) e di relazioni tra loro (legami); un legame con un verso va da un nodo a un altro.
+- **Rete di affiliazione.** Una rete che lega le persone agli eventi a cui partecipano: qui i giudici alle pronunce che hanno deciso.
+- **Seme.** Il numero da cui parte il generatore casuale: con lo stesso seme, le scelte "a caso" sono sempre le stesse.
+- **SPARQL.** Il linguaggio con cui si interroga la banca dati della Corte.
+- **Temi (modello di topic, LDA).** Un programma che raggruppa in temi le parole che compaiono spesso insieme; qui dà la materia delle pronunce.
+- **Testo di base.** Il testo in cui si cercano le citazioni: «Considerato in diritto» e dispositivo nelle sentenze, «Considerato che» e dispositivo nelle ordinanze.
+- **Valore p.** La probabilità di vedere una differenza almeno così grande se in realtà non ci fosse nessuna differenza. Sotto 0,05 la differenza si considera reale.
+- **Via incidentale e via principale.** Nel giudizio in via incidentale la questione è sollevata da un giudice durante una causa; in quello in via principale lo Stato o una Regione impugna direttamente una legge.
+- **XML.** Il formato dei file del portale: ogni informazione sta tra due etichette con il suo nome.
+
+## 17. Inventario dei file
+
+Ogni file del repository, con che cos'è e come nasce. "A mano" vuol dire scritto a mano; "da X" vuol dire scritto dal programma X. Restano fuori dal repository, e quindi da questo elenco: i file del portale in `data/raw/` (tranne il manifest), i PDF della letteratura in `literature/` (diritti d'autore), l'ambiente `.venv/`.
+
+### 17.1 Istruzioni e configurazione
+
+| File | Che cos'è | Come nasce |
+| --- | --- | --- |
+| `README.md` | Presentazione del progetto, dati, come rifare tutto, struttura delle cartelle | A mano |
+| `CLAUDE.md` | Istruzioni per chi lavora sul progetto, compreso l'assistente: stato, domande, regole sempre valide, soglie | A mano |
+| `.claude/rules/data.md` | Regole per i dati, l'estrazione delle citazioni e i giudici | A mano |
+| `.claude/rules/network-analysis.md` | Regole per le reti, i confronti con il caso, D3, le varianti | A mano |
+| `.claude/settings.json` | Impostazioni dell'assistente: blocca le modifiche dirette a `data/raw/` | A mano |
+| `.gitignore` | Che cosa resta fuori dal repository | A mano |
+| `pytest.ini` | Limita i controlli automatici alla cartella `tests/` | A mano |
+| `requirements.txt` | I pacchetti Python usati dal codice | A mano |
+| `requirements.lock` | Le versioni esatte dei pacchetti con cui sono stati prodotti i risultati (Python 3.12.4) | A mano |
+
+### 17.2 Documenti di lavoro (`docs/`)
+
+| File | Che cos'è | Come nasce |
+| --- | --- | --- |
+| `docs/handbook.md` | Questo documento | A mano |
+| `docs/spec.md` | Il piano del progetto, scritto prima dei risultati | A mano |
+| `docs/decisions.md` | Il registro delle decisioni: data, decisione, motivo, chi; le liste delle cose da fare | A mano |
+| `docs/context.md` | Come nasce una pronuncia, chi fa che cosa, che cosa registrano i dati, con le fonti | A mano |
+| `docs/data_schema.md` | Che cosa c'è nei file del portale, campo per campo | A mano (numeri da `inspect_raw.py`) |
+| `docs/context_corti.md` | Le altre quattro corti e i loro dati | A mano |
+| `docs/sources.md` | Le fonti, con che cosa è stato letto di ciascuna e le pagine | A mano |
+| `docs/course_mapping.md` | Ogni argomento del programma d'esame: se è usato e dove, o perché no | A mano |
+| `docs/project_guide.md` | Una guida generale alla stesura e alla presentazione di un lavoro scientifico | A mano |
+
+### 17.3 Dati
+
+| File | Che cos'è | Come nasce |
+| --- | --- | --- |
+| `data/raw/MANIFEST.csv` | File scaricati, indirizzo, ora, impronta | Da `src/ingest/download.py` |
+| `data/processed/pronunce.csv` | Una riga per pronuncia, senza testi | Da `src/ingest/build_pronunce.py` |
+| `data/processed/citations.csv` | Una riga per menzione trovata | Da `src/extract/citations.py` |
+| `data/processed/edges_citations.csv` | La rete delle citazioni (testo di base) | Da `src/extract/citations.py` |
+| `data/processed/edges_citations_fulltext.csv` | La rete delle citazioni nel testo intero (variante) | Da `src/extract/citations.py` |
+| `data/processed/edges_citations_with_notes.csv` | La rete più le coppie trovate solo nelle massime (variante) | Da `src/extract/citations_massime.py` |
+| `data/processed/judges.csv` | Una riga per giudice | Da `src/judges/build_judges.py` |
+| `data/processed/pronunce_judges.csv` | Relatore, redattore, fonte del nome, dimensione del collegio, per pronuncia | Da `src/judges/build_judges.py` |
+| `data/processed/collegio.csv` | Una riga per coppia (pronuncia, giudice del collegio) | Da `src/judges/build_judges.py` |
+| `data/processed/topics_theta.npz` | I pesi dei 20 temi per ogni pronuncia | Da `src/analysis/topics.py` |
+| `data/processed/topics_pronunce.csv` | Il tema principale di ogni pronuncia | Da `src/analysis/topics.py` |
+| `data/processed/parametri_pronunce.csv` | Gli articoli della Costituzione invocati da ogni pronuncia | Da `src/analysis/parametri.py` |
+| `data/processed/nodes.csv` | La tabella completa delle pronunce, con tipo di giudizio e citazioni fatte e ricevute | Da `src/networks/build.py` |
+| `data/processed/edges_redazione.csv` | Giudice → pronuncia scritta | Da `src/networks/build.py` |
+| `data/processed/edges_judges.csv` | Rete tra giudici pesata con le citazioni | Da `src/networks/build.py` |
+| `data/processed/edges_cositting.csv` | Rete dei collegi tra giudici: i legami | Da `src/networks/cositting.py` |
+| `data/processed/judges_cositting.csv` | Rete dei collegi tra giudici: i giudici | Da `src/networks/cositting.py` |
+| `data/processed/cositting_network.graphml` | Rete dei collegi tra giudici, per Gephi o networkx | Da `src/networks/cositting.py` |
+| `data/processed/esiti.csv` | L'esito delle pronunce dal 2005 | Da `src/ingest/fetch_api.py` |
+| `data/processed/wikipedia_links.csv` | Le pronunce citate in voci di Wikipedia | Da `src/ingest/fetch_api.py` |
+| `data/processed/judges_attributes.csv` | Provenienza e organo di nomina di ogni giudice | Da `src/analysis/d2_d4_giudici.py` |
+| `data/processed/communities.csv` | Il filone (gruppo di Leiden) di ogni pronuncia | Da `src/analysis/extras.py` |
+| `data/validation/gold_test.txt`, `gold_test2.txt` | Le letture di riferimento delle citazioni, primo e secondo campione | A mano, dall'assistente |
+| `data/validation/gold_human.txt` | Il file in cui una persona scrive le citazioni lette (oggi vuoto) | Modello da `src/validation/human_sheet.py`; da compilare a mano |
+| `data/validation/human_check.md` | Il foglio con le 36 pronunce da leggere | Da `src/validation/human_sheet.py` |
+| `data/validation/polarity_test_sample.csv` | I passi del campione di prova della polarità, senza le decisioni delle regole | Da `src/polarity/draw_sample.py` |
+| `data/validation/polarity_test_labels.csv` | Le decisioni delle regole sugli stessi passi | Da `src/polarity/draw_sample.py` |
+| `data/validation/gold_polarity_claude.txt` | La lettura di riferimento della polarità | A mano, dall'assistente |
+| `data/validation/polarity_human_check.md` | Il foglio con i 67 passi per una persona | Da `src/polarity/draw_sample.py` |
+| `data/validation/gold_polarity_human.txt` | Il file in cui una persona scrive la sua lettura (oggi vuoto) | Modello da `src/polarity/draw_sample.py`; da compilare a mano |
+| `data/manual/` | Cartella per le correzioni fatte a mano: vuota, perché le correzioni sono nel codice | — |
+
+**Fuori dal repository, in `data/interim/`** (si rigenerano rifacendo i programmi): `pronunce.pkl` (le pronunce con i testi, da `build_pronunce.py`); `citation_errors.csv`, `citation_excluded.csv`, `citation_same_date.csv`, `citation_type_mismatch.csv` (da `citations.py`); `collegio_errors.csv` (da `build_judges.py`); `sedute_membri.csv` (da `fetch_api.py`); `d1_yearly.pkl` e `d1_panel_<anno>.pkl` (da `d1_pronunce.py`); `d3_mandate.pkl` (da `d3_memoria_collegiale.py`); `d3_full.pkl` (da `d3_full_check.py`); `polarity_contexts.pkl` (da `polarity/contexts.py`); `courts_split.csv` (da `courts/sizing.py`); `courts_mentions_dev.csv` e `courts_dev_sheet.md` (da `courts/mentions.py`); `logs/` (i messaggi scritti dai programmi lunghi mentre giravano).
+
+### 17.4 Risultati (`reports/`)
+
+| File | Che cos'è | Come nasce |
+| --- | --- | --- |
+| `reports/relazione_for_dummies.md` | La relazione, in due parti | A mano; numeri confrontati con i file dei risultati da `tests/test_report_numbers.py` |
+| `reports/validation.md` | Il quadro dei controlli di qualità | A mano |
+| `reports/validation_round1.md` | La prima misura della qualità dell'estrazione, prima della correzione | Da `src/validation/evaluate.py` (versione del 17/11/2026, non più rifacibile); testo convertito a mano il 21/11/2026 con gli stessi numeri |
+| `reports/validation_test.md`, `validation_test2.md` | Qualità dell'estrazione sul primo campione (dopo la correzione) e sul secondo | Da `src/validation/evaluate.py` |
+| `reports/data_inspection.md` | Il primo controllo dei file | Da `src/ingest/inspect_raw.py` |
+| `reports/sparql_reconciliation.md` | Il confronto con la banca dati SPARQL (12/11/2026) | Da `src/ingest/sparql_check.py`; testo convertito a mano il 21/11/2026 con gli stessi numeri |
+| `reports/judges_quality.md` | Qualità del riconoscimento dei giudici | Da `src/judges/build_judges.py` |
+| `reports/topics.md`, `topics.json` | I temi | Da `src/analysis/topics.py` (il `.md` convertito a mano il 21/11/2026 con gli stessi numeri) |
+| `reports/parametri.json` | Gli articoli della Costituzione | Da `src/analysis/parametri.py` |
+| `reports/network_basic.json` | Le misure di base della rete delle citazioni | Da `src/networks/build.py` |
+| `reports/cositting_network.json` | La rete dei collegi tra giudici: descrizione e controlli | Da `src/networks/cositting.py` |
+| `reports/massime_citations.json` | Le citazioni trovate nelle massime | Da `src/extract/citations_massime.py` |
+| `reports/api_fetch.json` | La data delle interrogazioni delle API | Da `src/ingest/fetch_api.py` |
+| `reports/collegio_vs_sedute.json` | Collegio contro presenti alle sedute | **Nessun programma** (sezione 11.1) |
+| `reports/d1_results.json` | D1 e D1b | Da `src/analysis/d1_pronunce.py` |
+| `reports/d2_results.json`, `d4_results.json` | D2 e D4 | Da `src/analysis/d2_d4_giudici.py` |
+| `reports/d2_strata_check.json` | Il controllo dei gruppi di D2 | Da `src/analysis/d2_strata_check.py` |
+| `reports/d3_results.json`, `d3_results.md` | D3 | Da `src/analysis/d3_memoria_collegiale.py` |
+| `reports/d3_absences.json` | Le assenze dal collegio | Da `src/analysis/d3_absences.py` |
+| `reports/d3_full_check.json` | Il controllo dello 0,88 | Da `src/analysis/d3_full_check.py` |
+| `reports/precedent_succession.json` | La sostituzione dei precedenti | Da `src/analysis/precedent_succession.py` |
+| `reports/extras.json` | Filoni, esito, Wikipedia, autocitazioni, HITS per gruppo | Da `src/analysis/extras.py` |
+| `reports/course_measures.json` | Le misure dei libri di testo | Da `src/analysis/course_measures.py` |
+| `reports/numbers.json` | Numeri della relazione che nessun programma di analisi salvava | Da `src/report/report_numbers.py` |
+| `reports/polarity_validation_claude.md`, `.json` | La prova della polarità | Da `src/polarity/evaluate.py` |
+| `reports/courts_sizing.json` | Quante pronunce nominano le altre corti | Da `src/courts/sizing.py` |
+| `reports/figures/fig1_…png` … `fig10_…png` | Le 10 figure (elenco nella sezione 5.18) | Da `src/analysis/figures.py` |
+| `reports/rete_interattiva.html` | La rete da esplorare nel browser | Da `src/analysis/interactive.py` |
+
+Il paragrafo "In breve" in testa a 9 di questi report (`data_inspection.md`, `sparql_reconciliation.md`, `topics.md`, `d3_results.md`, `validation_round1.md`, `validation_test.md`, `validation_test2.md`, `polarity_validation_claude.md`, `judges_quality.md`) lo scrive `src/report/plain_intros.py`.
+
+### 17.5 Programmi e controlli automatici
+
+Tutti i programmi sono scritti a mano e descritti nella sezione 5: `src/ingest/` (download.py, inspect_raw.py, sparql_check.py, build_pronunce.py, fetch_api.py), `src/extract/` (citations.py, citations_massime.py), `src/validation/` (sample_passages.py, evaluate.py, human_sheet.py), `src/judges/build_judges.py`, `src/networks/` (build.py, cositting.py), `src/analysis/` (topics.py, parametri.py, d1_pronunce.py, d2_d4_giudici.py, d2_strata_check.py, d3_memoria_collegiale.py, d3_absences.py, d3_full_check.py, precedent_succession.py, extras.py, course_measures.py, figures.py, interactive.py, e il modello di pagina `interactive_template.html` usato da interactive.py), `src/polarity/` (contexts.py, lexicon.py, draw_sample.py, evaluate.py), `src/courts/` (sizing.py, mentions.py), `src/report/` (report_numbers.py, plain_intros.py). I controlli automatici sono in `tests/` (test_citations.py, test_report_numbers.py).
+
+## 18. Mappa delle fonti di questa guida
+
+Per ogni sezione, i file da cui è presa. Servono per approfondire, per controllare un punto, e per aggiornare questo documento quando il lavoro cambia: se cambia uno dei file elencati, va riletta la sezione corrispondente.
+
+| Sezione | File da cui è presa |
+| --- | --- |
+| 0. Come usare questo documento | `tests/test_report_numbers.py`; `docs/decisions.md` (intestazione); `reports/relazione_for_dummies.md` (avvertenza iniziale) |
+| 1. Il progetto in breve | `CLAUDE.md` ("Il progetto in breve", "Le domande di ricerca"); `docs/spec.md` ("La domanda"); `reports/relazione_for_dummies.md` (Parte I); `reports/d1_results.json`, `reports/d3_results.json`, `reports/precedent_succession.json` |
+| 2. Il contesto | `docs/context.md` (tutte le sezioni); `reports/relazione_for_dummies.md` (1.3, "Chiarimenti di base") |
+| 3. I dati di partenza | `docs/data_schema.md`; `reports/data_inspection.md`; `data/raw/MANIFEST.csv`; `docs/spec.md` ("I dati"); `reports/relazione_for_dummies.md` (1.1–1.3) |
+| 4. Il piano | `docs/spec.md` ("Come si controlla ogni risultato"); `docs/decisions.md` (righe 8/11–16/11 e "Le decisioni principali, in breve"); `reports/relazione_for_dummies.md` (2.1, 2.9) |
+| 5. I passaggi | L'intestazione di ogni programma in `src/`; `README.md` ("Come rifare tutto"); `reports/relazione_for_dummies.md` (2.2–2.7, 6); `reports/topics.md`; `reports/judges_quality.md`; `reports/numbers.json`; `reports/cositting_network.json`; `docs/context_corti.md`; `reports/courts_sizing.json` |
+| 6. I controlli di qualità | `reports/validation.md`; `reports/validation_round1.md`, `validation_test.md`, `validation_test2.md`; `reports/judges_quality.md`; `reports/sparql_reconciliation.md`; `reports/collegio_vs_sedute.json`; `docs/decisions.md` (righe 16/11 e 19/11 sul controllo a mano) |
+| 7. Le reti | `reports/relazione_for_dummies.md` (2.6, 3.1); `reports/network_basic.json`; `reports/cositting_network.json`; `docs/spec.md` ("I concetti delle reti applicati a questo caso"); `.claude/rules/network-analysis.md` |
+| 8. Il confronto con il caso | `reports/relazione_for_dummies.md` (2.8); `.claude/rules/network-analysis.md`; `docs/spec.md` ("Come si controlla ogni risultato") |
+| 9. I risultati | `reports/relazione_for_dummies.md` (3.2–3.9); `reports/d1_results.json`, `d2_results.json`, `d4_results.json`, `d3_results.json`, `d3_absences.json`, `d3_full_check.json`, `extras.json`, `course_measures.json`, `precedent_succession.json`, `polarity_validation_claude.md` |
+| 10. I cambiamenti | `reports/relazione_for_dummies.md` (2.9); `docs/decisions.md` (tutte le righe) |
+| 11. Problemi noti | `reports/cositting_network.json`; `data/interim/collegio_errors.csv`; `docs/decisions.md` (righe 21/11, 22/11, 24/11); la ricerca nel codice dei programmi che scrivono ogni file |
+| 12. I limiti | `reports/relazione_for_dummies.md` (4) |
+| 13. Che cosa resta da fare | `docs/decisions.md` ("Ancora da decidere", "Da chiedere al docente", "Prima di rendere pubblico il repository"); `CLAUDE.md` ("A che punto è"); `reports/relazione_for_dummies.md` (5) |
+| 14. Come si corregge | `CLAUDE.md` ("Regole sempre valide"); `.claude/rules/data.md`; `README.md` |
+| 15. L'uso dell'assistente | `reports/relazione_for_dummies.md` (8); `docs/decisions.md` (intestazione) |
+| 16. Glossario | `reports/relazione_for_dummies.md` ("Le parole tecniche, spiegate"); `docs/context.md` |
+| 17. Inventario dei file | `git ls-files`; il contenuto di `data/interim/`; la ricerca nel codice di chi scrive e chi legge ogni file |
