@@ -500,7 +500,294 @@ L'ordine è quello del README e della relazione (sezione 6). Ogni programma usa 
 - **Pronunce che nominano ciascuna corte nel testo di base:** Corte di cassazione 3.175; Consiglio di Stato 1.058; Corte di giustizia 472; Corte europea dei diritti dell'uomo 408 (`reports/courts_sizing.json`). Nominare una corte non vuol dire citare una sua decisione: molte volte il riferimento è generico, oppure la corte nominata è quella che ha sollevato la questione.
 - **Che cosa si potrà costruire:** con dati aperti solo il verso "la Corte costituzionale cita le altre corti"; il verso opposto, in principio, solo per la Corte di giustizia.
 
-<!-- SEZIONI 6-10: in scrittura -->
+## 6. I controlli di qualità
+
+Il quadro completo, scritto a mano, è in `reports/validation.md`. Le soglie sono state fissate prima dei risultati (sezione 4.1).
+
+### 6.1 Le citazioni estratte dai testi
+
+**Che cosa si misura.**
+
+- La **precisione**: delle citazioni trovate dall'estrattore, quante sono vere. Se ne trova 100 e 95 sono vere, la precisione è 0,95.
+- Il **richiamo**: delle citazioni vere, quante ne trova. Se nel testo ce ne sono 100 e ne trova 90, il richiamo è 0,90.
+- L'unità contata è la coppia "pronuncia che cita – pronuncia citata" nel testo di base. Tra parentesi c'è l'intervallo di confidenza al 95% (metodo di Wilson).
+
+**Chi ha deciso quali citazioni sono vere.** L'assistente (Claude), non una persona. Ha letto i testi prima di far girare l'estrattore su quei campioni, ma solo i passi con una parola chiave (come "sentenza" o "ordinanza") o un rimando, non i testi interi. È il punto debole di tutta la misura: le parole chiave somigliano a quelle dell'estrattore, quindi una forma di citazione che nessuno dei due riconosce sfuggirebbe a entrambi, e il richiamo risulterebbe più alto del vero.
+
+| Passo | Campione | Pronunce | Citazioni vere | Precisione | Richiamo | File |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | Primo campione, tutti i decenni (seme 20261117) | 64 | 270 | 1,000 (0,985–1,000) | 0,941 (0,906–0,963) | `reports/validation_round1.md` |
+| 1 | di cui fino alla pronuncia 286/1986 | 27 | 40 | 1,000 (0,886–1,000) | **0,750** (0,598–0,858): sotto la soglia | `reports/validation_round1.md` |
+| 1 | di cui dal 1987 | 37 | 230 | 1,000 (0,983–1,000) | 0,974 (0,944–0,988) | `reports/validation_round1.md` |
+| 2 | L'estrattore è stato corretto per le forme antiche di citazione ("12/1957" senza "n.", elenchi con più date, "in pari data", i due punti come separatore) | | | | | `src/extract/citations.py` |
+| 3 | Secondo campione, mai visto prima, solo fino alla 286/1986 | 48 | 72 | 0,985 (0,920–0,997) | 0,917 (0,830–0,961) | `reports/validation_test2.md` |
+
+**Come si legge.**
+
+- Le stime da usare sono due: dal 1987, richiamo 0,974 (passo 1); fino al 1986, richiamo 0,917 (passo 3). La precisione è almeno 0,985 in tutti e due i periodi.
+- Come previsto dalle regole, dopo il primo campione il lavoro si è fermato: l'estrattore è stato corretto e poi verificato su un secondo campione mai visto.
+- Per i testi fino al 1986 il valore stimato supera la soglia di 0,90, ma il limite inferiore dell'intervallo (0,830) no: con 72 citazioni non si può escludere che il richiamo vero sia sotto la soglia.
+- Le citazioni controllate sono 342 (270 + 72), meno delle 460 previste: gli intervalli sono più larghi del previsto.
+- `reports/validation_test.md` ricalcola il primo campione dopo la correzione (richiamo 0,978). Non è una stima indipendente, perché la correzione è stata scritta guardando proprio quel campione: serve solo a controllare che la correzione non abbia rotto altro.
+
+**Il controllo di una persona, ancora da fare.** `data/validation/human_check.md` contiene 36 pronunce mai usate (seme 20261119), con tutto il testo di base e senza il risultato dell'estrattore: circa 100 citazioni attese. Una persona scrive le citazioni che trova in `data/validation/gold_human.txt` (istruzioni in testa al foglio); poi `.venv/bin/python src/validation/evaluate.py human` calcola precisione e richiamo. Secondo la regola del 19/11/2026, questa lettura diventa il riferimento per le soglie. Con circa 100 citazioni il controllo può smentire le soglie, ma non confermarle con sicurezza: il limite inferiore dell'intervallo supera 0,95 solo con 100 citazioni giuste su 100, e 0,90 solo con almeno 97 su 100. Se una soglia non è raggiunta: i risultati che dipendono dalla rete delle citazioni si dichiarano provvisori, l'estrattore si corregge, e si ricontrolla una sola volta su un nuovo campione.
+
+### 6.2 I giudici: chi ha scritto e chi sedeva nel collegio
+
+Da `reports/judges_quality.md` (scritto da `src/judges/build_judges.py`).
+
+| Controllo | Risultato | Soglia decisa prima |
+| --- | --- | --- |
+| Pronunce con il nome del redattore collegato all'elenco dei giudici | 99,84% | 98% |
+| Pronunce con il collegio riconosciuto per intero (da 11 a 15 giudici, tutti collegati all'elenco, non meno dei nomi scritti nel testo) | 98,85% | 98% |
+| Pronunce con il nome del relatore collegato all'elenco | 99,95% | — |
+
+- Le 257 pronunce con il collegio non riconosciuto per intero sono in `data/interim/collegio_errors.csv` (sezione 11.7).
+- Per decennio, il collegio è riconosciuto per intero dal 95,0% (anni 1970) al 100,0% (anni 2010 e 2020).
+- Giudici da controllare: Giuseppe Lampis e Giuseppe Capograssi non compaiono in nessun collegio; per Nicola Reale e Giuseppe Frigo l'ultima presenza in un collegio è più di 400 giorni prima della fine del mandato; gli altri della lista sono ancora in carica.
+
+### 6.3 Il confronto con la banca dati SPARQL della Corte
+
+| Controllo | Risultato | File |
+| --- | --- | --- |
+| Relatore: file contro banca dati, 22.426 pronunce | Coincide nel 97,12%; 635 delle 645 differenze sono i due errori di grafia, corretti nel programma | `reports/sparql_reconciliation.md` |
+| Collegio ricavato dal testo contro giudici presenti alla seduta, 3.684 pronunce dal 2004 | Il 97,8% dei giudici del collegio risulta presente alla seduta; il 99,1% dei presenti alla seduta risulta nel collegio; i due elenchi sono identici nel 73,5% delle pronunce | `reports/collegio_vs_sedute.json` (nessun programma lo scrive: sezione 11.1) |
+
+Collegio e seduta non devono coincidere sempre: in una seduta si discutono più cause, e un giudice può non partecipare a tutte. Per questo conta la quota di giudici in comune, non la quota di elenchi identici. `reports/validation.md` attribuisce il file `collegio_vs_sedute.json` al programma `src/ingest/fetch_api.py`, ma quel programma scrive solo `data/interim/sedute_membri.csv`, cioè i dati da cui il confronto si calcola.
+
+### 6.4 La polarità delle citazioni
+
+La soglia era una precisione di almeno 0,80; il risultato è 0,76 (28 su 37), sotto la soglia. Dettagli nella sezione 9.8.
+
+## 7. Le reti
+
+### 7.1 Che cosa è una rete, e le reti del progetto
+
+Una rete è fatta di **nodi** (le cose) e **legami** (le relazioni tra le cose). Un legame può avere un **verso** (da A a B) e un **peso** (un numero, per esempio quante volte succede).
+
+| Rete | Nodi | Legame | Verso | Peso | File |
+| --- | --- | --- | --- | --- | --- |
+| Citazioni | Pronunce | A cita B nel testo di base | Da chi cita a chi è citato, sempre verso il passato | Nessuno: una coppia conta una volta | `data/processed/edges_citations.csv` |
+| Redazione | Giudici e pronunce | Il giudice ha scritto la pronuncia | — | — | `data/processed/edges_redazione.csv` |
+| Collegio | Giudici e pronunce | Il giudice sedeva nel collegio | — | — | `data/processed/collegio.csv` |
+| Influenza tra giudici | Giudici | Le pronunce scritte da A citano pronunce scritte da B | Da A a B | Numero di citazioni | `data/processed/edges_judges.csv` |
+| Collegio tra giudici | Giudici | A e B hanno deciso insieme almeno una pronuncia | Nessuno | Numero di pronunce decise insieme | `data/processed/edges_cositting.csv` |
+
+Le reti "Redazione" e "Collegio" hanno due tipi di nodi (giudici e pronunce): in questi casi un legame va sempre da un nodo di un tipo a un nodo dell'altro tipo. Le due reti tra giudici si ricavano da queste: la rete "Collegio tra giudici" è la **proiezione** della rete "Collegio" sui giudici (due giudici sono collegati se hanno una pronuncia in comune). In termini dei libri di testo, i collegi sono una **rete di affiliazione**: persone legate agli eventi a cui partecipano (Easley e Kleinberg, capitolo 4).
+
+### 7.2 La rete delle citazioni in numeri
+
+Da `reports/network_basic.json` (scritto da `src/networks/build.py`).
+
+- **22.427 pronunce, 93.467 citazioni, nessun ciclo.** "Nessun ciclo" vuol dire che seguendo le citazioni non si torna mai al punto di partenza: una pronuncia cita solo pronunce più vecchie.
+- **La rete è rada.** Ogni pronuncia cita in media 4,2 precedenti. La densità (legami presenti diviso legami possibili verso il passato) è 0,00037, cioè lo 0,037%.
+- **Quasi tutto è collegato.** L'86% delle pronunce forma un unico blocco (in cui da ogni pronuncia si arriva a ogni altra seguendo le citazioni in un senso o nell'altro); 2.629 pronunce (12%) non citano nulla e non sono mai citate.
+- **Sentenze e ordinanze sono citate in modo molto diverso.** Una sentenza riceve in media 6,4 citazioni, un'ordinanza 1,7.
+- **Si cita sempre di più.** Negli anni Cinquanta una pronuncia citava in media 1 precedente; negli anni Venti di questo secolo 14,7.
+- **Si cita il recente.** Metà delle citazioni va a precedenti con meno di 3,5 anni; il 9% a precedenti con più di 20 anni.
+- **La catena più lunga** di pronunce che si citano una dopo l'altra ha 148 anelli.
+- **Le misure che su questa rete non hanno senso** (`.claude/rules/network-analysis.md`): la reciprocità (quante citazioni vanno nei due sensi), che è zero per costruzione; i gruppi che si raggiungono a vicenda seguendo il verso, perché senza cicli ogni pronuncia fa gruppo a sé; la chiusura dei triangoli sulla rete con il verso, che si calcola invece sulla rete senza verso.
+
+### 7.3 La rete dei collegi tra giudici in numeri
+
+Da `reports/cositting_network.json` (scritto da `src/networks/cositting.py`). Etichetta: descrittivo.
+
+- **Nodi e legami.** 123 giudici (i 125 dell'elenco meno Lampis e Capograssi, che non compaiono in nessun collegio) e 1.541 legami, su 7.503 coppie possibili.
+- **Sull'intero periodo la rete è poco fitta:** esiste il 20,5% dei legami possibili, perché un giudice degli anni Cinquanta non ha mai incontrato un giudice di oggi.
+- **Negli stessi anni è quasi completa.** Le coppie di giudici in attività negli stessi anni sono 1.548; di queste, 1.541 hanno deciso insieme almeno una pronuncia. Le altre 7 si sono sovrapposte per poco (da 14 a 52 pronunce decise nel periodo comune).
+- **Il peso** (pronunce decise insieme) va da 1 a 5.081; la mediana è 999. Il peso dice soprattutto per quanto tempo due giudici sono stati in attività insieme. La coppia con il peso più alto è Enzo Cheli e Luigi Mengoni: 5.081 pronunce insieme su 5.476 decise mentre erano tutti e due in attività.
+- **La quota** (pronunce decise insieme diviso pronunce decise mentre erano tutti e due in attività) ha mediana 89,3%: in una coppia tipica i due giudici siedono insieme quasi 9 volte su 10. È il rovescio delle assenze, su cui si regge D3.
+- **Ogni giudice** ha da 14 a 34 colleghi, 26 in mediana.
+- **Perché la rete serve solo a descrivere.** Negli stessi anni tutti siedono con quasi tutti: un test su questa rete direbbe soprattutto chi era in attività insieme. La regola di metodo vieta quindi i test su questa rete. La rete serve a descrivere, a controllare i dati (sezioni 11.5 e 11.7) e a controllare le occasioni di citare.
+- **Come aprirla.** `data/processed/cositting_network.graphml` si apre con Gephi o con networkx (`networkx.read_graphml`); in alternativa, `edges_cositting.csv` (i legami) e `judges_cositting.csv` (i giudici).
+
+## 8. Come si decide che un risultato non è dovuto al caso
+
+### 8.1 Il principio
+
+Un numero da solo non dice se qualcosa è tanto o poco. Per esempio: l'1% delle pronunce più citate raccoglie il 10% delle citazioni. È tanto? Dipende da quanto ne raccoglierebbe se le citazioni andassero a caso. Per saperlo si costruiscono molte versioni rimescolate dei dati (i **modelli nulli**). Ogni versione conserva ciò che è ovvio (per esempio quante citazioni fa ogni pronuncia e quanto sono vecchi i precedenti che cita) e mescola a caso il resto. Se il dato vero sta fuori dall'intervallo delle versioni rimescolate, c'è qualcosa che il caso non spiega.
+
+Le versioni rimescolate sono 1.000 (10.000 per i giudici di D2, 100 per alcune misure secondarie), sempre con lo stesso seme. Il tempo va sempre rispettato: una pronuncia può citare solo pronunce già depositate. Un rimescolamento che ignorasse il tempo darebbe confronti falsi.
+
+### 8.2 Un confronto per ogni domanda
+
+| Domanda | Che cosa si misura | Con che cosa si confronta |
+| --- | --- | --- |
+| D1: le citazioni sono concentrate? | Quota delle citazioni che va all'1% più citato; quota di pronunce mai citate; indice di Gini (da 0, tutte uguali, a 1, tutto a una sola) | Ogni citazione resta alla pronuncia che cita, ma va a una pronuncia presa a caso tra quelle depositate nello stesso anno del precedente vero (variante aggiunta dopo: stesso anno e stesso tipo). Le citazioni ricevute non si conservano, perché sono proprio ciò che si misura |
+| D1: che forma ha la distribuzione? | Legge di potenza contro lognormale, metodo di Clauset, Shalizi e Newman | Un test statistico tra le due forme (rapporto di verosimiglianza) |
+| D1: le pronunce "autorevoli" sono le più citate? | HITS e PageRank; quante pronunce stanno nell'1% più alto di entrambe le classifiche | Citazioni scambiate tra coppie con gli stessi anni (alla Uzzi): conservano quante citazioni fa e riceve ogni pronuncia e l'età delle citazioni. Uno scambio è ammesso solo se ogni pronuncia citata resta depositata prima, o lo stesso giorno, della pronuncia che la cita |
+| D1: l'autorevolezza aiuta a prevedere? | Previsione delle citazioni dell'anno dopo, stimata fino al 2010 e provata sul 2011–2025 | Lo stesso modello senza autorevolezza; criterio fissato prima: almeno il 2% di errore in meno, con un intervallo al 95% che esclude lo zero |
+| D1b: quanto dura un precedente? | Frequenza di citazione per età del precedente; tempo fino all'ultima citazione | Una scelta a caso tra tutti i precedenti disponibili, senza badare all'età |
+| D2: le pronunce di un giudice sono più citate? | Citazioni ricevute diviso citazioni attese, senza le citazioni del giudice a sé stesso | Le pronunce di ogni anno riassegnate a caso tra i giudici di quell'anno (10.000 volte); correzione di Holm sui 113 confronti |
+| D3: conta aver partecipato o aver scritto? | Regressione logistica condizionata | Dentro ogni pronuncia che cita: i precedenti citati contro 50 non citati estratti a caso |
+| D4: ci si cita tra giudici simili? | Quota di citazioni tra giudici dello stesso gruppo | I gruppi riassegnati a caso tra giudici entrati nello stesso decennio |
+
+### 8.3 Molti confronti insieme: la correzione di Holm
+
+Quando si fanno molti confronti insieme (in D2, uno per ognuno dei 113 giudici), alcuni risultano "diversi" per puro caso. La correzione di Holm alza l'asticella in modo che la probabilità anche di un solo falso allarme resti sotto il 5%.
+
+### 8.4 La potenza
+
+La potenza è la probabilità di accorgersi di un effetto della grandezza cercata, se l'effetto esiste. Per D4 si è calcolata prima del test, con una simulazione: si inserisce l'effetto minimo d'interesse (20%) nei dati rimescolati e si conta quante volte il test lo trova. Il test si fa solo se la potenza è almeno 0,80.
+
+## 9. I risultati, uno per uno
+
+### 9.1 D1: le citazioni sono concentrate (secondario)
+
+Da `reports/d1_results.json`. Tra parentesi l'intervallo in cui cadono 95 versioni casuali su 100.
+
+| Misura | Dato vero | A caso, stesso anno (deciso prima) | A caso, stesso anno e tipo (aggiunto dopo) |
+| --- | --- | --- | --- |
+| Quota delle citazioni che va all'1% delle pronunce più citate | 10,3% | 3,4% (3,4–3,5) | 4,2% (4,1–4,2) |
+| Indice di Gini | 0,66 | 0,37 (0,37–0,37) | 0,48 (0,48–0,48) |
+| Pronunce mai citate | 29,5% | 4,3% (4,1–4,5) | 12,8% (12,5–13,0) |
+| Citazioni ricevute dalla pronuncia più citata | 113 | 21 (18–23) | 25 (22–28) |
+
+- **Come si legge.** In ogni riga il dato vero è molto lontano da tutte e due le versioni casuali. Una parte della differenza viene dal tipo di pronuncia: non è mai citato il 45,7% delle ordinanze e il 14,8% delle sentenze. Con il secondo confronto il divario si riduce, ma resta grande.
+- **Avvertenza.** Quasi tutte le reti di citazioni battono un confronto di questo tipo: la concentrazione in sé è un fatto atteso. Chiamarla "gerarchia" è un'interpretazione, non una prova.
+- **Le pronunce più citate** sono la 303/2003, la 401/2007 e la 383/2005: tutte di giudizi in via principale, dopo la riforma costituzionale del 2001.
+- **Non è una legge di potenza** (esplorativo). Una legge di potenza è una forma matematica in cui pochissimi casi sono enormi e gli altri piccolissimi, con una regola precisa che lega le due cose. Il test dice che un'altra forma, la lognormale, descrive meglio le pronunce molto citate (rapporto di verosimiglianza −7,5, p < 0,001; esponente stimato 2,92 da 10 citazioni in su). Agnoloni e Pagallo (2016, pp. 142–143) avevano proposto una legge di potenza (esponente 2,414) guardando un grafico, senza test, su una rete diversa (le sole pronunce in via incidentale, 16.320 nodi).
+- **Le pronunce "più autorevoli" non sono le più citate** (esplorativo). HITS dà a ogni pronuncia un punteggio di autorevolezza (authority), alto se la pronuncia è citata da pronunce che citano molti precedenti autorevoli. Sulla rete completa l'1% più autorevole e l'1% più citato hanno in comune il 41,5% delle pronunce, contro il 55,7% (53,1–58,0) atteso con le citazioni scambiate. Ma il motivo non è che "conta chi ti cita": HITS concentra l'autorevolezza in un solo gruppo di pronunce molto collegate (il 95,1% dell'1% più autorevole sta in un gruppo di 2.045 pronunce, anno mediano 2013, che raccoglie il 91,6% dell'autorevolezza totale), mentre l'1% più citato è sparso in 22 gruppi (`reports/extras.json`). Le versioni scambiate cancellano i gruppi: il confronto misura soprattutto che i gruppi esistono. PageRank fa l'opposto e premia le pronunce antiche (anno mediano 1970 nel suo 1% più alto). Un terzo delle pronunce ha autorevolezza zero.
+- **La verifica del lavoro di Agnoloni e Pagallo non riesce.** Loro scrivono che le prime 30 pronunce per citazioni sono le stesse prime 30 per autorevolezza. Sul loro insieme (sentenze in via incidentale fino al 2014: 6.561 pronunce) qui solo 4 delle prime 30 per autorevolezza sono tra le prime 30 per citazioni. Il loro insieme non è identico e il loro calcolo non è descritto; nella loro tabella 5 (p. 144) pronunce con lo stesso numero di citazioni hanno la stessa autorevolezza, segno che la loro misura coincideva con il numero di citazioni.
+- **L'autorevolezza non aiuta a prevedere.** Aggiungerla al modello che prevede le citazioni dell'anno dopo aumenta l'errore di previsione dello 0,27% (0,10–0,42), invece di ridurlo di almeno il 2% come chiedeva il criterio deciso prima.
+- **I filoni** (esplorativo, `reports/extras.json`). Il metodo di Leiden (che cerca gruppi di pronunce collegate più tra loro che con il resto) trova 34 gruppi con almeno 50 pronunce, che coprono l'86% dei nodi. La modularità (quanto la divisione è netta) è 0,68, contro 0,29 (0,287–0,292) in 100 reti rimescolate. I gruppi seguono in parte la materia: accordo con i temi 0,22, contro 0,006 del caso. Con un secondo metodo (Infomap) i gruppi sono 63 con almeno 50 pronunce e coprono il 28% dei nodi; l'accordo tra i due metodi è 0,71.
+
+### 9.2 D1b: quanto dura un precedente (secondario)
+
+- **Il picco è a un anno.** La frequenza di citazione è massima a un anno dal deposito (5,8 volte quella di una scelta a caso tra tutti i precedenti disponibili), si dimezza in 3 anni e scende sotto la scelta a caso dopo 9.
+- **La vita di una pronuncia.** Per metà delle pronunce, l'ultima citazione arriva entro 6 anni dal deposito: 19 anni per le sentenze, 1 per le ordinanze. Una pronuncia si considera "uscita di scena" se passano 10 anni dall'ultima citazione senza che ne arrivino altre (curva di sopravvivenza di Kaplan–Meier, che tiene conto delle pronunce troppo recenti per saperlo).
+- **Un nucleo che resta.** Il 13,4% delle pronunce con almeno trent'anni è citato ancora dopo trent'anni.
+
+### 9.3 Dimenticato o sostituito? (esplorativo)
+
+Da `reports/precedent_succession.json` (`src/analysis/precedent_succession.py`); regole decise prima di eseguire il programma.
+
+- **Che cosa si è fatto.** Si sono presi 1.606 precedenti depositati tra il 1970 e il 2010 e citati almeno 5 volte entro 4 anni dal deposito. Per ognuno: le pronunce che lo hanno citato entro 4 anni (i "successori", 13.340 in tutto) e, per ciascuna, una pronuncia simile (stesso anno, stesso tipo, stesso tema principale) che non lo ha citato. Poi si contano le citazioni ricevute quando il precedente ha tra 4 e 15 anni, solo da pronunce che non citano il precedente.
+- **Risultato.** I successori ricevono 1,43 volte le citazioni delle pronunce simili (intervallo 1,37–1,49): il 43% in più. Secondo la regola decisa prima, la sostituzione è "sostenuta".
+- **Cautele.** Il risultato è coerente con un passaggio di testimone, ma anche con un'altra spiegazione: le pronunce che citano precedenti importanti sono importanti di loro. I dati non distinguono le due letture. La seconda condizione della regola (i successori, tutti insieme, più citati del precedente: 36,7 contro 4,7 in media) vale anche per le pronunce simili (25,7), quindi non distingue nulla.
+
+### 9.4 D3: il risultato principale
+
+Da `reports/d3_results.json` e `reports/d3_results.md`.
+
+**La misura: l'odds ratio.** Gli odds di essere citato sono la probabilità di essere citato divisa per quella di non esserlo (20% diventa 0,25). L'odds ratio dice quante volte gli odds sono più alti in un gruppo che nell'altro: vale 1 se non c'è differenza, 2 se sono doppi, 0,5 se sono la metà.
+
+| Precedente, rispetto a uno deciso mentre il giudice era assente | Odds ratio | Intervallo al 95% | Valore p | Etichetta |
+| --- | --- | --- | --- | --- |
+| Deciso da un collegio in cui il giudice sedeva, senza scriverlo | **1,00** | 0,92–1,09 | 1,00 | **Principale** |
+| Scritto dal giudice stesso | 5,47 | 4,76–6,27 | < 0,001 | Esplorativo |
+
+- **Su che cosa si regge.** 13.654 pronunce che citano, 46.969 citazioni, di cui 1.658 a precedenti decisi in assenza del giudice che scrive; 122 giudici. Restano fuori le 320 pronunce senza materia.
+- **Come si legge.** Aver partecipato alla decisione di un precedente non lo rende più citato da quel giudice: la differenza misurata è zero, e i dati escludono effetti superiori al 9% circa in più o all'8% in meno. Non dimostrano che l'effetto sia esattamente zero. L'idea di partenza ("un precedente circola attraverso le persone che lo hanno deciso") non trova sostegno; ne resta una più stretta: un precedente circola attraverso chi lo ha scritto.
+
+**Le assenze, su cui si regge il risultato** (descrittivo, `reports/d3_absences.json`).
+
+- Su 327.252 coppie giudice–pronuncia decisa mentre il giudice era in attività, il giudice manca nel 6,3% dei casi.
+- La quota cambia poco con il tipo di giudizio (dal 3,9% dei referendum al 6,6% dei giudizi in via incidentale), con l'articolo della Costituzione più invocato (dal 5,0% al 7,0% tra i dieci più frequenti) e con la materia (dal 3,9% al 7,3%); di più con il decennio (dal 3,4% degli anni 2020 al 7,2% degli anni 1980 e 1990). La V di Cramér (quanto la presenza dipende da queste categorie, da 0 a 1) vale al massimo 0,049: pochissimo.
+- I precedenti non citati decisi con il giudice presente e quelli decisi in sua assenza si somigliano: la differenza più grande, in unità di variabilità, è 0,097, per l'età (2,35 anni in media contro 2,54).
+- Le assenze non sono collegi letti male: solo lo 0,6% dei precedenti decisi in assenza del giudice ha un collegio con meno di 11 giudici riconosciuti.
+- Non dipendono da pochi giudici: 106 dei 122 giudici citano almeno un precedente deciso in loro assenza; i cinque che ne citano di più raccolgono il 21% di queste citazioni.
+- Dal confronto con i presenti alle sedute (dal 2004), al massimo il 13,5% delle assenze potrebbe essere una presenza non riconosciuta: un effetto vero del +10% apparirebbe come +8,5%. Non basta a spiegare un risultato pari a zero.
+- Il motivo delle singole assenze non è registrato: non si può escludere un legame tra il motivo di un'assenza e la tendenza a citare quel precedente.
+
+**Le varianti: il risultato principale non si muove** (Figura 7).
+
+| Variante | "Sedeva nel collegio" |
+| --- | --- |
+| Senza le citazioni del giudice a pronunce scritte da lui | 0,99 (0,91–1,08) |
+| Solo dal 1987, dove il redattore è noto davvero | 1,01 (0,93–1,10) |
+| Senza gli anni dell'arretrato (pronunce che citano del 1987–1989 escluse) | 1,04 (0,96–1,13) |
+| Testo intero, anche il «Ritenuto in fatto» | 0,99 (0,90–1,09) |
+| Con le citazioni delle massime | 0,99 (0,91–1,08) |
+| A parità di legge impugnata (esplorativo) | 0,99 (0,91–1,07) |
+| A parità di articoli della Costituzione invocati (esplorativo) | 0,99 (0,91–1,08) |
+| Altri cinque campioni di precedenti non citati | tra 0,98 e 1,01 |
+
+**Perché chi scrive conta tanto: la cautela sul 5,47** (esplorativo).
+
+- I relatori li sceglie il Presidente, con criteri non pubblici. Due spiegazioni non si escludono: un giudice che segue sempre la stessa materia cita i propri precedenti perché sono quelli pertinenti; le questioni ripetute (la stessa legge portata alla Corte da più giudici) possono andare allo stesso relatore, che poi richiama la propria decisione.
+- L'effetto è più forte nelle ordinanze (9,83) che nelle sentenze (3,53), e prima del 2001 (8,74) che dopo (3,64): è l'andamento atteso dalle questioni ripetute, spesso chiuse con un'ordinanza.
+- **La prova delle questioni ripetute.** Il 40,0% dei precedenti scritti dallo stesso giudice e citati riguarda la stessa legge impugnata della pronuncia che cita, contro il 7,8% dei precedenti decisi in collegi in cui sedeva e il 9,8% di quelli decisi in sua assenza. A parità di legge e articolo impugnati, "l'ha scritto lui" scende da 5,47 a 3,27 (2,95–3,63), mentre "sedeva nel collegio" resta 0,99 (0,91–1,07). La parte che supera 1 passa da 4,47 a 2,27 (si riduce del 49%); sulla scala dei logaritmi, quella del modello, si riduce del 30%. Il 3,27 che resta può essere preferenza personale, specializzazione per materia o legami tra questioni che le massime non registrano: è il valore massimo possibile dell'effetto "personale".
+- **La materia più fine.** A parità di articoli della Costituzione invocati, "l'ha scritto lui" scende a 4,78 (4,18–5,47): la materia ne spiega una piccola parte.
+
+**Il secondo confronto, con la data di arrivo del giudice** (secondario, `reports/d3_full_check.json`).
+
+- Qui i precedenti decisi mentre il giudice era in attività si confrontano con quelli della stessa età decisi prima che arrivasse alla Corte. I primi sono citati meno, sia quando il giudice sedeva nel collegio (0,88; 0,80–0,96) sia quando era assente (0,88; 0,77–1,01). Il rapporto tra presenza e assenza è 0,99 (0,88–1,11): presenza e assenza, di nuovo, non differiscono.
+- **Da dove viene lo 0,88** (esplorativo, con prove e regola di lettura decise prima). Non dipende da come si misura l'età (con classi di tre mesi: 0,87). È più marcato nelle pronunce che citano fino al 2000 (0,80) e nelle ordinanze (0,78), ma la differenza tra gruppi non è stata provata. Tenendo conto della stessa legge impugnata e degli articoli invocati sale a 0,98 (0,89–1,07): secondo la regola decisa prima, lo 0,88 si attribuisce alle questioni in comune. Con altri due campioni di non citati: 0,86 e 0,90. Lo 0,88 non tocca il risultato principale.
+
+### 9.5 D2: i singoli giudici (esplorativo)
+
+Da `reports/d2_results.json`.
+
+- **Pochi giudici si distinguono.** Su 113 giudici con almeno 30 pronunce scritte, dopo la correzione di Holm le pronunce di 6 sono citate più dell'atteso e quelle di 7 meno (Figura 9).
+- **Ma le differenze ci sono.** Nel complesso i giudici differiscono tra loro più di quanto farebbero per caso: la variabilità dei rapporti è 3,0 volte quella attesa (p < 0,001).
+- **I primi tre:** Baldassarre (1,88; intervallo 1,60–2,17), Onida (1,61; 1,28–1,99), De Siervo (1,48; 1,21–1,80).
+- **Tenendo conto di altro, i giudici che si distinguono diminuiscono:** con anche il tipo di pronuncia, 2 sopra e 4 sotto; con anche la materia, 1 e 3; con anche l'articolo principale della Costituzione, 0 e 3. Con le sole pronunce dalla 287/1986, 7 e 7 su 74 giudici.
+- **Dopo il mandato** (87 giudici usciti entro il 2015): l'accordo tra la classifica durante il mandato e quella dei dieci anni dopo (correlazione tra ranghi, da −1 a 1) è 0,66, contro 0,37 (0,16–0,55) con pronunce prese a caso dello stesso anno; tenendo conto anche di tipo e materia, 0,62 contro 0,32 (0,12–0,51). Con l'articolo della Costituzione, invece, 0,42, dentro l'atteso (0,32; 0,11–0,51). Se il peso di un giudice duri dopo il mandato resta incerto.
+- **Perché è esplorativo.** Il confronto deciso prima (ogni citazione mandata a caso tra le pronunce dello stesso anno) ignora quanto diversamente sono citate le singole pronunce: con quel confronto i giudici fuori dall'atteso erano 22 e 26, con una variabilità 15 volte quella del caso, un risultato gonfiato. Cambiare confronto dopo aver visto i risultati rende D2 esplorativo. Tutti e due i confronti restano nel file dei risultati.
+
+### 9.6 D4: ci si cita tra giudici simili? Poco
+
+Da `reports/d4_results.json`. La potenza calcolata prima è 1,00 per tutti e due i confronti, quindi il test si poteva fare.
+
+- **Organo di nomina** (Presidente della Repubblica, Parlamento, magistrature): le citazioni tra giudici nominati dallo stesso organo sono il 32,4%, contro il 31,6% atteso (30,7–32,7); p = 0,074, anche dopo la correzione di Holm. Nessun effetto.
+- **Provenienza** (professori, magistrati; gli avvocati sono solo 3): 48,4% contro 46,1% (44,4–48,0); p = 0,011, 0,022 con la correzione di Holm. L'eccesso è del 4,9%: reale ma piccolo, molto sotto il 20% fissato come soglia d'interesse.
+
+### 9.7 Gli altri risultati
+
+**Con le API** (`reports/extras.json`):
+
+- **Esito.** Tra le pronunce del 2006–2015, quelle che dichiarano incostituzionale una legge ricevono in dieci anni 10,9 citazioni in media, le altre 4,0: 2,7 volte tanto (2,5–2,9). Tra le sole sentenze, 1,6 volte (1,4–1,7).
+- **Wikipedia** (descrittivo). L'1,3% delle pronunce è citato in una voce di Wikipedia; tra l'1% più autorevole secondo HITS l'8,5%, tra l'1% più citato il 10,7%.
+
+**Le misure dei libri di testo del corso** (esplorative, `reports/course_measures.json`):
+
+- **Chi è ricco diventa più ricco** (attaccamento preferenziale): confrontando ogni pronuncia con quelle dello stesso anno, le citazioni nuove crescono con quelle già ricevute come (1 + citazioni)^a, con a = 1,12 (1,11–1,14): un po' più che in proporzione. È un valore massimo, perché una pronuncia può essere molto citata perché è importante di suo.
+- **Chiusura dei triangoli** (transitività, sulla rete senza verso): 0,151, contro 0,009 (0,008–0,009) nelle reti rimescolate; clustering locale medio 0,241 contro 0,005.
+- **Correlazioni di grado:** le pronunce molto citate citano pronunce molto citate (0,201 contro 0,076); le pronunce che citano molto citano precedenti molto citati (0,173 contro 0,105).
+- **Piccolo mondo:** nel blocco principale (86,2% delle pronunce) due pronunce distano in media 5,30 passi, contro 4,96 in una rete a caso con gli stessi nodi e legami; i triangoli chiusi sono molti di più (0,151 contro 0,0003). Le distanze ignorano il verso delle citazioni.
+- **Pronunce ponte** (betweenness, quante volte una pronuncia sta sul cammino più breve tra altre due): l'1% più alto ha il 37,9% dei vicini in altri gruppi, contro il 22,5% dell'1% più citato e il 16,0% di tutte le pronunce collegate.
+- **Robustezza:** togliendo il 20% delle pronunce più citate il blocco principale scende al 50,9% delle pronunce, contro il 65,5% togliendone a caso: la rete si spezza più in fretta, ma senza crolli.
+
+### 9.8 La polarità delle citazioni: lo strumento non supera la soglia
+
+Da `reports/polarity_validation_claude.md`.
+
+- **Che cosa si voleva misurare.** La voce "sentiment analysis" del corso (capire se un testo esprime un giudizio positivo o negativo) adattata a una corte: se una pronuncia segue il precedente che cita o se ne distingue. Si è cercato il caso raro, la distinzione o distacco.
+- **Come.** Regole scritte a mano (`src/polarity/lexicon.py`) leggendo metà delle pronunce che citano (la metà di sviluppo, seme 20261121). Ogni regola deve riferirsi al precedente: entro 120 caratteri dalla citazione, nella stessa frase, senza negazioni né forme ipotetiche, non nelle parole del giudice che ha sollevato la questione o delle parti. Prima della prova: soglia di precisione 0,80, campione, e che cosa fare se la soglia non fosse superata.
+- **Esito.** Sull'altra metà, i 37 passi segnalati dalle regole sono stati letti dall'assistente senza sapere che cosa avevano deciso le regole, mescolati a 30 passi non segnalati: 28 su 37 sono vere distinzioni, precisione 0,76 (0,60–0,87), **sotto la soglia**. Come stabilito, nessuna analisi con questo strumento.
+- **Per regola** (numeri piccoli): "non pertinente" 19 su 21; "caso diverso" 7 su 8; "superamento" 2 su 7; "non affermato" 0 su 1. Tra i 30 passi non segnalati, 5 sono vere distinzioni.
+- **Quanto è solido il verdetto.** Poco: mancano due passi per arrivare a 0,80, l'intervallo comprende la soglia, e chi ha letto i passi (l'assistente) aveva anche scritto le regole. Il controllo di una persona servirà solo come verifica: per una regola decisa prima non cambia l'esito.
+
+## 10. Che cosa è cambiato dopo i risultati, e perché
+
+Il registro completo, con le date, è in `docs/decisions.md`. Qui ci sono i cambiamenti che toccano i risultati.
+
+| Parte | Deciso prima | Cambiato o aggiunto dopo, e perché | Come si legge |
+| --- | --- | --- | --- |
+| D3, risultato principale | Confronto tra precedenti decisi con il giudice presente o assente, a parità di "l'ha scritto lui", età e materia; 50 non citati per pronuncia; incertezza raggruppata per giudice | Il calcolo: esatto al posto dell'approssimazione di Breslow, che avvicina a 1 gli effetti forti (da 1,03 a 1,00; "l'ha scritto lui" da 3,01 a 5,47). La domanda non è cambiata | Principale |
+| D3, altre stime | Sei prove di robustezza; il secondo confronto con la data di arrivo | Aggiunte: la stessa legge impugnata, gli articoli della Costituzione, la descrizione delle assenze, il controllo dello 0,88 | Esplorative o descrittive |
+| D1 | Confronto con citazioni mandate a caso tra pronunce dello stesso anno; HITS contro citazioni scambiate; criterio di previsione | Aggiunto il confronto con stesso anno e tipo; ritirata la lettura "conta chi ti cita" | Il primo confronto resta il riferimento |
+| D2 | Giudici con almeno 30 pronunce; citazioni entro 10 anni; citazioni mandate a caso | Il confronto è diventato il rimescolamento dei giudici; la finestra di 10 anni, decisa ma non applicata nel primo calcolo, è stata applicata; aggiunta la prova dal 1987 | Esplorativo |
+| D4 | Effetto minimo 20%; potenza almeno 0,80; Holm sui due confronti | Nessun cambiamento (un generatore casuale suo, perché le modifiche a D2 non spostassero D4) | Come deciso |
+| Misure del corso | Non previste | Aggiunte per coprire gli argomenti dei libri di testo | Esplorative |
+| Sostituzione dei precedenti | Non prevista | Aggiunta su domanda di Umberto, con regole decise prima del calcolo | Esplorativa |
+| Polarità | Soglia 0,80, campione estratto a caso, regola d'arresto | Nessuno: la soglia non è stata superata e non si sono fatte analisi | Come deciso |
+| Qualità dell'estrazione | Precisione 0,95 e richiamo 0,90 su almeno 460 citazioni | 342 citazioni invece di 460; dopo il primo campione l'estrattore è stato corretto e riverificato; la lettura di una persona diventerà il riferimento | Da completare |
+| Rete dei collegi tra giudici | Nel piano: "misure sulla sola rete dei collegi" senza senso | Costruita il 24/11/2026 su richiesta di Umberto, solo per descrivere e controllare; la regola ora vieta solo i test | Descrittivo |
+
+**Le date principali del lavoro.**
+
+- 7–8/11/2026: il tema, il metodo di lavoro, i dati, le soglie di qualità, il risultato principale.
+- 11–12/11/2026: le regole di D1, l'allargamento al corso (temi, API, Wikipedia), il primo confronto con la banca dati SPARQL.
+- 16/11/2026: le scelte aperte fissate prima dei risultati; le analisi partono prima dell'approvazione del docente, su richiesta di Umberto.
+- 17/11/2026: la fotografia del lavoro prima delle correzioni (etichetta git `versione-17-11`) e un controllo critico.
+- 18/11/2026: le correzioni dopo il controllo (D3 esatto, D2 esplorativo, D1 per tipo, test dei numeri); la polarità; le misure del corso; il repository.
+- 19–20/11/2026: la materia più fine, le altre corti, le verifiche chieste da una revisione esterna (assenze, 0,88, relazione in due livelli).
+- 21/11/2026: la sostituzione dei precedenti; tutto riscritto in linguaggio semplice.
+- 22/11/2026: il file dei collegi non riconosciuti per intero.
+- 24/11/2026: la rete dei collegi tra giudici.
+
 
 ## 11. Problemi noti e punti non verificati
 
