@@ -210,7 +210,297 @@ Ogni risultato del progetto ha tre parti.
 
 Il **valore p** è la probabilità di vedere una differenza almeno così grande se in realtà non ci fosse nessuna differenza. Sotto 0,05 la differenza si considera reale. Parole come "forte", "alto" o "concentrato" si usano solo con un test o un confronto dietro.
 
-<!-- SEZIONI 5-10: in scrittura -->
+## 5. Dai file alle tabelle e alle reti: i passaggi, uno per uno
+
+Tutti i programmi sono in Python, nella cartella `src/`, e si lanciano dalla cartella del progetto con `.venv/bin/python <programma>`. Tutto ciò che è casuale parte da un seme fisso (un numero che fa ripartire il generatore casuale sempre dallo stesso punto), quindi rifacendo un calcolo si ottengono gli stessi numeri. Scrivere `REPS=100` davanti ai comandi di analisi riduce le ripetizioni dei confronti con il caso, per una prova veloce.
+
+### 5.0 L'ordine in cui girano i programmi
+
+L'ordine è quello del README e della relazione (sezione 6). Ogni programma usa i file scritti da quelli prima.
+
+| Passo | Programma | Che cosa scrive (i file principali) |
+| --- | --- | --- |
+| 1 | `src/ingest/download.py` | `data/raw/` (i file del portale) e `data/raw/MANIFEST.csv` |
+| 2 | `src/ingest/inspect_raw.py` | `reports/data_inspection.md` |
+| 3 | `src/ingest/build_pronunce.py` | `data/interim/pronunce.pkl` (con i testi), `data/processed/pronunce.csv` (senza testi) |
+| 4 | `src/extract/citations.py` | `data/processed/citations.csv`, `edges_citations.csv`, `edges_citations_fulltext.csv`; i registri `data/interim/citation_*.csv` |
+| 5 | `src/extract/citations_massime.py` | `data/processed/edges_citations_with_notes.csv`, `reports/massime_citations.json` |
+| 6 | `src/validation/evaluate.py test` e `test2` | `reports/validation_test.md`, `reports/validation_test2.md` |
+| 7 | `src/judges/build_judges.py` | `data/processed/judges.csv`, `pronunce_judges.csv`, `collegio.csv`; `data/interim/collegio_errors.csv`; `reports/judges_quality.md` |
+| 8 | `src/analysis/topics.py` | `data/processed/topics_theta.npz`, `topics_pronunce.csv`; `reports/topics.md`, `reports/topics.json` |
+| 9 | `src/analysis/parametri.py` | `data/processed/parametri_pronunce.csv`, `reports/parametri.json` |
+| 10 | `src/networks/build.py` | `data/processed/nodes.csv`, `edges_redazione.csv`, `edges_judges.csv`; `reports/network_basic.json` |
+| 11 | `src/networks/cositting.py` | `data/processed/edges_cositting.csv`, `judges_cositting.csv`, `cositting_network.graphml`; `reports/cositting_network.json` |
+| 12 | `src/ingest/fetch_api.py` | `data/processed/esiti.csv`, `wikipedia_links.csv`; `data/interim/sedute_membri.csv`; `reports/api_fetch.json` |
+| 13 | `src/analysis/d1_pronunce.py` | `reports/d1_results.json`; `data/interim/d1_yearly.pkl` e `d1_panel_<anno>.pkl` |
+| 14 | `src/analysis/d2_d4_giudici.py` | `reports/d2_results.json`, `reports/d4_results.json`, `data/processed/judges_attributes.csv` |
+| 15 | `src/analysis/d2_strata_check.py` | `reports/d2_strata_check.json` |
+| 16 | `src/analysis/d3_memoria_collegiale.py` | `reports/d3_results.json`, `reports/d3_results.md`; `data/interim/d3_mandate.pkl` |
+| 17 | `src/analysis/d3_absences.py` | `reports/d3_absences.json` |
+| 18 | `src/analysis/d3_full_check.py` | `reports/d3_full_check.json`; `data/interim/d3_full.pkl` |
+| 19 | `src/analysis/precedent_succession.py` | `reports/precedent_succession.json` |
+| 20 | `src/analysis/extras.py` | `reports/extras.json`, `data/processed/communities.csv` |
+| 21 | `src/analysis/course_measures.py` | `reports/course_measures.json` |
+| 22 | `src/analysis/figures.py` | `reports/figures/fig1_…png` … `fig10_…png` |
+| 23 | `src/analysis/interactive.py` | `reports/rete_interattiva.html` |
+| 24 | `src/report/report_numbers.py` | `reports/numbers.json` |
+| 25 | `src/report/plain_intros.py` | il paragrafo "In breve" in testa a 9 report |
+| 26 | `src/courts/sizing.py` | `reports/courts_sizing.json`, `data/interim/courts_split.csv` |
+| 27 | `src/polarity/contexts.py` | `data/interim/polarity_contexts.pkl` |
+| 28 | `src/polarity/evaluate.py claude` | `reports/polarity_validation_claude.md` e `.json` |
+| 29 | `.venv/bin/python -m pytest` | nessun file: i controlli automatici (sezione 5.19) |
+
+**Programmi che non sono nell'elenco, e perché.**
+
+- `src/ingest/sparql_check.py` (il confronto con la banca dati SPARQL): interroga una banca dati che cambia nel tempo; si rifà solo con un nuovo download.
+- `src/validation/sample_passages.py` e `src/validation/human_sheet.py`: preparano i campioni e il foglio per i controlli a mano; i campioni sono già estratti.
+- `src/polarity/draw_sample.py`: ha estratto il campione di prova della polarità e si rifiuta di sovrascriverlo.
+- `src/polarity/lexicon.py`: contiene le regole della polarità, usate dagli altri programmi della polarità; non si lancia da solo.
+- `src/courts/mentions.py`: il lavoro sulle altre corti è solo impostato (sezione 5.21).
+
+### 5.1 Scaricare i dati
+
+- **Programma:** `src/ingest/download.py` (per un solo archivio: `python3 -I src/ingest/download.py giudici`).
+- **Che cosa fa:** scarica dal portale i file compressi delle pronunce, delle massime e dei giudici; li apre ciascuno nella sua cartella, rifiutando i file il cui percorso uscirebbe dalla cartella; annota ogni file in `data/raw/MANIFEST.csv` (file, indirizzo, ora del download in UTC, impronta SHA-256).
+- **Regola:** i file in `data/raw/` non si modificano mai a mano; `.claude/settings.json` blocca le modifiche dirette dell'assistente. `data/raw/` resta fuori dal repository, tranne `MANIFEST.csv`.
+
+### 5.2 Il primo controllo dei file
+
+- **Programma:** `src/ingest/inspect_raw.py`, che scrive `reports/data_inspection.md`.
+- **Che cosa fa:** solo controlli descrittivi, nessuna analisi: quante pronunce, se la numerazione ha buchi o doppioni, quali date mancano o sono incoerenti, come cambia nel tempo il campo del redattore, quanti giudici ha ogni collegio (contati in modo approssimato), come è diviso il testo, quante massime ci sono, che cosa manca nell'elenco dei giudici, e una prima ricerca grezza delle citazioni.
+- **Perché conta:** tutti i numeri di `docs/context.md` e `docs/data_schema.md` vengono da qui. Le stranezze trovate sono elencate nella sezione 3.3.
+
+### 5.3 Il confronto con la banca dati SPARQL
+
+- **Programma:** `src/ingest/sparql_check.py`, che scrive `reports/sparql_reconciliation.md`. Ultima esecuzione: 12/11/2026. Modificato il 21/11/2026 nella parte che scrive il testo, e non più fatto girare (sezione 11.2).
+- **Che cosa fa:** chiede alla banca dati SPARQL della Corte (un servizio che risponde a domande scritte nel linguaggio SPARQL) che cosa contiene e confronta i suoi conteggi con i file scaricati: pronunce, massime, giudici, esiti.
+- **Il risultato principale:** il relatore dei file coincide con quello della banca dati nel 97,12% di 22.426 pronunce. Delle 645 differenze, 635 sono due errori di grafia nei file ("Caianello" per Caianiello, 471 pronunce; "Capolozza" per Capalozza, 164), corretti nel programma dei giudici; le altre 10 sono pronunce con il relatore vuoto nei file e due relatori nella banca dati.
+
+### 5.4 Preparare i testi
+
+- **Programma:** `src/ingest/build_pronunce.py`.
+- **Legge:** i file XML delle pronunce.
+- **Che cosa fa:**
+  1. uniforma spazi e a capo;
+  2. divide il testo di ogni pronuncia nelle sue parti. Nelle sentenze: il «Ritenuto in fatto» è il testo tra le etichette `<fatto>` e `<diritto>`; il «Considerato in diritto» è il testo dopo `<diritto>`. Nelle ordinanze il ragionamento sta nell'epigrafe e viene diviso alla prima formula «Considerato che» (o a una formula equivalente). Il dispositivo è preso senza il blocco delle firme;
+  3. corregge gli errori di dati documentati in `reports/data_inspection.md`.
+- **Scrive:** `data/interim/pronunce.pkl` (una riga per pronuncia, con i testi; fuori dal repository) e `data/processed/pronunce.csv` (gli stessi dati senza i testi).
+- **Il testo di base.** È il testo in cui si cercano le citazioni: il «Considerato in diritto» con il dispositivo nelle sentenze, il «Considerato che» con il dispositivo nelle ordinanze. Il «Ritenuto in fatto» è escluso perché riassume gli argomenti del giudice che ha sollevato la questione e delle parti, con le loro citazioni: non sono citazioni della Corte. Entra solo nella variante "testo intero".
+- **I testi non divisi:** in 322 testi (1,4% delle pronunce: 305 ordinanze e 17 sentenze) la divisione non è riuscita, e si usa il testo intero (`reports/numbers.json`).
+
+### 5.5 Estrarre le citazioni
+
+- **Programma:** `src/extract/citations.py` (l'estrattore).
+- **Legge:** `data/interim/pronunce.pkl`.
+- **Che cosa fa.** Cerca nel testo le forme con cui la Corte cita una propria pronuncia: una parola come sentenza, ordinanza, sent., ord., sentt., ordd., seguita da un numero e da un anno. Riconosce:
+  - la forma semplice: "sentenza n. 120 del 2019";
+  - gli elenchi con l'anno detto una volta sola: "sentenze n. 26 e n. 320 del 2007", "nn. 26 e 320 del 2007";
+  - gli elenchi con anni o tipi diversi: "sentenze n. 10 del 2015 e n. 20 del 2016";
+  - la barra e gli spazi mancanti: "n. 26/2007", "n.4/2008", "sent. 174/1972";
+  - le forme antiche con la data: "sentenza 19 giugno 1956, n. 9";
+  - "in pari data", per le pronunce depositate lo stesso giorno.
+- **Che cosa scarta**, guardando le parole prima della citazione:
+  - le ordinanze con cui un giudice porta una questione alla Corte, riconosciute dal numero di registro ("reg. ord.", "r.o.");
+  - le decisioni di altre corti (Corte di cassazione, Consiglio di Stato, tribunali amministrativi, Corte dei conti, Corte europea dei diritti dell'uomo, Corte di giustizia);
+  - gli atti amministrativi scritti allo stesso modo;
+  - le citazioni senza anno.
+- **Due parole da distinguere.** Una **menzione** è ogni volta che un numero di pronuncia compare nel testo. Un **legame** (o citazione, nella rete) è la coppia "A cita B", contata una sola volta anche se A nomina B più volte.
+- **Che cosa ne è uscito:**
+
+| Voce | Numero |
+| --- | --- |
+| Menzioni valide in tutto il testo | 155.982 |
+| Menzioni scartate dal filtro (altre corti, ordinanze di rimessione, senza anno) | 9.174 |
+| Menzioni di pronunce che non esistono o depositate dopo la pronuncia che cita (errori) | 1.950 |
+| Menzioni tra pronunce depositate lo stesso giorno, tenute da parte | 268 |
+| **Legami distinti nel testo di base** | **93.467**, da 16.944 pronunce |
+
+- **Il controllo del tipo.** Nell'1,3% delle menzioni il tipo scritto (sentenza o ordinanza) non corrisponde al tipo vero della pronuncia citata. Queste citazioni restano nella rete: conta il numero con l'anno, che identifica la pronuncia.
+- **Scrive:**
+  - `data/processed/citations.csv`: una riga per menzione trovata (pronuncia che cita, pronuncia citata, testo trovato, parte del testo, posizione di inizio e fine);
+  - `data/processed/edges_citations.csv`: una riga per legame nel testo di base, con il numero di menzioni;
+  - `data/processed/edges_citations_fulltext.csv`: i legami nel testo intero (variante);
+  - in `data/interim/`: `citation_errors.csv` (citazioni verso pronunce inesistenti o successive), `citation_excluded.csv` (le menzioni scartate, con il motivo), `citation_same_date.csv` (citazioni tra pronunce dello stesso giorno), `citation_type_mismatch.csv` (tipo scritto diverso dal tipo vero).
+- **Controllo automatico:** `tests/test_citations.py` contiene frasi di prova, ognuna con le citazioni che l'estrattore deve trovare o scartare (per esempio "Cass., sez. un., sentenza n. 120 del 2019" va scartata come decisione di un'altra corte).
+
+### 5.6 Controllare l'estrazione
+
+- **Programmi:** `src/validation/sample_passages.py` (sceglie i campioni e mostra i passi da leggere), `src/validation/evaluate.py` (confronta l'estrattore con la lettura di riferimento), `src/validation/human_sheet.py` (prepara il foglio per il controllo di una persona).
+- **Che cosa fa.** Si sceglie un campione di pronunce diviso per decennio e tipo; qualcuno legge i testi e scrive quali citazioni ci sono (la lettura di riferimento); il programma confronta l'estrattore con questa lettura e calcola precisione e richiamo. I risultati sono nella sezione 6.1.
+- **File:**
+  - le letture di riferimento: `data/validation/gold_test.txt` (primo campione) e `gold_test2.txt` (secondo campione), scritte dall'assistente; `gold_human.txt` (da scrivere da una persona);
+  - i report: `reports/validation_round1.md` (la prima misura, con l'estrattore prima della correzione: non si può rifare con il codice attuale), `reports/validation_test.md` (il primo campione ricalcolato dopo la correzione), `reports/validation_test2.md` (il secondo campione);
+  - il foglio per una persona: `data/validation/human_check.md` (36 pronunce, seme 20261119). Dopo la lettura: `.venv/bin/python src/validation/evaluate.py human`, che scrive `reports/validation_human.md` (oggi non esiste).
+
+### 5.7 Le citazioni scritte nelle massime
+
+- **Programma:** `src/extract/citations_massime.py`.
+- **Che cosa fa:** passa allo stesso estrattore i testi delle massime, comprese le note "Precedenti citati: …" scritte dall'Ufficio del massimario.
+- **Risultato:** 46.737 coppie; il 95,4% è già nella rete ricavata dal testo di base; le 2.129 coppie in più (il 2,3% della rete) formano la variante "con le citazioni delle massime" (`data/processed/edges_citations_with_notes.csv`, `reports/massime_citations.json`). Le note delle massime non le scrivono i giudici: per questo non entrano nella rete principale.
+
+### 5.8 I giudici, i redattori e i collegi
+
+- **Programma:** `src/judges/build_judges.py`.
+- **Legge:** `data/interim/pronunce.pkl` e l'elenco ufficiale dei giudici (`data/raw/giudici/…/Cc_Opendata_AnagraficaGiudici.xml`).
+- **Che cosa fa con l'elenco dei giudici:**
+  - scarta le 11 righe con più nomi;
+  - rende uniformi i nomi (tutto maiuscolo, senza accenti e senza titoli come "prof." o "avv.");
+  - corregge due grafie con `NAME_FIX` ("CAIANELLO" diventa "CAIANIELLO", "CAPOLOZZA" diventa "CAPALOZZA"), ma solo per riconoscere i nomi (sezione 11.6);
+  - corregge la fine del mandato di Spagnoli al 25/02/1995;
+  - per i 33 giudici senza data di fine mandato, la calcola come giuramento più 9 anni (la durata fissata dalla Costituzione, art. 135).
+- **Come riconosce un nome** (relatore, redattore): cerca tra i giudici che in quella data potevano essere in carica (dal giuramento, meno 5 giorni, fino a 13 anni dopo, perché i mandati più lunghi sono durati 12 anni) quello il cui cognome corrisponde; se ci sono due giudici con lo stesso cognome (per esempio i due Reale nel 1977), usa anche il nome. Non usa mai la fine del mandato dell'elenco, perché non è affidabile.
+- **Da dove prende il nome del redattore:** dal campo `redattore_pronuncia` (dal 2002); altrimenti, dalla 287/1986 in poi, dalle firme in fondo al testo; fino alla 286/1986, dal relatore. La colonna `redattore_source` dice quale delle tre: `field`, `signature`, `relatore_proxy` (oppure `none`, se il nome non c'è).
+- **Come ricava il collegio:** tra i giudici che potevano essere in carica in quella data, prende quelli il cui cognome compare nel testo del collegio. Conta anche quanti nomi sono scritti nel testo (`n_listed`), per accorgersi dei nomi non riconosciuti.
+- **Quando un collegio è "riconosciuto per intero":** ha tra 11 e 15 giudici riconosciuti, e non meno dei nomi scritti nel testo.
+- **Scrive:**
+  - `data/processed/judges.csv`: una riga per giudice (identificativo, nome, cognome, organo che l'ha nominato, date, fonte della data di fine, biografia);
+  - `data/processed/pronunce_judges.csv`: per ogni pronuncia, il relatore, il redattore o i redattori, la fonte del nome del redattore, quanti giudici ha il collegio riconosciuto, quanti nomi sono scritti nel testo;
+  - `data/processed/collegio.csv`: una riga per ogni coppia (pronuncia, giudice che sedeva nel collegio);
+  - `data/interim/collegio_errors.csv`: le 257 pronunce con il collegio non riconosciuto per intero, con il motivo e il testo del collegio;
+  - `reports/judges_quality.md`: il controllo di qualità (sezione 6.2).
+- **Numeri:** il nome del redattore viene dal campo in 8.384 pronunce, dalle firme in 8.349, dal relatore in 5.678; in 16 non c'è. Il programma conta 19 pronunce con più redattori; il campo dei dati ne ha 17, dal 2016: la differenza non è stata controllata.
+
+### 5.9 La materia di ogni pronuncia
+
+- **Programma:** `src/analysis/topics.py` (lento: richiede un calcolo lungo). Con `--labels-only` ricalcola solo i nomi dei temi dal modello salvato.
+- **Che cosa fa.** Un modello di temi (LDA, un programma che raggruppa in "temi" le parole che compaiono spesso insieme) legge i testi delle massime:
+  - sono lette 46.126 massime, quelle con più di 50 caratteri; le più corte sono rimandi ad altre massime ("Ved. ord. 84/57 B.");
+  - il vocabolario ha 8.000 parole, tolte le più comuni e le più rare;
+  - il numero di temi è stato scelto con la regola decisa prima: tra 10, 20, 30, 40, 50 e 60, il più piccolo con una coerenza (NPMI, quanto le parole principali di ogni tema compaiono davvero insieme) entro il 2% della migliore. La coerenza è più alta con 20 temi (0,2031), quindi sono **20 temi**;
+  - ogni massima riceve un peso per ogni tema; i temi di una pronuncia sono la media dei pesi delle sue massime; la materia principale è il tema con il peso più alto.
+- **Controlli:**
+  - con i titoli delle massime (dal 2015): accordo 0,313 (informazione mutua normalizzata, da 0 a 1), contro 0,025 con i temi rimescolati a caso;
+  - con il primo articolo della Costituzione invocato: 0,177 contro 0,011;
+  - stabilità: rifacendo il calcolo da altri 4 semi, i temi più simili hanno in media 0,309 di parole in comune (indice di Jaccard sulle prime 20 parole, da 0 a 1). Ripetendo il calcolo i temi cambiano parecchio: è un limite dichiarato.
+- **Pronunce con una materia:** 22.107. Le 320 pronunce senza materia (271 ordinanze e 49 sentenze) sono di due tipi: 266 hanno solo massime di rinvio di 50 caratteri o meno, tutte tra il 1957 e il 2009; 54 non hanno ancora massime, e 51 di queste sono del 2026 (`reports/numbers.json`). Restano fuori da D3.
+- **I nomi dei temi:** per ogni tema, la voce dei titoli delle massime (dal 2015) più tipica del tema, solo se copre almeno 15 massime e il 10% del tema; altrimenti il tema resta senza nome (4 temi su 20).
+- **Scrive:** `data/processed/topics_theta.npz` (i pesi dei temi per ogni pronuncia), `data/processed/topics_pronunce.csv`, `reports/topics.md`, `reports/topics.json`.
+- **Nota:** modificato il 21/11/2026 nella parte che scrive il testo, e non più fatto girare (sezione 11.2).
+
+### 5.10 Gli articoli della Costituzione invocati
+
+- **Programma:** `src/analysis/parametri.py`.
+- **Che cosa fa:** per ogni pronuncia raccoglie gli articoli della Costituzione che le sue massime indicano come violati (il parametro, solo la Costituzione, non le leggi costituzionali né gli statuti regionali). Ogni articolo pesa tanto più quanto è raro (peso = logaritmo di N diviso n, con N pronunce con almeno un articolo e n quelle che invocano l'articolo): l'art. 3 (uguaglianza) è invocato nel 64,7% delle pronunce e senza peso renderebbe simili quasi tutte le coppie. L'articolo principale di una pronuncia è quello invocato nel maggior numero delle sue massime.
+- **Numeri:** almeno un articolo nel 92,9% delle pronunce con massime; 139 articoli diversi; 2,6 articoli per pronuncia in media.
+- **A che cosa serve:** una materia più fine dei 20 temi, usata nelle prove esplorative di D2 e D3 (sezione 9).
+- **Scrive:** `data/processed/parametri_pronunce.csv`, `reports/parametri.json`.
+
+### 5.11 Le reti
+
+- **Programma:** `src/networks/build.py`.
+- **Che cosa fa:**
+  - costruisce la tabella delle pronunce (`data/processed/nodes.csv`): i dati di ogni pronuncia, il redattore, il tipo di giudizio preso dalle massime (incidentale, principale, conflitto tra enti, conflitto tra poteri, referendum, correzione, misto, altro), quante citazioni riceve (`in_deg`) e quante ne fa (`out_deg`);
+  - scrive il legame giudice → pronuncia scritta (`data/processed/edges_redazione.csv`);
+  - scrive la rete tra giudici (`data/processed/edges_judges.csv`): giudice A → giudice B, con un peso pari al numero di citazioni dalle pronunce scritte da A a quelle scritte da B;
+  - calcola le misure di base della rete delle citazioni (`reports/network_basic.json`): numero di nodi e legami, se ci sono cicli, densità, componenti, citazioni fatte e ricevute, età delle citazioni, catena più lunga.
+- **Nota:** l'intestazione del programma nomina anche un file `reports/network_basic.md`, che non esiste: il programma scrive solo il file JSON.
+
+### 5.12 La rete dei collegi tra giudici
+
+- **Programma:** `src/networks/cositting.py` (aggiunto il 24/11/2026, su richiesta di Umberto).
+- **Legge:** `data/processed/collegio.csv`, `data/processed/nodes.csv`, `data/processed/judges.csv`.
+- **Che cosa fa:**
+  - due giudici sono collegati se hanno deciso insieme almeno una pronuncia, cioè se sedevano tutti e due nel suo collegio; il **peso** del legame è il numero di pronunce decise insieme. Contano tutte le pronunce dell'archivio, perché sono tutte decisioni pubblicate;
+  - la data di una pronuncia è quella della decisione (quella del deposito se la decisione manca);
+  - per ogni giudice: la prima e l'ultima presenza in un collegio (il periodo "in attività"), quante pronunce ha deciso, con quanti colleghi, e la sua **forza** (la somma dei pesi dei suoi legami);
+  - per ogni coppia: la prima e l'ultima pronuncia decisa insieme; quante pronunce dell'archivio sono state decise mentre erano tutti e due in attività (`n_both_active`); la **quota** = pronunce decise insieme diviso `n_both_active`;
+  - un controllo dell'elenco ufficiale: i giudici che compaiono in un collegio dopo la fine del mandato scritta nell'elenco.
+- **Scrive:** `data/processed/edges_cositting.csv` (i legami), `data/processed/judges_cositting.csv` (i giudici), `data/processed/cositting_network.graphml` (la stessa rete in un formato che si apre con Gephi o networkx), `reports/cositting_network.json` (descrizione e controlli).
+- **Controllo interno:** la somma dei pesi (1.956.971) è uguale al numero di coppie di giudici dentro ogni collegio, sommato su tutte le pronunce.
+- **Risultati:** sezione 7.3.
+
+### 5.13 I dati presi con le API
+
+- **Programma:** `src/ingest/fetch_api.py`.
+- **Che cosa fa:**
+  - dalla banca dati SPARQL della Corte: l'esito di ogni pronuncia dal 2005 (`data/processed/esiti.csv`) e i giudici presenti alle sedute collegate a ogni pronuncia dal 2004 (`data/interim/sedute_membri.csv`);
+  - dall'interfaccia di Wikipedia in italiano (MediaWiki): le voci che rimandano a una pronuncia sul sito della Corte o su Consulta Online (`data/processed/wikipedia_links.csv`);
+  - la data delle interrogazioni è annotata in `reports/api_fetch.json`.
+- **L'esito.** Una pronuncia può decidere più questioni e quindi avere più esiti (6.728 pronunce con esito hanno 8.990 esiti). Si conservano tutte le etichette; nelle analisi conta solo se c'è almeno una dichiarazione di incostituzionalità, sì o no.
+
+### 5.14 D1: le pronunce
+
+- **Programma:** `src/analysis/d1_pronunce.py`, che scrive `reports/d1_results.json` e, in `data/interim/`, le tabelle anno per anno (`d1_yearly.pkl`, `d1_panel_<anno>.pkl`).
+- **Che cosa calcola:**
+  - quanto sono concentrate le citazioni ricevute (quota dell'1% più citato, indice di Gini, quota di pronunce mai citate, massimo), confrontate con le versioni casuali (sezione 8);
+  - la forma della distribuzione delle citazioni: legge di potenza contro lognormale, con il metodo di Clauset, Shalizi e Newman (pacchetto `powerlaw`);
+  - l'autorevolezza secondo HITS e PageRank, anno per anno dal 1966 (quando la rete ha 1.000 pronunce), e il confronto con le citazioni; prima sull'insieme di Agnoloni e Pagallo (sentenze in via incidentale fino al 2014), poi sulla rete completa, poi sulle sole sentenze;
+  - la previsione delle citazioni dell'anno dopo, con e senza autorevolezza, stimata fino al 2010 e provata sul 2011–2025;
+  - D1b: la frequenza di citazione per età del precedente e il tempo fino all'ultima citazione (curva di sopravvivenza di Kaplan–Meier).
+
+### 5.15 D2 e D4: i giudici
+
+- **Programmi:** `src/analysis/d2_d4_giudici.py`, che scrive `reports/d2_results.json`, `reports/d4_results.json` e `data/processed/judges_attributes.csv` (provenienza e organo di nomina di ogni giudice); `src/analysis/d2_strata_check.py`, che scrive `reports/d2_strata_check.json`.
+- **D2, che cosa calcola:** per ogni giudice con almeno 30 pronunce scritte, le citazioni ricevute dalle sue pronunce entro 10 anni dal deposito, senza le citazioni da pronunce scritte da lui stesso, divise per le citazioni attese. L'atteso viene da 10.000 rimescolamenti: le pronunce di ogni anno sono riassegnate a caso tra i giudici di quell'anno, e ogni pronuncia porta con sé le citazioni che ha davvero ricevuto. Varianti: stesso anno e tipo; anno, tipo e materia; anno, tipo e articolo principale della Costituzione; solo pronunce dalla 287/1986. Il confronto fissato prima (ogni citazione mandata a caso tra le pronunce dello stesso anno) è ancora calcolato e salvato (voce `nullo_preregistrato`), ma non interpretato. Poi la correzione di Holm sui 113 confronti, e l'accordo tra le classifiche durante e dopo il mandato.
+- **D2, il controllo `d2_strata_check.py`:** quanta parte delle pronunce dei giudici studiati sta in gruppi con almeno due redattori diversi (l'86,1%). Una pronuncia sola con il suo redattore nel suo gruppo non si può riassegnare, e avvicina a 1 il rapporto del giudice.
+- **D4, che cosa calcola:** la quota di citazioni tra giudici dello stesso gruppo (stessa provenienza, oppure stesso organo di nomina), confrontata con versioni in cui i gruppi sono riassegnati a caso tra giudici entrati nello stesso decennio. Prima, una simulazione della potenza (la probabilità di accorgersi di un effetto del 20%). Il generatore casuale di D4 ha un suo seme (20261120), perché le modifiche a D2 non cambino D4.
+- **Come è ricavata la provenienza:** in automatico dalla biografia ufficiale: "professore", "docente" o "ordinario di" → professore; "magistrato", "consigliere", "presidente di sezione" o "procuratore" → magistrato; "avvocato" → avvocato. Nessuno l'ha controllata riga per riga. L'organo di nomina viene dal campo ufficiale `Eletto_da`.
+
+### 5.16 D3: la memoria del collegio (il risultato principale)
+
+- **Programma:** `src/analysis/d3_memoria_collegiale.py`, che scrive `reports/d3_results.json`, `reports/d3_results.md` e `data/interim/d3_mandate.pkl`. Con `--md-only` riscrive `reports/d3_results.md` dai numeri salvati, senza rifare le stime.
+- **Il disegno, fissato prima delle stime:**
+  1. per ogni pronuncia che cita, scritta da un solo redattore R (le pronunce scritte da più giudici sono escluse), si prendono i precedenti decisi mentre R era in attività (tra la sua prima e la sua ultima presenza in un collegio) e depositati prima della pronuncia che cita;
+  2. tra questi: tutti quelli citati nel testo di base, più 50 non citati estratti a caso (seme 20261116);
+  3. per ogni precedente si annota: R l'ha scritto (`self_drafted`)? R sedeva nel collegio senza scriverlo (`sat_not_drafted`)? Oppure R era assente (il gruppo di riferimento)? La classe di età del precedente; la somiglianza di materia (somiglianza del coseno tra i temi della pronuncia che cita e quelli del precedente);
+  4. il modello (regressione logistica condizionata) confronta, solo dentro la stessa pronuncia che cita, i precedenti citati con quelli non citati, e stima quanto ogni caratteristica cambia la probabilità di essere citato;
+  5. l'incertezza tiene conto che le pronunce scritte dallo stesso giudice si somigliano (errori standard raggruppati per redattore).
+- **Il calcolo è esatto:** considera tutti i modi in cui la pronuncia poteva scegliere i precedenti che cita tra quelli del suo gruppo. Fino al 17/11/2026 si usava un'approssimazione (di Breslow) che, quando una pronuncia cita molti precedenti, avvicina a 1 gli effetti forti; ora serve solo come punto di partenza e come confronto (voce `or_breslow`). Il risultato coincide con quello di un secondo programma indipendente (statsmodels) sugli stessi dati.
+- **Il modello completo (secondario):** usa tutti i precedenti depositati prima, e il gruppo di riferimento è "precedente deciso prima che R arrivasse alla Corte".
+- **Le varianti** (sezione 9.4): senza le citazioni di R a pronunce scritte da lui; solo dal 1987; senza gli anni dell'arretrato; testo intero; con le citazioni delle massime; a parità di legge impugnata; a parità di articoli della Costituzione; altri cinque campioni di non citati; sottogruppi (sentenze, ordinanze, fino al 2000, dal 2001).
+- **Programmi di controllo:**
+  - `src/analysis/d3_absences.py` (scrive `reports/d3_absences.json`): descrive le assenze dal collegio, su cui si regge il risultato principale (sezione 9.4);
+  - `src/analysis/d3_full_check.py` (scrive `reports/d3_full_check.json`): spiega il numero 0,88 del modello completo, con prove e regola di lettura decise prima (sezione 9.4).
+
+### 5.17 Le analisi in più
+
+- **`src/analysis/precedent_succession.py`** (scrive `reports/precedent_succession.json`): un precedente dimenticato viene sostituito dalle pronunce che lo hanno citato? Regole decise prima di eseguirlo (registro, 21/11/2026). Esplorativo. Risultati nella sezione 9.3.
+- **`src/analysis/extras.py`** (scrive `reports/extras.json` e `data/processed/communities.csv`): i filoni della rete (metodo di Leiden, confrontato con i temi e con un secondo metodo, Infomap); l'esito e le citazioni ricevute; Wikipedia; le quote grezze di autocitazione e di memoria del collegio; il controllo di dove sta l'autorevolezza di HITS (voce `hits_communities`).
+- **`src/analysis/course_measures.py`** (scrive `reports/course_measures.json`): le misure dei libri di testo del corso, ognuna con il suo confronto (attaccamento preferenziale, chiusura dei triangoli, correlazioni di grado, piccolo mondo, pronunce ponte, robustezza). Esplorativo, aggiunto il 18/11/2026. Risultati nella sezione 9.7.
+
+### 5.18 Le figure e la rete interattiva
+
+- **`src/analysis/figures.py`** scrive le 10 figure della relazione in `reports/figures/`, seguendo le regole di `docs/project_guide.md`, sezione 3 (un messaggio per figura, assi dei valori dei grafici a barre che partono da zero, colore solo dove porta informazione):
+
+| Figura | Che cosa mostra |
+| --- | --- |
+| `fig1_pronunce_per_anno.png` | Pronunce depositate ogni anno, per tipo; il picco del 1987–1989 è lo smaltimento delle cause arretrate |
+| `fig2_fonte_redattore.png` | Da dove si ricava il nome del redattore, anno per anno |
+| `fig3_distribuzione_citazioni.png` | La distribuzione delle citazioni ricevute |
+| `fig4_concentrazione_vs_nullo.png` | Concentrazione delle citazioni: dato vero e valore atteso per caso |
+| `fig5_invecchiamento.png` | Frequenza di citazione per età del precedente, rispetto a una scelta a caso |
+| `fig6_authority_vs_citazioni.png` | Autorevolezza (HITS) contro citazioni |
+| `fig7_d3_memoria_collegiale.png` | D3: l'effetto di "sedeva nel collegio senza scriverlo" nel calcolo principale e nelle varianti |
+| `fig8_d3_redatto_vs_collegio.png` | D3: "l'ha scritto lui" contro "sedeva nel collegio", con la variante a parità di legge impugnata |
+| `fig9_d2_giudici.png` | D2: citazioni ricevute diviso attese, per giudice, con l'intervallo al 95% |
+| `fig10_d2_dopo_mandato.png` | D2: il rapporto durante il mandato e nei dieci anni dopo |
+
+- **`src/analysis/interactive.py`** scrive `reports/rete_interattiva.html`: le 400 pronunce più citate e le 2.170 citazioni tra loro, da esplorare in un browser, senza installare nulla (disposizione dei nodi di Fruchterman–Reingold, con seme fisso). La legenda non è stata ricontrollata dopo la riscrittura dei testi (sezione 11.3).
+
+### 5.19 I numeri della relazione e i controlli automatici
+
+- **`src/report/report_numbers.py`** scrive `reports/numbers.json`: i numeri della relazione che nessun programma di analisi salvava (testi non divisi, conteggi delle menzioni, pronunce senza materia, l'ultimo anno, la riduzione dell'effetto "l'ha scritto lui" a parità di legge impugnata).
+- **`src/report/plain_intros.py`** aggiunge, o aggiorna, il paragrafo "In breve" in testa a 9 report scritti dai programmi. Per correggere quei paragrafi si corregge questo programma, non i report.
+- **`tests/test_report_numbers.py`** confronta i numeri principali della relazione con i file dei risultati: per ogni frase controllata, i numeri devono comparire nella relazione nello stesso ordine e vicini, nella Parte I o nella Parte II. Se un'analisi cambia, il controllo fallisce finché il testo della relazione non viene aggiornato.
+- **`tests/test_citations.py`** controlla l'estrattore su frasi di prova (sezione 5.5).
+- **Come si lanciano:** `.venv/bin/python -m pytest` (il file `pytest.ini` limita i controlli alla cartella `tests/`). Al 24/11/2026 passano tutti e tre.
+
+### 5.20 La polarità delle citazioni
+
+- **Programmi:** `src/polarity/contexts.py` (per ogni menzione, la frase che la contiene; scrive `data/interim/polarity_contexts.pkl`), `src/polarity/lexicon.py` (le regole), `src/polarity/draw_sample.py` (il campione di prova, già estratto), `src/polarity/evaluate.py` (il confronto con la lettura di riferimento; scrive `reports/polarity_validation_claude.md` e `.json`).
+- **Che cosa cerca:** la "distinzione o distacco", cioè le citazioni in cui la Corte dice che il precedente non è pertinente, riguarda un caso diverso, non è un vero precedente, oppure è superato. Il sostegno al precedente è il caso normale e non si cerca.
+- **File del campione:** `data/validation/polarity_test_sample.csv` (i passi, senza le decisioni delle regole), `polarity_test_labels.csv` (le decisioni delle regole), `gold_polarity_claude.txt` (la lettura dell'assistente), `polarity_human_check.md` e `gold_polarity_human.txt` (il foglio e il file per una persona).
+- **Risultato:** sezione 9.8.
+
+### 5.21 Le altre corti (solo impostato)
+
+- **Documento:** `docs/context_corti.md`: che cosa fanno la Corte di cassazione, il Consiglio di Stato, la Corte europea dei diritti dell'uomo e la Corte di giustizia dell'Unione europea, chi decide, come si riconosce una decisione, che dati pubblicano e se si possono riusare.
+- **`src/courts/sizing.py`** (scrive `reports/courts_sizing.json` e `data/interim/courts_split.csv`): conta quante pronunce nominano ciascuna corte e divide le pronunce a caso in due metà (seme 20261123): una per scrivere le regole (sviluppo), una per il controllo finale (prova).
+- **`src/courts/mentions.py`**: registra ogni volta che la Corte nomina un'altra corte, con il ruolo (citazione, corte che ha sollevato la questione, domanda alla Corte di giustizia, altro). Le regole sono alla versione 2, non definitive; finché non lo sono, il programma si rifiuta di leggere la metà di prova. Scrive `data/interim/courts_mentions_<metà>.csv` e, con `--sheet`, `data/interim/courts_dev_sheet.md`.
+- **Pronunce che nominano ciascuna corte nel testo di base:** Corte di cassazione 3.175; Consiglio di Stato 1.058; Corte di giustizia 472; Corte europea dei diritti dell'uomo 408 (`reports/courts_sizing.json`). Nominare una corte non vuol dire citare una sua decisione: molte volte il riferimento è generico, oppure la corte nominata è quella che ha sollevato la questione.
+- **Che cosa si potrà costruire:** con dati aperti solo il verso "la Corte costituzionale cita le altre corti"; il verso opposto, in principio, solo per la Corte di giustizia.
+
+<!-- SEZIONI 6-10: in scrittura -->
 
 ## 11. Problemi noti e punti non verificati
 
