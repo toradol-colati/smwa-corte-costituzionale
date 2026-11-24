@@ -839,6 +839,10 @@ Nel campo del nome dell'elenco ufficiale restano due grafie sbagliate: "Vincenzo
 
 Il README spiega come installare l'ambiente e rifare tutto da zero. Questa procedura non è mai stata provata su un computer nuovo.
 
+### 11.9 Pronunce con più redattori: 19 o 17
+
+Il programma dei giudici conta 19 pronunce scritte da più giudici (`reports/judges_quality.md`); il campo `redattore_pronuncia` dei file ne contiene 17, tutte dal 2016 (`docs/context.md`). La differenza non è stata controllata. Conta poco per i risultati: in D3 le pronunce che citano scritte da più giudici sono escluse; in D2 ogni redattore conta per intero.
+
 ## 12. I limiti
 
 Ogni riga dice qual è il problema, quale risultato tocca e in che direzione può spostarlo. La tabella riprende la sezione 4 della relazione.
@@ -893,7 +897,7 @@ Tutti descritti nella sezione 11:
 - verificare con una fonte le date dei 13 giudici che compaiono in un collegio dopo la fine del mandato scritta nell'elenco (11.5);
 - decidere se correggere nel codice anche il nome mostrato di Caianiello e Capalozza (11.6);
 - guardare a mano le 257 pronunce di `data/interim/collegio_errors.csv` e le coppie con la quota più bassa nella rete dei collegi tra giudici (11.7);
-- capire perché il programma conta 19 pronunce con più redattori e il campo dei dati 17 (sezione 5.8);
+- capire perché il programma conta 19 pronunce con più redattori e il campo dei dati 17 (11.9);
 - provare l'installazione da zero (11.8).
 
 ### 13.4 Più avanti
