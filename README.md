@@ -61,6 +61,7 @@ Poi i passaggi, nell'ordine. Tutti i passaggi casuali partono da un seme fisso, 
 .venv/bin/python src/analysis/topics.py
 .venv/bin/python src/analysis/parametri.py
 .venv/bin/python src/networks/build.py
+.venv/bin/python src/networks/cositting.py
 .venv/bin/python src/ingest/fetch_api.py
 .venv/bin/python src/analysis/d1_pronunce.py
 .venv/bin/python src/analysis/d2_d4_giudici.py
@@ -91,7 +92,7 @@ Infine i controlli automatici. Tra l'altro verificano che i numeri della relazio
 ```
 data/raw/         file originali del portale (non nel repository, salvo MANIFEST.csv)
 data/interim/     tabelle intermedie e registri degli errori (non nel repository)
-data/processed/   tabelle finali: le pronunce, le citazioni, i giudici, i collegi
+data/processed/   tabelle finali: le pronunce, le citazioni, i giudici, i collegi, le reti
 data/validation/  campioni per controllare la qualità dell'estrazione; la lettura di riferimento è dell'assistente, non di una persona
 data/manual/      correzioni fatte a mano (per ora vuota: le correzioni dichiarate sono nel codice)
 src/              i programmi, divisi per fase: lettura dei file, estrazione delle citazioni, giudici, reti, analisi, altre corti, polarità

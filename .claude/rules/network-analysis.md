@@ -20,7 +20,7 @@ Queste regole valgono quando si lavora sui programmi che costruiscono le reti e 
 - La reciprocità tra pronunce (quante citazioni vanno nei due sensi): è zero per costruzione, perché una pronuncia non può citarne una successiva.
 - Le componenti fortemente connesse tra pronunce (gruppi in cui da ogni nodo si torna a sé seguendo le frecce): in una rete senza cicli ogni nodo è un gruppo a sé.
 - Il clustering (quanti triangoli chiusi ci sono) sulla rete delle citazioni con il verso: si usa invece la co-citazione (due pronunce citate insieme dalla stessa pronuncia) o la rete senza verso.
-- Le misure sulla sola rete dei collegi: è quasi completa, perché quasi tutti i giudici in carica siedono insieme. Serve solo a controllare le occasioni di citare.
+- I test sulla sola rete dei collegi tra giudici (`src/networks/cositting.py`): tra i giudici in attività negli stessi anni è quasi completa, perché quasi tutti siedono insieme. La rete si usa solo per descrivere e per controllare i dati (per esempio le date dell'elenco ufficiale dei giudici) e le occasioni di citare.
 
 ## L'incertezza
 

@@ -77,6 +77,12 @@ def checks():
         ("D3 norma impugnata, modello", f"scende da {it(sd['or'])} a {it(nv['self_drafted']['or'])} ({ci(nv['self_drafted'])}), mentre \"sedeva nel collegio\" "
                                         f"resta {it(nv['sat_not_drafted']['or'])} ({ci(nv['sat_not_drafted'])})"),
     ]
+    cs = load("cositting_network.json")
+    gap = cs["pairs_active_same_years"] - cs["pairs_active_same_years_together"]
+    out.append(("Rete dei collegi tra giudici",
+                f"{n(cs['judges'])} giudici e {n(cs['edges'])} legami. Sull'intero periodo esiste il {it(cs['density'] * 100, 1)}% "
+                f"delle {n(cs['pairs_active_same_years'])} coppie {n(cs['pairs_active_same_years_together'])} le altre {gap} "
+                f"insieme {it(cs['share']['median'] * 100, 1)}%"))
     num = load("numbers.json")
     out += [
         ("Testi senza divisione", f"In {num['split_failed']} testi ({it(num['split_failed_share'] * 100, 1)}% delle pronunce: "

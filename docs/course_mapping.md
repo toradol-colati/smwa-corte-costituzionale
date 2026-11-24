@@ -42,8 +42,8 @@
 | 2. Grado (quanti legami ha un nodo), grado medio, distribuzione dei gradi | Sì | `network_basic.json`, `d1_results.json`; sezioni 3.1 e 3.2, figura 3 |
 | 2. Matrice di adiacenza (la tabella di chi è collegato a chi) | Sì | HITS e PageRank fanno i conti sulla tabella delle citazioni (`d1_pronunce.py`); sezione 2.8 |
 | 2. Reti rade (pochi legami rispetto a quelli possibili) | Sì | Densità 0,00037 (`network_basic.json`); sezione 3.1 |
-| 2. Reti pesate (i legami hanno un valore) | Sì | La rete tra giudici, pesata con il numero di citazioni (`edges_judges.csv`); sezioni 2.6 e 3.6 |
-| 2. Reti con due tipi di nodi e loro proiezioni | Sì | Giudici e pronunce (chi ha scritto, chi sedeva), e da lì la rete tra giudici (`build.py`); sezione 2.6 |
+| 2. Reti pesate (i legami hanno un valore) | Sì | La rete tra giudici, pesata con il numero di citazioni (`edges_judges.csv`); la rete dei collegi tra giudici, pesata con il numero di pronunce decise insieme (`edges_cositting.csv`); sezioni 2.6, 3.1 e 3.6 |
+| 2. Reti con due tipi di nodi e loro proiezioni | Sì | Giudici e pronunce (chi ha scritto, chi sedeva), e da lì due reti tra giudici: chi cita chi (`build.py`) e chi ha deciso con chi (`cositting.py`); sezioni 2.6 e 3.1 |
 | 2. Cammini e distanze | Sì | La catena più lunga, 148 anelli (`network_basic.json`); la distanza media (`course_measures.json`); sezioni 3.1 e 3.8 |
 | 2. Connessione (quali nodi si raggiungono) | Sì | Il blocco principale, 86% delle pronunce (`network_basic.json`); sezioni 3.1 e 3.8 |
 | 2. Coefficiente di clustering (quanti triangoli sono chiusi) | Sì | Sulla rete senza verso, confrontato con reti rimescolate (`course_measures.json`); sezione 3.8. Con il verso non ha senso, perché una pronuncia cita solo il passato |
@@ -86,7 +86,7 @@
 | 3. Betweenness e divisione di un grafo | Sì | Betweenness nella sezione 3.8; divisione con Leiden e Infomap nella sezione 3.2 |
 | 4. Omofilia (ci si lega a chi è simile) | Sì | D4 (`d4_results.json`); sezione 3.6 |
 | 4. Selezione e influenza sociale | No | Con una rete che accumula tutto il tempo non si distinguono. D3 però separa l'esposizione a un precedente (sedere nel collegio) dallo scriverlo |
-| 4. Reti di affiliazione (persone legate agli eventi a cui partecipano) | Sì | I collegi legano i giudici alle decisioni a cui partecipano; usati in D3; sezioni 2.6 e 3.4 |
+| 4. Reti di affiliazione (persone legate agli eventi a cui partecipano) | Sì | I collegi legano i giudici alle decisioni a cui partecipano; usati in D3; la loro proiezione sui giudici è la rete dei collegi tra giudici (`cositting.py`); sezioni 2.6, 3.1 e 3.4 |
 | 4. Legami online; segregazione nello spazio | No | Non ci sono dati online sui giudici né una dimensione nello spazio |
 | 5. Legami positivi e negativi, equilibrio strutturale | No | Il segno dei legami doveva venire dalla polarità delle citazioni (sezione 3.9), che non ha superato la soglia di qualità: l'analisi, decisa prima con un numero minimo di triangoli, non si è fatta. Capitolo letto (pp. 119–152): la teoria riguarda legami senza verso, e con legami con verso le sue previsioni possono non valere (§5.3, p. 128); per le citazioni andrebbe adattata |
 | 13. Il web come rete con verso | Sì | La rete delle citazioni ha un verso e non ha cicli; sezione 2.6 |

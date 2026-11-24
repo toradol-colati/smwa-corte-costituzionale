@@ -210,7 +210,7 @@ Due controlli con la banca dati SPARQL della Corte, una fonte ufficiale diversa 
 
 ### 2.6 Le reti
 
-Script: `src/networks/build.py`. Una rete è fatta di **nodi** (le cose) e **legami** (le relazioni tra le cose). Per ogni rete del lavoro: che cosa è un nodo, che cosa è un legame, se il legame ha un verso, se ha un peso.
+Script: `src/networks/build.py`; per la rete dei collegi tra giudici, `src/networks/cositting.py`. Una rete è fatta di **nodi** (le cose) e **legami** (le relazioni tra le cose). Per ogni rete del lavoro: che cosa è un nodo, che cosa è un legame, se il legame ha un verso, se ha un peso.
 
 | Rete | Nodi | Legame | Verso | Peso |
 | --- | --- | --- | --- | --- |
@@ -218,6 +218,7 @@ Script: `src/networks/build.py`. Una rete è fatta di **nodi** (le cose) e **leg
 | Redazione | Giudici e pronunce | Il giudice ha scritto la pronuncia | — | — |
 | Collegio | Giudici e pronunce | Il giudice sedeva nel collegio | — | — |
 | Influenza tra giudici | Giudici | Le pronunce scritte da A citano pronunce scritte da B | Da A a B | Numero di citazioni |
+| Collegio tra giudici | Giudici | A e B hanno deciso insieme almeno una pronuncia, cioè sedevano tutti e due nel suo collegio | Nessuno | Numero di pronunce decise insieme |
 
 **Perché una rete.** L'importanza di un precedente non è scritta in nessun campo dei dati: si vede da chi lo cita. E il peso di un giudice si vede solo mettendo insieme chi cita, chi è citato e chi era presente.
 
@@ -288,6 +289,7 @@ Il piano, le soglie di qualità e il risultato principale sono stati scritti pri
 - **Si cita sempre di più.** Negli anni Cinquanta una pronuncia citava in media 1 precedente, negli anni Venti di questo secolo 14,7.
 - **Si cita il recente.** Metà delle citazioni va a precedenti con meno di 3,5 anni; solo il 9% a precedenti con più di 20 anni.
 - **La catena più lunga** di pronunce che si citano una dopo l'altra ha 148 anelli.
+- **La rete dei collegi tra giudici** (`reports/cositting_network.json`). Due giudici sono collegati se hanno deciso insieme almeno una pronuncia; il peso del legame è il numero di pronunce decise insieme. La rete ha 123 giudici e 1.541 legami. Sull'intero periodo esiste il 20,5% dei legami possibili, perché un giudice degli anni Cinquanta non ha mai incontrato un giudice di oggi. Tra i giudici in attività negli stessi anni, invece, la rete è quasi completa: delle 1.548 coppie di giudici in attività negli stessi anni, 1.541 hanno deciso insieme almeno una pronuncia; le altre 7 si sono sovrapposte per poco (da 14 a 52 pronunce). In una coppia tipica (la mediana) i due giudici siedono insieme nell'89,3% delle pronunce decise mentre sono tutti e due in attività. Per questo la rete serve a descrivere e a controllare i dati, non a un test.
 
 ### 3.2 Le citazioni sono concentrate (D1)
 
@@ -537,6 +539,7 @@ python3.12 -m venv .venv
 .venv/bin/python src/analysis/topics.py
 .venv/bin/python src/analysis/parametri.py
 .venv/bin/python src/networks/build.py
+.venv/bin/python src/networks/cositting.py
 .venv/bin/python src/ingest/fetch_api.py
 .venv/bin/python src/analysis/d1_pronunce.py
 .venv/bin/python src/analysis/d2_d4_giudici.py

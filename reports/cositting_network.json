@@ -1,0 +1,323 @@
+{
+ "judges": 123,
+ "edges": 1541,
+ "possible_pairs": 7503,
+ "density": 0.20538451286152207,
+ "pronunce_with_collegio": 22426,
+ "total_weight": 1956971,
+ "total_weight_check": 1956971,
+ "pairs_active_same_years": 1548,
+ "pairs_active_same_years_together": 1541,
+ "pairs_active_same_years_never_together": [
+  {
+   "a": "Oronzo Reale",
+   "b": "Gabriele Pescatore",
+   "n_both_active": 14
+  },
+  {
+   "a": "Alberto Malagugini",
+   "b": "Gabriele Pescatore",
+   "n_both_active": 14
+  },
+  {
+   "a": "Brunetto Bucciarelli Ducci",
+   "b": "Gabriele Pescatore",
+   "n_both_active": 14
+  },
+  {
+   "a": "Virgilio Andrioli",
+   "b": "Enzo Cheli",
+   "n_both_active": 52
+  },
+  {
+   "a": "Virgilio Andrioli",
+   "b": "Mauro Ferri",
+   "n_both_active": 52
+  },
+  {
+   "a": "Virgilio Andrioli",
+   "b": "Luigi Mengoni",
+   "n_both_active": 52
+  },
+  {
+   "a": "Alfio Finocchiaro",
+   "b": "Sergio Mattarella",
+   "n_both_active": 50
+  }
+ ],
+ "weight": {
+  "min": 1,
+  "q25": 458.0,
+  "median": 999.0,
+  "q75": 1779.0,
+  "max": 5081
+ },
+ "share": {
+  "min": 0.006134969325153374,
+  "q25": 0.8235294117647058,
+  "median": 0.8931016324381253,
+  "q75": 0.9352226720647774,
+  "max": 1.0
+ },
+ "share_pairs_100": {
+  "pairs": 1487,
+  "median": 0.8931016324381253,
+  "min": 0.006134969325153374
+ },
+ "colleagues": {
+  "min": 14,
+  "median": 26.0,
+  "max": 34
+ },
+ "top10_weight": [
+  {
+   "a": "Enzo Cheli",
+   "b": "Luigi Mengoni",
+   "weight": 5081,
+   "n_both_active": 5476,
+   "share": 0.9278670562454346
+  },
+  {
+   "a": "Ugo Spagnoli",
+   "b": "Francesco Paolo Casavola",
+   "weight": 4986,
+   "n_both_active": 5374,
+   "share": 0.9278005210271678
+  },
+  {
+   "a": "Enzo Cheli",
+   "b": "Mauro Ferri",
+   "weight": 4964,
+   "n_both_active": 5476,
+   "share": 0.9065010956902849
+  },
+  {
+   "a": "Mauro Ferri",
+   "b": "Luigi Mengoni",
+   "weight": 4959,
+   "n_both_active": 5476,
+   "share": 0.9055880204528853
+  },
+  {
+   "a": "Gabriele Pescatore",
+   "b": "Ugo Spagnoli",
+   "weight": 4944,
+   "n_both_active": 5321,
+   "share": 0.9291486562676189
+  },
+  {
+   "a": "Gabriele Pescatore",
+   "b": "Francesco Paolo Casavola",
+   "weight": 4884,
+   "n_both_active": 5321,
+   "share": 0.917872580342041
+  },
+  {
+   "a": "Antonio Baldassarre",
+   "b": "Vincenzo Caianello",
+   "weight": 4832,
+   "n_both_active": 5542,
+   "share": 0.871887405268856
+  },
+  {
+   "a": "Ugo Spagnoli",
+   "b": "Vincenzo Caianello",
+   "weight": 4724,
+   "n_both_active": 5190,
+   "share": 0.9102119460500964
+  },
+  {
+   "a": "Francesco Paolo Casavola",
+   "b": "Vincenzo Caianello",
+   "weight": 4651,
+   "n_both_active": 5190,
+   "share": 0.8961464354527938
+  },
+  {
+   "a": "Ugo Spagnoli",
+   "b": "Antonio Baldassarre",
+   "weight": 4639,
+   "n_both_active": 5206,
+   "share": 0.8910872070687668
+  }
+ ],
+ "bottom10_share_pairs_100": [
+  {
+   "a": "Renato Dell'Andro",
+   "b": "Renato Granata",
+   "weight": 1,
+   "n_both_active": 163,
+   "share": 0.006134969325153374
+  },
+  {
+   "a": "Maria Rita Saulle",
+   "b": "Giorgio Lattanzi",
+   "weight": 2,
+   "n_both_active": 118,
+   "share": 0.01694915254237288
+  },
+  {
+   "a": "Guglielmo Roehrssen",
+   "b": "Renato Dell'Andro",
+   "weight": 5,
+   "n_both_active": 172,
+   "share": 0.029069767441860465
+  },
+  {
+   "a": "Massimo Vari",
+   "b": "Romano Vaccarella",
+   "weight": 24,
+   "n_both_active": 185,
+   "share": 0.12972972972972974
+  },
+  {
+   "a": "Massimo Vari",
+   "b": "Ugo De Siervo",
+   "weight": 25,
+   "n_both_active": 185,
+   "share": 0.13513513513513514
+  },
+  {
+   "a": "Giuseppe Borzellino",
+   "b": "Fernando Santosuosso",
+   "weight": 52,
+   "n_both_active": 350,
+   "share": 0.14857142857142858
+  },
+  {
+   "a": "Brunetto Bucciarelli Ducci",
+   "b": "Renato Dell'Andro",
+   "weight": 30,
+   "n_both_active": 199,
+   "share": 0.1507537688442211
+  },
+  {
+   "a": "Ettore Gallo",
+   "b": "Giuliano Vassalli",
+   "weight": 101,
+   "n_both_active": 277,
+   "share": 0.36462093862815886
+  },
+  {
+   "a": "Guido Neppi Modona",
+   "b": "Gaetano Silvestri",
+   "weight": 53,
+   "n_both_active": 140,
+   "share": 0.37857142857142856
+  },
+  {
+   "a": "Guido Neppi Modona",
+   "b": "Luigi Mazzella",
+   "weight": 54,
+   "n_both_active": 140,
+   "share": 0.38571428571428573
+  }
+ ],
+ "registry_presence_after_end": [
+  {
+   "judge": "Carlo Mezzanotte",
+   "giuramento": "1996-01-30",
+   "end_in_list": "1996-01-30",
+   "end_source": "registry",
+   "last_presence": "2005-01-13",
+   "days_after_end": 3271
+  },
+  {
+   "judge": "Renato Granata",
+   "giuramento": "1990-11-07",
+   "end_in_list": "1996-11-07",
+   "end_source": "registry",
+   "last_presence": "1999-10-27",
+   "days_after_end": 1084
+  },
+  {
+   "judge": "Giuseppe Chiarelli",
+   "giuramento": "1961-02-16",
+   "end_in_list": "1971-02-16",
+   "end_source": "registry",
+   "last_presence": "1973-02-14",
+   "days_after_end": 729
+  },
+  {
+   "judge": "Romano Vaccarella",
+   "giuramento": "2002-04-29",
+   "end_in_list": "2007-05-04",
+   "end_source": "registry",
+   "last_presence": "2007-12-10",
+   "days_after_end": 220
+  },
+  {
+   "judge": "Giuseppe Cappi",
+   "giuramento": "1955-12-15",
+   "end_in_list": "1962-10-10",
+   "end_source": "registry",
+   "last_presence": "1963-02-07",
+   "days_after_end": 120
+  },
+  {
+   "judge": "Costantino Mortati",
+   "giuramento": "1960-12-20",
+   "end_in_list": "1972-08-28",
+   "end_source": "registry",
+   "last_presence": "1972-12-18",
+   "days_after_end": 112
+  },
+  {
+   "judge": "Giuseppe Verzì",
+   "giuramento": "1962-08-01",
+   "end_in_list": "1974-08-01",
+   "end_source": "registry",
+   "last_presence": "1974-11-07",
+   "days_after_end": 98
+  },
+  {
+   "judge": "Renato Dell'Andro",
+   "giuramento": "1985-07-29",
+   "end_in_list": "1990-10-29",
+   "end_source": "registry",
+   "last_presence": "1991-01-28",
+   "days_after_end": 91
+  },
+  {
+   "judge": "Virgilio Andrioli",
+   "giuramento": "1978-10-26",
+   "end_in_list": "1987-10-26",
+   "end_source": "registry",
+   "last_presence": "1987-11-26",
+   "days_after_end": 31
+  },
+  {
+   "judge": "Giuseppe Ferrari",
+   "giuramento": "1980-11-07",
+   "end_in_list": "1987-06-11",
+   "end_source": "registry",
+   "last_presence": "1987-07-02",
+   "days_after_end": 21
+  },
+  {
+   "judge": "Sergio Mattarella",
+   "giuramento": "2011-10-11",
+   "end_in_list": "2015-02-02",
+   "end_source": "registry",
+   "last_presence": "2015-02-11",
+   "days_after_end": 9
+  },
+  {
+   "judge": "Alfio Finocchiaro",
+   "giuramento": "2002-12-05",
+   "end_in_list": "2011-12-05",
+   "end_source": "registry",
+   "last_presence": "2011-12-12",
+   "days_after_end": 7
+  },
+  {
+   "judge": "Francesco Amirante",
+   "giuramento": "2001-11-23",
+   "end_in_list": "2010-11-23",
+   "end_source": "registry",
+   "last_presence": "2010-11-29",
+   "days_after_end": 6
+  }
+ ],
+ "note_incomplete_collegio": "the 257 pronunce of data/interim/collegio_errors.csv have a collegio not fully recognised: their missing judges are missing from the weights"
+}
