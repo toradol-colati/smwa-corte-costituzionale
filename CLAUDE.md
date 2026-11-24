@@ -11,6 +11,7 @@ Questo file dice a chi lavora sul progetto, compreso Claude Code (l'assistente d
 
 | Prima di… | Leggere |
 | --- | --- |
+| capire tutto il progetto in un posto | `docs/handbook.md`, la guida completa: ogni programma, ogni file, i problemi noti e come si corregge |
 | qualsiasi scelta di metodo | `docs/spec.md`, il piano del progetto |
 | interpretare un campo dei dati | `docs/context.md`: come nasce una pronuncia e che cosa vuol dire ogni campo |
 | citare una fonte | `docs/sources.md`: per ogni fonte, che cosa è stato letto. Nella relazione si citano solo le fonti del nucleo indicato lì, solo le parti lette, con le pagine |
@@ -21,7 +22,7 @@ Questo file dice a chi lavora sul progetto, compreso Claude Code (l'assistente d
 - Ogni scelta che cambia i dati, il metodo o il perimetro del lavoro si scrive in `docs/decisions.md`, con la data, la decisione e il motivo.
 - Le sessioni di Claude Code vanno aperte dentro questa cartella (`smwa-corte-costituzionale/`). Aperte dalla cartella superiore, non caricano `.claude/settings.json`, e quindi non vale il blocco che impedisce di modificare `data/raw/`.
 
-## A che punto è (21/11/2026)
+## A che punto è (24/11/2026)
 
 - Il tema non è ancora approvato dal docente. Il 16/11/2026 Umberto ha chiesto di fare comunque tutte le analisi: la regola "nessuna analisi prima dell'approvazione" non vale più (`docs/decisions.md`).
 - I dati sono stati scaricati l'8/11/2026 (`data/raw/MANIFEST.csv`). Tutte le scelte aperte sono state fissate il 16/11/2026, prima di vedere i risultati.
@@ -32,6 +33,8 @@ Questo file dice a chi lavora sul progetto, compreso Claude Code (l'assistente d
 - 20/11/2026, su richiesta di Umberto: impostata la rete tra corti. Le menzioni delle altre corti si estraggono con `src/courts/mentions.py`. Le regole sono alla versione 2, scritte guardando solo la metà dei dati per lo sviluppo, e non sono ancora congelate: fino ad allora il programma si rifiuta di leggere la metà di prova. Le domande, che cosa si può verificare per ogni corte e il controllo di qualità sono fissati in `docs/decisions.md`.
 - 20/11/2026, su richiesta di Umberto: controllato se un precedente dimenticato viene "sostituito" dalle pronunce che lo citano (`src/analysis/precedent_succession.py`).
 - 21/11/2026, su richiesta di Umberto: tutti i documenti, e i report scritti dai programmi, sono stati riscritti in italiano semplice. I numeri non cambiano.
+- 22/11/2026: il programma dei giudici scrive le pronunce con il collegio non riconosciuto per intero in `data/interim/collegio_errors.csv` (257).
+- 24/11/2026, su richiesta di Umberto: la rete dei collegi tra giudici (`src/networks/cositting.py`), solo descrittiva; la guida completa `docs/handbook.md`, che nella sezione 11 elenca i problemi noti e i punti non verificati (tra questi: `reports/collegio_vs_sedute.json` non ha un programma che lo scrive).
 - Restano da fare:
   - l'approvazione del docente;
   - il controllo a mano, da parte di una persona, delle citazioni estratte (`data/validation/human_check.md`): è la priorità, prima di qualsiasi estensione;

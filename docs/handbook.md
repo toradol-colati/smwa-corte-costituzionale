@@ -795,7 +795,7 @@ Questa sezione elenca, uno per uno, i punti del lavoro che hanno un difetto noto
 
 ### 11.1 Un risultato senza il programma che lo produce
 
-- **Che cosa succede.** Il file `reports/collegio_vs_sedute.json` contiene il confronto tra il collegio ricavato dal testo delle pronunce e i giudici presenti alle sedute secondo la banca dati SPARQL della Corte (dal 2004, 3.684 pronunce). Nessun programma del repository scrive questo file. È stato prodotto il 17/11/2026 da un programma usato una sola volta e non salvato.
+- **Che cosa succede.** Il file `reports/collegio_vs_sedute.json` contiene il confronto tra il collegio ricavato dal testo delle pronunce e i giudici presenti alle sedute secondo la banca dati SPARQL della Corte (dal 2004, 3.684 pronunce). Nessun programma del repository scrive questo file. Il file c'è dalla prima modifica salvata nel repository (quella che fotografa lo stato del 17/11/2026), e nessun programma lo nomina, né oggi né in nessuna versione salvata: quindi è stato prodotto da un programma che non è stato salvato.
 - **Perché conta.** La regola del progetto dice che ogni numero della relazione viene da un programma salvato. Da questo file vengono due numeri citati nella relazione (sezione 2.5) e in `CLAUDE.md`: il 97,8% dei giudici del collegio risulta presente alla seduta; il 99,1% dei giudici presenti alla seduta risulta nel collegio.
 - **Che cosa serve.** Un programma che ricalcoli i quattro numeri del file partendo da `data/interim/sedute_membri.csv` (scritto da `src/ingest/fetch_api.py`) e da `data/processed/collegio.csv`, e che ottenga gli stessi valori.
 
