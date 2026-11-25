@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+  body {
+    background-color: #FCFCFA;
+    color: #18181B;
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Editorial prose rhythm */
+.prose-editorial p {
+  margin-bottom: 0.9rem;
+  line-height: 1.68;
+  color: #27272A;
+}
+
+.prose-editorial strong {
+  color: #18181B;
+  font-weight: 600;
+}
+
+/* Custom thin scrollbars for data tables */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F4F4F5;
+}
+::-webkit-scrollbar-thumb {
+  background: #D4D4D8;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #A1A1AA;
+}
