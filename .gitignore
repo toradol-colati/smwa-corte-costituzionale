@@ -19,3 +19,6 @@ literature/
 
 # Cache dei test
 .pytest_cache/
+
+# Il file unico con tutto il progetto: si ricrea con src/report/single_file.py
+progetto_completo.md

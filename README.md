@@ -104,6 +104,7 @@ tests/            controlli automatici
 
 ## Documenti di lavoro
 
+- `progetto_completo.md` (fuori da git, si crea con `src/report/single_file.py`): un solo file con la guida e, in appendice, tutti i documenti, i report, i risultati, i programmi e le figure.
 - [`docs/handbook.md`](docs/handbook.md): tutto il progetto in un unico documento: contesto, dati, ogni programma, controlli, risultati, problemi noti, lavoro che resta, come correggere, glossario, inventario dei file.
 - [`docs/context.md`](docs/context.md): come nasce una decisione della Corte, chi la decide e chi la scrive, che cosa registrano i dati.
 - [`docs/context_corti.md`](docs/context_corti.md): le altre quattro corti (Cassazione, Consiglio di Stato, Corte europea dei diritti dell'uomo, Corte di giustizia dell'Unione europea) e i loro dati.

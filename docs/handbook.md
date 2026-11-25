@@ -4,6 +4,8 @@
 
 **Che cos'è.** Questo documento descrive tutto il progetto in un solo posto: il contesto giuridico, i dati di partenza, il piano scritto prima dei risultati, ogni passaggio fatto dai programmi, ogni controllo di qualità, ogni risultato, le scelte cambiate dopo, i limiti, i problemi noti, il lavoro che resta, il modo di correggere il lavoro, il significato delle parole tecniche, l'elenco di tutti i file e, alla fine, da quali file è presa ogni sezione.
 
+**Il file unico.** Questa guida esiste anche dentro `progetto_completo.md`, nella cartella del progetto: un solo file che contiene la guida e, in appendice, per intero, ogni altro file del repository che si legge come testo (documenti, relazione, report, file dei risultati, programmi, fogli per i controlli a mano), con le figure dentro il file. Lo crea il programma `src/report/single_file.py`; resta fuori dal repository (`.gitignore`), perché ripete file che sono già nel repository. Quando il lavoro cambia, si ricrea con `.venv/bin/python src/report/single_file.py --extra ../mail_docente_bozza.md`.
+
 **A che data si riferisce.** Il documento descrive il repository al 24/11/2026, dopo la costruzione della rete dei collegi tra giudici.
 
 **Chi vince in caso di conflitto.** Il documento è scritto a mano e nessun controllo automatico ne verifica i numeri. Se un numero di questo documento è diverso da quello di un altro file, vale l'altro file, in quest'ordine:
@@ -245,6 +247,7 @@ L'ordine è quello del README e della relazione (sezione 6). Ogni programma usa 
 | 23 | `src/analysis/interactive.py` | `reports/rete_interattiva.html` |
 | 24 | `src/report/report_numbers.py` | `reports/numbers.json` |
 | 25 | `src/report/plain_intros.py` | il paragrafo "In breve" in testa a 9 report |
+| 25b | `src/report/single_file.py` | `progetto_completo.md`, il file unico con tutto il progetto (fuori da git) |
 | 26 | `src/courts/sizing.py` | `reports/courts_sizing.json`, `data/interim/courts_split.csv` |
 | 27 | `src/polarity/contexts.py` | `data/interim/polarity_contexts.pkl` |
 | 28 | `src/polarity/evaluate.py claude` | `reports/polarity_validation_claude.md` e `.json` |
@@ -1117,7 +1120,7 @@ Il paragrafo "In breve" in testa a 9 di questi report (`data_inspection.md`, `sp
 
 ### 17.5 Programmi e controlli automatici
 
-Tutti i programmi sono scritti a mano e descritti nella sezione 5: `src/ingest/` (download.py, inspect_raw.py, sparql_check.py, build_pronunce.py, fetch_api.py), `src/extract/` (citations.py, citations_massime.py), `src/validation/` (sample_passages.py, evaluate.py, human_sheet.py), `src/judges/build_judges.py`, `src/networks/` (build.py, cositting.py), `src/analysis/` (topics.py, parametri.py, d1_pronunce.py, d2_d4_giudici.py, d2_strata_check.py, d3_memoria_collegiale.py, d3_absences.py, d3_full_check.py, precedent_succession.py, extras.py, course_measures.py, figures.py, interactive.py, e il modello di pagina `interactive_template.html` usato da interactive.py), `src/polarity/` (contexts.py, lexicon.py, draw_sample.py, evaluate.py), `src/courts/` (sizing.py, mentions.py), `src/report/` (report_numbers.py, plain_intros.py). I controlli automatici sono in `tests/` (test_citations.py, test_report_numbers.py).
+Tutti i programmi sono scritti a mano e descritti nella sezione 5: `src/ingest/` (download.py, inspect_raw.py, sparql_check.py, build_pronunce.py, fetch_api.py), `src/extract/` (citations.py, citations_massime.py), `src/validation/` (sample_passages.py, evaluate.py, human_sheet.py), `src/judges/build_judges.py`, `src/networks/` (build.py, cositting.py), `src/analysis/` (topics.py, parametri.py, d1_pronunce.py, d2_d4_giudici.py, d2_strata_check.py, d3_memoria_collegiale.py, d3_absences.py, d3_full_check.py, precedent_succession.py, extras.py, course_measures.py, figures.py, interactive.py, e il modello di pagina `interactive_template.html` usato da interactive.py), `src/polarity/` (contexts.py, lexicon.py, draw_sample.py, evaluate.py), `src/courts/` (sizing.py, mentions.py), `src/report/` (report_numbers.py, plain_intros.py, single_file.py, che crea il file unico `progetto_completo.md`). I controlli automatici sono in `tests/` (test_citations.py, test_report_numbers.py).
 
 ## 18. Gli studi precedenti e che cosa aggiunge il lavoro
 
