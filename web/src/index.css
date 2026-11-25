@@ -18,30 +18,20 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Editorial prose rhythm */
-.prose-editorial p {
-  margin-bottom: 0.9rem;
-  line-height: 1.68;
+.article-prose p {
+  margin-bottom: 1.05rem;
+  line-height: 1.75;
   color: #27272A;
+  font-size: 0.965rem;
 }
 
-.prose-editorial strong {
+.article-prose strong {
   color: #18181B;
   font-weight: 600;
 }
 
-/* Custom thin scrollbars for data tables */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #F4F4F5;
-}
-::-webkit-scrollbar-thumb {
-  background: #D4D4D8;
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #A1A1AA;
+.article-prose a.ref-link {
+  color: #1E40AF;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }

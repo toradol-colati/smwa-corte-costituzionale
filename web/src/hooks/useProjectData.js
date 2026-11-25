@@ -24,9 +24,7 @@ const FILES = {
 };
 
 function parseSafeJson(text) {
-  // Difesa aggiuntiva se i JSON non sono stati sanitizzati da sync_site_data.py
-  const cleaned = text.replace(/\bNaN\b|\b-?Infinity\b/g, 'null');
-  return JSON.parse(cleaned);
+  return JSON.parse(text.replace(/\bNaN\b|\b-?Infinity\b/g, 'null'));
 }
 
 export function useProjectData() {
@@ -38,11 +36,8 @@ export function useProjectData() {
     Promise.all(
       Object.entries(FILES).map(async ([key, file]) => {
         const res = await fetch(`./data/${file}`);
-        if (!res.ok) {
-          throw new Error(`Impossibile caricare ./data/${file} (HTTP ${res.status})`);
-        }
-        const txt = await res.text();
-        return [key, parseSafeJson(txt)];
+        if (!res.ok) throw new Error(`File mancante: ./data/${file} (HTTP ${res.status})`);
+        return [key, parseSafeJson(await res.text())];
       })
     )
       .then((entries) => {
@@ -51,7 +46,6 @@ export function useProjectData() {
       .catch((err) => {
         if (active) setError(err.message);
       });
-
     return () => {
       active = false;
     };

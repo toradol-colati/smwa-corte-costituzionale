@@ -1,5 +1,5 @@
-"""Sincronizza i JSON, le figure PNG e la rete interattiva da reports/ a web/public/.
-Sanitizza inoltre eventuali NaN/Infinity scritti da Python in null validi per JSON.parse().
+"""Sincronizza i 20 JSON, le 10 figure PNG e rete_interattiva.html da reports/ a web/public/.
+Converte eventuali NaN/Infinity Python in null validi per JSON.parse().
 """
 from pathlib import Path
 import json
@@ -56,9 +56,8 @@ def main():
         src = REPORTS / name
         if src.exists():
             raw = json.loads(src.read_text(encoding="utf-8"))
-            clean = sanitize(raw)
             (PUBLIC / "data" / name).write_text(
-                json.dumps(clean, ensure_ascii=False, allow_nan=False),
+                json.dumps(sanitize(raw), ensure_ascii=False, allow_nan=False),
                 encoding="utf-8",
             )
             copied_json += 1

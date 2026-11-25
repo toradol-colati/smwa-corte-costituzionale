@@ -25,9 +25,7 @@ export function fmtP(p) {
 export function fmtPid(pid) {
   const s = String(pid);
   if (s.length !== 8) return s;
-  const year = s.slice(0, 4);
-  const num = parseInt(s.slice(4), 10);
-  return `${num}/${year}`;
+  return `${parseInt(s.slice(4), 10)}/${s.slice(0, 4)}`;
 }
 
 export function fmtCI(lo, hi, digits = 2) {
